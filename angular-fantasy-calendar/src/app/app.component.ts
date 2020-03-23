@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MOCK_MONTH } from './Mock-Month';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Fantasy Calendar';
+  SAMPLE_MONTH = MOCK_MONTH;
 }

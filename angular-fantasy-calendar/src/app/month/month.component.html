@@ -1,5 +1,7 @@
-<table class="days">
-    <tr *ngFor="let week of month.weeks">
-        <td *ngFor="let day of week.days">{{day.id}}</td>
-    </tr>
-</table>
+<div  style="overflow-x: auto;">
+    <table class="days">
+        <tr *ngFor="let week of month.weeks">
+            <td *ngFor="let day of week.days">{{day.id}}</td>
+        </tr>
+    </table>
+</div>

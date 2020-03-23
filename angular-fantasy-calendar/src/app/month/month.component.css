@@ -1,19 +1,23 @@
 table, th, td {
-    border: 1px solid black;
+    border: 3px solid black;
 }
 
 table {
+    border-collapse: collapse;
     width: 70%;
+    font-size: 200px;
 }
 
 th, td {
+    min-width: 60px;
     height: 100px;
     padding: 15px;
-    border-bottom: 4px solid black;
-    border-right: 4px solid black;
 }
 
 td {
     text-align: left;
     vertical-align: top;
 }
+
+
+tr:hover {background-color: #c6d3ff81;}

@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Month } from '../month';
+import { CalendarEvent } from '../calendarEvent';
 
 
 @Component({
@@ -9,5 +10,5 @@ import { Month } from '../month';
 })
 export class MonthComponent {
   @Input() month: Month;
-
+  @Input() calendarEvents: CalendarEvent[];
 }

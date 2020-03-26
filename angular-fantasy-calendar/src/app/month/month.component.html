@@ -1,7 +1,11 @@
 <div  style="overflow-x: auto;">
     <table class="days">
         <tr *ngFor="let week of month.weeks">
-            <td *ngFor="let day of week.days">{{day.id}}</td>
+            <td *ngFor="let day of week.days">{{day.id}}
+                <ul *ngFor="let calendarEvent of calendarEvents">
+                    <li *ngIf="calendarEvent.dateID == day.id || day.id % calendarEvent.repeatDays == calendarEvent.dateID">{{calendarEvent.title}}</li>
+                </ul>
+            </td>
         </tr>
     </table>
 </div>

@@ -1,11 +1,22 @@
-<div  style="overflow-x: auto;">
-    <table class="days">
+<button (click)= "generateDefaultDisplayMonth()">
+    Generate
+</button>
+<table class="calendar">
+    <div *ngIf="month && month.weeks">
         <tr *ngFor="let week of month.weeks">
-            <td *ngFor="let day of week.days">{{day.id}}
-                <ul *ngFor="let calendarEvent of calendarEvents">
-                    <li *ngIf="calendarEvent.dateID == day.id || day.id % calendarEvent.repeatDays == calendarEvent.dateID">{{calendarEvent.title}}</li>
-                </ul>
-            </td>
+            <div *ngIf="week">
+                <td *ngFor="let day of week.days" style="overflow-y: auto;">
+                    <div *ngIf="day">
+                        {{day.dayOfMonth}}
+                        <ul *ngFor="let calendarEvent of calendarEvents">
+                            <li *ngIf="calendarEvent.dateID == day.id 
+                            || day.id % calendarEvent.repeatDays == calendarEvent.dateID">
+                                {{calendarEvent.title}}
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+            </div>
         </tr>
-    </table>
-</div>
+    </div>
+</table>

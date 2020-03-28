@@ -8,7 +8,7 @@ import { MonthComponent } from './month/month.component';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent{
+export class AppComponent {
   title = 'Fantasy Calendar';
   SAMPLE_EVENTS = MOCK_EVENTS;
 

@@ -22,16 +22,7 @@
     <div *ngIf="month && month.weeks">
         <tr *ngFor="let week of month.weeks">
             <div *ngIf="week">
-                <td *ngFor="let day of week.days" style="overflow-y: auto;">
-                    <div *ngIf="day">
-                        {{day.dayOfMonth}}
-                        <ul *ngFor="let calendarEvent of day.events">
-                            <li *ngIf="calendarEvent">
-                                {{calendarEvent.title}}
-                            </li>
-                        </ul>
-                    </div>
-                </td>
+                <app-week [week]="week"></app-week>
             </div>
         </tr>
     </div>

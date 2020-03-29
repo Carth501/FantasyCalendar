@@ -1,0 +1,31 @@
+table, th, td {
+    border: 3px solid black;
+}
+
+table {
+    border-collapse: collapse;
+    width: 70%;
+    font-size: 40px;
+}
+
+th, td {
+    min-width: 160px;
+    height: 100px;
+    padding: 15px;
+}
+
+td {
+    text-align: left;
+    vertical-align: top;
+}
+
+li {
+    font-size: 24px;
+    display: inline-block;
+    color: white;
+    padding: 0.2em 0.2em 0.2em 0.2em;
+    background-color:#405061;
+    border-radius: 8px 8px 8px 8px;
+}
+
+tr:hover {background-color: #c6d3ff81;}

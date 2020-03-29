@@ -1,0 +1,6 @@
+
+<td *ngFor="let day of week.days" style="overflow-y: auto;">
+    <div *ngIf="day">
+        <app-day [day]="day"></app-day>
+    </div>
+</td>

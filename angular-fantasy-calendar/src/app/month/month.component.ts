@@ -3,6 +3,7 @@ import { Month } from '../month';
 import { CalendarEvent } from '../calendarEvent';
 import { DefaultDaysOfTheWeek } from '../models/days-of-the-week';
 import { Day } from '../day';
+import { MOCK_EVENTS } from '../Mock-Events';
 
 const daySlots = [null, null, null, null, null, null, null];
 
@@ -18,6 +19,7 @@ export class MonthComponent implements OnInit {
   @Input() monthLength = 31;
   @Input() startingDayEnum = DefaultDaysOfTheWeek.Monday;
   DoW = DefaultDaysOfTheWeek;
+  SAMPLE_EVENTS = MOCK_EVENTS.slice();
 
   ngOnInit() {
     this.generateDisplayMonth();
@@ -35,7 +37,8 @@ export class MonthComponent implements OnInit {
     }
     let i = 0;
     while (i < this.monthLength) {
-      this.month.weeks[week].days[currentWeekday] = {id: this.startingDayID + i, dayOfMonth: i + 1};
+      this.month.weeks[week].days[currentWeekday] =
+      {id: this.startingDayID + i, dayOfMonth: i + 1, events: this.getEventList(this.startingDayID + i)};
       if (currentWeekday === 6) {
         currentWeekday = 0;
         week++;
@@ -44,5 +47,15 @@ export class MonthComponent implements OnInit {
       }
       i++;
     }
+  }
+
+  getEventList(index: number): CalendarEvent[] {
+    const result: CalendarEvent[] = [];
+    this.SAMPLE_EVENTS.forEach(calendarEvent => {
+      if (calendarEvent.dateID === index || (index - calendarEvent.dateID) % calendarEvent.repeatDays === 0) {
+        result.push(calendarEvent);
+      }
+    });
+    return result;
   }
 }

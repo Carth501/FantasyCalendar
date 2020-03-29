@@ -25,9 +25,8 @@
                 <td *ngFor="let day of week.days" style="overflow-y: auto;">
                     <div *ngIf="day">
                         {{day.dayOfMonth}}
-                        <ul *ngFor="let calendarEvent of calendarEvents">
-                            <li *ngIf="calendarEvent.dateID == day.id 
-                            || day.id % calendarEvent.repeatDays == calendarEvent.dateID">
+                        <ul *ngFor="let calendarEvent of day.events">
+                            <li *ngIf="calendarEvent">
                                 {{calendarEvent.title}}
                             </li>
                         </ul>

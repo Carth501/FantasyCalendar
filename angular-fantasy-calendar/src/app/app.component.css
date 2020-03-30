@@ -22,10 +22,22 @@ td {
 li {
     font-size: 24px;
     display: inline-block;
-    color: white;
     padding: 0.2em 0.2em 0.2em 0.2em;
-    background-color:#405061;
+    background-color:#40506150;
     border-radius: 8px 8px 8px 8px;
 }
 
+.day-content {
+    height: 200px;
+    border: 4px dotted green;
+}
+.day-id {
+    height: 60px;
+    border: 4px dotted rgb(180, 105, 44);
+}
+
 tr:hover {background-color: #c6d3ff81;}
+
+html * {
+    font-family: Arial !important;
+}

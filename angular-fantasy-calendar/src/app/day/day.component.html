@@ -1,6 +1,10 @@
-{{day.dayOfMonth}}
-<ul *ngFor="let calendarEvent of day.events">
-    <li *ngIf="calendarEvent">
-        {{calendarEvent.title}}
-    </li>
-</ul>
+<div class="day-id">
+    {{day.dayOfMonth}}
+</div>
+<div class="day-content">
+    <ul *ngFor="let calendarEvent of day.events">
+        <li *ngIf="calendarEvent">
+            {{calendarEvent.title}}
+        </li>
+    </ul>
+</div>

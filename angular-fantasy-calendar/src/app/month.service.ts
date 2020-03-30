@@ -68,7 +68,7 @@ export class MonthService {
   }
 
   getPreviousStartingDoW(monthLength: number, startingDoW: DefaultDaysOfTheWeek): DefaultDaysOfTheWeek {
-    const newStartingDoW: DefaultDaysOfTheWeek = (monthLength - startingDoW) % 7;
+    const newStartingDoW: DefaultDaysOfTheWeek = ((startingDoW + 7) - (monthLength % 7)) % 7;
     return newStartingDoW;
   }
 

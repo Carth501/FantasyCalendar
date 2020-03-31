@@ -1,9 +1,13 @@
 <button *ngIf="startingDayID >= monthLength" (click)= "generatePreviousDisplayMonth()">
     Previous Month
 </button>
+<button (click)= "generateDisplayMonth()">
+    Refresh Month
+</button>
 <button (click)= "generateNextDisplayMonth()">
     Next Month
 </button>
+
 <div>
     <label>Days in a month:</label>
     <input [(ngModel)]="monthLength" type="number" min="1" max="180"/>
@@ -19,7 +23,6 @@
         <option [ngValue]="DoW.Saturday">Saturday</option>
         <option [ngValue]="DoW.Sunday">Sunday</option>
     </select>
-    
 </div>
 <table class="calendar">
     <div *ngIf="month && month.weeks">

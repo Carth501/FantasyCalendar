@@ -3,41 +3,63 @@ table, th, td {
 }
 
 table {
+    table-layout: auto;
     border-collapse: collapse;
-    width: 70%;
-    font-size: 40px;
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 th, td {
-    min-width: 160px;
-    height: 100px;
+    min-width: 140px;
     padding: 15px;
 }
 
 td {
+    font-size: 24px;
     text-align: left;
     vertical-align: top;
+    height: 160px;
 }
 
 li {
-    font-size: 24px;
+    font-size: 18px;
     display: inline-block;
     padding: 0.2em 0.2em 0.2em 0.2em;
     background-color:#40506150;
     border-radius: 8px 8px 8px 8px;
 }
 
-.day-content {
-    height: 200px;
-    border: 4px dotted green;
-}
-.day-id {
-    height: 60px;
-    border: 4px dotted rgb(180, 105, 44);
-}
 
 tr:hover {background-color: #c6d3ff81;}
 
-html * {
-    font-family: Arial !important;
+
+button {
+    margin: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+    font-size: 40px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+div {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+th {
+    background-color: #e3eaff81;
+}
+
+label {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 75px;
+}
+
+input {
+    margin-top: 10px;
+    margin-bottom: 10px;
 }

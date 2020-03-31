@@ -20,10 +20,10 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'angular-fantasy-calendar'`, () => {
+  it(`should have as title 'Fantasy Calendar'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('angular-fantasy-calendar');
+    expect(app.title).toEqual('Fantasy Calendar');
   });
 
   it('should render title', () => {

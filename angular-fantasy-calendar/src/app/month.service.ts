@@ -1,8 +1,10 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CalendarEvent } from './calendarEvent';
-import { MOCK_EVENTS } from './Mock-Events';
 import { DefaultDaysOfTheWeek } from './models/days-of-the-week';
 import { Month } from './month';
+import { Observable, of } from 'rxjs';
+import { MOCK_EVENTS } from './Mock-Events';
 
 const daySlots = [null, null, null, null, null, null, null];
 
@@ -11,9 +13,12 @@ const daySlots = [null, null, null, null, null, null, null];
 })
 export class MonthService {
 
-  SAMPLE_EVENTS = MOCK_EVENTS.slice();
+  private calenderURL = 'api/calendar';
+  SAMPLE_EVENTS: CalendarEvent[];
 
-  constructor() { }
+  constructor(
+    private http: HttpClient
+  ) { }
 
   getDisplayMonth(startingDayID: number, monthLength: number, startingDoW: DefaultDaysOfTheWeek): Month {
     let currentWeekday = startingDoW;
@@ -42,19 +47,22 @@ export class MonthService {
 
   getEventList(index: number): CalendarEvent[] {
     const result: CalendarEvent[] = [];
-    this.SAMPLE_EVENTS.forEach(calendarEvent => {
-      if (index - calendarEvent.dateID >= 0) {
-        if (calendarEvent.repeatDays === 0) {
-          if (index - calendarEvent.dateID <= (calendarEvent.duration - 1)) {
-            result.push(calendarEvent);
-          }
-        } else {
-          if ((index - calendarEvent.dateID) % calendarEvent.repeatDays <= (calendarEvent.duration - 1)) {
-            result.push(calendarEvent);
+    this.setEvents();
+    if (this.SAMPLE_EVENTS) {
+      this.SAMPLE_EVENTS.forEach(calendarEvent => {
+        if (index - calendarEvent.dateID >= 0) {
+          if (calendarEvent.repeatDays === 0) {
+            if (index - calendarEvent.dateID <= (calendarEvent.duration - 1)) {
+              result.push(calendarEvent);
+            }
+          } else {
+            if ((index - calendarEvent.dateID) % calendarEvent.repeatDays <= (calendarEvent.duration - 1)) {
+              result.push(calendarEvent);
+            }
           }
         }
-      }
-    });
+      });
+    }
     return result;
   }
 
@@ -74,5 +82,13 @@ export class MonthService {
 
   getPreviousStartingID(startingDayID: number, monthLength: number): number {
     return startingDayID - monthLength;
+  }
+
+  setEvents(): void {
+    this.requestEvents().subscribe(MOCK_EVENTS => this.SAMPLE_EVENTS = MOCK_EVENTS);
+  }
+
+  requestEvents(): Observable<CalendarEvent[]> {
+    return of(MOCK_EVENTS);
   }
 }

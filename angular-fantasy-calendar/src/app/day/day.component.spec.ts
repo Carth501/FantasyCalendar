@@ -16,6 +16,7 @@ describe('DayComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(DayComponent);
     component = fixture.componentInstance;
+    component.day = {id: 0, dayOfMonth: 1};
     fixture.detectChanges();
   });
 

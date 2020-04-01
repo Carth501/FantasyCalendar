@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { CalendarEvent } from './calendarEvent';
 import { DefaultDaysOfTheWeek } from './models/days-of-the-week';
 import { Month } from './month';
-import { Observable, of } from 'rxjs';
-import { MOCK_EVENTS } from './Mock-Events';
+import { CalendarSettings } from './calendarSettings';
 
 const daySlots = [null, null, null, null, null, null, null];
 
@@ -13,8 +13,10 @@ const daySlots = [null, null, null, null, null, null, null];
 })
 export class MonthService {
 
-  private calenderURL = 'api/calendar';
-  SAMPLE_EVENTS: CalendarEvent[];
+  private calenderEventsURL = 'api/calendarEvents';
+  private calenderSettingsURL = 'api/calendarSettings';
+  eventArray: CalendarEvent[];
+  calendarSettings: CalendarSettings;
 
   constructor(
     private http: HttpClient
@@ -32,8 +34,8 @@ export class MonthService {
     }
     let i = 0;
     while (i < monthLength) {
-      month.weeks[week].days[currentWeekday] =
-      {id: startingDayID + i, dayOfMonth: i + 1, events: this.getEventList(startingDayID + i)};
+      month.weeks[week].days[currentWeekday] = {
+        id: startingDayID + i, dayOfMonth: i + 1, events: this.getEventList(startingDayID + i)};
       if (currentWeekday === 6) {
         currentWeekday = 0;
         week++;
@@ -48,8 +50,8 @@ export class MonthService {
   getEventList(index: number): CalendarEvent[] {
     const result: CalendarEvent[] = [];
     this.setEvents();
-    if (this.SAMPLE_EVENTS) {
-      this.SAMPLE_EVENTS.forEach(calendarEvent => {
+    if (this.eventArray) {
+      this.eventArray.forEach(calendarEvent => {
         if (index - calendarEvent.dateID >= 0) {
           if (calendarEvent.repeatDays === 0) {
             if (index - calendarEvent.dateID <= (calendarEvent.duration - 1)) {
@@ -85,10 +87,20 @@ export class MonthService {
   }
 
   setEvents(): void {
-    this.requestEvents().subscribe(MOCK_EVENTS => this.SAMPLE_EVENTS = MOCK_EVENTS);
+    this.requestEvents().subscribe(IncomingEvents => this.eventArray = IncomingEvents);
   }
 
   requestEvents(): Observable<CalendarEvent[]> {
-    return of(MOCK_EVENTS);
+    return this.http.get<CalendarEvent[]>(this.calenderEventsURL);
   }
+  
+/*
+  setCalendarSettings(): void {
+    this.requestCalendarSettings().subscribe(IncomingSettings => this.calendarSettings = IncomingSettings);
+  }
+
+  requestCalendarSettings(): Observable<CalendarSettings> {
+    return this.http.get<CalendarSettings>(this.calenderSettingsURL);
+  }
+  */
 }

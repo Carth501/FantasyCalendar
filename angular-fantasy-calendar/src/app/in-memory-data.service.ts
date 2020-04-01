@@ -13,7 +13,9 @@ export class InMemoryDataService implements InMemoryDbService {
       {eventID: 2, title: 'Full Moon', dateID: 2, duration: 3, repeatDays: 34.5, repeatAnnual: false},
       {eventID: 3, title: 'Total Luna', dateID: 42, duration: 4.2, repeatDays: 44.4, repeatAnnual: false}
     ];
-    return {calendarEvents};
+    const calendarSettings = {daysPerMonth: 33, daysPerWeek: 5,
+      DoW_names: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']};
+    return {calendarEvents, calendarSettings};
   }
 
   // Overrides the genId method to ensure that a hero always has an id.

@@ -11,13 +11,13 @@ import { MonthService } from '../month.service';
 })
 export class MonthComponent implements OnInit {
   month: Month;
-  @Input() calendarEvents: CalendarEvent[];
-  @Input() startingDayID = 324;
+  @Input() startingDayID = 89424;
   @Input() monthLength = 31;
   @Input() startingDoW = DefaultDaysOfTheWeek.Tuesday;
   DoW = DefaultDaysOfTheWeek;
 
   ngOnInit() {
+    this.monthService.setEvents();
     this.generateDisplayMonth();
   }
 

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Year } from '../year';
 
 @Component({
   selector: 'app-year',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./year.component.css']
 })
 export class YearComponent {
+  @Input() year: Year;
 
   constructor() { }
 

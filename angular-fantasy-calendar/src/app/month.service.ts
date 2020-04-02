@@ -21,8 +21,7 @@ export class MonthService {
   constructor(  ) { }
 
   getDisplayMonth(
-    startingDayID: number, monthLength: number, startingDoW: number, eventArray: CalendarEvent[],
-    daysPerWeek: number): Month {
+    startingDayID: number, monthLength: number, startingDoW: number, eventArray: CalendarEvent[], daysPerWeek: number): Month {
 
     let currentWeekday = startingDoW;
     let week = 0;
@@ -35,6 +34,7 @@ export class MonthService {
     }
     let i = 0;
     while (i < monthLength) {
+      console.log('generating day #' + i);
       month.weeks[week].days[currentWeekday] = {
         id: startingDayID + i, dayOfMonth: i + 1, events: this.getEventList(startingDayID + i, eventArray)};
       if (currentWeekday === daysPerWeek - 1) {

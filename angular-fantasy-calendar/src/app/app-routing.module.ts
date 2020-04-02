@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { MonthComponent } from './month/month.component';
+import { RouterModule, Routes } from '@angular/router';
+import { CalendarComponent } from './calendar/calendar.component';
 
 
 const routes: Routes = [
-  { path: 'calendar', component: MonthComponent },
+  { path: 'calendar', component: CalendarComponent },
   { path: '', redirectTo: '/calendar', pathMatch: 'full'}
 ];
 

@@ -1,6 +1,4 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable, Output, EventEmitter } from '@angular/core';
-import { Observable } from 'rxjs';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import { CalendarEvent } from './calendarEvent';
 import { CalendarSettings } from './calendarSettings';
 import { DefaultDaysOfTheWeek } from './models/days-of-the-week';
@@ -15,32 +13,31 @@ export class MonthService {
 
   @Output() needRefresh = new EventEmitter<any>();
 
-  private calenderEventsURL = 'api/calendarEvents';
-  private calenderSettingsURL = 'api/calendarSettings';
   calendarSettings: CalendarSettings;
   startingDayID: number;
   monthLength: number;
-  startingDoW: DefaultDaysOfTheWeek;
+  startingDoW: number;
 
-  constructor(
-    private http: HttpClient
-  ) { }
+  constructor(  ) { }
 
-  getDisplayMonth(startingDayID: number, monthLength: number, startingDoW: DefaultDaysOfTheWeek, eventArray: CalendarEvent[]): Month {
+  getDisplayMonth(
+    startingDayID: number, monthLength: number, startingDoW: number, eventArray: CalendarEvent[],
+    daysPerWeek: number): Month {
+
     let currentWeekday = startingDoW;
     let week = 0;
     const month = {
       id: 0,
       weeks: []
     };
-    for (let k = 0; k < ((monthLength + startingDoW) / 7); k++) {
+    for (let k = 0; k < ((monthLength + startingDoW) / daysPerWeek); k++) {
       month.weeks.push({id: k, days: daySlots.slice()});
     }
     let i = 0;
     while (i < monthLength) {
       month.weeks[week].days[currentWeekday] = {
         id: startingDayID + i, dayOfMonth: i + 1, events: this.getEventList(startingDayID + i, eventArray)};
-      if (currentWeekday === 6) {
+      if (currentWeekday === daysPerWeek - 1) {
         currentWeekday = 0;
         week++;
       } else {
@@ -71,8 +68,8 @@ export class MonthService {
     return result;
   }
 
-  getNextStartingDoW(monthLength: number, startingDoW: DefaultDaysOfTheWeek): DefaultDaysOfTheWeek {
-    const newStartingDoW: DefaultDaysOfTheWeek = (monthLength + startingDoW) % 7;
+  getNextStartingDoW(monthLength: number, startingDoW: number, daysPerWeek: number): DefaultDaysOfTheWeek {
+    const newStartingDoW: number = (monthLength + startingDoW) % daysPerWeek;
     return newStartingDoW;
   }
 
@@ -80,27 +77,12 @@ export class MonthService {
     return startingDayID + monthLength;
   }
 
-  getPreviousStartingDoW(monthLength: number, startingDoW: DefaultDaysOfTheWeek): DefaultDaysOfTheWeek {
-    const newStartingDoW: DefaultDaysOfTheWeek = ((startingDoW + 7) - (monthLength % 7)) % 7;
+  getPreviousStartingDoW(monthLength: number, startingDoW: number, daysPerWeek: number): DefaultDaysOfTheWeek {
+    const newStartingDoW: number = ((startingDoW + daysPerWeek) - (monthLength % daysPerWeek)) % daysPerWeek;
     return newStartingDoW;
   }
 
   getPreviousStartingID(startingDayID: number, monthLength: number): number {
     return startingDayID - monthLength;
   }
-
-
-  requestEvents(): Observable<CalendarEvent[]> {
-    return this.http.get<CalendarEvent[]>(this.calenderEventsURL);
-  }
-
-/*
-  setCalendarSettings(): void {
-    this.requestCalendarSettings().subscribe(IncomingSettings => this.calendarSettings = IncomingSettings);
-  }
-
-  requestCalendarSettings(): Observable<CalendarSettings> {
-    return this.http.get<CalendarSettings>(this.calenderSettingsURL);
-  }
-  */
 }

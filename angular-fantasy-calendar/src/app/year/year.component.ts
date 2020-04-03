@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Year } from '../year';
 
+
 @Component({
   selector: 'app-year',
   templateUrl: './year.component.html',
@@ -8,6 +9,7 @@ import { Year } from '../year';
 })
 export class YearComponent {
   @Input() year: Year;
+  @Input() daysOfWeek: string[];
 
   constructor() { }
 

@@ -2,10 +2,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import { CalendarService } from '../calendar.service';
 import { CalendarEvent } from '../calendarEvent';
 import { CalendarSettings } from '../calendarSettings';
-import { DefaultDaysOfTheWeek } from '../models/days-of-the-week';
-import { MonthService } from '../month.service';
 import { Year } from '../year';
 import { YearService } from '../year.service';
+
+const DefaultDoWNames = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
 @Component({
   selector: 'app-calendar',
@@ -22,7 +22,7 @@ export class CalendarComponent implements OnInit {
   @Input() daysPerMonth = 31;
   @Input() daysPerWeek = 7;
   @Input() startingDoW = 1;
-  DoW = DefaultDaysOfTheWeek;
+  DoW: string[] = DefaultDoWNames;
   year: Year;
 
   constructor(
@@ -35,7 +35,6 @@ export class CalendarComponent implements OnInit {
   }
 
   generateDisplayYear(): void {
-    console.log('generate display year');
     this.year = this.yearService.getDisplayYear(
       this.daysPerYear, this.startingDayID, this.daysPerMonth, this.startingDoW, this.eventArray, this.daysPerWeek);
   }
@@ -64,6 +63,9 @@ export class CalendarComponent implements OnInit {
 
   settingsArrived(IncomingSettings): void {
     this.calendarSettings = IncomingSettings;
+    this.daysPerMonth = this.calendarSettings.daysPerMonth;
+    this.DoW = this.calendarSettings.DoW_names;
+    this.daysPerWeek = this.DoW.length;
     this.settingsLoaded = true;
     this.calendarReady();
   }
@@ -80,7 +82,6 @@ export class CalendarComponent implements OnInit {
 
   calendarReady(): void {
     if (this.settingsLoaded && this.eventsLoaded) {
-      console.log('Everything is loaded');
       this.generateDisplayYear();
     }
   }

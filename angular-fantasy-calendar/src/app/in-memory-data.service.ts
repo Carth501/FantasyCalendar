@@ -13,8 +13,8 @@ export class InMemoryDataService implements InMemoryDbService {
       {eventID: 2, title: 'Full Moon', dateID: 2, duration: 3, repeatDays: 34.5, repeatAnnual: false},
       {eventID: 3, title: 'Total Luna', dateID: 42, duration: 4.2, repeatDays: 44.4, repeatAnnual: false}
     ];
-    const calendarSettings = {dayID: 10000, daysPerMonth: 58, daysPerWeek: 11, daysPerYear: 500, startingDoW: 1,
-      DoW_names: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']};
+    const calendarSettings = {dayID: 10000, daysPerMonth: 58, daysPerYear: 500, startingDoW: 1,
+      DoW_names: ['Firsday', 'Tuesday', 'Thirday', 'Forday', 'Fifthday', 'Sixthday', 'Sunday', 'Afterday', 'Lastday']};
     return {calendarEvents, calendarSettings};
   }
 

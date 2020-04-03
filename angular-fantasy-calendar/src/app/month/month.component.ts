@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Month } from '../month';
-import { CalendarEvent } from '../calendarEvent';
+
+const DefaultDoWNames = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
 @Component({
   selector: 'app-month',
@@ -9,4 +10,5 @@ import { CalendarEvent } from '../calendarEvent';
 })
 export class MonthComponent {
   @Input() month: Month;
+  @Input() daysOfWeek: string[] = DefaultDoWNames;
 }

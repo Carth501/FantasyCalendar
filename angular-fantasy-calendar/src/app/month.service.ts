@@ -3,8 +3,7 @@ import { CalendarEvent } from './calendarEvent';
 import { CalendarSettings } from './calendarSettings';
 import { DefaultDaysOfTheWeek } from './models/days-of-the-week';
 import { Month } from './month';
-
-const daySlots = [null, null, null, null, null, null, null];
+import { Day } from './day';
 
 @Injectable({
   providedIn: 'root'
@@ -30,11 +29,10 @@ export class MonthService {
       weeks: []
     };
     for (let k = 0; k < ((monthLength + startingDoW) / daysPerWeek); k++) {
-      month.weeks.push({id: k, days: daySlots.slice()});
+      month.weeks.push({id: k, days: this.createWeekProto(daysPerWeek)});
     }
     let i = 0;
     while (i < monthLength) {
-      console.log('generating day #' + i);
       month.weeks[week].days[currentWeekday] = {
         id: startingDayID + i, dayOfMonth: i + 1, events: this.getEventList(startingDayID + i, eventArray)};
       if (currentWeekday === daysPerWeek - 1) {
@@ -46,6 +44,14 @@ export class MonthService {
       i++;
     }
     return month;
+  }
+
+  createWeekProto(daysPerWeek: number): Day[] {
+    const weekProto: Day[] = [];
+    for (let v = 0; v < daysPerWeek; v++) {
+      weekProto.push(null);
+    }
+    return weekProto;
   }
 
   getEventList(index: number, eventArray: CalendarEvent[]): CalendarEvent[] {

@@ -28,7 +28,6 @@ export class YearService {
     let nextDoW = startingDoW;
     let i = 0;
     while (i < monthsPerYear) {
-      console.log('generating month #' + i);
       year.months.push(this.monthService.getDisplayMonth(nextDayID, daysPerMonth, nextDoW, eventArray, daysPerWeek));
 
       nextDayID = this.monthService.getNextStartingID(nextDayID, daysPerMonth);

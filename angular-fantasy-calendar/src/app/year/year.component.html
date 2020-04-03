@@ -1,5 +1,5 @@
 <div *ngIf="year && year.months">
     <div *ngFor="let month of year.months">
-        <app-month [month]="month"></app-month>
+        <app-month [month]="month" [daysOfWeek]="daysOfWeek"></app-month>
     </div>
 </div>

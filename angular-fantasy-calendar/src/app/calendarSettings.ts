@@ -1,5 +1,6 @@
 export interface CalendarSettings {
     startingDayID: number;
+    daysPerYear: number;
     daysPerMonth: number;
     daysPerWeek: number;
     startingDoW: number;

@@ -25,6 +25,7 @@ export class CalendarComponent implements OnInit {
   DoW: string[] = DefaultDoWNames;
   MonthNames: string[];
   year: Year;
+  showSettings = false;
 
   constructor(
     private calendarService: CalendarService,
@@ -67,6 +68,7 @@ export class CalendarComponent implements OnInit {
     this.daysPerMonth = this.calendarSettings.daysPerMonth;
     this.DoW = this.calendarSettings.DoW_names;
     this.daysPerWeek = this.DoW.length;
+    this.daysPerYear = this.calendarSettings.daysPerYear;
     this.MonthNames = this.calendarSettings.monthNames;
     this.settingsLoaded = true;
     this.calendarReady();
@@ -86,5 +88,9 @@ export class CalendarComponent implements OnInit {
     if (this.settingsLoaded && this.eventsLoaded) {
       this.generateDisplayYear();
     }
+  }
+
+  toggleSettingsSidebar(): void {
+    this.showSettings = !this.showSettings;
   }
 }

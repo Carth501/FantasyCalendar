@@ -19,22 +19,25 @@ export class YearService {
       id: 0,
       months: []
     };
-    let monthsPerYear = daysPerYear / daysPerMonth;
     const remainder = daysPerYear % daysPerMonth;
-    if (remainder !== 0) {
-      monthsPerYear++;
-    }
+    const monthsPerYear = Math.floor(daysPerYear / daysPerMonth);
+    console.log('months per year: ' + monthsPerYear);
     let nextDayID = startingDayID;
     let nextDoW = startingDoW;
     let i = 0;
     while (i < monthsPerYear) {
-      year.months.push(this.monthService.getDisplayMonth(nextDayID, daysPerMonth, nextDoW, eventArray, daysPerWeek, monthNames[i]));
+      year.months.push(this.monthService.getDisplayMonth(startingDayID, nextDayID, daysPerMonth, nextDoW, eventArray, daysPerWeek, monthNames[i]));
 
       nextDayID = this.monthService.getNextStartingID(nextDayID, daysPerMonth);
 
       nextDoW = this.monthService.getNextStartingDoW(daysPerMonth, nextDoW, daysPerWeek);
 
       i++;
+    }
+    if (remainder > 0) {
+      year.months.push(this.monthService.getDisplayMonth(startingDayID, nextDayID, remainder, nextDoW, eventArray, daysPerWeek, monthNames[i]));
+      nextDayID = this.monthService.getNextStartingID(nextDayID, remainder);
+      nextDoW = this.monthService.getNextStartingDoW(remainder, nextDoW, daysPerWeek);
     }
     return year;
   }

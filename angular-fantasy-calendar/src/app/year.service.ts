@@ -13,7 +13,7 @@ export class YearService {
 
 
   getDisplayYear(
-    daysPerYear: number, startingDayID: number, daysPerMonth: number, startingDoW: number, eventArray: CalendarEvent[], daysPerWeek: number
+    daysPerYear: number, startingDayID: number, daysPerMonth: number, startingDoW: number, eventArray: CalendarEvent[], daysPerWeek: number, monthNames: string[]
     ): Year {
     const year = {
       id: 0,
@@ -28,7 +28,7 @@ export class YearService {
     let nextDoW = startingDoW;
     let i = 0;
     while (i < monthsPerYear) {
-      year.months.push(this.monthService.getDisplayMonth(nextDayID, daysPerMonth, nextDoW, eventArray, daysPerWeek));
+      year.months.push(this.monthService.getDisplayMonth(nextDayID, daysPerMonth, nextDoW, eventArray, daysPerWeek, monthNames[i]));
 
       nextDayID = this.monthService.getNextStartingID(nextDayID, daysPerMonth);
 

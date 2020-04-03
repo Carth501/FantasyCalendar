@@ -20,12 +20,13 @@ export class MonthService {
   constructor(  ) { }
 
   getDisplayMonth(
-    startingDayID: number, monthLength: number, startingDoW: number, eventArray: CalendarEvent[], daysPerWeek: number): Month {
+    startingDayID: number, monthLength: number, startingDoW: number, eventArray: CalendarEvent[], daysPerWeek: number, monthName: string): Month {
 
     let currentWeekday = startingDoW;
     let week = 0;
     const month = {
       id: 0,
+      name: monthName,
       weeks: []
     };
     for (let k = 0; k < ((monthLength + startingDoW) / daysPerWeek); k++) {

@@ -23,6 +23,7 @@ export class CalendarComponent implements OnInit {
   @Input() daysPerWeek = 7;
   @Input() startingDoW = 1;
   DoW: string[] = DefaultDoWNames;
+  MonthNames: string[];
   year: Year;
 
   constructor(
@@ -36,7 +37,7 @@ export class CalendarComponent implements OnInit {
 
   generateDisplayYear(): void {
     this.year = this.yearService.getDisplayYear(
-      this.daysPerYear, this.startingDayID, this.daysPerMonth, this.startingDoW, this.eventArray, this.daysPerWeek);
+      this.daysPerYear, this.startingDayID, this.daysPerMonth, this.startingDoW, this.eventArray, this.daysPerWeek, this.MonthNames);
   }
 
 
@@ -66,6 +67,7 @@ export class CalendarComponent implements OnInit {
     this.daysPerMonth = this.calendarSettings.daysPerMonth;
     this.DoW = this.calendarSettings.DoW_names;
     this.daysPerWeek = this.DoW.length;
+    this.MonthNames = this.calendarSettings.monthNames;
     this.settingsLoaded = true;
     this.calendarReady();
   }

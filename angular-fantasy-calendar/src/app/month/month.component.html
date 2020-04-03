@@ -1,5 +1,8 @@
 
 <table class="calendar">
+    <h2>
+    {{month.name}}
+    </h2>
     <div *ngIf="month && month.weeks">
         <tr *ngIf=daysOfWeek>
             <th *ngFor="let name of daysOfWeek">{{name}}</th>

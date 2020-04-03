@@ -40,12 +40,6 @@ button {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.content-title {
-    font-size: 40px;
-    font-family: Arial, Helvetica, sans-serif;
-    text-align: center;
-}
-
 div {
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -63,4 +57,19 @@ label {
 input {
     margin-top: 10px;
     margin-bottom: 10px;
+}
+
+h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: left;
+    font-size: 40px;
+    margin-top: 20px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+h2 {
+    text-align: center;
+    font-size: 80px;
+    margin: 10px;
 }

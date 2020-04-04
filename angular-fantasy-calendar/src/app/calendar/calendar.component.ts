@@ -93,4 +93,8 @@ export class CalendarComponent implements OnInit {
   toggleSettingsSidebar(): void {
     this.showSettings = !this.showSettings;
   }
+
+  trackArray(index, item) {
+    return index;
+  }
 }

@@ -9,7 +9,7 @@
   right: 0;
   background-color: rgba(190, 190, 190, 0.95);
   overflow-x: hidden; /* Disable horizontal scroll */
-  padding-top: 20px;
+  padding-top: 80px;
 }
 
 .sidebarToggle {
@@ -18,8 +18,13 @@
     top: 0; /* Stay at the top */
     right: 0;
     padding-right: 50px;
+    padding-top: 10px;
 }
 
 .buttonText {
   font-size: 40px;
+}
+
+input {
+  text-align: center;
 }

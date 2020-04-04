@@ -1,18 +1,33 @@
 
 <div class="settings" *ngIf="showSettings">
-    <button *ngIf="startingDayID >= monthLength" (click)= "generatePreviousDisplayMonth()">
-        Previous Month
+    <!--
+    <button *ngIf="startingDayID >= daysPerYear" (click)= "generatePreviousDisplayMonth()">
+        Previous Year
     </button>
-    <button (click)= "generateDisplayMonth()">
-        Refresh Month
+    -->
+    <button (click)= "generateDisplayYear()">
+        Refresh Calendar
     </button>
+    <!--
     <button (click)= "generateNextDisplayMonth()">
-        Next Month
+        Next Year
     </button>
+        
+    -->
     
     <div>
         <label>Days in a month:</label>
-        <input [(ngModel)]="monthLength" type="number" min="1" max="180"/>
+        <input [(ngModel)]="daysPerMonth" type="number" min="1"/>
+    </div>
+    
+    <div>
+        <label>Days in a year:</label>
+        <input [(ngModel)]="daysPerYear" type="number" min="1"/>
+    </div>
+    <div>
+        <label>Days of the week:</label>
+        <input *ngFor="let x of DoW; let idx = index; trackBy: trackArray" 
+            type="text" [(ngModel)]="DoW[idx]">
     </div>
 </div>
 

@@ -1,3 +1,19 @@
+<div class="year-controls">
+    <div class="previous-year-controls">
+        <button (click)= "generatePreviousDisplayYear()" *ngIf="daysPerYear <= startingDayID">
+            Previous Year
+        </button>
+    </div>
+    <div class="next-year-controls">
+        <button (click)= "generateNextDisplayYear()">
+            Next Year
+        </button>
+    </div>
+</div>
+
+<div class="year-sign" *ngIf="currentYear != null && currentYear != undefined">
+    Year: {{currentYear}}
+</div>
 
 <div class="settings-panel" *ngIf="showSettings">
     <!--
@@ -30,8 +46,8 @@
         </div>
         <div class="settings-option">
             <label>Days of the week:</label>
-            <div class="DoW-naming">
-                <div class="input-field" *ngFor="let x of DoW; let idx = index; trackBy: trackArray">
+            <div class="input-field">
+                <div *ngFor="let x of DoW; let idx = index; trackBy: trackArray">
                     <input  
                         type="text" [(ngModel)]="DoW[idx]"/>
                 </div>
@@ -39,8 +55,8 @@
         </div>
         <div class="settings-option">
             <label>Months of the year:</label>
-            <div class="MoY-naming">
-                <div class="input-field" *ngFor="let x of MonthNames; let idx = index; trackBy: trackArray">
+            <div class="input-field">
+                <div  *ngFor="let x of MonthNames; let idx = index; trackBy: trackArray">
                     <input  
                         type="text" [(ngModel)]="MonthNames[idx]"/>
                 </div>

@@ -6,5 +6,6 @@ export interface CalendarSettings {
     startingDoW: number;
     DoW_names: string[];
     monthNames: string[];
+    currentYear: number;
 }
 

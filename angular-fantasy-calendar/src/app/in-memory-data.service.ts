@@ -12,10 +12,11 @@ export class InMemoryDataService implements InMemoryDbService {
       {eventID: 2, title: 'Full Moon', dateID: 2, duration: 3, repeatDays: 34.5, repeatAnnual: false},
       {eventID: 3, title: 'Total Luna', dateID: 42, duration: 4.2, repeatDays: 44.4, repeatAnnual: false}
     ];
-    const calendarSettings = {dayID: 4000000, daysPerYear: 311, daysPerMonth: 31, startingDoW: 1,
+    const calendarSettings = {startingDayID: 4000000, daysPerYear: 311, daysPerMonth: 31, startingDoW: 1,
       DoW_names: ['Firsday', 'Tuesday', 'Thirday', 'Forday', 'Fifthday', 'Sixthday', 'Sunday', 'Afterday', 'Lastday'],
       monthNames:
-      ['January', 'Feburary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']};
+      ['January', 'Feburary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+      currentYear: 214};
     return {calendarEvents, calendarSettings};
   }
 

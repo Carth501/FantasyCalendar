@@ -78,7 +78,7 @@ export class MonthService {
     return result;
   }
 
-  getNextStartingDoW(monthLength: number, startingDoW: number, daysPerWeek: number): DefaultDaysOfTheWeek {
+  getNextStartingDoW(monthLength: number, startingDoW: number, daysPerWeek: number): number {
     const newStartingDoW: number = (monthLength + startingDoW) % daysPerWeek;
     return newStartingDoW;
   }
@@ -87,7 +87,7 @@ export class MonthService {
     return startingDayID + monthLength;
   }
 
-  getPreviousStartingDoW(monthLength: number, startingDoW: number, daysPerWeek: number): DefaultDaysOfTheWeek {
+  getPreviousStartingDoW(monthLength: number, startingDoW: number, daysPerWeek: number): number {
     const newStartingDoW: number = ((startingDoW + daysPerWeek) - (monthLength % daysPerWeek)) % daysPerWeek;
     return newStartingDoW;
   }

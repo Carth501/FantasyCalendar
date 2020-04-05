@@ -17,6 +17,7 @@ export class CalendarComponent implements OnInit {
   eventArray: CalendarEvent[];
   settingsLoaded = false;
   eventsLoaded = false;
+  currentYear: number;
   @Input() startingDayID = 89424;
   @Input() daysPerYear = 423;
   @Input() daysPerMonth = 31;
@@ -38,23 +39,23 @@ export class CalendarComponent implements OnInit {
 
   generateDisplayYear(): void {
     this.year = this.yearService.getDisplayYear(
-      this.daysPerYear, this.startingDayID, this.daysPerMonth, this.startingDoW, this.eventArray, this.daysPerWeek, this.MonthNames);
+      this.daysPerYear, this.startingDayID, this.daysPerMonth, this.startingDoW, this.eventArray,
+      this.daysPerWeek, this.MonthNames, this.currentYear);
   }
 
 
-  generateNextDisplayYear(): void { // not currently supported.
-    /*
-    this.startingDoW = this.monthService.getNextStartingDoW(this.daysPerMonth, this.startingDoW, this.daysPerWeek);
-    this.startingDayID = this.monthService.getNextStartingID(this.startingDayID, this.daysPerMonth);
-    */
+  generateNextDisplayYear(): void {
+    this.startingDoW = this.yearService.getNextStartingDoW(this.daysPerYear, this.startingDoW, this.daysPerYear);
+    this.startingDayID = this.yearService.getNextStartingID(this.startingDayID, this.daysPerYear);
+    this.currentYear++;
     this.generateDisplayYear();
   }
 
-  generatePreviousDisplayYear(): void { // not currently supported.
-    /*
-    this.startingDoW = this.monthService.getPreviousStartingDoW(this.daysPerMonth, this.startingDoW, this.daysPerWeek);
-    this.startingDayID = this.monthService.getPreviousStartingID(this.startingDayID, this.daysPerMonth);
-    */
+  generatePreviousDisplayYear(): void {
+    console.log(this.startingDayID);
+    this.startingDoW = this.yearService.getPreviousStartingDoW(this.daysPerYear, this.startingDoW, this.daysPerYear);
+    this.startingDayID = this.yearService.getPreviousStartingID(this.startingDayID, this.daysPerYear);
+    this.currentYear--;
     this.generateDisplayYear();
   }
 
@@ -65,11 +66,13 @@ export class CalendarComponent implements OnInit {
 
   settingsArrived(IncomingSettings): void {
     this.calendarSettings = IncomingSettings;
+    this.startingDayID = this.calendarSettings.startingDayID;
     this.daysPerMonth = this.calendarSettings.daysPerMonth;
     this.DoW = this.calendarSettings.DoW_names;
     this.daysPerWeek = this.DoW.length;
     this.daysPerYear = this.calendarSettings.daysPerYear;
     this.MonthNames = this.calendarSettings.monthNames;
+    this.currentYear = this.calendarSettings.currentYear;
     this.settingsLoaded = true;
     this.calendarReady();
   }

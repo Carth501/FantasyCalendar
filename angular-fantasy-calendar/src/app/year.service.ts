@@ -13,10 +13,12 @@ export class YearService {
 
 
   getDisplayYear(
-    daysPerYear: number, startingDayID: number, daysPerMonth: number, startingDoW: number, eventArray: CalendarEvent[], daysPerWeek: number, monthNames: string[]
+    daysPerYear: number, startingDayID: number, daysPerMonth: number, startingDoW: number,
+    eventArray: CalendarEvent[], daysPerWeek: number, monthNames: string[], yearNumber: number
     ): Year {
     const year = {
       id: 0,
+      yearNumber,
       months: []
     };
     const remainder = daysPerYear % daysPerMonth;
@@ -40,5 +42,24 @@ export class YearService {
       nextDoW = this.monthService.getNextStartingDoW(remainder, nextDoW, daysPerWeek);
     }
     return year;
+  }
+
+
+  getNextStartingDoW(yearLength: number, startingDoW: number, daysPerWeek: number): number {
+    const newStartingDoW: number = (yearLength + startingDoW) % daysPerWeek;
+    return newStartingDoW;
+  }
+
+  getNextStartingID(startingDayID: number, yearLength: number): number {
+    return startingDayID + yearLength;
+  }
+
+  getPreviousStartingDoW(yearLength: number, startingDoW: number, daysPerWeek: number): number {
+    const newStartingDoW: number = ((startingDoW + daysPerWeek) - (yearLength % daysPerWeek)) % daysPerWeek;
+    return newStartingDoW;
+  }
+
+  getPreviousStartingID(startingDayID: number, yearLength: number): number {
+    return startingDayID - yearLength;
   }
 }

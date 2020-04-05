@@ -1,5 +1,31 @@
 @import "../app.component.css";
 
+.year-controls {
+  position: relative;
+  top: -45px;
+  left: 350px;
+  width: 300px;
+  margin: 0px;
+}
+
+.year-sign {
+  position: relative;
+  top: -45px;
+  left: 50%;
+  font-size: 60px;
+  font-weight: bold;
+}
+
+.previous-year-controls {
+  position: absolute;
+}
+
+.next-year-controls {
+  position: absolute;
+  left: 120px;
+}
+
+
 .settings-panel {
   height: 100%; /* Full-height: remove this if you want "auto" height */
   width: 460px; /* Set the width of the sidebar */
@@ -16,40 +42,50 @@
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
-  justify-content: start;
-  border: solid;
-  border-color: magenta;
-}
-
-
-
-.sidebarToggle {
-    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
-    z-index: 1; /* Stay on top */
-    top: 0; /* Stay at the top */
-    right: 0;
-    padding-right: 50px;
-    padding-top: 10px;
-}
-
-.buttonText {
-  font-size: 40px;
 }
 
 .settings-option {
   padding-left: 10px;
-  border: solid;
-  border-color: greenyellow;
+  padding-top: 10px;
+  padding-bottom: 10px;
   display: flex;
   flex-wrap: nowrap;
   flex-direction: row;
+  border-top: 4px dashed gray;
+}
+
+.settings-option label {
+  width: 140px;
+}
+
+.input-field {
+  width: 100%;
 }
 
 label {
   margin-right: 5px;
+  margin-left: 10px;
 }
 
 input {
   margin-top: 4px;
   margin-bottom: 4px;
+  width: 90%;
+}
+
+
+
+
+
+.sidebarToggle {
+  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  right: 0;
+  padding-right: 50px;
+  padding-top: 10px;
+}
+
+.buttonText {
+font-size: 40px;
 }

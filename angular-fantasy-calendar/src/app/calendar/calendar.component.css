@@ -1,6 +1,6 @@
 @import "../app.component.css";
 
-.settings {
+.settings-panel {
   height: 100%; /* Full-height: remove this if you want "auto" height */
   width: 460px; /* Set the width of the sidebar */
   position: fixed; /* Fixed Sidebar (stay in place on scroll) */
@@ -11,6 +11,17 @@
   overflow-x: hidden; /* Disable horizontal scroll */
   padding-top: 80px;
 }
+
+.settings {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: start;
+  border: solid;
+  border-color: magenta;
+}
+
+
 
 .sidebarToggle {
     position: fixed; /* Fixed Sidebar (stay in place on scroll) */
@@ -25,6 +36,20 @@
   font-size: 40px;
 }
 
+.settings-option {
+  padding-left: 10px;
+  border: solid;
+  border-color: greenyellow;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+}
+
+label {
+  margin-right: 5px;
+}
+
 input {
-  text-align: center;
+  margin-top: 4px;
+  margin-bottom: 4px;
 }

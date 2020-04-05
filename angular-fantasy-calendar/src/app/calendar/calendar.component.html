@@ -1,5 +1,5 @@
 
-<div class="settings" *ngIf="showSettings">
+<div class="settings-panel" *ngIf="showSettings">
     <!--
     <button *ngIf="startingDayID >= daysPerYear" (click)= "generatePreviousDisplayMonth()">
         Previous Year
@@ -14,20 +14,38 @@
     </button>
         
     -->
-    
-    <div>
-        <label>Days in a month:</label>
-        <input [(ngModel)]="daysPerMonth" type="number" min="1"/>
-    </div>
-    
-    <div>
-        <label>Days in a year:</label>
-        <input [(ngModel)]="daysPerYear" type="number" min="1"/>
-    </div>
-    <div>
-        <label>Days of the week:</label>
-        <input *ngFor="let x of DoW; let idx = index; trackBy: trackArray" 
-            type="text" [(ngModel)]="DoW[idx]">
+    <div class="settings">
+        <div class="settings-option">
+            <label>Days in a month:</label>
+            <div class="input-field">
+                <input [(ngModel)]="daysPerMonth" type="number" min="1"/>
+            </div>
+        </div>
+        
+        <div class="settings-option">
+            <label>Days in a year:</label>
+            <div class="input-field">
+                <input [(ngModel)]="daysPerYear" type="number" min="1"/>
+            </div>
+        </div>
+        <div class="settings-option">
+            <label>Days of the week:</label>
+            <div class="DoW-naming">
+                <div class="input-field" *ngFor="let x of DoW; let idx = index; trackBy: trackArray">
+                    <input  
+                        type="text" [(ngModel)]="DoW[idx]"/>
+                </div>
+            </div>
+        </div>
+        <div class="settings-option">
+            <label>Months of the year:</label>
+            <div class="MoY-naming">
+                <div class="input-field" *ngFor="let x of MonthNames; let idx = index; trackBy: trackArray">
+                    <input  
+                        type="text" [(ngModel)]="MonthNames[idx]"/>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

@@ -33,7 +33,7 @@
   z-index: 1; /* Stay on top */
   top: 0; /* Stay at the top */
   right: 0;
-  background-color: rgba(190, 190, 190, 0.95);
+  background-color: rgba(190, 190, 190);
   overflow-x: hidden; /* Disable horizontal scroll */
   padding-top: 80px;
 }
@@ -54,11 +54,8 @@
   border-top: 4px dashed gray;
 }
 
-.settings-option label {
-  width: 140px;
-}
 
-.input-field {
+.input-region {
   width: 100%;
 }
 
@@ -70,12 +67,25 @@ label {
 input {
   margin-top: 4px;
   margin-bottom: 4px;
-  width: 90%;
+  width: 60%;
 }
 
+.input-fields {
+  display: flex;
+  flex-direction: row;
+}
 
+.month-name {
+  width: 40%;
+}
 
+.month-length {
+  width: 20%;
+}
 
+.settings-option label {
+  width: 140px !important;
+}
 
 .sidebarToggle {
   position: fixed; /* Fixed Sidebar (stay in place on scroll) */

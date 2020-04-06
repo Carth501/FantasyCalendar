@@ -1,8 +1,7 @@
 export interface CalendarSettings {
     startingDayID: number;
     daysPerYear: number;
-    daysPerMonth: number;
-    daysPerWeek: number;
+    daysPerMonths: number[];
     startingDoW: number;
     DoW_names: string[];
     monthNames: string[];

@@ -13,31 +13,40 @@ export class YearService {
 
 
   getDisplayYear(
-    daysPerYear: number, startingDayID: number, daysPerMonth: number, startingDoW: number,
-    eventArray: CalendarEvent[], daysPerWeek: number, monthNames: string[], yearNumber: number
+    daysPerYear: number, startingDayID: number, daysPerMonths: number[],
+    startingDoW: number, eventArray: CalendarEvent[], daysPerWeek: number,
+    monthNames: string[], yearNumber: number
     ): Year {
     const year = {
       id: 0,
       yearNumber,
       months: []
     };
-    const remainder = daysPerYear % daysPerMonth;
-    const monthsPerYear = Math.floor(daysPerYear / daysPerMonth);
-    console.log('months per year: ' + monthsPerYear);
+    let sumOfMonths = 0;
+    daysPerMonths.forEach(element => {
+      sumOfMonths += element;
+    });
+    const remainder = daysPerYear - sumOfMonths;
+    if (remainder > 0) {
+      monthNames.push('overflow');
+      daysPerMonths.push(remainder);
+    }
     let nextDayID = startingDayID;
     let nextDoW = startingDoW;
     let i = 0;
-    while (i < monthsPerYear) {
-      year.months.push(this.monthService.getDisplayMonth(startingDayID, nextDayID, daysPerMonth, nextDoW, eventArray, daysPerWeek, monthNames[i]));
+    while (i < monthNames.length) {
+      year.months.push(this.monthService.getDisplayMonth(startingDayID, nextDayID,
+            daysPerMonths[i], nextDoW, eventArray, daysPerWeek, monthNames[i]));
 
-      nextDayID = this.monthService.getNextStartingID(nextDayID, daysPerMonth);
+      nextDayID = this.monthService.getNextStartingID(nextDayID, daysPerMonths[i]);
 
-      nextDoW = this.monthService.getNextStartingDoW(daysPerMonth, nextDoW, daysPerWeek);
+      nextDoW = this.monthService.getNextStartingDoW(daysPerMonths[i], nextDoW, daysPerWeek);
 
       i++;
     }
     if (remainder > 0) {
-      year.months.push(this.monthService.getDisplayMonth(startingDayID, nextDayID, remainder, nextDoW, eventArray, daysPerWeek, monthNames[i]));
+      year.months.push(this.monthService.getDisplayMonth(startingDayID, nextDayID,
+            remainder, nextDoW, eventArray, daysPerWeek, monthNames[i]));
       nextDayID = this.monthService.getNextStartingID(nextDayID, remainder);
       nextDoW = this.monthService.getNextStartingDoW(remainder, nextDoW, daysPerWeek);
     }

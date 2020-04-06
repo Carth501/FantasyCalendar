@@ -14,8 +14,7 @@ export class InMemoryDataService implements InMemoryDbService {
     ];
     const calendarSettings = {
       startingDayID: 4000000,
-      daysPerYear: 311,
-      daysPerMonths: [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
+      daysPerMonths: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
       startingDoW: 1,
       DoW_names: ['Firsday', 'Tuesday', 'Thirday', 'Forday', 'Fifthday', 'Sixthday', 'Sunday', 'Afterday', 'Lastday'],
       monthNames:

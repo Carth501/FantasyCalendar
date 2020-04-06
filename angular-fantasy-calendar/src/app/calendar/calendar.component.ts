@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { CalendarService } from '../calendar.service';
 import { CalendarEvent } from '../calendarEvent';
 import { CalendarSettings } from '../calendarSettings';
@@ -19,14 +19,15 @@ export class CalendarComponent implements OnInit {
   eventsLoaded = false;
   currentYear: number;
   @Input() startingDayID = 89424;
-  @Input() daysPerYear = 423;
+  daysPerYear = 423;
   @Input() daysPerMonths = [31];
-  @Input() daysPerWeek = 7;
+  daysPerWeek = 7;
   @Input() startingDoW = 1;
   DoW: string[] = DefaultDoWNames;
   MonthNames: string[];
   year: Year;
   showSettings = false;
+  @ViewChild('newMonth') newMonth;
 
   constructor(
     private calendarService: CalendarService,
@@ -38,22 +39,24 @@ export class CalendarComponent implements OnInit {
   }
 
   generateDisplayYear(): void {
+    this.daysPerYear = this.yearService.sumOfMonths(this.daysPerMonths);
     this.year = this.yearService.getDisplayYear(
-      this.daysPerYear, this.startingDayID, this.daysPerMonths, this.startingDoW,
+      this.startingDayID, this.daysPerMonths, this.startingDoW,
       this.eventArray, this.daysPerWeek, this.MonthNames, this.currentYear);
   }
 
 
   generateNextDisplayYear(): void {
-    this.startingDoW = this.yearService.getNextStartingDoW(this.daysPerYear, this.startingDoW, this.daysPerYear);
+    this.daysPerYear = this.yearService.sumOfMonths(this.daysPerMonths);
+    this.startingDoW = this.yearService.getNextStartingDoW(this.daysPerYear, this.startingDoW, this.daysPerWeek);
     this.startingDayID = this.yearService.getNextStartingID(this.startingDayID, this.daysPerYear);
     this.currentYear++;
     this.generateDisplayYear();
   }
 
   generatePreviousDisplayYear(): void {
-    console.log(this.startingDayID);
-    this.startingDoW = this.yearService.getPreviousStartingDoW(this.daysPerYear, this.startingDoW, this.daysPerYear);
+    this.daysPerYear = this.yearService.sumOfMonths(this.daysPerMonths);
+    this.startingDoW = this.yearService.getPreviousStartingDoW(this.daysPerYear, this.startingDoW, this.daysPerWeek);
     this.startingDayID = this.yearService.getPreviousStartingID(this.startingDayID, this.daysPerYear);
     this.currentYear--;
     this.generateDisplayYear();
@@ -70,10 +73,10 @@ export class CalendarComponent implements OnInit {
     this.daysPerMonths = this.calendarSettings.daysPerMonths;
     this.DoW = this.calendarSettings.DoW_names;
     this.daysPerWeek = this.DoW.length;
-    this.daysPerYear = this.calendarSettings.daysPerYear;
     this.MonthNames = this.calendarSettings.monthNames;
     this.currentYear = this.calendarSettings.currentYear;
     this.settingsLoaded = true;
+    this.daysPerYear = this.yearService.sumOfMonths(this.daysPerMonths);
     this.calendarReady();
   }
 
@@ -99,5 +102,30 @@ export class CalendarComponent implements OnInit {
 
   trackArray(index, item) {
     return index;
+  }
+
+  addMonth(): void {
+    const newMonthInput = document.getElementById('new-month-field') as HTMLInputElement;
+    if (newMonthInput.value) {
+      this.MonthNames.push(newMonthInput.value);
+      this.daysPerMonths.push(1);
+      this.daysPerYear = this.yearService.sumOfMonths(this.daysPerMonths);
+      newMonthInput.value = '';
+    }
+  }
+
+  deleteMonth(index: number): void {
+    if (index >= 0) {
+      this.daysPerMonths.splice(index, 1);
+      this.MonthNames.splice(index, 1);
+      this.daysPerYear = this.yearService.sumOfMonths(this.daysPerMonths);
+    }
+  }
+
+  deleteDoW(index: number): void {
+    if (index >= 0) {
+      this.DoW.splice(index, 1);
+      this.daysPerWeek = this.DoW.length;
+    }
   }
 }

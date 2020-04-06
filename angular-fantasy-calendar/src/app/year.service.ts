@@ -13,7 +13,7 @@ export class YearService {
 
 
   getDisplayYear(
-    daysPerYear: number, startingDayID: number, daysPerMonths: number[],
+    startingDayID: number, daysPerMonths: number[],
     startingDoW: number, eventArray: CalendarEvent[], daysPerWeek: number,
     monthNames: string[], yearNumber: number
     ): Year {
@@ -22,15 +22,6 @@ export class YearService {
       yearNumber,
       months: []
     };
-    let sumOfMonths = 0;
-    daysPerMonths.forEach(element => {
-      sumOfMonths += element;
-    });
-    const remainder = daysPerYear - sumOfMonths;
-    if (remainder > 0) {
-      monthNames.push('overflow');
-      daysPerMonths.push(remainder);
-    }
     let nextDayID = startingDayID;
     let nextDoW = startingDoW;
     let i = 0;
@@ -43,12 +34,6 @@ export class YearService {
       nextDoW = this.monthService.getNextStartingDoW(daysPerMonths[i], nextDoW, daysPerWeek);
 
       i++;
-    }
-    if (remainder > 0) {
-      year.months.push(this.monthService.getDisplayMonth(startingDayID, nextDayID,
-            remainder, nextDoW, eventArray, daysPerWeek, monthNames[i]));
-      nextDayID = this.monthService.getNextStartingID(nextDayID, remainder);
-      nextDoW = this.monthService.getNextStartingDoW(remainder, nextDoW, daysPerWeek);
     }
     return year;
   }
@@ -70,5 +55,15 @@ export class YearService {
 
   getPreviousStartingID(startingDayID: number, yearLength: number): number {
     return startingDayID - yearLength;
+  }
+
+  sumOfMonths(daysPerMonths: number[]): number {
+    let sumOfMonths = 0;
+    if (daysPerMonths.length > 0) {
+      daysPerMonths.forEach(element => {
+        sumOfMonths += element;
+      });
+    }
+    return sumOfMonths;
   }
 }

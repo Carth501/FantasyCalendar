@@ -31,19 +31,14 @@
         
     -->
     <div class="settings">
-        
-        <div class="settings-option">
-            <label>Days in a year:</label>
-            <div class="input-region">
-                <input [(ngModel)]="daysPerYear" type="number" min=1/>
-            </div>
-        </div>
         <div class="settings-option">
             <label>Days of the week:</label>
             <div class="input-region">
                 <div *ngFor="let x of DoW; let idx = index; trackBy: trackArray">
-                    <input  
-                        type="text" [(ngModel)]="DoW[idx]"/>
+                    <input type="text" [(ngModel)]="DoW[idx]"/>
+                    <button class="dow-delete" (click)= "deleteDoW(idx)">
+                        X
+                    </button>
                 </div>
             </div>
         </div>
@@ -54,7 +49,17 @@
                     <div class="input-fields">
                         <input class="month-name" type="text" [(ngModel)]="MonthNames[idx]"/>
                         <input class="month-length" type="number" [(ngModel)]="daysPerMonths[idx]" min=1/>
+                        <button class="month-delete" (click)= "deleteMonth(idx)">
+                            X
+                        </button>
                     </div>
+                </div>
+                <input id="new-month-field" type="text" placeholder="new month">
+                <button id="submit-new-month" (click)="addMonth()">
+                    add
+                </button>
+                <div>
+                    Total days in a year: {{daysPerYear}}
                 </div>
             </div>
         </div>
@@ -63,7 +68,7 @@
 
 <div class="sidebarToggle">
     <button (click)="toggleSettingsSidebar()" class="buttonText">
-        Sidebar
+        Settings
     </button>
 </div>
 

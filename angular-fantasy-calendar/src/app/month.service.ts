@@ -20,7 +20,9 @@ export class MonthService {
   constructor(  ) { }
 
   getDisplayMonth(
-    yearStartingDayID: number, monthStartingDayID: number, monthLength: number, startingDoW: number, eventArray: CalendarEvent[], daysPerWeek: number, monthName: string): Month {
+    yearStartingDayID: number, monthStartingDayID: number, monthLength: number,
+    startingDoW: number, eventArray: CalendarEvent[], daysPerWeek: number,
+    monthName: string): Month {
 
     let currentWeekday = startingDoW;
     let week = 0;

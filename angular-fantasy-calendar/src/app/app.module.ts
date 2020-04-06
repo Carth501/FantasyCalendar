@@ -13,6 +13,8 @@ import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './in-memory-data.service';
 import { YearComponent } from './year/year.component';
 import { CalendarComponent } from './calendar/calendar.component';
+import { OptionsComponent } from './options/options.component';
+import { ViewComponent } from './view/view.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { CalendarComponent } from './calendar/calendar.component';
     WeekComponent,
     DayComponent,
     YearComponent,
-    CalendarComponent
+    CalendarComponent,
+    OptionsComponent,
+    ViewComponent
   ],
   imports: [
     BrowserModule,

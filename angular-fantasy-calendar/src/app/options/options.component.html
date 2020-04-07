@@ -1,12 +1,16 @@
 
 <div class="settings-panel" *ngIf="showSettings">
+    <div class="buffer">
+        <!--This gives space for the settings toggle-->
+    </div>
     <!--
     <button *ngIf="startingDayID >= daysPerYear" (click)= "generatePreviousDisplayMonth()">
         Previous Year
     </button>
     -->
-    <button (click)= "pushChanges()">
-        Refresh Calendar
+    <button (click)= "pushChanges()">	
+        <fa-icon [icon]="faArrowCircleUp"></fa-icon>
+        apply
     </button>
     <!--
     <button (click)= "generateNextDisplayMonth()">
@@ -38,6 +42,9 @@
                     add
                 </button>
                 <div>
+                    Number of months: {{MonthNames.length}}
+                </div>
+                <div>
                     Total days in a year: {{daysPerYear}}
                 </div>
             </div>
@@ -65,6 +72,6 @@
 
 <div class="sidebarToggle">
     <button (click)="toggleSettingsSidebar()" class="buttonText">
-        Settings
+        <fa-icon [icon]="faBars" size="2x"></fa-icon>
     </button>
 </div>

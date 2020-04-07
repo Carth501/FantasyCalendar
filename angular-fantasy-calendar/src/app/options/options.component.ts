@@ -1,6 +1,8 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { YearService } from '../year.service';
 import { OptionsSettings } from '../optionsSettings';
+import { faArrowCircleUp } from '@fortawesome/free-solid-svg-icons';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-options',
@@ -8,7 +10,8 @@ import { OptionsSettings } from '../optionsSettings';
   styleUrls: ['./options.component.css']
 })
 export class OptionsComponent {
-
+  faArrowCircleUp = faArrowCircleUp;
+  faBars = faBars;
   @Input() set optionsSettings(value) { this.optionsArrived(value); }
   daysPerWeek;
   @Input() DoWNames: string[];
@@ -30,6 +33,7 @@ export class OptionsComponent {
   }
 
   pushChanges(): void {
+    this.daysPerYear = this.yearService.sumOfMonths(this.daysPerMonths);
     const optionsSettings = {
       DoWNames: this.DoWNames.slice(),
       monthNames: this.MonthNames.slice(),

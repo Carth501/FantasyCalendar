@@ -8,18 +8,17 @@ export class InMemoryDataService implements InMemoryDbService {
   createDb() {
     const calendarEvents = [
       {eventID: 0, title: '', dateID: 6, duration: 1, repeatDays: 0, repeatAnnual: false},
-      {eventID: 1, title: 'Test', dateID: 6, duration: 1, repeatDays: 16, repeatAnnual: false},
-      {eventID: 2, title: 'Full Moon', dateID: 2, duration: 3, repeatDays: 34.5, repeatAnnual: false},
-      {eventID: 3, title: 'Total Luna', dateID: 42, duration: 4.2, repeatDays: 44.4, repeatAnnual: false}
+      {eventID: 1, title: 'Very rare!', dateID: 6, duration: 1, repeatDays: 1620, repeatAnnual: false},
+      {eventID: 2, title: 'Full Moon', dateID: 22, duration: 4, repeatDays: 29.530, repeatAnnual: false}
     ];
     const calendarSettings = {
       startingDayID: 4000000,
       daysPerMonths: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
-      startingDoW: 1,
-      DoW_names: ['Firsday', 'Tuesday', 'Thirday', 'Forday', 'Fifthday', 'Sixthday', 'Sevday', 'Afterday', 'Lastday'],
+      startingDoW: 4,
+      DoW_names: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
       monthNames:
       ['January', 'Feburary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-      currentYear: 214};
+      currentYear: 2020};
     return {calendarEvents, calendarSettings};
   }
 

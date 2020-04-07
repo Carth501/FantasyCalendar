@@ -5,5 +5,8 @@
 <app-calendar 
     [calendarSettings]="calendarSettings" 
     [setEventArray]="eventArray"
->
-</app-calendar>
+></app-calendar>
+
+<button class="scroll-to-top" (click)="scrollToTop()">
+    <fa-icon [icon]="faArrowAltCircleUp" size="4x"></fa-icon>
+</button>

@@ -2,6 +2,8 @@ import { Component, Input, ViewChild } from '@angular/core';
 import { CalendarEvent } from '../calendarEvent';
 import { Year } from '../year';
 import { YearService } from '../year.service';
+import { faArrowAltCircleLeft } from '@fortawesome/free-solid-svg-icons';
+import { faArrowAltCircleRight } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-calendar',
@@ -11,6 +13,9 @@ import { YearService } from '../year.service';
 export class CalendarComponent {
   @Input() set calendarSettings(value) { this.settingsArrived(value); }
   @Input() set setEventArray(value) { this.eventsArrived(value); }
+
+  faArrowAltCircleLeft = faArrowAltCircleLeft;
+  faArrowAltCircleRight = faArrowAltCircleRight;
 
   eventArray: CalendarEvent[];
   settingsLoaded = false;

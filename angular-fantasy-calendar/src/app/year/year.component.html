@@ -1,3 +1,7 @@
+<div class="year-sign" align="center" *ngIf="year && year.yearNumber != null && year.yearNumber != undefined">
+    Year: {{year.yearNumber}}
+</div>
+
 <div *ngIf="year && year.months" class="calendar">
     <div *ngFor="let month of year.months">
         <app-month [month]="month" [daysOfWeek]="daysOfWeek"></app-month>

@@ -1,26 +1,17 @@
 @import "../app.component.css";
 
-.year-controls {
+.Calendar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  height: 0px;
   position: relative;
-  top: -45px;
-  left: 350px;
-  width: 300px;
-  margin: 0px;
+  top: 10px;
 }
 
-.year-sign {
-  position: relative;
-  top: -45px;
-  left: 50%;
-  font-size: 60px;
-  font-weight: bold;
+
+.year-control {
+  border: none;
+  background-color: rgba(0, 0, 0, 0);
 }
 
-.previous-year-controls {
-  position: absolute;
-}
-
-.next-year-controls {
-  position: absolute;
-  left: 120px;
-}

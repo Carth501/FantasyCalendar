@@ -1,0 +1,7 @@
+.scroll-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    border: none;
+    background-color: rgba(0, 0, 0, 0);
+}

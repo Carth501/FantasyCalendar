@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { YearService } from '../year.service';
 import { OptionsSettings } from '../optionsSettings';
-import { faArrowCircleUp } from '@fortawesome/free-solid-svg-icons';
+import { faArrowAltCircleUp } from '@fortawesome/free-solid-svg-icons';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -10,7 +10,7 @@ import { faBars } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./options.component.css']
 })
 export class OptionsComponent {
-  faArrowCircleUp = faArrowCircleUp;
+  faArrowAltCircleUp = faArrowAltCircleUp;
   faBars = faBars;
   @Input() set optionsSettings(value) { this.optionsArrived(value); }
   daysPerWeek;

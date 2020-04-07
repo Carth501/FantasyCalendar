@@ -3,6 +3,7 @@ import { CalendarService } from '../calendar.service';
 import { CalendarSettings } from '../calendarSettings';
 import { CalendarEvent } from '../calendarEvent';
 import { OptionsSettings } from '../optionsSettings';
+import { faArrowAltCircleUp } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-view',
@@ -10,6 +11,8 @@ import { OptionsSettings } from '../optionsSettings';
   styleUrls: ['./view.component.css']
 })
 export class ViewComponent implements OnInit {
+
+  faArrowAltCircleUp = faArrowAltCircleUp;
 
   calendarSettings: CalendarSettings;
   eventArray: CalendarEvent[];
@@ -51,5 +54,9 @@ export class ViewComponent implements OnInit {
       monthNames: newSettings.monthNames,
       currentYear: newSettings.currentYear
     };
+  }
+
+  scrollToTop(): void {
+    window.scroll(0, 0);
   }
 }

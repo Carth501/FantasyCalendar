@@ -1,19 +1,15 @@
-<div class="year-controls">
-    <div class="previous-year-controls">
-        <button (click)= "generatePreviousDisplayYear()" *ngIf="daysPerYear <= startingDayID">
-            Previous Year
+<div class="Calendar" align="center">
+    <div>
+        <button (click)= "generatePreviousDisplayYear()" *ngIf="daysPerYear <= startingDayID" class="year-control">
+            <fa-icon [icon]="faArrowAltCircleLeft" size="3x"></fa-icon>
         </button>
     </div>
-    <div class="next-year-controls">
-        <button (click)= "generateNextDisplayYear()">
-            Next Year
+    <div>
+        <button (click)= "generateNextDisplayYear()" class="year-control">
+            <fa-icon [icon]="faArrowAltCircleRight" size="3x"></fa-icon>
         </button>
     </div>
 </div>
-
-<div class="year-sign" *ngIf="currentYear != null && currentYear != undefined">
-    Year: {{currentYear}}
-</div>
-
-
 <app-year [year]="year" [daysOfWeek]="DoWNames"></app-year>
+
+

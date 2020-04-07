@@ -17,6 +17,7 @@ export class OptionsComponent {
   daysPerYear: number;
   showSettings = false;
   @Output() changes = new EventEmitter<OptionsSettings>();
+  @Input() currentYear: number;
 
   constructor(
     private yearService: YearService
@@ -28,10 +29,11 @@ export class OptionsComponent {
   }
 
   pushChanges(): void {
-    let optionsSettings = {
+    const optionsSettings = {
       DoWNames: this.DoWNames,
       monthNames: this.MonthNames,
-      daysPerMonths: this.daysPerMonths
+      daysPerMonths: this.daysPerMonths,
+      currentYear: this.currentYear
     };
     this.changes.emit(optionsSettings);
   }
@@ -43,6 +45,7 @@ export class OptionsComponent {
       this.MonthNames = optionsSettings.monthNames;
       this.daysPerMonths = optionsSettings.daysPerMonths;
       this.daysPerYear = this.yearService.sumOfMonths(this.daysPerMonths);
+      this.currentYear = optionsSettings.currentYear;
     }
   }
 

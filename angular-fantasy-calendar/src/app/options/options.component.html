@@ -16,14 +16,9 @@
     -->
     <div class="settings">
         <div class="settings-option">
-            <label>Days of the week:</label>
+            <label>Current Year:</label>
             <div class="input-region">
-                <div *ngFor="let x of DoWNames; let idx = index; trackBy: trackArray">
-                    <input type="text" [(ngModel)]="DoWNames[idx]"/>
-                    <button class="dow-delete" (click)= "deleteDoW(idx)">
-                        X
-                    </button>
-                </div>
+                <input [(ngModel)]="currentYear">
             </div>
         </div>
         <div class="settings-option">
@@ -44,6 +39,20 @@
                 </button>
                 <div>
                     Total days in a year: {{daysPerYear}}
+                </div>
+            </div>
+        </div>
+        <div class="settings-option">
+            <label>Days of the week:</label>
+            <div class="input-region">
+                <div *ngFor="let x of DoWNames; let idx = index; trackBy: trackArray">
+                    <input type="text" [(ngModel)]="DoWNames[idx]"/>
+                    <button class="dow-delete" (click)= "deleteDoW(idx)">
+                        X
+                    </button>
+                </div>
+                <div>
+                    Days in a week: {{DoWNames.length}}
                 </div>
             </div>
         </div>

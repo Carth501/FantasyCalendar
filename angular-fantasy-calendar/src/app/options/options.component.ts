@@ -18,6 +18,7 @@ export class OptionsComponent {
   showSettings = false;
   @Output() changes = new EventEmitter<OptionsSettings>();
   @Input() currentYear: number;
+  @Input() newDoWName: string;
 
   constructor(
     private yearService: YearService
@@ -30,9 +31,9 @@ export class OptionsComponent {
 
   pushChanges(): void {
     const optionsSettings = {
-      DoWNames: this.DoWNames,
-      monthNames: this.MonthNames,
-      daysPerMonths: this.daysPerMonths,
+      DoWNames: this.DoWNames.slice(),
+      monthNames: this.MonthNames.slice(),
+      daysPerMonths: this.daysPerMonths.slice(),
       currentYear: this.currentYear
     };
     this.changes.emit(optionsSettings);
@@ -65,6 +66,11 @@ export class OptionsComponent {
       this.MonthNames.splice(index, 1);
       this.daysPerYear = this.yearService.sumOfMonths(this.daysPerMonths);
     }
+  }
+
+  addDoW(): void {
+    this.DoWNames.push(this.newDoWName);
+    this.newDoWName = '';
   }
 
   deleteDoW(index: number): void {

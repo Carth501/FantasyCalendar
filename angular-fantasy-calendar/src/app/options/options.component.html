@@ -51,6 +51,10 @@
                         X
                     </button>
                 </div>
+                <input [(ngModel)]="newDoWName" placeholder="new day of the week"/>
+                <button (click)="addDoW()">
+                    add
+                </button>
                 <div>
                     Days in a week: {{DoWNames.length}}
                 </div>

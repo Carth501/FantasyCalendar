@@ -16,7 +16,7 @@ describe('WeekComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(WeekComponent);
     component = fixture.componentInstance;
-    component.week = {id: 0, days: [{id: 0, dayOfMonth: 1}]};
+    component.week = {id: 0, days: [{id: 0, dayOfYear: 40, dayOfMonth: 1}]};
     fixture.detectChanges();
   });
 

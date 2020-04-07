@@ -1,8 +1,7 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { CalendarService } from '../calendar.service';
+import { Component, Input, ViewChild } from '@angular/core';
+import { CalendarEvent } from '../calendarEvent';
 import { Year } from '../year';
 import { YearService } from '../year.service';
-import { CalendarEvent } from '../calendarEvent';
 
 @Component({
   selector: 'app-calendar',
@@ -23,7 +22,7 @@ export class CalendarComponent {
   @Input() daysPerMonths: number[];
   daysPerWeek: number;
   startingDoW: number;
-  DoW_Names: string[];
+  DoWNames: string[];
   MonthNames: string[];
   year: Year;
   @ViewChild('newMonth') newMonth;
@@ -65,9 +64,9 @@ export class CalendarComponent {
     if (IncomingSettings) {
       this.startingDayID = IncomingSettings.startingDayID;
       this.daysPerMonths = IncomingSettings.daysPerMonths;
-      this.DoW_Names = IncomingSettings.DoW_names;
+      this.DoWNames = IncomingSettings.DoW_names;
       this.startingDoW = IncomingSettings.startingDoW;
-      this.daysPerWeek = this.DoW_Names.length;
+      this.daysPerWeek = this.DoWNames.length;
       this.MonthNames = IncomingSettings.monthNames;
       this.currentYear = IncomingSettings.currentYear;
       this.settingsLoaded = true;

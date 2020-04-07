@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { YearService } from '../year.service';
 import { OptionsSettings } from '../optionsSettings';
 
@@ -11,11 +11,12 @@ export class OptionsComponent {
 
   @Input() set optionsSettings(value) { this.optionsArrived(value); }
   daysPerWeek;
-  @Input() DoW: string[];
+  @Input() DoWNames: string[];
   @Input() MonthNames: string[];
   @Input() daysPerMonths: number[];
   daysPerYear: number;
   showSettings = false;
+  @Output() changes = new EventEmitter<OptionsSettings>();
 
   constructor(
     private yearService: YearService
@@ -27,13 +28,18 @@ export class OptionsComponent {
   }
 
   pushChanges(): void {
-
+    let optionsSettings = {
+      DoWNames: this.DoWNames,
+      monthNames: this.MonthNames,
+      daysPerMonths: this.daysPerMonths
+    };
+    this.changes.emit(optionsSettings);
   }
 
   optionsArrived(optionsSettings: OptionsSettings): void {
     if (optionsSettings) {
-      this.DoW = optionsSettings.DoW_names;
-      this.daysPerWeek = this.DoW.length;
+      this.DoWNames = optionsSettings.DoWNames;
+      this.daysPerWeek = this.DoWNames.length;
       this.MonthNames = optionsSettings.monthNames;
       this.daysPerMonths = optionsSettings.daysPerMonths;
       this.daysPerYear = this.yearService.sumOfMonths(this.daysPerMonths);
@@ -60,8 +66,8 @@ export class OptionsComponent {
 
   deleteDoW(index: number): void {
     if (index >= 0) {
-      this.DoW.splice(index, 1);
-      this.daysPerWeek = this.DoW.length;
+      this.DoWNames.splice(index, 1);
+      this.daysPerWeek = this.DoWNames.length;
     }
   }
 

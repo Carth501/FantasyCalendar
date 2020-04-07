@@ -1,6 +1,6 @@
 export interface OptionsSettings {
     daysPerMonths: number[];
-    DoW_names: string[];
+    DoWNames: string[];
     monthNames: string[];
 }
 

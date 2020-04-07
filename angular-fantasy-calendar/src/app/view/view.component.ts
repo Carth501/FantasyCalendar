@@ -29,16 +29,26 @@ export class ViewComponent implements OnInit {
   }
 
   splitSettings(calendarSettings: CalendarSettings) {
-      this.calendarSettings = calendarSettings;
-      this.optionsSettings = {
-        daysPerMonths: calendarSettings.daysPerMonths,
-        DoW_names: calendarSettings.DoW_names,
-        monthNames: calendarSettings.monthNames
-      };
+    this.calendarSettings = calendarSettings;
+    this.optionsSettings = {
+      daysPerMonths: calendarSettings.daysPerMonths.slice(),
+      DoWNames: calendarSettings.DoW_names.slice(),
+      monthNames: calendarSettings.monthNames.slice()
+    };
   }
 
   getEvents(): void {
     this.calendarService.requestEvents().subscribe(IncomingEvents => this.eventArray = IncomingEvents);
   }
 
+  updateCalendar(newSettings: OptionsSettings): void {
+    this.calendarSettings = {
+      startingDayID: this.calendarSettings.startingDayID,
+      daysPerMonths: newSettings.daysPerMonths,
+      startingDoW: this.calendarSettings.startingDoW,
+      DoW_names: newSettings.DoWNames,
+      monthNames: newSettings.monthNames,
+      currentYear: this.calendarSettings.currentYear
+    };
+  }
 }

@@ -16,7 +16,7 @@ export class InMemoryDataService implements InMemoryDbService {
       startingDayID: 4000000,
       daysPerMonths: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
       startingDoW: 1,
-      DoW_names: ['Firsday', 'Tuesday', 'Thirday', 'Forday', 'Fifthday', 'Sixthday', 'Sunday', 'Afterday', 'Lastday'],
+      DoW_names: ['Firsday', 'Tuesday', 'Thirday', 'Forday', 'Fifthday', 'Sixthday', 'Sevday', 'Afterday', 'Lastday'],
       monthNames:
       ['January', 'Feburary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
       currentYear: 214};

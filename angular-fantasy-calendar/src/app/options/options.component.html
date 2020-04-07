@@ -18,8 +18,8 @@
         <div class="settings-option">
             <label>Days of the week:</label>
             <div class="input-region">
-                <div *ngFor="let x of DoW; let idx = index; trackBy: trackArray">
-                    <input type="text" [(ngModel)]="DoW[idx]"/>
+                <div *ngFor="let x of DoWNames; let idx = index; trackBy: trackArray">
+                    <input type="text" [(ngModel)]="DoWNames[idx]"/>
                     <button class="dow-delete" (click)= "deleteDoW(idx)">
                         X
                     </button>

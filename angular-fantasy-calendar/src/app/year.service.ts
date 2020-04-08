@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
+import { CalendarEvent } from './calendarEvent';
 import { MonthService } from './month.service';
 import { Year } from './year';
-import { CalendarEvent } from './calendarEvent';
-import { runInContext } from 'vm';
+import { LeapYear } from './leapYear';
 
 @Injectable({
   providedIn: 'root'
@@ -16,21 +16,18 @@ export class YearService {
   getDisplayYear(
     startingDayID: number, daysPerMonths: number[],
     startingDoW: number, eventArray: CalendarEvent[], daysPerWeek: number,
-    monthNames: string[], yearNumber: number, leapYearCycles: number[],
-    leapYearChange: number[], leapYearOffset: number[], leapDayMonth: number[]
+    monthNames: string[], yearNumber: number, leapYears: LeapYear[]
     ): Year {
     const year = {
       id: 0,
       yearNumber,
       months: []
     };
-    const monthLengths = this.leapYearChange(yearNumber, daysPerMonths, leapYearCycles,
-                                    leapYearChange, leapYearOffset, leapDayMonth);
+    const monthLengths = this.leapYearChange(yearNumber, daysPerMonths, leapYears);
     let nextDayID = startingDayID;
     let nextDoW = startingDoW;
     let i = 0;
     while (i < monthNames.length) {
-      
       year.months.push(this.monthService.getDisplayMonth(startingDayID, nextDayID,
         monthLengths[i], nextDoW, eventArray, daysPerWeek, monthNames[i]));
 
@@ -43,20 +40,19 @@ export class YearService {
     return year;
   }
 
-  leapYearChange(yearNumber: number, monthLengths: number[], leapYearCycles: number[],
-    leapYearChange: number[], leapYearOffset: number[], leapDayMonth: number[]): number[] {
+  leapYearChange(yearNumber: number, monthLengths: number[], leapYears: LeapYear[]): number[] {
       const newMonthLengths = monthLengths.slice();
-      if (leapYearCycles && leapYearChange && leapYearOffset && leapDayMonth) {
-        // if all the rules are here
-        for (let rule = 0; rule < leapYearCycles.length; rule++) {
+      if (leapYears) {
+        // if there are rules to follow
+        for (let rule = 0; rule < leapYears.length; rule++) {
           // for each rule
-          if ((yearNumber - leapYearOffset[rule]) % leapYearCycles[rule] === 0) {
+          if ((yearNumber - leapYears[rule].leapYearOffset) % leapYears[rule].leapYearCycles === 0) {
             // if the year is in one of the rule's leap years
-            for (let month = 0; month < leapYearChange.length; month++) {
+            for (let month = 0; month < monthLengths.length; month++) {
               // check each month
-              if (leapDayMonth[rule] === month) {
+              if (leapYears[rule].leapDayMonth === month) {
                 // if the month is the right month for a rule
-                newMonthLengths[month] += leapYearChange[rule];;
+                newMonthLengths[month] += leapYears[rule].leapYearChange;
               }
             }
           }
@@ -93,14 +89,12 @@ export class YearService {
     return sumOfMonths;
   }
 
-  daysInYear(daysPerMonths: number[], yearNumber: number, leapYearCycles: number[],
-             leapYearChange: number[], leapYearOffset: number[]): number {
+  daysInYear(daysPerMonths: number[], yearNumber: number, leapYears: LeapYear[]): number {
     let total = this.sumOfMonths(daysPerMonths);
-    if (daysPerMonths && leapYearCycles && leapYearChange && leapYearOffset) {
-      for (let i = 0; i < leapYearCycles.length; i++) {
-        if ((yearNumber - leapYearOffset[i]) % leapYearCycles[i] === 0) {
-          console.log('this is leap year');
-          total += leapYearChange[i];
+    if (daysPerMonths && leapYears) {
+      for (let i = 0; i < leapYears.length; i++) {
+        if ((yearNumber - leapYears[i].leapYearOffset) % leapYears[i].leapYearCycles === 0) {
+          total += leapYears[i].leapYearChange;
         }
       }
     }
@@ -108,10 +102,10 @@ export class YearService {
   }
 
   isThisLeapYear(
-    yearNumber: number, leapYearCycles: number[], leapYearOffset: number[]): boolean {
-    if (yearNumber && leapYearCycles && leapYearOffset) {
-      for (let i = 0; i < leapYearCycles.length; i++) {
-        if ((yearNumber - leapYearOffset[i]) % leapYearCycles[i]) {
+    yearNumber: number, leapYears: LeapYear[]): boolean {
+    for (let i = 0; i < leapYears.length; i++) {
+      if (yearNumber && leapYears[i].leapYearCycles && leapYears[i].leapYearOffset) {
+        if ((yearNumber - leapYears[i].leapYearOffset) % leapYears[i].leapYearCycles) {
           return true;
         }
       }

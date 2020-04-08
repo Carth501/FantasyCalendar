@@ -4,6 +4,7 @@ import { Year } from '../year';
 import { YearService } from '../year.service';
 import { faArrowAltCircleLeft } from '@fortawesome/free-solid-svg-icons';
 import { faArrowAltCircleRight } from '@fortawesome/free-solid-svg-icons';
+import { LeapYear } from '../leapYear';
 
 @Component({
   selector: 'app-calendar',
@@ -32,10 +33,7 @@ export class CalendarComponent {
   year: Year;
   @ViewChild('newMonth') newMonth;
 
-  leapYearCycles: number[];
-  leapYearChange: number[];
-  leapYearOffset: number[];
-  leapDayMonth: number[];
+  leapYears: LeapYear[];
 
   constructor(
     private yearService: YearService) { }
@@ -45,8 +43,7 @@ export class CalendarComponent {
       this.daysPerYear = this.calculateYearLength();
       this.year = this.yearService.getDisplayYear(
         this.startingDayID, this.daysPerMonths, this.startingDoW, this.eventArray,
-        this.daysPerWeek, this.MonthNames, this.currentYear, this.leapYearCycles,
-        this.leapYearChange, this.leapYearOffset, this.leapDayMonth
+        this.daysPerWeek, this.MonthNames, this.currentYear, this.leapYears,
         );
     } else {
       console.log('generateDisplayYear was called, but not ready!');
@@ -81,10 +78,7 @@ export class CalendarComponent {
       this.currentYear = IncomingSettings.currentYear;
       this.settingsLoaded = true;
       this.daysPerYear = this.yearService.sumOfMonths(this.daysPerMonths);
-      this.leapYearCycles = IncomingSettings.leapYearCycles;
-      this.leapYearChange = IncomingSettings.leapYearChange;
-      this.leapYearOffset = IncomingSettings.leapYearOffset;
-      this.leapDayMonth = IncomingSettings.leapDayMonth;
+      this.leapYears = IncomingSettings.leapYears;
       this.calendarReady();
     }
   }
@@ -103,6 +97,6 @@ export class CalendarComponent {
 
   calculateYearLength(): number {
     return this.yearService.daysInYear(this.daysPerMonths, this.currentYear,
-      this.leapYearCycles, this.leapYearChange, this.leapYearOffset);
+      this.leapYears);
   }
 }

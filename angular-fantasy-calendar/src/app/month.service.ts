@@ -1,9 +1,8 @@
 import { EventEmitter, Injectable, Output } from '@angular/core';
 import { CalendarEvent } from './calendarEvent';
 import { CalendarSettings } from './calendarSettings';
-import { DefaultDaysOfTheWeek } from './models/days-of-the-week';
-import { Month } from './month';
 import { Day } from './day';
+import { Month } from './month';
 
 @Injectable({
   providedIn: 'root'

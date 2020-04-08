@@ -19,10 +19,11 @@ export class InMemoryDataService implements InMemoryDbService {
       monthNames:
       ['January', 'Feburary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
       currentYear: 2020,
-      leapYearCycles: [4, 100, 400],
-      leapYearChange: [1, -1, 1],
-      leapYearOffset: [0, 0, 0],
-      leapDayMonth: [1, 1, 1]
+      leapYears: [
+        {leapYearCycles: 4, leapYearOffset: 0, leapYearChange: 1, leapDayMonth: 1},
+        {leapYearCycles: 100, leapYearOffset: 0, leapYearChange: -1, leapDayMonth: 1},
+        {leapYearCycles: 400, leapYearOffset: 0, leapYearChange: 1, leapDayMonth: 1},
+      ]
     };
     return {calendarEvents, calendarSettings};
   }

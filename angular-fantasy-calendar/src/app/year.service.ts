@@ -66,4 +66,15 @@ export class YearService {
     }
     return sumOfMonths;
   }
+
+  daysInYear(daysPerMonths: number[], yearNumber: number, leapYearCycles: number[],
+             leapYearChange: number[], leapYearStart: number[]): number {
+      let total = this.sumOfMonths(daysPerMonths);
+      for (let i = 0; i < leapYearCycles.length; i++) {
+        if ((yearNumber - leapYearStart[i]) % leapYearCycles[i] === 0) {
+          total += leapYearChange[i];
+        }
+      }
+      return total;
+    }
 }

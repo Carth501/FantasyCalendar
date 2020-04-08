@@ -32,6 +32,11 @@ export class CalendarComponent {
   year: Year;
   @ViewChild('newMonth') newMonth;
 
+  leapYearCycles: number[];
+  leapYearChange: number[];
+  leapYearOffset: number[];
+  leapDayMonth: number[];
+
   constructor(
     private yearService: YearService) { }
 
@@ -76,6 +81,10 @@ export class CalendarComponent {
       this.currentYear = IncomingSettings.currentYear;
       this.settingsLoaded = true;
       this.daysPerYear = this.yearService.sumOfMonths(this.daysPerMonths);
+      this.leapYearCycles = IncomingSettings.leapYearCycles;
+      this.leapYearChange = IncomingSettings.leapYearChange;
+      this.leapYearOffset = IncomingSettings.leapYearOffset;
+      this.leapDayMonth = IncomingSettings.leapDayMonth;
       this.calendarReady();
     }
   }

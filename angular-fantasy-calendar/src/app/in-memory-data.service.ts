@@ -18,7 +18,11 @@ export class InMemoryDataService implements InMemoryDbService {
       DoW_names: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
       monthNames:
       ['January', 'Feburary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-      currentYear: 2020};
+      currentYear: 2020,
+      leapYearCycles: [4, 100, 400],
+      leapYearChange: [1, -1, 1],
+      leapYearStart: [0, 0, 0]
+    };
     return {calendarEvents, calendarSettings};
   }
 

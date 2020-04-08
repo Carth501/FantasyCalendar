@@ -52,7 +52,11 @@ export class ViewComponent implements OnInit {
       startingDoW: this.calendarSettings.startingDoW,
       DoW_names: newSettings.DoWNames,
       monthNames: newSettings.monthNames,
-      currentYear: newSettings.currentYear
+      currentYear: newSettings.currentYear,
+      leapYearCycles: this.calendarSettings.leapYearCycles,
+      leapYearChange: this.calendarSettings.leapYearChange,
+      leapYearOffset: this.calendarSettings.leapYearOffset,
+      leapDayMonth: this.calendarSettings.leapDayMonth
     };
   }
 

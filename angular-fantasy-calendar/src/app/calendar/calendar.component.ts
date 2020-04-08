@@ -42,10 +42,12 @@ export class CalendarComponent {
 
   generateDisplayYear(): void {
     if (this.calendarReady) {
-      this.daysPerYear = this.yearService.sumOfMonths(this.daysPerMonths);
+      this.daysPerYear = this.calculateYearLength();
       this.year = this.yearService.getDisplayYear(
-        this.startingDayID, this.daysPerMonths, this.startingDoW,
-        this.eventArray, this.daysPerWeek, this.MonthNames, this.currentYear);
+        this.startingDayID, this.daysPerMonths, this.startingDoW, this.eventArray,
+        this.daysPerWeek, this.MonthNames, this.currentYear, this.leapYearCycles,
+        this.leapYearChange, this.leapYearOffset, this.leapDayMonth
+        );
     } else {
       console.log('generateDisplayYear was called, but not ready!');
     }
@@ -53,7 +55,6 @@ export class CalendarComponent {
 
 
   generateNextDisplayYear(): void {
-    this.daysPerYear = this.yearService.sumOfMonths(this.daysPerMonths);
     this.startingDoW = this.yearService.getNextStartingDoW(this.daysPerYear, this.startingDoW, this.daysPerWeek);
     this.startingDayID = this.yearService.getNextStartingID(this.startingDayID, this.daysPerYear);
     this.currentYear++;
@@ -61,7 +62,6 @@ export class CalendarComponent {
   }
 
   generatePreviousDisplayYear(): void {
-    this.daysPerYear = this.yearService.sumOfMonths(this.daysPerMonths);
     this.startingDoW = this.yearService.getPreviousStartingDoW(this.daysPerYear, this.startingDoW, this.daysPerWeek);
     this.startingDayID = this.yearService.getPreviousStartingID(this.startingDayID, this.daysPerYear);
     this.currentYear--;
@@ -99,5 +99,10 @@ export class CalendarComponent {
     if (this.settingsLoaded && this.eventsLoaded) {
       this.generateDisplayYear();
     }
+  }
+
+  calculateYearLength(): number {
+    return this.yearService.daysInYear(this.daysPerMonths, this.currentYear,
+      this.leapYearCycles, this.leapYearChange, this.leapYearOffset);
   }
 }

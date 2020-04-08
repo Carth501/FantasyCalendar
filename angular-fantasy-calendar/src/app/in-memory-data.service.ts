@@ -14,14 +14,15 @@ export class InMemoryDataService implements InMemoryDbService {
     const calendarSettings = {
       startingDayID: 4000000,
       daysPerMonths: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
-      startingDoW: 4,
+      startingDoW: 3,
       DoW_names: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
       monthNames:
       ['January', 'Feburary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
       currentYear: 2020,
       leapYearCycles: [4, 100, 400],
       leapYearChange: [1, -1, 1],
-      leapYearStart: [0, 0, 0]
+      leapYearOffset: [0, 0, 0],
+      leapDayMonth: [1, 1, 1]
     };
     return {calendarEvents, calendarSettings};
   }

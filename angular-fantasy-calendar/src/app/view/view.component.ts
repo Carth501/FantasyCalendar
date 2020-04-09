@@ -37,7 +37,8 @@ export class ViewComponent implements OnInit {
       daysPerMonths: calendarSettings.daysPerMonths.slice(),
       DoWNames: calendarSettings.DoW_names.slice(),
       monthNames: calendarSettings.monthNames.slice(),
-      currentYear: calendarSettings.currentYear
+      currentYear: calendarSettings.currentYear,
+      leapYears: calendarSettings.leapYears.slice()
     };
   }
 
@@ -53,7 +54,7 @@ export class ViewComponent implements OnInit {
       DoW_names: newSettings.DoWNames,
       monthNames: newSettings.monthNames,
       currentYear: newSettings.currentYear,
-      leapYears: this.calendarSettings.leapYears
+      leapYears: newSettings.leapYears
     };
   }
 

@@ -3,6 +3,7 @@ import { YearService } from '../year.service';
 import { OptionsSettings } from '../optionsSettings';
 import { faArrowAltCircleUp } from '@fortawesome/free-solid-svg-icons';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { LeapYear, EMPTY_LEAP_YEAR } from '../leapYear';
 
 @Component({
   selector: 'app-options',
@@ -22,6 +23,8 @@ export class OptionsComponent {
   @Output() changes = new EventEmitter<OptionsSettings>();
   @Input() currentYear: number;
   @Input() newDoWName: string;
+  @Input() leapYears: LeapYear[];
+  @Input() candidateLY = EMPTY_LEAP_YEAR;
 
   constructor(
     private yearService: YearService
@@ -38,7 +41,8 @@ export class OptionsComponent {
       DoWNames: this.DoWNames.slice(),
       monthNames: this.MonthNames.slice(),
       daysPerMonths: this.daysPerMonths.slice(),
-      currentYear: this.currentYear
+      currentYear: this.currentYear,
+      leapYears: this.leapYears
     };
     this.changes.emit(optionsSettings);
   }
@@ -51,6 +55,7 @@ export class OptionsComponent {
       this.daysPerMonths = optionsSettings.daysPerMonths;
       this.daysPerYear = this.yearService.sumOfMonths(this.daysPerMonths);
       this.currentYear = optionsSettings.currentYear;
+      this.leapYears = optionsSettings.leapYears;
     }
   }
 
@@ -81,6 +86,22 @@ export class OptionsComponent {
     if (index >= 0) {
       this.DoWNames.splice(index, 1);
       this.daysPerWeek = this.DoWNames.length;
+    }
+  }
+
+  addLY(): void {
+    this.leapYears.push(this.candidateLY);
+    this.candidateLY = {
+      leapYearCycles: null,
+      leapYearOffset: null,
+      leapYearChange: null,
+      leapDayMonth: null
+    };
+  }
+
+  deleteLY(index: number): void {
+    if (index >= 0) {
+      this.leapYears.splice(index, 1);
     }
   }
 

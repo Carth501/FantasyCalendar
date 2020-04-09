@@ -10,6 +10,12 @@
         </button>
     </div>
 </div>
+
+<div class="year-sign" align="center" *ngIf="year && year.yearNumber != null && year.yearNumber != undefined">
+    Year: <input [(ngModel)]="year.yearNumber" 
+        (ngModelChange)="this.userYearChange.next($event)"/>
+</div>
+
 <app-year [year]="year" [daysOfWeek]="DoWNames"></app-year>
 
 

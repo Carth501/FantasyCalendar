@@ -1,10 +1,11 @@
 import { Component, Input, ViewChild } from '@angular/core';
+import { faArrowAltCircleLeft, faArrowAltCircleRight } from '@fortawesome/free-solid-svg-icons';
+import { Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { CalendarEvent } from '../calendarEvent';
+import { LeapYear } from '../leapYear';
 import { Year } from '../year';
 import { YearService } from '../year.service';
-import { faArrowAltCircleLeft } from '@fortawesome/free-solid-svg-icons';
-import { faArrowAltCircleRight } from '@fortawesome/free-solid-svg-icons';
-import { LeapYear } from '../leapYear';
 
 @Component({
   selector: 'app-calendar',
@@ -31,12 +32,21 @@ export class CalendarComponent {
   DoWNames: string[];
   MonthNames: string[];
   year: Year;
+  userYearChange = new Subject<number>();
   @ViewChild('newMonth') newMonth;
 
   leapYears: LeapYear[];
 
   constructor(
-    private yearService: YearService) { }
+    private yearService: YearService) {
+      // Debounce search.
+      this.userYearChange.pipe(
+        debounceTime(400),
+        distinctUntilChanged())
+        .subscribe(value => {
+          this.jumpToYear(value);
+        });
+      }
 
   generateDisplayYear(): void {
     if (this.calendarReady) {
@@ -50,18 +60,39 @@ export class CalendarComponent {
     }
   }
 
+  jumpToYear(newYear: number): void {
+    const deltaYear = newYear - this.currentYear;
+    if (deltaYear > 0) {
+      for (let x = 0; x < deltaYear; x++) {
+        this.generateNextDisplayYear();
+      }
+    } else if (deltaYear < 0) {
+      for (let x = 0; x > deltaYear; x--) {
+        this.generatePreviousDisplayYear();
+      }
+    }
+  }
 
-  generateNextDisplayYear(): void {
+  calcNextYearData(): void {
     this.startingDoW = this.yearService.getNextStartingDoW(this.daysPerYear, this.startingDoW, this.daysPerWeek);
     this.startingDayID = this.yearService.getNextStartingID(this.startingDayID, this.daysPerYear);
     this.currentYear++;
+  }
+
+  generateNextDisplayYear(): void {
+    console.log('nextDisplay');
+    this.calcNextYearData();
     this.generateDisplayYear();
   }
 
-  generatePreviousDisplayYear(): void {
+  calcPreviousYearData(): void {
     this.startingDoW = this.yearService.getPreviousStartingDoW(this.daysPerYear, this.startingDoW, this.daysPerWeek);
     this.startingDayID = this.yearService.getPreviousStartingID(this.startingDayID, this.daysPerYear);
     this.currentYear--;
+  }
+
+  generatePreviousDisplayYear(): void {
+    this.calcPreviousYearData();
     this.generateDisplayYear();
   }
 

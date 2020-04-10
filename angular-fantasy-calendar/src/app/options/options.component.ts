@@ -1,9 +1,10 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { YearService } from '../year.service';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { faArrowAltCircleUp, faBars } from '@fortawesome/free-solid-svg-icons';
+import { CalendarSettings } from '../calendarSettings';
+import { EMPTY_LEAP_YEAR, LeapYear } from '../leapYear';
 import { OptionsSettings } from '../optionsSettings';
-import { faArrowAltCircleUp } from '@fortawesome/free-solid-svg-icons';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
-import { LeapYear, EMPTY_LEAP_YEAR } from '../leapYear';
+import { YearService } from '../year.service';
+import { Clipboard } from '@angular/cdk/clipboard';
 
 @Component({
   selector: 'app-options',
@@ -25,9 +26,13 @@ export class OptionsComponent {
   @Input() newDoWName: string;
   @Input() leapYears: LeapYear[];
   @Input() candidateLY = EMPTY_LEAP_YEAR;
+  @Input() set calendarSettings(object) { this.settingsArrived(object); }
+
+  @Input() jsonSave: string;
 
   constructor(
-    private yearService: YearService
+    private yearService: YearService,
+    private clipboard: Clipboard
     ) { }
 
 
@@ -107,5 +112,25 @@ export class OptionsComponent {
 
   trackArray(index, item) {
     return index;
+  }
+
+  settingsArrived(object: CalendarSettings): void {
+    this.jsonSave = JSON.stringify({object});
+  }
+
+  clipboardJSON(): void {
+    console.log("test");
+    const pending = this.clipboard.beginCopy(this.jsonSave);
+    let remainingAttempts = 3;
+    const attempt = () => {
+      const result = pending.copy();
+      if (!result && --remainingAttempts) {
+        setTimeout(attempt);
+      } else {
+        // Remember to destroy when you're done!
+        pending.destroy();
+      }
+    };
+    attempt();
   }
 }

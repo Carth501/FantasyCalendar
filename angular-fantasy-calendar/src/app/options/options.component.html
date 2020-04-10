@@ -95,6 +95,17 @@
                 </button>
             </div>
         </div>
+        <div class="settings-option">
+            <label>Save Calendar As JSON:</label>
+            <div id="jsonRegion" class="input-region">
+                <button [cdkCopyToClipboard]="jsonSave" [cdkCopyToClipboardAttempts]="5">
+                    Copy Settings to Clipboard
+                </button>
+            </div>
+        </div>
+        <div class="buffer">
+
+        </div>
     </div>
 </div>
 

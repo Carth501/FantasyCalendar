@@ -14,6 +14,9 @@ import { OptionsComponent } from './options/options.component';
 import { ViewComponent } from './view/view.component';
 import { WeekComponent } from './week/week.component';
 import { YearComponent } from './year/year.component';
+import { NewEventComponent } from './new-event/new-event.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ClipboardModule } from '@angular/cdk/clipboard';
 
 
 
@@ -26,7 +29,8 @@ import { YearComponent } from './year/year.component';
     OptionsComponent,
     ViewComponent,
     WeekComponent,
-    YearComponent
+    YearComponent,
+    NewEventComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +44,10 @@ import { YearComponent } from './year/year.component';
     // Remove it when a real server is ready to receive requests.
     HttpClientInMemoryWebApiModule.forRoot(
       InMemoryDataService, { dataEncapsulation: false }
-    )
+    ),
+
+    BrowserAnimationsModule,
+    ClipboardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

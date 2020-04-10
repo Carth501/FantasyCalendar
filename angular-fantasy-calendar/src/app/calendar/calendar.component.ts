@@ -86,9 +86,10 @@ export class CalendarComponent {
   }
 
   calcPreviousYearData(): void {
+    this.currentYear--;
+    this.daysPerYear = this.calculateYearLength();
     this.startingDoW = this.yearService.getPreviousStartingDoW(this.daysPerYear, this.startingDoW, this.daysPerWeek);
     this.startingDayID = this.yearService.getPreviousStartingID(this.startingDayID, this.daysPerYear);
-    this.currentYear--;
   }
 
   generatePreviousDisplayYear(): void {

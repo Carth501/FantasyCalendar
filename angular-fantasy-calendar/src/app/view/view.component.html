@@ -1,7 +1,8 @@
 <app-options
     [optionsSettings]="optionsSettings"
     (changes)="updateCalendar($event)"
-    [calendarSettings]="calendarSettings" 
+    [totalSettings]="totalSettings" 
+    (readNewjson)="newTotalSettings($event)"
 ></app-options>
 <app-calendar 
     [calendarSettings]="calendarSettings" 

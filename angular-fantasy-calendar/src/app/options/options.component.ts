@@ -1,10 +1,10 @@
+import { Clipboard } from '@angular/cdk/clipboard';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { faArrowAltCircleUp, faBars } from '@fortawesome/free-solid-svg-icons';
-import { CalendarSettings } from '../calendarSettings';
 import { EMPTY_LEAP_YEAR, LeapYear } from '../leapYear';
 import { OptionsSettings } from '../optionsSettings';
+import { TotalSettings } from '../totalSettings';
 import { YearService } from '../year.service';
-import { Clipboard } from '@angular/cdk/clipboard';
 
 @Component({
   selector: 'app-options',
@@ -26,9 +26,15 @@ export class OptionsComponent {
   @Input() newDoWName: string;
   @Input() leapYears: LeapYear[];
   @Input() candidateLY = EMPTY_LEAP_YEAR;
-  @Input() set calendarSettings(object) { this.settingsArrived(object); }
+  @Input() set totalSettings(object) {
+    this.settingsArrived(object);
+    console.log('Settings arrived!');
+  }
 
   @Input() jsonSave: string;
+
+  @Input() fromjson: string;
+  @Output() readNewjson = new EventEmitter<string>();
 
   constructor(
     private yearService: YearService,
@@ -114,12 +120,11 @@ export class OptionsComponent {
     return index;
   }
 
-  settingsArrived(object: CalendarSettings): void {
-    this.jsonSave = JSON.stringify({object});
+  settingsArrived(totalSettings: TotalSettings): void {
+    this.jsonSave = JSON.stringify(totalSettings);
   }
 
   clipboardJSON(): void {
-    console.log("test");
     const pending = this.clipboard.beginCopy(this.jsonSave);
     let remainingAttempts = 3;
     const attempt = () => {
@@ -132,5 +137,9 @@ export class OptionsComponent {
       }
     };
     attempt();
+  }
+
+  newUserJSON(): void {
+    this.readNewjson.emit(this.fromjson);
   }
 }

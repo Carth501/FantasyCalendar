@@ -2,7 +2,7 @@
 
 .settings-panel {
   height: 100%; /* Full-height: remove this if you want "auto" height */
-  width: 460px; /* Set the width of the sidebar */
+  width: 560px; /* Set the width of the sidebar */
   position: fixed; /* Fixed Sidebar (stay in place on scroll) */
   z-index: 1; /* Stay on top */
   top: 0; /* Stay at the top */
@@ -26,7 +26,6 @@
   flex-direction: row;
   border-top: 3px solid black;
 }
-
 
 .input-region {
   width: 100%;
@@ -94,4 +93,14 @@ input {
 
 #jsonSaveField {
   resize: none;
+}
+
+.loadJSON {
+  display: flex;
+  flex-direction: row;
+}
+
+.loadControls {
+  display: flex;
+  flex-direction: column;
 }

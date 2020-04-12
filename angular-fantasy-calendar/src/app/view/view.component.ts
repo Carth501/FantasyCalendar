@@ -4,7 +4,6 @@ import * as _ from 'lodash';
 import { CalendarService } from '../calendar.service';
 import { CalendarEvent } from '../calendarEvent';
 import { CalendarSettings } from '../calendarSettings';
-import { OptionsSettings } from '../optionsSettings';
 import { TotalSettings } from '../totalSettings';
 
 @Component({
@@ -18,7 +17,6 @@ export class ViewComponent implements OnInit {
 
   calendarSettings: CalendarSettings;
   eventArray: CalendarEvent[];
-  optionsSettings: OptionsSettings;
   totalSettings: TotalSettings;
 
   constructor(
@@ -37,13 +35,6 @@ export class ViewComponent implements OnInit {
 
   splitSettings(calendarSettings: CalendarSettings): void {
     this.calendarSettings = calendarSettings;
-    this.optionsSettings = {
-      daysPerMonths: calendarSettings.daysPerMonths.slice(),
-      DoWNames: calendarSettings.DoW_names.slice(),
-      monthNames: calendarSettings.monthNames.slice(),
-      currentYear: calendarSettings.currentYear,
-      leapYears: calendarSettings.leapYears.slice()
-    };
     const tempCalendarSettings = _.cloneDeep(this.calendarSettings);
     this.totalSettings = {...this.totalSettings, calendarSettings: tempCalendarSettings};
   }
@@ -58,16 +49,17 @@ export class ViewComponent implements OnInit {
     this.totalSettings = {...this.totalSettings, eventArray: tempEventArray};
   }
 
-  updateCalendar(newSettings: OptionsSettings): void {
+  updateCalendar(newSettings: TotalSettings): void {
+    this.totalSettings = newSettings;
     this.calendarSettings = {
-      startingDayID: this.calendarSettings.startingDayID,
-      daysPerMonths: newSettings.daysPerMonths,
-      startingDoW: this.calendarSettings.startingDoW,
-      DoW_names: newSettings.DoWNames,
-      monthNames: newSettings.monthNames,
-      currentYear: newSettings.currentYear,
-      leapYears: newSettings.leapYears
+      ...this.calendarSettings,
+      daysPerMonths: newSettings.calendarSettings.daysPerMonths,
+      DoW_names: newSettings.calendarSettings.DoW_names,
+      monthNames: newSettings.calendarSettings.monthNames,
+      currentYear: newSettings.calendarSettings.currentYear,
+      leapYears: newSettings.calendarSettings.leapYears
     };
+    this.eventArray = newSettings.eventArray;
   }
 
   scrollToTop(): void {

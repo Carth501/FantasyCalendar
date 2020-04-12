@@ -2,9 +2,9 @@ import { Clipboard } from '@angular/cdk/clipboard';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { faArrowAltCircleUp, faBars } from '@fortawesome/free-solid-svg-icons';
 import { EMPTY_LEAP_YEAR, LeapYear } from '../leapYear';
-import { OptionsSettings } from '../optionsSettings';
 import { TotalSettings } from '../totalSettings';
 import { YearService } from '../year.service';
+import { CalendarEvent, EMPTY_EVENT } from '../calendarEvent';
 
 @Component({
   selector: 'app-options',
@@ -14,27 +14,29 @@ import { YearService } from '../year.service';
 export class OptionsComponent {
   faArrowAltCircleUp = faArrowAltCircleUp;
   faBars = faBars;
-  @Input() set optionsSettings(value) { this.optionsArrived(value); }
   daysPerWeek;
-  @Input() DoWNames: string[];
+  @Input() DoW_names: string[];
   @Input() MonthNames: string[];
   @Input() daysPerMonths: number[];
   daysPerYear: number;
   showSettings = false;
-  @Output() changes = new EventEmitter<OptionsSettings>();
+  @Output() changes = new EventEmitter<TotalSettings>();
   @Input() currentYear: number;
   @Input() newDoWName: string;
   @Input() leapYears: LeapYear[];
   @Input() candidateLY = EMPTY_LEAP_YEAR;
-  @Input() set totalSettings(object) {
-    this.settingsArrived(object);
-    console.log('Settings arrived!');
+  @Input() set totalSettings(totalSettingsObject) {
+    this.settingsArrived(totalSettingsObject);
   }
+  totalSettingsObject: TotalSettings;
 
   @Input() jsonSave: string;
 
   @Input() fromjson: string;
   @Output() readNewjson = new EventEmitter<string>();
+
+  @Input() eventArray: CalendarEvent[];
+  potentialEvent = EMPTY_EVENT;
 
   constructor(
     private yearService: YearService,
@@ -48,25 +50,34 @@ export class OptionsComponent {
 
   pushChanges(): void {
     this.daysPerYear = this.yearService.sumOfMonths(this.daysPerMonths);
-    const optionsSettings = {
-      DoWNames: this.DoWNames.slice(),
-      monthNames: this.MonthNames.slice(),
-      daysPerMonths: this.daysPerMonths.slice(),
-      currentYear: this.currentYear,
-      leapYears: this.leapYears
+    this.totalSettingsObject = {
+      calendarSettings: {
+        ...this.totalSettingsObject.calendarSettings,
+        DoW_names: this.DoW_names.slice(),
+        monthNames: this.MonthNames.slice(),
+        daysPerMonths: this.daysPerMonths.slice(),
+        currentYear: this.currentYear,
+        leapYears: this.leapYears
+      },
+      eventArray: this.eventArray
     };
-    this.changes.emit(optionsSettings);
+    this.changes.emit(this.totalSettingsObject);
   }
 
-  optionsArrived(optionsSettings: OptionsSettings): void {
-    if (optionsSettings) {
-      this.DoWNames = optionsSettings.DoWNames;
-      this.daysPerWeek = this.DoWNames.length;
-      this.MonthNames = optionsSettings.monthNames;
-      this.daysPerMonths = optionsSettings.daysPerMonths;
-      this.daysPerYear = this.yearService.sumOfMonths(this.daysPerMonths);
-      this.currentYear = optionsSettings.currentYear;
-      this.leapYears = optionsSettings.leapYears;
+  optionsArrived(totalSettings: TotalSettings): void {
+    if (totalSettings) {
+      if (totalSettings.calendarSettings) {
+        this.DoW_names = totalSettings.calendarSettings.DoW_names;
+        this.daysPerWeek = this.DoW_names.length;
+        this.MonthNames = totalSettings.calendarSettings.monthNames;
+        this.daysPerMonths = totalSettings.calendarSettings.daysPerMonths;
+        this.daysPerYear = this.yearService.sumOfMonths(this.daysPerMonths);
+        this.currentYear = totalSettings.calendarSettings.currentYear;
+        this.leapYears = totalSettings.calendarSettings.leapYears;
+      }
+      if (totalSettings.eventArray) {
+        this.eventArray = totalSettings.eventArray;
+      }
     }
   }
 
@@ -89,14 +100,41 @@ export class OptionsComponent {
   }
 
   addDoW(): void {
-    this.DoWNames.push(this.newDoWName);
+    this.DoW_names.push(this.newDoWName);
     this.newDoWName = '';
   }
 
   deleteDoW(index: number): void {
     if (index >= 0) {
-      this.DoWNames.splice(index, 1);
-      this.daysPerWeek = this.DoWNames.length;
+      this.DoW_names.splice(index, 1);
+      this.daysPerWeek = this.DoW_names.length;
+    }
+  }
+
+  addEvent(): void {
+    if (this.potentialEvent && this.eventArray) {
+      if (
+        this.potentialEvent.dateID &&
+        this.potentialEvent.duration &&
+        this.potentialEvent.repeatDays &&
+        this.potentialEvent.title
+        ) {
+          this.potentialEvent.repeatAnnual = false;
+          // annual repetition not implemented
+          this.potentialEvent.eventID = this.eventArray.length;
+          this.eventArray.push(this.potentialEvent);
+          this.potentialEvent.dateID = null;
+          this.potentialEvent.duration = null;
+          this.potentialEvent.eventID = null;
+          this.potentialEvent.repeatDays = null;
+          this.potentialEvent.title = null;
+      }
+    }
+  }
+
+  deleteEvent(index: number): void {
+    if (index >= 0) {
+      this.eventArray.splice(index, 1);
     }
   }
 
@@ -122,6 +160,8 @@ export class OptionsComponent {
 
   settingsArrived(totalSettings: TotalSettings): void {
     this.jsonSave = JSON.stringify(totalSettings);
+    this.totalSettingsObject = totalSettings;
+    this.optionsArrived(totalSettings);
   }
 
   clipboardJSON(): void {

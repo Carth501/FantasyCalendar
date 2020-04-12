@@ -7,3 +7,12 @@ export interface CalendarEvent {
     repeatDays: number;
     repeatAnnual: boolean;
 }
+
+export const EMPTY_EVENT: CalendarEvent = {
+    eventID: null,
+    title: null,
+    dateID: null,
+    duration: null,
+    repeatDays: null,
+    repeatAnnual: null
+};

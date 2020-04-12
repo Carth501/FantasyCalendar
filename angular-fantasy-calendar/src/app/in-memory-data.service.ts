@@ -7,7 +7,7 @@ import { InMemoryDbService } from 'angular-in-memory-web-api';
 export class InMemoryDataService implements InMemoryDbService {
   createDb() {
     const calendarEvents = [
-      {eventID: 0, title: '', dateID: 6, duration: 1, repeatDays: 0, repeatAnnual: false},
+      {eventID: 0, title: 'Height of Winter', dateID: 6, duration: 1, repeatDays: 0, repeatAnnual: false},
       {eventID: 1, title: 'Very rare!', dateID: 6, duration: 1, repeatDays: 1620, repeatAnnual: false},
       {eventID: 2, title: 'Full Moon', dateID: 22, duration: 4, repeatDays: 29.530, repeatAnnual: false}
     ];

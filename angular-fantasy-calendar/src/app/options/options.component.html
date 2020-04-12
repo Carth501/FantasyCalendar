@@ -52,8 +52,8 @@
         <div class="settings-option">
             <label>Days of the week:</label>
             <div class="input-region">
-                <div *ngFor="let x of DoWNames; let idx = index; trackBy: trackArray">
-                    <input type="text" [(ngModel)]="DoWNames[idx]"/>
+                <div *ngFor="let x of DoW_names; let idx = index; trackBy: trackArray">
+                    <input type="text" [(ngModel)]="DoW_names[idx]"/>
                     <button class="dow-delete" (click)= "deleteDoW(idx)">
                         X
                     </button>
@@ -63,7 +63,7 @@
                     add
                 </button>
                 <div>
-                    Days in a week: {{DoWNames.length}}
+                    Days in a week: {{DoW_names.length}}
                 </div>
             </div>
         </div>
@@ -85,7 +85,11 @@
                         X
                     </button>
                 </div>
-                <label>new leap year rule</label>
+            </div>
+        </div>
+        <div>
+            <label>new leap year rule</label>
+            <div>
                 <input class="LYRule" type="number" [(ngModel)]="candidateLY.leapYearCycles" placeholder="length of cycle"/>
                 <input class="LYRule" type="number" [(ngModel)]="candidateLY.leapYearOffset" placeholder="offset"/>
                 <input class="LYRule" type="number" [(ngModel)]="candidateLY.leapYearChange" placeholder="change in days"/>
@@ -96,23 +100,44 @@
             </div>
         </div>
         <div class="settings-option">
-            <div id="jsonRegion" class="input-region">
+            <label>Events:</label>
+            <div class="input-region">
                 <div>
-                    <label>Save Calendar as JSON:</label>
-                    <button [cdkCopyToClipboard]="jsonSave" [cdkCopyToClipboardAttempts]="5">
-                        Copy Settings to Clipboard
-                    </button>
-                </div>
-                <div class="loadJSON">
-                    <label>Load Calendar from JSON</label>
-                    <div class="loadControls">
-                        <textarea [(ngModel)]="fromjson" placeholder="Paste JSON data here">
-                        </textarea>
-                        <button (click)="newUserJSON()">
-                            Apply new JSON
+                    <div *ngFor="let x of eventArray; let idx = index; trackBy: trackArray">
+                        <input [(ngModel)]="eventArray[idx].title" placeholder="new event name" type="string"/>
+                        <input [(ngModel)]="eventArray[idx].dateID" placeholder="new event offset" type="number"/>
+                        <input [(ngModel)]="eventArray[idx].duration" placeholder="duration" type="number"/>
+                        <input [(ngModel)]="eventArray[idx].repeatDays" placeholder="cycle length" type="number"/>
+                        <button class="event-delete" (click)= "deleteEvent(idx)">
+                            X
                         </button>
                     </div>
                 </div>
+                <input [(ngModel)]="potentialEvent.title" placeholder="new event name" type="string"/>
+                <input [(ngModel)]="potentialEvent.dateID" placeholder="new event offset" type="number"/>
+                <input [(ngModel)]="potentialEvent.duration" placeholder="duration" type="number"/>
+                <input [(ngModel)]="potentialEvent.repeatDays" placeholder="cycle length" type="number"/>
+                <button (click)="addEvent()">
+                    add
+                </button>
+            </div>
+        </div>
+        <div class="settings-option">
+            <div id="jsonRegion" class="input-region">
+                <label>Save Calendar as JSON:</label>
+                <button [cdkCopyToClipboard]="jsonSave" [cdkCopyToClipboardAttempts]="5">
+                    Copy Settings to Clipboard
+                </button>
+            </div>
+        </div>
+        <div class="loadJSON">
+            <label>Load Calendar from JSON</label>
+            <div class="loadControls">
+                <textarea [(ngModel)]="fromjson" placeholder="Paste JSON data here">
+                </textarea>
+                <button (click)="newUserJSON()">
+                    Apply new JSON
+                </button>
             </div>
         </div>
         <div class="buffer">

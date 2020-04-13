@@ -8,9 +8,9 @@ describe('workspace-project App', () => {
     page = new AppPage();
   });
 
-  it('should display welcome message', () => {
+  it('should display the site title', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('angular-fantasy-calendar app is running!');
+    expect(page.getTitleText()).toEqual('Custom Calendar');
   });
 
   afterEach(async () => {

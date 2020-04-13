@@ -104,3 +104,8 @@ input {
   display: flex;
   flex-direction: column;
 }
+
+.eventsFields {
+  display: flex;
+  flex-direction: row;
+}

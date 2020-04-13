@@ -87,7 +87,7 @@
                 </div>
             </div>
         </div>
-        <div>
+        <div class="input-fields">
             <label>new leap year rule</label>
             <div>
                 <input class="LYRule" type="number" [(ngModel)]="candidateLY.leapYearCycles" placeholder="length of cycle"/>
@@ -103,7 +103,7 @@
             <label>Events:</label>
             <div class="input-region">
                 <div>
-                    <div *ngFor="let x of eventArray; let idx = index; trackBy: trackArray">
+                    <div class="input-fields" *ngFor="let x of eventArray; let idx = index; trackBy: trackArray">
                         <input [(ngModel)]="eventArray[idx].title" placeholder="new event name" type="string"/>
                         <input [(ngModel)]="eventArray[idx].dateID" placeholder="new event offset" type="number"/>
                         <input [(ngModel)]="eventArray[idx].duration" placeholder="duration" type="number"/>

@@ -19,7 +19,7 @@ export class OptionsComponent {
   @Input() MonthNames: string[];
   @Input() daysPerMonths: number[];
   daysPerYear: number;
-  showSettings = false;
+  hideSettings = true;
   @Output() changes = new EventEmitter<TotalSettings>();
   @Input() currentYear: number;
   @Input() newDoWName: string;
@@ -45,7 +45,7 @@ export class OptionsComponent {
 
 
   toggleSettingsSidebar(): void {
-    this.showSettings = !this.showSettings;
+    this.hideSettings = !this.hideSettings;
   }
 
   pushChanges(): void {

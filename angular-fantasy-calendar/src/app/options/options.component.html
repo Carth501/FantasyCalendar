@@ -1,5 +1,5 @@
 
-<div class="settings-panel" *ngIf="showSettings">
+<div class="settings-panel" [hidden]="hideSettings">
     <div class="buffer">
         <!--This gives space for the settings toggle-->
     </div>
@@ -41,7 +41,7 @@
                 <button id="submit-new-month" (click)="addMonth()">
                     add
                 </button>
-                <div>
+                <div *ngIf="MonthNames">
                     Number of months: {{MonthNames.length}}
                 </div>
                 <div>
@@ -62,7 +62,7 @@
                 <button (click)="addDoW()">
                     add
                 </button>
-                <div>
+                <div *ngIf="DoW_names">
                     Days in a week: {{DoW_names.length}}
                 </div>
             </div>

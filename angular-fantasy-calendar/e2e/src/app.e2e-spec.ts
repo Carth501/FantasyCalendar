@@ -11,7 +11,6 @@ describe('Custom Calendar', () => {
   });
 
   it('should display the site title', () => {
-    browser.sleep(4);
     expect(page.getTitleText()).toEqual('Custom Calendar');
   });
 
@@ -31,6 +30,16 @@ describe('Custom Calendar', () => {
 
   it('should start with the options menu hidden', () => {
     expect($$('.settings-panel').isPresent()).toBe(true);
+    expect(element(by.css('.settings-panel')).isDisplayed()).toBe(false);
+  });
+
+  it('should unhide the options menu when the button is clicked', () => {
+    $$('.sidebarToggle .buttonText').click();
+    expect(element(by.css('.settings-panel')).isDisplayed()).toBe(true);
+  });
+  
+  it('should rehide the options menu when the button is clicked', () => {
+    $$('.sidebarToggle .buttonText').click();
     expect(element(by.css('.settings-panel')).isDisplayed()).toBe(false);
   });
 

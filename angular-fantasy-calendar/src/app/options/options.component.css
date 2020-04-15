@@ -28,7 +28,7 @@
 }
 
 .input-region {
-  width: 100%;
+  width: 410px;
 }
 
 label {
@@ -59,6 +59,35 @@ input {
   width: 140px !important;
 }
 
+.new-leap-rule {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.new-leap-rule label {
+  width: 140px !important;
+}
+
+.events-list {
+  width: 350px;
+}
+
+.new-event-region label {
+  width: 140px !important;
+}
+.new-event-region {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.new-lyr-fields {
+  width: 410px;
+}
+.new-event-fields {
+  width: 410px;
+}
 .sidebarToggle {
   position: fixed; /* Fixed Sidebar (stay in place on scroll) */
   z-index: 1; /* Stay on top */
@@ -78,14 +107,14 @@ input {
 }
 
 .LYConfigs {
-  width: 260px;
+  width: 294px;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
 }
 
 .LYLabels {
-  width: 200px;
+  width: 250px;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;

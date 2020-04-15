@@ -3,21 +3,12 @@
     <div class="buffer">
         <!--This gives space for the settings toggle-->
     </div>
-    <!--
-    <button *ngIf="startingDayID >= daysPerYear" (click)= "generatePreviousDisplayMonth()">
-        Previous Year
-    </button>
-    -->
+
     <button (click)= "pushChanges()">	
         <fa-icon [icon]="faArrowAltCircleUp"></fa-icon>
         Apply
     </button>
-    <!--
-    <button (click)= "generateNextDisplayMonth()">
-        Next Year
-    </button>
-        
-    -->
+    
     <div class="settings">
         <div class="settings-option">
             <label>Default Year:</label>
@@ -25,6 +16,7 @@
                 <input [(ngModel)]="currentYear">
             </div>
         </div>
+
         <div class="settings-option">
             <label>Months of the year:</label>
             <div class="input-region">
@@ -49,6 +41,7 @@
                 </div>
             </div>
         </div>
+
         <div class="settings-option">
             <label>Days of the week:</label>
             <div class="input-region">
@@ -67,6 +60,7 @@
                 </div>
             </div>
         </div>
+
         <div class="settings-option">
             <label>Leap year rules:</label>
             <div class="input-region">
@@ -87,9 +81,10 @@
                 </div>
             </div>
         </div>
-        <div class="input-fields">
+
+        <div class="new-leap-rule">
             <label>new leap year rule</label>
-            <div>
+            <div class="new-lyr-fields">
                 <input class="LYRule" type="number" [(ngModel)]="candidateLY.leapYearCycles" placeholder="length of cycle"/>
                 <input class="LYRule" type="number" [(ngModel)]="candidateLY.leapYearOffset" placeholder="offset"/>
                 <input class="LYRule" type="number" [(ngModel)]="candidateLY.leapYearChange" placeholder="change in days"/>
@@ -99,10 +94,11 @@
                 </button>
             </div>
         </div>
+
         <div class="settings-option">
             <label>Events:</label>
             <div class="input-region">
-                <div>
+                <div class="events-list">
                     <div class="input-fields" *ngFor="let x of eventArray; let idx = index; trackBy: trackArray">
                         <input [(ngModel)]="eventArray[idx].title" placeholder="new event name" type="string"/>
                         <input [(ngModel)]="eventArray[idx].dateID" placeholder="new event offset" type="number"/>
@@ -113,6 +109,11 @@
                         </button>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="new-event-region">
+            <label>Add new event</label>
+            <div class="new-event-fields">
                 <input [(ngModel)]="potentialEvent.title" placeholder="new event name" type="string"/>
                 <input [(ngModel)]="potentialEvent.dateID" placeholder="new event offset" type="number"/>
                 <input [(ngModel)]="potentialEvent.duration" placeholder="duration" type="number"/>
@@ -122,14 +123,16 @@
                 </button>
             </div>
         </div>
+
         <div class="settings-option">
+            <label>Save Calendar as JSON:</label>
             <div id="jsonRegion" class="input-region">
-                <label>Save Calendar as JSON:</label>
                 <button [cdkCopyToClipboard]="jsonSave" [cdkCopyToClipboardAttempts]="5">
                     Copy Settings to Clipboard
                 </button>
             </div>
         </div>
+
         <div class="loadJSON">
             <label>Load Calendar from JSON</label>
             <div class="loadControls">
@@ -140,9 +143,8 @@
                 </button>
             </div>
         </div>
-        <div class="buffer">
 
-        </div>
+        <div class="buffer"></div>
     </div>
 </div>
 

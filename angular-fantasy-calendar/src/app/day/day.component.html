@@ -1,15 +1,17 @@
-<div class="day-id">
-    <div class="day-of-month">
-        {{day.dayOfMonth}} 
+<div class="day-button" (click)="click(day.id)">
+    <div class="day-id">
+        <div class="day-of-month">
+            {{day.dayOfMonth}} 
+        </div>
+        <div class="day-of-year">
+            {{day.dayOfYear}}
+        </div>
     </div>
-    <div class="day-of-year">
-        {{day.dayOfYear}}
+    <div class="day-content">
+        <ul *ngFor="let calendarEvent of day.events">
+            <li *ngIf="calendarEvent">
+                {{calendarEvent.title}}
+            </li>
+        </ul>
     </div>
-</div>
-<div class="day-content">
-    <ul *ngFor="let calendarEvent of day.events">
-        <li *ngIf="calendarEvent">
-            {{calendarEvent.title}}
-        </li>
-    </ul>
 </div>

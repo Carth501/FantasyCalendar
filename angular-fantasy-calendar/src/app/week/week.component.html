@@ -1,6 +1,6 @@
 
-<td *ngFor="let day of week.days" style="overflow-y: auto;">
-    <div *ngIf="day">
+<td *ngFor="let day of week.days" class="day-repeater">
+    <div *ngIf="day" class="day-container">
         <app-day [day]="day"></app-day>
     </div>
 </td>

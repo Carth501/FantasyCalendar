@@ -1,15 +1,15 @@
 
 <table class="month" align="center">
     <h2>
-    {{month.name}}
+        {{month.name}}
     </h2>
     <div *ngIf="month && month.weeks">
         <tr *ngIf=daysOfWeek>
             <th *ngFor="let name of daysOfWeek">{{name}}</th>
         </tr>
         <tr *ngFor="let week of month.weeks">
-            <td *ngFor="let day of week.days" style="overflow-y: auto;">
-                <div *ngIf="day">
+            <td *ngFor="let day of week.days" class="day-repeater">
+                <div *ngIf="day" class="day-container">
                     <app-day [day]="day"></app-day>
                 </div>
             </td>

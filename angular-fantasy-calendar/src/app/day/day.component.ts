@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Day } from '../day';
+import { CalendarEventService } from '../calendar-event.service';
 
 @Component({
   selector: 'app-day',
@@ -8,6 +9,12 @@ import { Day } from '../day';
 })
 export class DayComponent {
 
-  @Input() day: Day;
+  constructor(private calendarEventService: CalendarEventService) {}
 
+  @Input() day: Day;
+  @Output() dayClick = new EventEmitter<number>();
+
+  click(dayID: number): void {
+    this.calendarEventService.dayClick(dayID);
+  }
 }

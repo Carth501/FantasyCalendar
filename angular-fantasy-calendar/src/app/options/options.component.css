@@ -39,7 +39,7 @@ label {
 input {
   margin-top: 4px;
   margin-bottom: 4px;
-  width: 60%;
+  width: 250px;
 }
 
 .input-fields {
@@ -57,6 +57,18 @@ input {
 
 .settings-option label {
   width: 140px !important;
+}
+
+.event-name {
+  width: 90px;
+}
+
+.other-event-fields {
+  width: 54px;
+}
+
+.event-duration-fields {
+  width: 30px;
 }
 
 .new-leap-rule {

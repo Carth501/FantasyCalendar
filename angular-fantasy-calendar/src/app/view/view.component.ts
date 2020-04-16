@@ -5,6 +5,7 @@ import { CalendarService } from '../calendar.service';
 import { CalendarEvent } from '../calendarEvent';
 import { CalendarSettings } from '../calendarSettings';
 import { TotalSettings } from '../totalSettings';
+import { CalendarEventService } from '../calendar-event.service';
 
 @Component({
   selector: 'app-view',
@@ -19,9 +20,18 @@ export class ViewComponent implements OnInit {
   eventArray: CalendarEvent[];
   totalSettings: TotalSettings;
 
+  myObserver = {
+    next: x => console.log('Got a next value: ' + x),
+    error: err => console.error('Got an error: ' + err),
+    complete: () => console.log('Got a complete notification'),
+  };
+
   constructor(
-    private calendarService: CalendarService
-    ) { }
+    private calendarService: CalendarService,
+    private calendarEventService: CalendarEventService
+    ) {
+      calendarEventService.dayclick$.subscribe(this.myObserver);
+    }
 
   ngOnInit(): void {
     this.totalSettings = {calendarSettings: null, eventArray: null};

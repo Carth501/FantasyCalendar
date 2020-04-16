@@ -100,10 +100,10 @@
             <div class="input-region">
                 <div class="events-list">
                     <div class="input-fields" *ngFor="let x of eventArray; let idx = index; trackBy: trackArray">
-                        <input [(ngModel)]="eventArray[idx].title" placeholder="new event name" type="string"/>
-                        <input [(ngModel)]="eventArray[idx].dateID" placeholder="new event offset" type="number"/>
-                        <input [(ngModel)]="eventArray[idx].duration" placeholder="duration" type="number"/>
-                        <input [(ngModel)]="eventArray[idx].repeatDays" placeholder="cycle length" type="number"/>
+                        <input [(ngModel)]="eventArray[idx].title" placeholder="new event name" type="string" class="event-name"/>
+                        <input [(ngModel)]="eventArray[idx].dateID" placeholder="new event offset" type="number" class="other-event-fields"/>
+                        <input [(ngModel)]="eventArray[idx].duration" placeholder="duration" type="number" class="event-duration-fields"/>
+                        <input [(ngModel)]="eventArray[idx].repeatDays" placeholder="cycle length" type="number" class="other-event-fields"/>
                         <button class="event-delete" (click)= "deleteEvent(idx)">
                             X
                         </button>

@@ -1,1 +1,16 @@
-<p></p>
+<div class="panel">
+    <div class="topBar">
+        <h3>Create New Event</h3>
+        <button (click)="closeWindow()">X</button>
+    </div>
+
+    <input id="title" [(ngModel)]="title" type="text" placeholder="Title"/>
+    <input id="dateID" [(ngModel)]="dateID" type="number" placeholder="Date offset"/>
+    <input id="duration" [(ngModel)]="duration" type="number"  placeholder="Duration of event" min=1/>
+    <div>
+        <input id="repeatAnnual" [(ngModel)]="repeatAnnual" type="checkbox" id="annual"/>
+        <label for="annual">Does this repeat annually?</label>
+    </div>
+    <input id="repeatDays" *ngIf="!repeatAnnual" [(ngModel)]="repeatDays" type="number" placeholder="Length of cycle" min=1/>
+    <button class="createButton" (click)="createEvent()">Create</button>
+</div>

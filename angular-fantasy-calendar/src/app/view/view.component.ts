@@ -19,12 +19,23 @@ export class ViewComponent implements OnInit {
   calendarSettings: CalendarSettings;
   eventArray: CalendarEvent[];
   totalSettings: TotalSettings;
+  showNewEvent = false;
 
   myObserver = {
-    next: x => console.log('Got a next value: ' + x),
+    next: x => this.setWindow(true),
     error: err => console.error('Got an error: ' + err),
-    complete: () => console.log('Got a complete notification'),
+    complete: () => console.log('Got a complete notification')
   };
+
+  setWindow(state: boolean): void {
+    this.showNewEvent = state;
+  }
+
+  createNewEvent(newEvent: CalendarEvent): void {
+    const tempEventArray = this.totalSettings.eventArray;
+    tempEventArray.push(newEvent);
+    this.eventsArrived(tempEventArray);
+  }
 
   constructor(
     private calendarService: CalendarService,

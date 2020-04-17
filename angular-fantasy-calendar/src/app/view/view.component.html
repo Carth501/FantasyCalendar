@@ -8,6 +8,12 @@
     [setEventArray]="eventArray"
 ></app-calendar>
 
+<app-new-event
+    *ngIf="showNewEvent"
+    (newEvent)="createNewEvent($event)"
+    (setWindow)="setWindow($event)"
+></app-new-event>
+
 <button class="scroll-to-top" (click)="scrollToTop()">
     <fa-icon [icon]="faArrowAltCircleUp" size="4x"></fa-icon>
 </button>

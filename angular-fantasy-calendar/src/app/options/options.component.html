@@ -99,12 +99,12 @@
             <label>Events:</label>
             <div class="input-region">
                 <div class="events-list">
-                    <div class="input-fields" *ngFor="let x of eventArray; let idx = index; trackBy: trackArray">
-                        <input [(ngModel)]="eventArray[idx].title" placeholder="new event name" type="string" class="event-name"/>
-                        <input [(ngModel)]="eventArray[idx].dateID" placeholder="new event offset" type="number" class="other-event-fields"/>
-                        <input [(ngModel)]="eventArray[idx].duration" placeholder="duration" type="number" class="event-duration-fields"/>
-                        <input [(ngModel)]="eventArray[idx].repeatDays" placeholder="cycle length" type="number" class="other-event-fields"/>
-                        <button class="event-delete" (click)= "deleteEvent(idx)">
+                    <div class="input-fields" *ngFor="let x of cyclicalEvents; let idx = index; trackBy: trackArray">
+                        <input [(ngModel)]="cyclicalEvents[idx].title" placeholder="new event name" type="string" class="event-name"/>
+                        <input [(ngModel)]="cyclicalEvents[idx].dateID" placeholder="new event offset" type="number" class="other-event-fields"/>
+                        <input [(ngModel)]="cyclicalEvents[idx].duration" placeholder="duration" type="number" class="event-duration-fields"/>
+                        <input [(ngModel)]="cyclicalEvents[idx].repeatDays" placeholder="cycle length" type="number" class="other-event-fields"/>
+                        <button class="event-delete" (click)= "deleteCyclicalEvent(idx)">
                             X
                         </button>
                     </div>
@@ -114,10 +114,10 @@
         <div class="new-event-region">
             <label>Add new event</label>
             <div class="new-event-fields">
-                <input [(ngModel)]="potentialEvent.title" placeholder="new event name" type="string"/>
-                <input [(ngModel)]="potentialEvent.dateID" placeholder="new event offset" type="number"/>
-                <input [(ngModel)]="potentialEvent.duration" placeholder="duration" type="number"/>
-                <input [(ngModel)]="potentialEvent.repeatDays" placeholder="cycle length" type="number"/>
+                <input [(ngModel)]="potentialCyclicalEvent.title" placeholder="new event name" type="string"/>
+                <input [(ngModel)]="potentialCyclicalEvent.dateID" placeholder="new event offset" type="number"/>
+                <input [(ngModel)]="potentialCyclicalEvent.duration" placeholder="duration" type="number"/>
+                <input [(ngModel)]="potentialCyclicalEvent.repeatDays" placeholder="cycle length" type="number"/>
                 <button (click)="addEvent()">
                     add
                 </button>

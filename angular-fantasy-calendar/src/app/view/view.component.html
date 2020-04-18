@@ -1,16 +1,15 @@
 <app-options
-    (changes)="updateCalendar($event)"
+    (changes)="newTotalSettings($event)"
     [totalSettings]="totalSettings" 
     (readNewjson)="newTotalSettings($event)"
 ></app-options>
 <app-calendar 
-    [calendarSettings]="calendarSettings" 
-    [setEventArray]="eventArray"
+    [settings]="totalSettings"
 ></app-calendar>
 
 <app-new-event
     *ngIf="showNewEvent"
-    (newEvent)="createNewEvent($event)"
+    (newEvent)="createNewCyclicalEvent($event)"
     (setWindow)="setWindow($event)"
 ></app-new-event>
 

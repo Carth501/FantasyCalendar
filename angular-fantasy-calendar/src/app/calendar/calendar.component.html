@@ -1,6 +1,6 @@
 <div class="calendar" align="center">
     <div>
-        <button (click)= "generatePreviousDisplayYear()" *ngIf="daysPerYear <= startingDayID" class="year-control">
+        <button (click)= "generatePreviousDisplayYear()" *ngIf="yearLength <= yearStartingID" class="year-control">
             <fa-icon [icon]="faArrowAltCircleLeft" size="3x"></fa-icon>
         </button>
     </div>

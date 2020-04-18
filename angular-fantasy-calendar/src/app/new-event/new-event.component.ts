@@ -1,6 +1,5 @@
 import { Component, Output, EventEmitter, Input } from '@angular/core';
-import { CalendarEvent } from '../calendarEvent';
-import { $$ } from 'protractor';
+import { CyclicalEvent } from '../calendarEvent';
 
 @Component({
   selector: 'app-new-event',
@@ -9,7 +8,7 @@ import { $$ } from 'protractor';
 })
 export class NewEventComponent {
 
-  @Output() newEvent = new EventEmitter<CalendarEvent>();
+  @Output() newEvent = new EventEmitter<CyclicalEvent>();
   @Output() setWindow = new EventEmitter<boolean>();
 
   @Input() eventID = 0;
@@ -52,13 +51,12 @@ export class NewEventComponent {
 
   newEventEmit(): void {
     console.log('this.title = ' + this.title);
-    const newCalendarEvent: CalendarEvent = {
+    const newCalendarEvent: CyclicalEvent = {
       eventID: this.eventID,
       title: this.title,
       dateID: this.dateID,
       duration: this.duration,
-      repeatDays: this.repeatDays,
-      repeatAnnual: this.repeatAnnual
+      repeatDays: this.repeatDays
     };
     this.newEvent.emit(newCalendarEvent);
     this.closeWindow();

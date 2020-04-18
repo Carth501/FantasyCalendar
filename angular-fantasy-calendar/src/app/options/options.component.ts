@@ -4,7 +4,7 @@ import { faArrowAltCircleUp, faBars } from '@fortawesome/free-solid-svg-icons';
 import { EMPTY_LEAP_YEAR, LeapYear } from '../leapYear';
 import { TotalSettings } from '../totalSettings';
 import { YearService } from '../year.service';
-import { CalendarEvent, EMPTY_EVENT } from '../calendarEvent';
+import * as eventTypes from '../calendarEvent';
 
 @Component({
   selector: 'app-options',
@@ -35,8 +35,11 @@ export class OptionsComponent {
   @Input() fromjson: string;
   @Output() readNewjson = new EventEmitter<string>();
 
-  @Input() eventArray: CalendarEvent[];
-  potentialEvent = EMPTY_EVENT;
+  @Input() cyclicalEvents: eventTypes.CyclicalEvent[];
+  @Input() weeklyEvents: eventTypes.WeeklyEvent[];
+  @Input() monthlyEvents: eventTypes.MonthlyEvent[];
+  @Input() yearlyEvents: eventTypes.YearlyEvent[];
+  potentialCyclicalEvent = eventTypes.EMPTY_CYCLICAL_EVENT;
 
   constructor(
     private yearService: YearService,
@@ -44,24 +47,10 @@ export class OptionsComponent {
     ) { }
 
 
-  toggleSettingsSidebar(): void {
-    this.hideSettings = !this.hideSettings;
-  }
-
-  pushChanges(): void {
-    this.daysPerYear = this.yearService.sumOfMonths(this.daysPerMonths);
-    this.totalSettingsObject = {
-      calendarSettings: {
-        ...this.totalSettingsObject.calendarSettings,
-        DoW_names: this.DoW_names.slice(),
-        monthNames: this.MonthNames.slice(),
-        daysPerMonths: this.daysPerMonths.slice(),
-        currentYear: this.currentYear,
-        leapYears: this.leapYears
-      },
-      eventArray: this.eventArray
-    };
-    this.changes.emit(this.totalSettingsObject);
+  settingsArrived(totalSettings: TotalSettings): void {
+    this.jsonSave = JSON.stringify(totalSettings);
+    this.totalSettingsObject = totalSettings;
+    this.optionsArrived(totalSettings);
   }
 
   optionsArrived(totalSettings: TotalSettings): void {
@@ -75,11 +64,40 @@ export class OptionsComponent {
         this.currentYear = totalSettings.calendarSettings.currentYear;
         this.leapYears = totalSettings.calendarSettings.leapYears;
       }
-      if (totalSettings.eventArray) {
-        this.eventArray = totalSettings.eventArray;
+      if (totalSettings.cyclicalEvents) {
+        this.cyclicalEvents = totalSettings.cyclicalEvents;
+      }
+      if (totalSettings.weeklyEvents) {
+        this.weeklyEvents = totalSettings.weeklyEvents;
+      }
+      if (totalSettings.monthlyEvents) {
+        this.monthlyEvents = totalSettings.monthlyEvents;
+      }
+      if (totalSettings.yearlyEvents) {
+        this.yearlyEvents = totalSettings.yearlyEvents;
       }
     }
   }
+
+  pushChanges(): void {
+    this.daysPerYear = this.yearService.sumOfMonths(this.daysPerMonths);
+    this.totalSettingsObject = {
+      calendarSettings: {
+        ...this.totalSettingsObject.calendarSettings,
+        DoW_names: this.DoW_names.slice(),
+        monthNames: this.MonthNames.slice(),
+        daysPerMonths: this.daysPerMonths.slice(),
+        currentYear: this.currentYear,
+        leapYears: this.leapYears
+      },
+      cyclicalEvents: this.cyclicalEvents,
+      weeklyEvents: this.weeklyEvents,
+      monthlyEvents: this.monthlyEvents,
+      yearlyEvents: this.yearlyEvents
+    };
+    this.changes.emit(this.totalSettingsObject);
+  }
+
 
   addMonth(): void {
     const newMonthInput = document.getElementById('new-month-field') as HTMLInputElement;
@@ -112,29 +130,27 @@ export class OptionsComponent {
   }
 
   addEvent(): void {
-    if (this.potentialEvent && this.eventArray) {
+    if (this.potentialCyclicalEvent && this.cyclicalEvents) {
       if (
-        this.potentialEvent.dateID &&
-        this.potentialEvent.duration &&
-        this.potentialEvent.repeatDays &&
-        this.potentialEvent.title
+        this.potentialCyclicalEvent.dateID &&
+        this.potentialCyclicalEvent.duration &&
+        this.potentialCyclicalEvent.repeatDays &&
+        this.potentialCyclicalEvent.title
         ) {
-          this.potentialEvent.repeatAnnual = false;
-          // annual repetition not implemented
-          this.potentialEvent.eventID = this.eventArray.length;
-          this.eventArray.push(this.potentialEvent);
-          this.potentialEvent.dateID = null;
-          this.potentialEvent.duration = null;
-          this.potentialEvent.eventID = null;
-          this.potentialEvent.repeatDays = null;
-          this.potentialEvent.title = null;
+          this.potentialCyclicalEvent.eventID = this.cyclicalEvents.length;
+          this.cyclicalEvents.push(this.potentialCyclicalEvent);
+          this.potentialCyclicalEvent.dateID = null;
+          this.potentialCyclicalEvent.duration = null;
+          this.potentialCyclicalEvent.eventID = null;
+          this.potentialCyclicalEvent.repeatDays = null;
+          this.potentialCyclicalEvent.title = null;
       }
     }
   }
 
-  deleteEvent(index: number): void {
+  deleteCyclicalEvent(index: number): void {
     if (index >= 0) {
-      this.eventArray.splice(index, 1);
+      this.cyclicalEvents.splice(index, 1);
     }
   }
 
@@ -158,12 +174,6 @@ export class OptionsComponent {
     return index;
   }
 
-  settingsArrived(totalSettings: TotalSettings): void {
-    this.jsonSave = JSON.stringify(totalSettings);
-    this.totalSettingsObject = totalSettings;
-    this.optionsArrived(totalSettings);
-  }
-
   clipboardJSON(): void {
     const pending = this.clipboard.beginCopy(this.jsonSave);
     let remainingAttempts = 3;
@@ -181,5 +191,9 @@ export class OptionsComponent {
 
   newUserJSON(): void {
     this.readNewjson.emit(this.fromjson);
+  }
+
+  toggleSettingsSidebar(): void {
+    this.hideSettings = !this.hideSettings;
   }
 }

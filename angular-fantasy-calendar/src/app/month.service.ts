@@ -1,8 +1,9 @@
 import { EventEmitter, Injectable, Output } from '@angular/core';
-import { CalendarEvent } from './calendarEvent';
 import { CalendarSettings } from './calendarSettings';
 import { Day } from './day';
 import { Month } from './month';
+import { TotalSettings } from './totalSettings';
+import { CyclicalEvent } from './calendarEvent';
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +21,7 @@ export class MonthService {
 
   getDisplayMonth(
     yearStartingDayID: number, monthStartingDayID: number, monthLength: number,
-    startingDoW: number, eventArray: CalendarEvent[], daysPerWeek: number,
-    monthName: string): Month {
+    startingDoW: number, daysPerWeek: number, monthName: string, totalSettings: TotalSettings): Month {
 
     let currentWeekday = startingDoW;
     let week = 0;
@@ -39,7 +39,7 @@ export class MonthService {
         id: monthStartingDayID + i,
         dayOfMonth: i + 1,
         dayOfYear: (monthStartingDayID + i) - yearStartingDayID + 1,
-        events: this.getEventList(monthStartingDayID + i, eventArray)};
+        events: this.getEventList(monthStartingDayID + i, totalSettings.cyclicalEvents)};
       if (currentWeekday === daysPerWeek - 1) {
         currentWeekday = 0;
         week++;
@@ -59,8 +59,8 @@ export class MonthService {
     return weekProto;
   }
 
-  getEventList(index: number, eventArray: CalendarEvent[]): CalendarEvent[] {
-    const result: CalendarEvent[] = [];
+  getEventList(index: number, eventArray: CyclicalEvent[]): CyclicalEvent[] {
+    const result: CyclicalEvent[] = [];
     if (eventArray) {
       eventArray.forEach(calendarEvent => {
         if (index - calendarEvent.dateID >= 0) {

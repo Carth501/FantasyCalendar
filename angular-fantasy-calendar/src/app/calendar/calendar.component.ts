@@ -2,8 +2,8 @@ import { Component, Input, ViewChild } from '@angular/core';
 import { faArrowAltCircleLeft, faArrowAltCircleRight } from '@fortawesome/free-solid-svg-icons';
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { CalendarEvent } from '../calendarEvent';
 import { LeapYear } from '../leapYear';
+import { TotalSettings } from '../totalSettings';
 import { Year } from '../year';
 import { YearService } from '../year.service';
 
@@ -13,29 +13,30 @@ import { YearService } from '../year.service';
   styleUrls: ['./calendar.component.css']
 })
 export class CalendarComponent {
-  @Input() set calendarSettings(value) { this.settingsArrived(value); }
-  @Input() set setEventArray(value) { this.eventsArrived(value); }
 
   faArrowAltCircleLeft = faArrowAltCircleLeft;
   faArrowAltCircleRight = faArrowAltCircleRight;
-
-  eventArray: CalendarEvent[];
+  @Input() set settings(totalSettings) {
+    this.settingsArrived(totalSettings);
+  }
+  totalSettings: TotalSettings;
   settingsLoaded = false;
   eventsLoaded = false;
 
   currentYear: number;
-  startingDayID: number;
-  daysPerYear: number;
-  @Input() daysPerMonths: number[];
+  yearStartingID: number;
+  yearStartingDOW: number;
+  daysPerMonths: number[];
   daysPerWeek: number;
-  startingDoW: number;
   DoWNames: string[];
-  MonthNames: string[];
+  monthNames: string[];
   year: Year;
+  yearLength: number;
+  leapYears: LeapYear[];
+
   userYearChange = new Subject<number>();
   @ViewChild('newMonth') newMonth;
 
-  leapYears: LeapYear[];
 
   constructor(
     private yearService: YearService) {
@@ -48,16 +49,26 @@ export class CalendarComponent {
         });
       }
 
-  generateDisplayYear(): void {
-    if (this.calendarReady) {
-      this.daysPerYear = this.calculateYearLength();
-      this.year = this.yearService.getDisplayYear(
-        this.startingDayID, this.daysPerMonths, this.startingDoW, this.eventArray,
-        this.daysPerWeek, this.MonthNames, this.currentYear, this.leapYears,
-        );
-    } else {
-      console.log('generateDisplayYear was called, but not ready!');
+  settingsArrived(IncomingSettings): void {
+    if (IncomingSettings && IncomingSettings.calendarSettings) {
+      this.totalSettings = IncomingSettings;
+      this.currentYear = this.totalSettings.calendarSettings.currentYear;
+      this.daysPerMonths = this.totalSettings.calendarSettings.daysPerMonths;
+      this.yearLength = this.yearService.sumOfMonths(this.daysPerMonths);
+      this.yearStartingID = this.totalSettings.calendarSettings.startingDayID;
+      this.yearStartingDOW = this.totalSettings.calendarSettings.startingDoW;
+      this.DoWNames = this.totalSettings.calendarSettings.DoW_names;
+      this.daysPerWeek = this.DoWNames.length;
+      this.monthNames = this.totalSettings.calendarSettings.monthNames;
+      this.leapYears = this.totalSettings.calendarSettings.leapYears;
+      this.generateDisplayYear();
     }
+  }
+
+  generateDisplayYear(): void {
+    this.yearLength = this.calculateYearLength();
+    this.year = this.yearService.getDisplayYear( this.yearStartingID, this.daysPerMonths, this.yearStartingDOW, this.daysPerWeek, this.monthNames, this.currentYear, this.leapYears, this.totalSettings
+      );
   }
 
   jumpToYear(newYear: number): void {
@@ -74,8 +85,8 @@ export class CalendarComponent {
   }
 
   calcNextYearData(): void {
-    this.startingDoW = this.yearService.getNextStartingDoW(this.daysPerYear, this.startingDoW, this.daysPerWeek);
-    this.startingDayID = this.yearService.getNextStartingID(this.startingDayID, this.daysPerYear);
+    this.yearStartingDOW = this.yearService.getNextStartingDoW(this.yearLength, this.yearStartingDOW, this.daysPerWeek);
+    this.yearStartingID = this.yearService.getNextStartingID(this.yearStartingID, this.yearLength);
     this.currentYear++;
   }
 
@@ -87,44 +98,14 @@ export class CalendarComponent {
 
   calcPreviousYearData(): void {
     this.currentYear--;
-    this.daysPerYear = this.calculateYearLength();
-    this.startingDoW = this.yearService.getPreviousStartingDoW(this.daysPerYear, this.startingDoW, this.daysPerWeek);
-    this.startingDayID = this.yearService.getPreviousStartingID(this.startingDayID, this.daysPerYear);
+    this.yearLength = this.calculateYearLength();
+    this.yearStartingDOW = this.yearService.getPreviousStartingDoW(this.yearLength, this.yearStartingDOW, this.daysPerWeek);
+    this.yearStartingID = this.yearService.getPreviousStartingID(this.yearStartingID, this.yearLength);
   }
 
   generatePreviousDisplayYear(): void {
     this.calcPreviousYearData();
     this.generateDisplayYear();
-  }
-
-
-
-  settingsArrived(IncomingSettings): void {
-    if (IncomingSettings) {
-      this.startingDayID = IncomingSettings.startingDayID;
-      this.daysPerMonths = IncomingSettings.daysPerMonths;
-      this.DoWNames = IncomingSettings.DoW_names;
-      this.startingDoW = IncomingSettings.startingDoW;
-      this.daysPerWeek = this.DoWNames.length;
-      this.MonthNames = IncomingSettings.monthNames;
-      this.currentYear = IncomingSettings.currentYear;
-      this.settingsLoaded = true;
-      this.daysPerYear = this.yearService.sumOfMonths(this.daysPerMonths);
-      this.leapYears = IncomingSettings.leapYears;
-      this.calendarReady();
-    }
-  }
-
-  eventsArrived(IncomingEvents): void {
-    this.eventArray = IncomingEvents;
-    this.eventsLoaded = true;
-    this.calendarReady();
-  }
-
-  calendarReady(): void {
-    if (this.settingsLoaded && this.eventsLoaded) {
-      this.generateDisplayYear();
-    }
   }
 
   calculateYearLength(): number {

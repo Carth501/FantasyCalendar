@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { CalendarEvent } from './calendarEvent';
 import { MonthService } from './month.service';
 import { Year } from './year';
 import { LeapYear } from './leapYear';
+import { TotalSettings } from './totalSettings';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +15,9 @@ export class YearService {
 
   getDisplayYear(
     startingDayID: number, daysPerMonths: number[],
-    startingDoW: number, eventArray: CalendarEvent[], daysPerWeek: number,
-    monthNames: string[], yearNumber: number, leapYears: LeapYear[]
+    startingDoW: number, daysPerWeek: number,
+    monthNames: string[], yearNumber: number, leapYears: LeapYear[],
+    totalSettings: TotalSettings
     ): Year {
     const year = {
       id: 0,
@@ -29,7 +30,7 @@ export class YearService {
     let i = 0;
     while (i < monthNames.length) {
       year.months.push(this.monthService.getDisplayMonth(startingDayID, nextDayID,
-        monthLengths[i], nextDoW, eventArray, daysPerWeek, monthNames[i]));
+        monthLengths[i], nextDoW, daysPerWeek, monthNames[i], totalSettings));
 
       nextDayID = this.monthService.getNextStartingID(nextDayID, monthLengths[i]);
 

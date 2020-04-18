@@ -1,15 +1,21 @@
 import { Injectable } from '@angular/core';
 import { InMemoryDbService } from 'angular-in-memory-web-api';
+import { CyclicalEvent, YearlyEvent, WeeklyEvent, MonthlyEvent } from './calendarEvent';
+import { TotalSettings } from './totalSettings';
 
 @Injectable({
   providedIn: 'root',
 })
 export class InMemoryDataService implements InMemoryDbService {
   createDb() {
-    const calendarEvents = [
-      {eventID: 0, title: 'Height of Winter', dateID: 6, duration: 1, repeatDays: 0, repeatAnnual: false},
-      {eventID: 1, title: 'Very rare!', dateID: 6, duration: 1, repeatDays: 1620, repeatAnnual: false},
-      {eventID: 2, title: 'Full Moon', dateID: 22, duration: 4, repeatDays: 29.530, repeatAnnual: false}
+    const cyclicalEvents: CyclicalEvent[] = [
+      {eventID: 1, title: 'Very rare!', dateID: 6, duration: 1, repeatDays: 1620},
+      {eventID: 2, title: 'Full Moon', dateID: 22, duration: 4, repeatDays: 29.530}
+    ];
+    const weeklyEvents: WeeklyEvent[] = [];
+    const monthlyEvents: MonthlyEvent[] = [];
+    const yearlyEvents: YearlyEvent[] = [
+      {title: 'Height of Winter', duration: 1, day: 5, month: 1}
     ];
     const calendarSettings = {
       startingDayID: 4000000,
@@ -25,7 +31,14 @@ export class InMemoryDataService implements InMemoryDbService {
         {leapYearCycles: 400, leapYearOffset: 0, leapYearChange: 1, leapDayMonth: 1},
       ]
     };
-    return {calendarEvents, calendarSettings};
+    const defaultSettings: TotalSettings = {
+      calendarSettings,
+      cyclicalEvents,
+      weeklyEvents,
+      monthlyEvents,
+      yearlyEvents
+    };
+    return {defaultSettings};
   }
 
   // Overrides the genId method to ensure that a hero always has an id.

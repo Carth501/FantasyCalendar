@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { faArrowAltCircleUp } from '@fortawesome/free-solid-svg-icons';
 import * as _ from 'lodash';
 import { CalendarService } from '../calendar.service';
-import { CalendarEvent } from '../calendarEvent';
-import { CalendarSettings } from '../calendarSettings';
+import { CyclicalEvent, WeeklyEvent, MonthlyEvent, YearlyEvent } from '../calendarEvent';
 import { TotalSettings } from '../totalSettings';
 import { CalendarEventService } from '../calendar-event.service';
 
@@ -16,9 +15,13 @@ export class ViewComponent implements OnInit {
 
   faArrowAltCircleUp = faArrowAltCircleUp;
 
-  calendarSettings: CalendarSettings;
-  eventArray: CalendarEvent[];
-  totalSettings: TotalSettings;
+  totalSettings: TotalSettings = {
+    calendarSettings: null,
+    cyclicalEvents: null,
+    weeklyEvents: null,
+    monthlyEvents: null,
+    yearlyEvents: null
+  }; // initial values should not be passed to calendar component
   showNewEvent = false;
 
   myObserver = {
@@ -26,16 +29,6 @@ export class ViewComponent implements OnInit {
     error: err => console.error('Got an error: ' + err),
     complete: () => console.log('Got a complete notification')
   };
-
-  setWindow(state: boolean): void {
-    this.showNewEvent = state;
-  }
-
-  createNewEvent(newEvent: CalendarEvent): void {
-    const tempEventArray = this.totalSettings.eventArray;
-    tempEventArray.push(newEvent);
-    this.eventsArrived(tempEventArray);
-  }
 
   constructor(
     private calendarService: CalendarService,
@@ -45,42 +38,15 @@ export class ViewComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    this.totalSettings = {calendarSettings: null, eventArray: null};
     this.getSettings();
-    this.getEvents();
   }
 
   getSettings(): void {
-    this.calendarService.requestCalendarSettings().subscribe(IncomingSettings => this.splitSettings(IncomingSettings));
+    this.calendarService.requestCalendar().subscribe(IncomingSettings => this.splitSettings(IncomingSettings));
   }
 
-  splitSettings(calendarSettings: CalendarSettings): void {
-    this.calendarSettings = calendarSettings;
-    const tempCalendarSettings = _.cloneDeep(this.calendarSettings);
-    this.totalSettings = {...this.totalSettings, calendarSettings: tempCalendarSettings};
-  }
-
-  getEvents(): void {
-    this.calendarService.requestEvents().subscribe(IncomingEvents => this.eventsArrived(IncomingEvents));
-  }
-
-  eventsArrived(eventArray: CalendarEvent[]): void {
-    this.eventArray = eventArray;
-    const tempEventArray = _.cloneDeep(this.eventArray);
-    this.totalSettings = {...this.totalSettings, eventArray: tempEventArray};
-  }
-
-  updateCalendar(newSettings: TotalSettings): void {
-    this.totalSettings = newSettings;
-    this.calendarSettings = {
-      ...this.calendarSettings,
-      daysPerMonths: newSettings.calendarSettings.daysPerMonths,
-      DoW_names: newSettings.calendarSettings.DoW_names,
-      monthNames: newSettings.calendarSettings.monthNames,
-      currentYear: newSettings.calendarSettings.currentYear,
-      leapYears: newSettings.calendarSettings.leapYears
-    };
-    this.eventArray = newSettings.eventArray;
+  splitSettings(totalSettings: TotalSettings): void {
+    this.totalSettings = totalSettings;
   }
 
   scrollToTop(): void {
@@ -89,7 +55,34 @@ export class ViewComponent implements OnInit {
 
   newTotalSettings(newSettings: string): void {
     this.totalSettings = JSON.parse(newSettings);
-    this.splitSettings(this.totalSettings.calendarSettings);
-    this.eventsArrived(this.totalSettings.eventArray);
+    this.splitSettings(this.totalSettings);
+  }
+
+  setWindow(state: boolean): void {
+    this.showNewEvent = state;
+  }
+
+  createNewCyclicalEvent(newEvent: CyclicalEvent): void {
+    const tempEventArray = this.totalSettings.cyclicalEvents;
+    tempEventArray.push(newEvent);
+    this.totalSettings = {...this.totalSettings, cyclicalEvents: tempEventArray};
+  }
+
+  createNewWeeklyEvent(newEvent: WeeklyEvent): void {
+    const tempEventArray = this.totalSettings.weeklyEvents;
+    tempEventArray.push(newEvent);
+    this.totalSettings = {...this.totalSettings, weeklyEvents: tempEventArray};
+  }
+
+  createNewMonthlyEvent(newEvent: MonthlyEvent): void {
+    const tempEventArray = this.totalSettings.monthlyEvents;
+    tempEventArray.push(newEvent);
+    this.totalSettings = {...this.totalSettings, monthlyEvents: tempEventArray};
+  }
+
+  createNewYearlyEvent(newEvent: YearlyEvent): void {
+    const tempEventArray = this.totalSettings.yearlyEvents;
+    tempEventArray.push(newEvent);
+    this.totalSettings = {...this.totalSettings, yearlyEvents: tempEventArray};
   }
 }

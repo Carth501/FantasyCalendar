@@ -1,8 +1,11 @@
-import { CyclicalEvent } from './calendarEvent';
+import { CyclicalEvent, WeeklyEvent, MonthlyEvent, YearlyEvent } from './calendarEvent';
 
 export interface Day {
     id: number;
     dayOfMonth: number;
     dayOfYear: number;
-    events?: CyclicalEvent[];
+    cyclicalEvents?: CyclicalEvent[];
+    weeklyEvents?: WeeklyEvent[];
+    monthlyEvents?: MonthlyEvent[];
+    yearlyEvents?: YearlyEvent[];
 }

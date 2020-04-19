@@ -8,9 +8,24 @@
         </div>
     </div>
     <div class="day-content">
-        <ul *ngFor="let calendarEvent of day.events">
-            <li *ngIf="calendarEvent">
-                {{calendarEvent.title}}
+        <ul *ngFor="let cyclicalEvent of day.cyclicalEvents">
+            <li *ngIf="cyclicalEvent">
+                {{cyclicalEvent.title}}
+            </li>
+        </ul>
+        <ul *ngFor="let yearlyEvent of day.yearlyEvents">
+            <li *ngIf="yearlyEvent">
+                {{yearlyEvent.title}}
+            </li>
+        </ul>
+        <ul *ngFor="let monthlyEvent of day.monthlyEvents">
+            <li *ngIf="monthlyEvent">
+                {{monthlyEvent.title}}
+            </li>
+        </ul>
+        <ul *ngFor="let weeklyEvent of day.weeklyEvents">
+            <li *ngIf="weeklyEvent">
+                {{weeklyEvent.title}}
             </li>
         </ul>
     </div>

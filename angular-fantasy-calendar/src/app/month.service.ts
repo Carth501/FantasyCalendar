@@ -3,7 +3,7 @@ import { CalendarSettings } from './calendarSettings';
 import { Day } from './day';
 import { Month } from './month';
 import { TotalSettings } from './totalSettings';
-import { CyclicalEvent } from './calendarEvent';
+import { CyclicalEvent, WeeklyEvent, MonthlyEvent, YearlyEvent } from './calendarEvent';
 
 @Injectable({
   providedIn: 'root'
@@ -35,11 +35,21 @@ export class MonthService {
     }
     let i = 0;
     while (i < monthLength) {
+      const dayOfMonth = i + 1;
+      const dayOfYear = (monthStartingDayID + i) - yearStartingDayID + 1;
       month.weeks[week].days[currentWeekday] = {
         id: monthStartingDayID + i,
-        dayOfMonth: i + 1,
-        dayOfYear: (monthStartingDayID + i) - yearStartingDayID + 1,
-        events: this.getEventList(monthStartingDayID + i, totalSettings.cyclicalEvents)};
+        dayOfMonth,
+        dayOfYear,
+        cyclicalEvents: this.getCyclicalEventList(monthStartingDayID + i,
+                totalSettings.cyclicalEvents),
+        weeklyEvents: this.getWeeklyEventList(currentWeekday,
+                totalSettings.weeklyEvents),
+        monthlyEvents: this.getMonthlyEventList(dayOfMonth, totalSettings.
+                monthlyEvents),
+        yearlyEvents: this.getYearlyEventList(dayOfYear, totalSettings.
+                yearlyEvents)
+      };
       if (currentWeekday === daysPerWeek - 1) {
         currentWeekday = 0;
         week++;
@@ -59,10 +69,10 @@ export class MonthService {
     return weekProto;
   }
 
-  getEventList(index: number, eventArray: CyclicalEvent[]): CyclicalEvent[] {
+  getCyclicalEventList(index: number, cyclicalEvents: CyclicalEvent[]): CyclicalEvent[] {
     const result: CyclicalEvent[] = [];
-    if (eventArray) {
-      eventArray.forEach(calendarEvent => {
+    if (cyclicalEvents) {
+      cyclicalEvents.forEach(calendarEvent => {
         if (index - calendarEvent.dateID >= 0) {
           if (calendarEvent.repeatDays === 0) {
             if (index - calendarEvent.dateID <= (calendarEvent.duration - 1)) {
@@ -73,6 +83,42 @@ export class MonthService {
               result.push(calendarEvent);
             }
           }
+        }
+      });
+    }
+    return result;
+  }
+
+  getWeeklyEventList(dayOfWeek: number, weeklyEvents: WeeklyEvent[]): WeeklyEvent[] {
+    const result: WeeklyEvent[] = [];
+    if (weeklyEvents) {
+      weeklyEvents.forEach(calendarEvent => {
+        if (dayOfWeek === calendarEvent.day) {
+          result.push(calendarEvent);
+        }
+      });
+    }
+    return result;
+  }
+
+  getMonthlyEventList(dayOfMonth: number, monthlyEvents: MonthlyEvent[]): MonthlyEvent[] {
+    const result: MonthlyEvent[] = [];
+    if (monthlyEvents) {
+      monthlyEvents.forEach(calendarEvent => {
+        if (dayOfMonth === calendarEvent.day) {
+          result.push(calendarEvent);
+        }
+      });
+    }
+    return result;
+  }
+
+  getYearlyEventList(dayOfYear: number, yearlyEvents: YearlyEvent[]): YearlyEvent[] {
+    const result: YearlyEvent[] = [];
+    if (yearlyEvents) {
+      yearlyEvents.forEach(calendarEvent => {
+        if (dayOfYear === calendarEvent.day) {
+          result.push(calendarEvent);
         }
       });
     }

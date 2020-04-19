@@ -132,6 +132,10 @@ input {
   justify-content: space-evenly;
 }
 
+.LYRule {
+  width: 60px;
+}
+
 #jsonSaveField {
   resize: none;
 }

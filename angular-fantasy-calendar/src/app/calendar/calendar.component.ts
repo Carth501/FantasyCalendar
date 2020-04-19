@@ -91,7 +91,6 @@ export class CalendarComponent {
   }
 
   generateNextDisplayYear(): void {
-    console.log('nextDisplay');
     this.calcNextYearData();
     this.generateDisplayYear();
   }

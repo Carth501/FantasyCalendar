@@ -1,0 +1,18 @@
+<div class="input-fields">
+    <div class="title" *ngIf="editable">
+        <label for="title-field">Title</label>
+        <input [disabled]="!editable" class="input-field" [(ngModel)]="cyclicalEvent.title"/>
+    </div>
+    <div class="offset">
+        <label for="offset-field">Offset</label>
+        <input [disabled]="!editable" class="input-field" [(ngModel)]="cyclicalEvent.offset"/>
+    </div>
+    <div class="duration">
+        <label for="duration-field">Duration</label>
+        <input [disabled]="!editable" class="input-field" [(ngModel)]="cyclicalEvent.duration"/>
+    </div>
+    <div class="duration">
+        <label for="duration-field">Length of Cycle</label>
+        <input [disabled]="!editable" class="input-field" [(ngModel)]="cyclicalEvent.duration"/>
+    </div>
+</div>

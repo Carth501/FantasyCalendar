@@ -100,37 +100,41 @@
             <div class="input-region">
                 <div class="events-list">
                     <div class="input-fields" *ngFor="let x of cyclicalEvents; let idx = index; trackBy: trackArray">
-                        <input [(ngModel)]="cyclicalEvents[idx].title" placeholder="new event name" type="string" class="event-name"/>
-                        <input [(ngModel)]="cyclicalEvents[idx].offset" placeholder="new event offset" type="number" class="other-event-fields"/>
-                        <input [(ngModel)]="cyclicalEvents[idx].duration" placeholder="duration" type="number" class="event-duration-fields"/>
-                        <input [(ngModel)]="cyclicalEvents[idx].repeatDays" placeholder="cycle length" type="number" class="other-event-fields"/>
+                        <app-event 
+                        [calendarEvent]="x" 
+                        [eventType]="'cyclical'"
+                        [editable]=true
+                        ></app-event>
                         <button class="event-delete" (click)= "deleteCyclicalEvent(idx)">
                             X
                         </button>
                     </div>
                     <div class="input-fields" *ngFor="let x of yearlyEvents; let idx = index; trackBy: trackArray">
-                        <input [(ngModel)]="yearlyEvents[idx].title" placeholder="new event name" type="string" class="event-name"/>
-                        <input [(ngModel)]="yearlyEvents[idx].offset" placeholder="new event offset" type="number" class="other-event-fields"/>
-                        <input [(ngModel)]="yearlyEvents[idx].duration" placeholder="duration" type="number" class="event-duration-fields"/>
-                        <div *ngIf="yearlyEvents[idx].month">
-                            <input [(ngModel)]="yearlyEvents[idx].month" placeholder="month" type="number" class="other-event-fields"/>
-                        </div>
+                        <app-event 
+                        [calendarEvent]="x" 
+                        [eventType]="'yearly'"
+                        [editable]=true
+                        ></app-event>
                         <button class="event-delete" (click)= "deleteYearlyEvent(idx)">
                             X
                         </button>
                     </div>
                     <div class="input-fields" *ngFor="let x of monthlyEvents; let idx = index; trackBy: trackArray">
-                        <input [(ngModel)]="monthlyEvents[idx].title" placeholder="new event name" type="string" class="event-name"/>
-                        <input [(ngModel)]="monthlyEvents[idx].offset" placeholder="new event offset" type="number" class="other-event-fields"/>
-                        <input [(ngModel)]="monthlyEvents[idx].duration" placeholder="duration" type="number" class="event-duration-fields"/>
+                        <app-event 
+                        [calendarEvent]="x" 
+                        [eventType]="'monthly'"
+                        [editable]=true
+                        ></app-event>
                         <button class="event-delete" (click)= "deleteMonthlyEvent(idx)">
                             X
                         </button>
                     </div>
                     <div class="input-fields" *ngFor="let x of weeklyEvents; let idx = index; trackBy: trackArray">
-                        <input [(ngModel)]="weeklyEvents[idx].title" placeholder="new event name" type="string" class="event-name"/>
-                        <input [(ngModel)]="weeklyEvents[idx].offset" placeholder="new event offset" type="number" class="other-event-fields"/>
-                        <input [(ngModel)]="weeklyEvents[idx].duration" placeholder="duration" type="number" class="event-duration-fields"/>
+                        <app-event 
+                        [calendarEvent]="x" 
+                        [eventType]="'weekly'"
+                        [editable]=true
+                        ></app-event>
                         <button class="event-delete" (click)= "deleteWeeklyEvent(idx)">
                             X
                         </button>

@@ -1,0 +1,26 @@
+<div class="input-fields">
+    <div class="title" *ngIf="editable">
+        <label for="title-field">Title</label>
+        <input [disabled]="!editable" class="input-field"
+            id="title-field"
+            [(ngModel)]="weeklyEvent.title"/>
+    </div>
+    <div class="offset">
+        <label for="offset-field">Offset</label>
+        <input [disabled]="!editable" class="input-field"
+            id="offset-field"
+            [(ngModel)]="weeklyEvent.offset"/>
+    </div>
+    <div class="duration">
+        <label for="duration-field">Duration</label>
+        <input [disabled]="!editable" class="input-field"
+            id="duration-field"
+            [(ngModel)]="weeklyEvent.duration"/>
+    </div>
+    <div class="roundToNearest">
+        <label for="roundToNearest-field">Length of Cycle</label>
+        <input [disabled]="!editable" class="input-field" 
+            id="roundToNearest-field" type="checkbox"
+            [(ngModel)]="weeklyEvent.roundToNearest"/>
+    </div>
+</div>

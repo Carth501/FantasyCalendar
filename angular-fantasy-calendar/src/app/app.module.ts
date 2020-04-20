@@ -1,22 +1,27 @@
+import { ClipboardModule } from '@angular/cdk/clipboard';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { DayComponent } from './day/day.component';
+import { EventComponent } from './event/event.component';
 import { InMemoryDataService } from './in-memory-data.service';
 import { MonthComponent } from './month/month.component';
+import { NewEventComponent } from './new-event/new-event.component';
 import { OptionsComponent } from './options/options.component';
 import { ViewComponent } from './view/view.component';
 import { WeekComponent } from './week/week.component';
 import { YearComponent } from './year/year.component';
-import { NewEventComponent } from './new-event/new-event.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ClipboardModule } from '@angular/cdk/clipboard';
+import { CyclicalFieldsComponent } from './cyclical-fields/cyclical-fields.component';
+import { YearlyFieldsComponent } from './yearly-fields/yearly-fields.component';
+import { MonthlyFieldsComponent } from './monthly-fields/monthly-fields.component';
+import { WeeklyFieldsComponent } from './weekly-fields/weekly-fields.component';
 
 
 
@@ -30,7 +35,12 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
     ViewComponent,
     WeekComponent,
     YearComponent,
-    NewEventComponent
+    NewEventComponent,
+    EventComponent,
+    CyclicalFieldsComponent,
+    YearlyFieldsComponent,
+    MonthlyFieldsComponent,
+    WeeklyFieldsComponent
   ],
   imports: [
     BrowserModule,

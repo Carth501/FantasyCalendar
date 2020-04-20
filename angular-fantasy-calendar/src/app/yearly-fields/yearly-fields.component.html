@@ -1,0 +1,32 @@
+<div class="input-fields">
+    <div class="title" *ngIf="editable">
+        <label for="title-field">Title</label>
+        <input [disabled]="!editable" class="input-field"
+            id="title-field"
+            [(ngModel)]="yearlyEvent.title"/>
+    </div>
+    <div class="offset">
+        <label for="offset-field">Offset</label>
+        <input [disabled]="!editable" class="input-field"
+            id="offset-field"
+            [(ngModel)]="yearlyEvent.offset"/>
+    </div>
+    <div class="duration">
+        <label for="duration-field">Duration</label>
+        <input [disabled]="!editable" class="input-field"
+            id="duration-field"
+            [(ngModel)]="yearlyEvent.duration"/>
+    </div>
+    <div class="roundToNearest">
+        <label for="roundToNearest-field">Length of Cycle</label>
+        <input [disabled]="!editable" class="input-field" 
+            id="roundToNearest-field" type="checkbox"
+            [(ngModel)]="yearlyEvent.roundToNearest"/>
+    </div>
+    <div class="month" *ngIf="yearlyEvent.month">
+        <label for="month-field">Month</label>
+        <input [disabled]="!editable" class="input-field"
+            id="month-field"
+            [(ngModel)]="yearlyEvent.month"/>
+    </div>
+</div>

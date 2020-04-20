@@ -154,3 +154,10 @@ input {
   display: flex;
   flex-direction: row;
 }
+
+.event-delete {
+  right: 1;
+  height: 20px;
+  width: 25px;
+  padding: 0px;
+}

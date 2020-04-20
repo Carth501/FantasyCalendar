@@ -8,23 +8,17 @@
         </div>
     </div>
     <div class="day-content">
-        <ul *ngFor="let cyclicalEvent of day.cyclicalEvents">
-            <li *ngIf="cyclicalEvent">
+        <ul>
+            <li *ngFor="let cyclicalEvent of day.cyclicalEvents">
                 {{cyclicalEvent.title}}
             </li>
-        </ul>
-        <ul *ngFor="let yearlyEvent of day.yearlyEvents">
-            <li *ngIf="yearlyEvent">
+            <li *ngFor="let yearlyEvent of day.yearlyEvents">
                 {{yearlyEvent.title}}
             </li>
-        </ul>
-        <ul *ngFor="let monthlyEvent of day.monthlyEvents">
-            <li *ngIf="monthlyEvent">
+            <li *ngFor="let monthlyEvent of day.monthlyEvents">
                 {{monthlyEvent.title}}
             </li>
-        </ul>
-        <ul *ngFor="let weeklyEvent of day.weeklyEvents">
-            <li *ngIf="weeklyEvent">
+            <li *ngFor="let weeklyEvent of day.weeklyEvents">
                 {{weeklyEvent.title}}
             </li>
         </ul>

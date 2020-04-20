@@ -1,0 +1,19 @@
+<div class="panel">
+    <button class="toggleEvent" (click)="toggleEvent()">{{calendarEvent.title}}</button>
+    <div *ngIf="expanded">
+
+        <div *ngIf="eventType === 'cyclical'">
+            <app-cyclical-fields
+                [addEvent]="calendarEvent"
+                [editable]="editable"
+            ></app-cyclical-fields>
+        </div>
+
+        <div *ngIf="eventType === 'yearly'">
+            <app-yearly-fields
+                [addEvent]="calendarEvent"
+                [editable]="editable"
+            ></app-yearly-fields>
+        </div>
+    </div>
+</div>

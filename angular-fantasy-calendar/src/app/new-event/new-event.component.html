@@ -1,16 +1,29 @@
-<div class="panel">
-    <div class="topBar">
-        <h3>Create New Event</h3>
-        <button (click)="closeWindow()">X</button>
+<div class="region">
+    <select id="event-type" [(ngModel)]="eventType">
+        <option value="cyclical">Cyclical, independent of calendar</option>
+        <option value="yearly">Happens once a year</option>
+        <option value="monthly">Happens once a month</option>
+        <option value="week">Happens once a week</option>
+    </select>
+    <input id="title" [(ngModel)]="title" type="text" placeholder="Title"/>
+    <div class="yearly" *ngIf="eventType === 'yearly'">
+        <input id="month" [(ngModel)]="month" type="number" placeholder="Month" min=1/>
+    </div>
+    <div class="yearly" *ngIf="eventType === 'yearly'">
+        <input id="offset" [(ngModel)]="offset" type="number" placeholder="Day of the month"/>
+    </div>
+    <div class="not-yearly" *ngIf="eventType != 'yearly'">
+        <input id="offset" [(ngModel)]="offset" type="number" placeholder="Offset"/>
+    </div>
+    <input id="duration" [(ngModel)]="duration" type="number"  placeholder="Duration of event" min=1/>
+
+    <div class="not-cyclical" *ngIf="eventType != 'cyclical'">
+        <label for="round-to-nearest">Round to the nearest spot?</label>
+        <input name="round-to-nearest" id="roundToNearest" [(ngModel)]="roundToNearest" type="checkbox" />
     </div>
 
-    <input id="title" [(ngModel)]="title" type="text" placeholder="Title"/>
-    <input id="dateID" [(ngModel)]="dateID" type="number" placeholder="Date offset"/>
-    <input id="duration" [(ngModel)]="duration" type="number"  placeholder="Duration of event" min=1/>
-    <div>
-        <input id="repeatAnnual" [(ngModel)]="repeatAnnual" type="checkbox" id="annual"/>
-        <label for="annual">Does this repeat annually?</label>
+    <div class="cyclical" *ngIf="eventType === 'cyclical'">
+        <input id="repeatDays" [(ngModel)]="repeatDays" type="number" placeholder="Length of cycle" min=1/>
     </div>
-    <input id="repeatDays" *ngIf="!repeatAnnual" [(ngModel)]="repeatDays" type="number" placeholder="Length of cycle" min=1/>
     <button class="createButton" (click)="createEvent()">Create</button>
 </div>

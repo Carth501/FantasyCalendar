@@ -1,5 +1,5 @@
 <app-options
-    (changes)="newTotalSettings($event)"
+    (changes)="splitSettings($event)"
     [totalSettings]="totalSettings" 
     (readNewjson)="newTotalSettings($event)"
 ></app-options>
@@ -7,11 +7,19 @@
     [settings]="totalSettings"
 ></app-calendar>
 
-<app-new-event
-    *ngIf="showNewEvent"
-    (newEvent)="createNewCyclicalEvent($event)"
+<div class="new-event-panel" *ngIf="showNewEvent">
+    <div class="topBar">
+        <h3>Create New Event</h3>
+        <button (click)="closeEventWindow()">X</button>
+    </div>
+    <app-new-event
+    (newCyclicalEvent)="createNewCyclicalEvent($event)"
+    (newYearlyEvent)="createNewYearlyEvent($event)"
+    (newMonthlyEvent)="createNewMonthlyEvent($event)"
+    (newWeeklyEvent)="createNewWeeklyEvent($event)"
     (setWindow)="setWindow($event)"
-></app-new-event>
+    ></app-new-event>
+</div>
 
 <button class="scroll-to-top" (click)="scrollToTop()">
     <fa-icon [icon]="faArrowAltCircleUp" size="4x"></fa-icon>

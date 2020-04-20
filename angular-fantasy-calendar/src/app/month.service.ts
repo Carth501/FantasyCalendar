@@ -73,13 +73,13 @@ export class MonthService {
     const result: CyclicalEvent[] = [];
     if (cyclicalEvents) {
       cyclicalEvents.forEach(calendarEvent => {
-        if (index - calendarEvent.dateID >= 0) {
+        if (index - calendarEvent.offset >= 0) {
           if (calendarEvent.repeatDays === 0) {
-            if (index - calendarEvent.dateID <= (calendarEvent.duration - 1)) {
+            if (index - calendarEvent.offset <= (calendarEvent.duration - 1)) {
               result.push(calendarEvent);
             }
           } else {
-            if ((index - calendarEvent.dateID) % calendarEvent.repeatDays <= (calendarEvent.duration - 1)) {
+            if ((index - calendarEvent.offset) % calendarEvent.repeatDays <= (calendarEvent.duration - 1)) {
               result.push(calendarEvent);
             }
           }
@@ -93,7 +93,7 @@ export class MonthService {
     const result: WeeklyEvent[] = [];
     if (weeklyEvents) {
       weeklyEvents.forEach(calendarEvent => {
-        if (dayOfWeek === calendarEvent.day) {
+        if (dayOfWeek === calendarEvent.offset) {
           result.push(calendarEvent);
         }
       });
@@ -105,7 +105,7 @@ export class MonthService {
     const result: MonthlyEvent[] = [];
     if (monthlyEvents) {
       monthlyEvents.forEach(calendarEvent => {
-        if (dayOfMonth === calendarEvent.day) {
+        if (dayOfMonth === calendarEvent.offset) {
           result.push(calendarEvent);
         }
       });
@@ -117,7 +117,7 @@ export class MonthService {
     const result: YearlyEvent[] = [];
     if (yearlyEvents) {
       yearlyEvents.forEach(calendarEvent => {
-        if (dayOfYear === calendarEvent.day) {
+        if (dayOfYear === calendarEvent.offset) {
           result.push(calendarEvent);
         }
       });

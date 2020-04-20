@@ -9,13 +9,13 @@ import { TotalSettings } from './totalSettings';
 export class InMemoryDataService implements InMemoryDbService {
   createDb() {
     const cyclicalEvents: CyclicalEvent[] = [
-      {eventID: 1, title: 'Very rare!', dateID: 6, duration: 1, repeatDays: 1620},
-      {eventID: 2, title: 'Full Moon', dateID: 22, duration: 4, repeatDays: 29.530}
+      {title: 'Very rare!', offset: 6, duration: 1, repeatDays: 1620},
+      {title: 'Full Moon', offset: 22, duration: 4, repeatDays: 29.530}
     ];
     const weeklyEvents: WeeklyEvent[] = [];
     const monthlyEvents: MonthlyEvent[] = [];
     const yearlyEvents: YearlyEvent[] = [
-      {title: 'Height of Winter', duration: 1, day: 5, month: 1}
+      {title: 'Height of Winter', duration: 1, offset: 5, month: 1, roundToNearest: false}
     ];
     const calendarSettings = {
       startingDayID: 4000000,

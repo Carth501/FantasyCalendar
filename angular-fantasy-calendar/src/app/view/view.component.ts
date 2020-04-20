@@ -63,26 +63,30 @@ export class ViewComponent implements OnInit {
   }
 
   createNewCyclicalEvent(newEvent: CyclicalEvent): void {
-    const tempEventArray = this.totalSettings.cyclicalEvents;
+    const tempEventArray = this.totalSettings.cyclicalEvents.slice();
     tempEventArray.push(newEvent);
     this.totalSettings = {...this.totalSettings, cyclicalEvents: tempEventArray};
   }
 
   createNewWeeklyEvent(newEvent: WeeklyEvent): void {
-    const tempEventArray = this.totalSettings.weeklyEvents;
+    const tempEventArray = this.totalSettings.weeklyEvents.slice();
     tempEventArray.push(newEvent);
     this.totalSettings = {...this.totalSettings, weeklyEvents: tempEventArray};
   }
 
   createNewMonthlyEvent(newEvent: MonthlyEvent): void {
-    const tempEventArray = this.totalSettings.monthlyEvents;
+    const tempEventArray = this.totalSettings.monthlyEvents.slice();
     tempEventArray.push(newEvent);
     this.totalSettings = {...this.totalSettings, monthlyEvents: tempEventArray};
   }
 
   createNewYearlyEvent(newEvent: YearlyEvent): void {
-    const tempEventArray = this.totalSettings.yearlyEvents;
+    const tempEventArray = this.totalSettings.yearlyEvents.slice();
     tempEventArray.push(newEvent);
     this.totalSettings = {...this.totalSettings, yearlyEvents: tempEventArray};
+  }
+
+  closeEventWindow(): void {
+    this.showNewEvent = false;
   }
 }

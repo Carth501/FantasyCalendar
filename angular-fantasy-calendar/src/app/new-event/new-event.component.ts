@@ -1,5 +1,6 @@
 import { Component, Output, EventEmitter, Input } from '@angular/core';
-import { CyclicalEvent } from '../calendarEvent';
+import { CyclicalEvent, YearlyEvent, MonthlyEvent, WeeklyEvent } from '../calendarEvent';
+import { throwError } from 'rxjs';
 
 @Component({
   selector: 'app-new-event',
@@ -8,15 +9,20 @@ import { CyclicalEvent } from '../calendarEvent';
 })
 export class NewEventComponent {
 
-  @Output() newEvent = new EventEmitter<CyclicalEvent>();
+  @Output() newCyclicalEvent = new EventEmitter<CyclicalEvent>();
+  @Output() newYearlyEvent = new EventEmitter<YearlyEvent>();
+  @Output() newMonthlyEvent = new EventEmitter<MonthlyEvent>();
+  @Output() newWeeklyEvent = new EventEmitter<WeeklyEvent>();
+
   @Output() setWindow = new EventEmitter<boolean>();
 
-  @Input() eventID = 0;
+  @Input() eventType = 'cyclical';
   @Input() title: string;
-  @Input() dateID: number;
+  @Input() offset: number;
   @Input() duration: number;
   @Input() repeatDays: number;
-  @Input() repeatAnnual = false;
+  @Input() roundToNearest: boolean;
+  @Input() month: number;
 
   constructor() { }
 
@@ -30,17 +36,28 @@ export class NewEventComponent {
       document.getElementById('title').setAttribute('class', 'error');
       error = true;
     }
-    if (this.dateID === null || this.dateID < 1 || this.dateID === undefined) {
-      document.getElementById('dateID').setAttribute('class', 'error');
+    if (this.offset === null || this.offset < 1 || this.offset === undefined) {
+      document.getElementById('offset').setAttribute('class', 'error');
       error = true;
     }
     if (this.duration === null || this.duration < 1 || this.duration === undefined) {
       document.getElementById('duration').setAttribute('class', 'error');
       error = true;
     }
-    if (!this.repeatAnnual) {
+    if (this.eventType === 'cyclical') {
       if (this.repeatDays === null || this.repeatDays < 1 || this.repeatDays === undefined) {
         document.getElementById('repeatDays').setAttribute('class', 'error');
+        error = true;
+      }
+    } else {
+      if (this.repeatDays === null || this.repeatDays < 1 || this.repeatDays === undefined) {
+        document.getElementById('roundToNearest').setAttribute('class', 'error');
+        error = true;
+      }
+    }
+    if (this.eventType === 'yearly') {
+      if (this.month === null || this.month < 1 || this.month === undefined) {
+        document.getElementById('month').setAttribute('class', 'error');
         error = true;
       }
     }
@@ -50,15 +67,42 @@ export class NewEventComponent {
   }
 
   newEventEmit(): void {
-    console.log('this.title = ' + this.title);
-    const newCalendarEvent: CyclicalEvent = {
-      eventID: this.eventID,
-      title: this.title,
-      dateID: this.dateID,
-      duration: this.duration,
-      repeatDays: this.repeatDays
-    };
-    this.newEvent.emit(newCalendarEvent);
+    if (this.eventType === 'cyclical') {
+      const newCalendarEvent: CyclicalEvent = {
+        title: this.title,
+        offset: this.offset,
+        duration: this.duration,
+        repeatDays: this.repeatDays
+      };
+      this.newCyclicalEvent.emit(newCalendarEvent);
+    } else if (this.eventType === 'yearly') {
+      const newCalendarEvent: YearlyEvent = {
+        title: this.title,
+        offset: this.offset,
+        duration: this.duration,
+        roundToNearest: this.roundToNearest
+      };
+      console.log('yearly event created');
+      this.newYearlyEvent.emit(newCalendarEvent);
+    } else if (this.eventType === 'monthly') {
+      const newCalendarEvent: MonthlyEvent = {
+        title: this.title,
+        offset: this.offset,
+        duration: this.duration,
+        roundToNearest: this.roundToNearest
+      };
+      console.log('monthly event created');
+      this.newMonthlyEvent.emit(newCalendarEvent);
+    } else if (this.eventType === 'weekly') {
+      const newCalendarEvent: WeeklyEvent = {
+        title: this.title,
+        offset: this.offset,
+        duration: this.duration,
+        roundToNearest: this.roundToNearest
+      };
+      console.log('weekly event created');
+      this.newWeeklyEvent.emit(newCalendarEvent);
+    }
     this.closeWindow();
   }
 }

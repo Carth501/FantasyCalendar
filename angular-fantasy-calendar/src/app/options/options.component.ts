@@ -5,6 +5,7 @@ import { EMPTY_LEAP_YEAR, LeapYear } from '../leapYear';
 import { TotalSettings } from '../totalSettings';
 import { YearService } from '../year.service';
 import * as eventTypes from '../calendarEvent';
+import { CalendarEvent, CyclicalEvent, YearlyEvent, MonthlyEvent, WeeklyEvent } from '../calendarEvent';
 
 @Component({
   selector: 'app-options',
@@ -39,7 +40,6 @@ export class OptionsComponent {
   @Input() weeklyEvents: eventTypes.WeeklyEvent[];
   @Input() monthlyEvents: eventTypes.MonthlyEvent[];
   @Input() yearlyEvents: eventTypes.YearlyEvent[];
-  potentialCyclicalEvent = eventTypes.EMPTY_CYCLICAL_EVENT;
 
   constructor(
     private yearService: YearService,
@@ -129,28 +129,43 @@ export class OptionsComponent {
     }
   }
 
-  addEvent(): void {
-    if (this.potentialCyclicalEvent && this.cyclicalEvents) {
-      if (
-        this.potentialCyclicalEvent.dateID &&
-        this.potentialCyclicalEvent.duration &&
-        this.potentialCyclicalEvent.repeatDays &&
-        this.potentialCyclicalEvent.title
-        ) {
-          this.potentialCyclicalEvent.eventID = this.cyclicalEvents.length;
-          this.cyclicalEvents.push(this.potentialCyclicalEvent);
-          this.potentialCyclicalEvent.dateID = null;
-          this.potentialCyclicalEvent.duration = null;
-          this.potentialCyclicalEvent.eventID = null;
-          this.potentialCyclicalEvent.repeatDays = null;
-          this.potentialCyclicalEvent.title = null;
-      }
-    }
+  createNewCyclicalEvent(newEvent: CyclicalEvent) {
+    this.cyclicalEvents.push(newEvent);
+  }
+
+  createNewYearlyEvent(newEvent: YearlyEvent) {
+    this.yearlyEvents.push(newEvent);
+  }
+
+  createNewMonthlyEvent(newEvent: MonthlyEvent) {
+    this.monthlyEvents.push(newEvent);
+  }
+
+  createNewWeeklyEvent(newEvent: WeeklyEvent) {
+    this.weeklyEvents.push(newEvent);
   }
 
   deleteCyclicalEvent(index: number): void {
     if (index >= 0) {
       this.cyclicalEvents.splice(index, 1);
+    }
+  }
+
+  deleteYearlyEvent(index: number): void {
+    if (index >= 0) {
+      this.yearlyEvents.splice(index, 1);
+    }
+  }
+
+  deleteMonthlyEvent(index: number): void {
+    if (index >= 0) {
+      this.monthlyEvents.splice(index, 1);
+    }
+  }
+
+  deleteWeeklyEvent(index: number): void {
+    if (index >= 0) {
+      this.weeklyEvents.splice(index, 1);
     }
   }
 

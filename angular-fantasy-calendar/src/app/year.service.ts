@@ -27,16 +27,16 @@ export class YearService {
     const monthLengths = this.leapYearChange(yearNumber, daysPerMonths, leapYears);
     let nextDayID = startingDayID;
     let nextDoW = startingDoW;
-    let i = 0;
-    while (i < monthNames.length) {
+    let month = 0;
+    while (month < monthNames.length) {
       year.months.push(this.monthService.getDisplayMonth(startingDayID, nextDayID,
-        monthLengths[i], nextDoW, daysPerWeek, monthNames[i], totalSettings));
+        monthLengths[month], nextDoW, daysPerWeek, monthNames[month], month, totalSettings));
 
-      nextDayID = this.monthService.getNextStartingID(nextDayID, monthLengths[i]);
+      nextDayID = this.monthService.getNextStartingID(nextDayID, monthLengths[month]);
 
-      nextDoW = this.monthService.getNextStartingDoW(monthLengths[i], nextDoW, daysPerWeek);
+      nextDoW = this.monthService.getNextStartingDoW(monthLengths[month], nextDoW, daysPerWeek);
 
-      i++;
+      month++;
     }
     return year;
   }

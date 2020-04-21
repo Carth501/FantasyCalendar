@@ -49,11 +49,6 @@ export class NewEventComponent {
         document.getElementById('repeatDays').setAttribute('class', 'error');
         error = true;
       }
-    } else {
-      if (this.repeatDays === null || this.repeatDays < 1 || this.repeatDays === undefined) {
-        document.getElementById('roundToNearest').setAttribute('class', 'error');
-        error = true;
-      }
     }
     if (this.eventType === 'yearly') {
       if (this.month === null || this.month < 1 || this.month === undefined) {
@@ -63,7 +58,17 @@ export class NewEventComponent {
     }
     if (!error) {
       this.newEventEmit();
+      this.clearInput();
     }
+  }
+
+  clearInput(): void {
+    this.title = null;
+    this.offset = null;
+    this.duration = null;
+    this.repeatDays = null;
+    this.roundToNearest = null;
+    this.month = null;
   }
 
   newEventEmit(): void {
@@ -80,9 +85,9 @@ export class NewEventComponent {
         title: this.title,
         offset: this.offset,
         duration: this.duration,
+        month: (this.month - 1),
         roundToNearest: this.roundToNearest
       };
-      console.log('yearly event created');
       this.newYearlyEvent.emit(newCalendarEvent);
     } else if (this.eventType === 'monthly') {
       const newCalendarEvent: MonthlyEvent = {
@@ -91,7 +96,6 @@ export class NewEventComponent {
         duration: this.duration,
         roundToNearest: this.roundToNearest
       };
-      console.log('monthly event created');
       this.newMonthlyEvent.emit(newCalendarEvent);
     } else if (this.eventType === 'weekly') {
       const newCalendarEvent: WeeklyEvent = {
@@ -100,7 +104,6 @@ export class NewEventComponent {
         duration: this.duration,
         roundToNearest: this.roundToNearest
       };
-      console.log('weekly event created');
       this.newWeeklyEvent.emit(newCalendarEvent);
     }
     this.closeWindow();

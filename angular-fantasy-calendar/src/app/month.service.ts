@@ -20,8 +20,9 @@ export class MonthService {
   constructor(  ) { }
 
   getDisplayMonth(
-    yearStartingDayID: number, monthStartingDayID: number, monthLength: number,
-    startingDoW: number, daysPerWeek: number, monthName: string, totalSettings: TotalSettings): Month {
+    yearStartingDayID: number, monthStartingDayID: number,
+    monthLength: number, startingDoW: number, daysPerWeek: number,
+    monthName: string, monthNumber: number, totalSettings: TotalSettings): Month {
 
     let currentWeekday = startingDoW;
     let week = 0;
@@ -45,10 +46,10 @@ export class MonthService {
                 totalSettings.cyclicalEvents),
         weeklyEvents: this.getWeeklyEventList(currentWeekday,
                 totalSettings.weeklyEvents),
-        monthlyEvents: this.getMonthlyEventList(dayOfMonth, totalSettings.
-                monthlyEvents),
-        yearlyEvents: this.getYearlyEventList(dayOfYear, totalSettings.
-                yearlyEvents)
+        monthlyEvents: this.getMonthlyEventList(dayOfMonth,
+                totalSettings.monthlyEvents),
+        yearlyEvents: this.getYearlyEventList(dayOfMonth, monthNumber,
+                totalSettings.yearlyEvents)
       };
       if (currentWeekday === daysPerWeek - 1) {
         currentWeekday = 0;
@@ -113,12 +114,14 @@ export class MonthService {
     return result;
   }
 
-  getYearlyEventList(dayOfYear: number, yearlyEvents: YearlyEvent[]): YearlyEvent[] {
+  getYearlyEventList(dayOfMonth: number, monthNumber: number, yearlyEvents: YearlyEvent[]): YearlyEvent[] {
     const result: YearlyEvent[] = [];
     if (yearlyEvents) {
       yearlyEvents.forEach(calendarEvent => {
-        if (dayOfYear === calendarEvent.offset) {
-          result.push(calendarEvent);
+        if (monthNumber === calendarEvent.month) {
+          if (dayOfMonth === calendarEvent.offset) {
+            result.push(calendarEvent);
+          }
         }
       });
     }

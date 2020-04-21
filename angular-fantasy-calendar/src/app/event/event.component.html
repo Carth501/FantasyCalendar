@@ -15,5 +15,19 @@
                 [editable]="editable"
             ></app-yearly-fields>
         </div>
+
+        <div *ngIf="eventType === 'monthly'">
+            <app-monthly-fields
+                [addEvent]="calendarEvent"
+                [editable]="editable"
+            ></app-monthly-fields>
+        </div>
+
+        <div *ngIf="eventType === 'weekly'">
+            <app-weekly-fields
+                [addEvent]="calendarEvent"
+                [editable]="editable"
+            ></app-weekly-fields>
+        </div>
     </div>
 </div>

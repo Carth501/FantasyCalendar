@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { WeeklyEvent } from '../calendarEvent';
+import { WeeklyEvent } from '../../calendarEvent';
 
 @Component({
   selector: 'app-weekly-fields',

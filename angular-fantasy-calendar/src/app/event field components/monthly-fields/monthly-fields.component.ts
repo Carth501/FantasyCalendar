@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { MonthlyEvent } from '../calendarEvent';
+import { MonthlyEvent } from '../../calendarEvent';
 
 @Component({
   selector: 'app-monthly-fields',

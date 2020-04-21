@@ -5,7 +5,7 @@ import { EMPTY_LEAP_YEAR, LeapYear } from '../leapYear';
 import { TotalSettings } from '../totalSettings';
 import { YearService } from '../year.service';
 import * as eventTypes from '../calendarEvent';
-import { CalendarEvent, CyclicalEvent, YearlyEvent, MonthlyEvent, WeeklyEvent } from '../calendarEvent';
+import { CalendarEvent, CyclicalEvent, YearlyEvent, MonthlyEvent, WeeklyEvent, MonthlyDayOfWeekEvent } from '../calendarEvent';
 
 @Component({
   selector: 'app-options',
@@ -40,6 +40,7 @@ export class OptionsComponent {
   @Input() weeklyEvents: eventTypes.WeeklyEvent[];
   @Input() monthlyEvents: eventTypes.MonthlyEvent[];
   @Input() yearlyEvents: eventTypes.YearlyEvent[];
+  @Input() monthDOWEvents: eventTypes.MonthlyDayOfWeekEvent[];
 
   constructor(
     private yearService: YearService,
@@ -76,6 +77,9 @@ export class OptionsComponent {
       if (totalSettings.yearlyEvents) {
         this.yearlyEvents = totalSettings.yearlyEvents;
       }
+      if (totalSettings.monthDOWEvents) {
+        this.monthDOWEvents = totalSettings.monthDOWEvents;
+      }
     }
   }
 
@@ -93,7 +97,8 @@ export class OptionsComponent {
       cyclicalEvents: this.cyclicalEvents,
       weeklyEvents: this.weeklyEvents,
       monthlyEvents: this.monthlyEvents,
-      yearlyEvents: this.yearlyEvents
+      yearlyEvents: this.yearlyEvents,
+      monthDOWEvents: this.monthDOWEvents
     };
     this.changes.emit(this.totalSettingsObject);
   }
@@ -145,6 +150,10 @@ export class OptionsComponent {
     this.weeklyEvents.push(newEvent);
   }
 
+  createNewMonthDOWEvent(newEvent: MonthlyDayOfWeekEvent) {
+    this.monthDOWEvents.push(newEvent);
+  }
+
   deleteCyclicalEvent(index: number): void {
     if (index >= 0) {
       this.cyclicalEvents.splice(index, 1);
@@ -168,6 +177,13 @@ export class OptionsComponent {
       this.weeklyEvents.splice(index, 1);
     }
   }
+
+  deleteMonthDOWEvent(index: number): void {
+    if (index >= 0) {
+      this.monthDOWEvents.splice(index, 1);
+    }
+  }
+
 
   addLY(): void {
     this.leapYears.push(this.candidateLY);

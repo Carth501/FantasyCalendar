@@ -3,24 +3,24 @@
         <label for="title-field">Title</label>
         <input [disabled]="!editable" class="input-field"
             id="title-field"
-            [(ngModel)]="weeklyEvent.title"/>
+            [(ngModel)]="monthlyEvent.title"/>
     </div>
     <div class="offset">
-        <label for="offset-field">Offset</label>
+        <label for="offset-field">Day of Week</label>
         <input [disabled]="!editable" class="input-field"
             id="offset-field"
-            [(ngModel)]="weeklyEvent.offset"/>
+            [(ngModel)]="monthlyEvent.offset"/>
+    </div>
+    <div class="weekOffset">
+        <label for="weekOffset-field">Week</label>
+        <input [disabled]="!editable" class="input-field"
+            id="weekOffset-field"
+            [(ngModel)]="monthlyEvent.weekOffset"/>
     </div>
     <div class="duration">
         <label for="duration-field">Duration</label>
         <input [disabled]="!editable" class="input-field"
             id="duration-field"
-            [(ngModel)]="weeklyEvent.duration"/>
-    </div>
-    <div class="roundToNearest">
-        <label for="roundToNearest-field">Length of Cycle</label>
-        <input [disabled]="!editable" class="input-field" 
-            id="roundToNearest-field" type="checkbox"
-            [(ngModel)]="weeklyEvent.roundToNearest"/>
+            [(ngModel)]="monthlyEvent.duration"/>
     </div>
 </div>

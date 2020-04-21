@@ -29,5 +29,13 @@
                 [editable]="editable"
             ></app-weekly-fields>
         </div>
+        
+        <div *ngIf="eventType === 'monthDOW'">
+            <app-month-dow-fields
+                [addEvent]="calendarEvent"
+                [editable]="editable"
+            ></app-month-dow-fields>
+        </div>
+
     </div>
 </div>

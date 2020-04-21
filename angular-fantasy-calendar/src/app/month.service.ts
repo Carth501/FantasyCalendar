@@ -3,7 +3,7 @@ import { CalendarSettings } from './calendarSettings';
 import { Day } from './day';
 import { Month } from './month';
 import { TotalSettings } from './totalSettings';
-import { CyclicalEvent, WeeklyEvent, MonthlyEvent, YearlyEvent } from './calendarEvent';
+import { CyclicalEvent, WeeklyEvent, MonthlyEvent, YearlyEvent, MonthlyDayOfWeekEvent } from './calendarEvent';
 
 @Injectable({
   providedIn: 'root'
@@ -48,8 +48,10 @@ export class MonthService {
                 totalSettings.weeklyEvents),
         monthlyEvents: this.getMonthlyEventList(dayOfMonth,
                 totalSettings.monthlyEvents),
-        yearlyEvents: this.getYearlyEventList(dayOfMonth, monthNumber,
-                totalSettings.yearlyEvents)
+        yearlyEvents: this.getYearlyEventList(dayOfYear,
+                totalSettings.yearlyEvents),
+        monthDOWEvents: this.getMonthDOWEventList(currentWeekday, week,
+                totalSettings.monthDOWEvents)
       };
       if (currentWeekday === daysPerWeek - 1) {
         currentWeekday = 0;
@@ -94,7 +96,7 @@ export class MonthService {
     const result: WeeklyEvent[] = [];
     if (weeklyEvents) {
       weeklyEvents.forEach(calendarEvent => {
-        if (dayOfWeek === calendarEvent.offset) {
+        if (dayOfWeek === (calendarEvent.offset - 1)) {
           result.push(calendarEvent);
         }
       });
@@ -114,15 +116,32 @@ export class MonthService {
     return result;
   }
 
-  getYearlyEventList(dayOfMonth: number, monthNumber: number, yearlyEvents: YearlyEvent[]): YearlyEvent[] {
+  getYearlyEventList(dayOfYear: number, yearlyEvents: YearlyEvent[]): YearlyEvent[] {
     const result: YearlyEvent[] = [];
     if (yearlyEvents) {
       yearlyEvents.forEach(calendarEvent => {
-        if (monthNumber === calendarEvent.month) {
-          if (dayOfMonth === calendarEvent.offset) {
+        if (dayOfYear === calendarEvent.offset) {
+          result.push(calendarEvent);
+        }
+      });
+    }
+    return result;
+  }
+
+  getMonthDOWEventList(dayOfWeek: number, weekOfMonth: number, monthDOWEvents: MonthlyDayOfWeekEvent[]): MonthlyDayOfWeekEvent[] {
+    const result: MonthlyDayOfWeekEvent[] = [];
+    let message = '';
+    if (monthDOWEvents) {
+      monthDOWEvents.forEach(calendarEvent => {
+        message += calendarEvent.title;
+        if (weekOfMonth === (calendarEvent.weekOffset - 1)) {
+          message += ', correct week';
+          if (dayOfWeek === (calendarEvent.offset - 1)) {
+            message += ', correct day, adding.';
             result.push(calendarEvent);
           }
         }
+        console.log(message);
       });
     }
     return result;

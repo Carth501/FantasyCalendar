@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { CyclicalEvent } from '../calendarEvent';
+import { Component, Input } from '@angular/core';
+import { CyclicalEvent } from '../../calendarEvent';
 
 @Component({
   selector: 'app-cyclical-fields',

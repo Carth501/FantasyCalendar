@@ -17,16 +17,21 @@
             id="duration-field"
             [(ngModel)]="yearlyEvent.duration"/>
     </div>
-    <div class="roundToNearest">
-        <label for="roundToNearest-field">Round to nearest</label>
-        <input [disabled]="!editable" class="input-field" 
-            id="roundToNearest-field" type="checkbox"
-            [(ngModel)]="yearlyEvent.roundToNearest"/>
-    </div>
-    <div class="month" *ngIf="yearlyEvent.month">
-        <label for="month-field">Month</label>
-        <input [disabled]="!editable" class="input-field"
-            id="month-field"
-            [(ngModel)]="yearlyEvent.month"/>
-    </div>
 </div>
+
+<!--
+    
+<div class="roundToNearest">
+    <label for="roundToNearest-field">Round to nearest</label>
+    <input [disabled]="!editable" class="input-field" 
+        id="roundToNearest-field" type="checkbox"
+        [(ngModel)]="yearlyEvent.roundToNearest"/>
+</div>
+<div class="month" *ngIf="yearlyEvent.month">
+    <label for="month-field">Month</label>
+    <input [disabled]="!editable" class="input-field"
+        id="month-field"
+        [(ngModel)]="yearlyEvent.month"/>
+</div>
+
+-->

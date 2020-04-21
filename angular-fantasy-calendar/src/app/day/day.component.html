@@ -21,6 +21,9 @@
             <li *ngFor="let weeklyEvent of day.weeklyEvents">
                 {{weeklyEvent.title}}
             </li>
+            <li *ngFor="let monthDOWEvent of day.monthDOWEvents">
+                {{monthDOWEvent.title}}
+            </li>
         </ul>
     </div>
 </div>

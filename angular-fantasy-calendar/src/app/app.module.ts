@@ -18,10 +18,11 @@ import { OptionsComponent } from './options/options.component';
 import { ViewComponent } from './view/view.component';
 import { WeekComponent } from './week/week.component';
 import { YearComponent } from './year/year.component';
-import { CyclicalFieldsComponent } from './cyclical-fields/cyclical-fields.component';
-import { YearlyFieldsComponent } from './yearly-fields/yearly-fields.component';
-import { MonthlyFieldsComponent } from './monthly-fields/monthly-fields.component';
-import { WeeklyFieldsComponent } from './weekly-fields/weekly-fields.component';
+import { CyclicalFieldsComponent } from './event field components/cyclical-fields/cyclical-fields.component';
+import { YearlyFieldsComponent } from './event field components/yearly-fields/yearly-fields.component';
+import { MonthlyFieldsComponent } from './event field components/monthly-fields/monthly-fields.component';
+import { WeeklyFieldsComponent } from './event field components/weekly-fields/weekly-fields.component';
+import { MonthDOWFieldsComponent } from './event field components/month-dow-fields/month-dow-fields.component';
 
 
 
@@ -40,7 +41,8 @@ import { WeeklyFieldsComponent } from './weekly-fields/weekly-fields.component';
     CyclicalFieldsComponent,
     YearlyFieldsComponent,
     MonthlyFieldsComponent,
-    WeeklyFieldsComponent
+    WeeklyFieldsComponent,
+    MonthDOWFieldsComponent
   ],
   imports: [
     BrowserModule,

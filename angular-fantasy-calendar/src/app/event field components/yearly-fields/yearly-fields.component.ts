@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { YearlyEvent } from '../calendarEvent';
+import { YearlyEvent } from '../../calendarEvent';
 
 @Component({
   selector: 'app-yearly-fields',

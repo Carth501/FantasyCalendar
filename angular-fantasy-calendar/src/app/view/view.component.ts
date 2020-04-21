@@ -20,7 +20,8 @@ export class ViewComponent implements OnInit {
     cyclicalEvents: null,
     weeklyEvents: null,
     monthlyEvents: null,
-    yearlyEvents: null
+    yearlyEvents: null,
+    monthDOWEvents: null
   }; // initial values should not be passed to calendar component
   showNewEvent = false;
 

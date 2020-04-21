@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { InMemoryDbService } from 'angular-in-memory-web-api';
-import { CyclicalEvent, YearlyEvent, WeeklyEvent, MonthlyEvent } from './calendarEvent';
+import { CyclicalEvent, YearlyEvent, WeeklyEvent, MonthlyEvent, MonthlyDayOfWeekEvent } from './calendarEvent';
 import { TotalSettings } from './totalSettings';
 
 @Injectable({
@@ -15,8 +15,12 @@ export class InMemoryDataService implements InMemoryDbService {
     const weeklyEvents: WeeklyEvent[] = [];
     const monthlyEvents: MonthlyEvent[] = [];
     const yearlyEvents: YearlyEvent[] = [
-      {title: 'Height of Winter', duration: 1, offset: 5, month: 1, roundToNearest: false}
+      { title: 'Height of Winter', duration: 1, offset: 5 }
     ];
+    const monthDOWEvents: MonthlyDayOfWeekEvent[] = [
+      { title: 'Thanksgiving', duration: 1, offset: 5, weekOffset: 4}
+    ];
+
     const calendarSettings = {
       startingDayID: 4000000,
       daysPerMonths: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
@@ -36,7 +40,8 @@ export class InMemoryDataService implements InMemoryDbService {
       cyclicalEvents,
       weeklyEvents,
       monthlyEvents,
-      yearlyEvents
+      yearlyEvents,
+      monthDOWEvents
     };
     return {defaultSettings};
   }

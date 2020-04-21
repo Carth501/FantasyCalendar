@@ -1,6 +1,5 @@
-import { Component, Output, EventEmitter, Input } from '@angular/core';
-import { CyclicalEvent, YearlyEvent, MonthlyEvent, WeeklyEvent } from '../calendarEvent';
-import { throwError } from 'rxjs';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { CyclicalEvent, MonthlyEvent, WeeklyEvent, YearlyEvent, MonthlyDayOfWeekEvent } from '../calendarEvent';
 
 @Component({
   selector: 'app-new-event',
@@ -13,6 +12,7 @@ export class NewEventComponent {
   @Output() newYearlyEvent = new EventEmitter<YearlyEvent>();
   @Output() newMonthlyEvent = new EventEmitter<MonthlyEvent>();
   @Output() newWeeklyEvent = new EventEmitter<WeeklyEvent>();
+  @Output() newMonthDOWEvent = new EventEmitter<MonthlyDayOfWeekEvent>();
 
   @Output() setWindow = new EventEmitter<boolean>();
 
@@ -23,6 +23,7 @@ export class NewEventComponent {
   @Input() repeatDays: number;
   @Input() roundToNearest: boolean;
   @Input() month: number;
+  @Input() weekOffset: number;
 
   constructor() { }
 
@@ -50,9 +51,9 @@ export class NewEventComponent {
         error = true;
       }
     }
-    if (this.eventType === 'yearly') {
-      if (this.month === null || this.month < 1 || this.month === undefined) {
-        document.getElementById('month').setAttribute('class', 'error');
+    if (this.eventType === 'monthDOW') {
+      if (this.weekOffset === null || this.weekOffset < 1 || this.weekOffset === undefined) {
+        document.getElementById('weekOffset').setAttribute('class', 'error');
         error = true;
       }
     }
@@ -69,6 +70,7 @@ export class NewEventComponent {
     this.repeatDays = null;
     this.roundToNearest = null;
     this.month = null;
+    this.weekOffset = null;
   }
 
   newEventEmit(): void {
@@ -84,27 +86,31 @@ export class NewEventComponent {
       const newCalendarEvent: YearlyEvent = {
         title: this.title,
         offset: this.offset,
-        duration: this.duration,
-        month: (this.month - 1),
-        roundToNearest: this.roundToNearest
+        duration: this.duration
       };
       this.newYearlyEvent.emit(newCalendarEvent);
     } else if (this.eventType === 'monthly') {
       const newCalendarEvent: MonthlyEvent = {
         title: this.title,
         offset: this.offset,
-        duration: this.duration,
-        roundToNearest: this.roundToNearest
+        duration: this.duration
       };
       this.newMonthlyEvent.emit(newCalendarEvent);
     } else if (this.eventType === 'weekly') {
       const newCalendarEvent: WeeklyEvent = {
         title: this.title,
         offset: this.offset,
-        duration: this.duration,
-        roundToNearest: this.roundToNearest
+        duration: this.duration
       };
       this.newWeeklyEvent.emit(newCalendarEvent);
+    } else if (this.eventType === 'monthDOW') {
+      const newCalendarEvent: MonthlyDayOfWeekEvent = {
+        title: this.title,
+        offset: this.offset,
+        duration: this.duration,
+        weekOffset: this.weekOffset
+      };
+      this.newMonthDOWEvent.emit(newCalendarEvent);
     }
     this.closeWindow();
   }

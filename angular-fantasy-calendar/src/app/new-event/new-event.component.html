@@ -2,6 +2,7 @@
     <select id="event-type" [(ngModel)]="eventType">
         <option value="cyclical">Cyclical, independent of calendar</option>
         <option value="yearly">Happens once a year</option>
+        <option value="yearMonthDOW">Happens once a year, based on the day of the week</option>
         <option value="monthly">Happens once a month</option>
         <option value="monthDOW">Happens on a certain day of a week</option>
         <option value="weekly">Happens once a week</option>
@@ -19,8 +20,12 @@
         <input id="repeatDays" [(ngModel)]="repeatDays" type="number" placeholder="Length of cycle" min=1/>
     </div>
 
-    <div class="monthDOW" *ngIf="eventType === 'monthDOW'">
+    <div class="monthDOW" *ngIf="eventType === 'monthDOW' || eventType === 'yearMonthDOW'">
         <input id="weekOffset" [(ngModel)]="weekOffset" type="number" placeholder="Week of the month" min=1/>
+    </div>
+
+    <div class="yearMonthDOW" *ngIf="eventType === 'yearMonthDOW'">
+        <input id="monthOffset" [(ngModel)]="monthOffset" type="number" placeholder="Month of the year" min=1/>
     </div>
     <button class="createButton" (click)="createEvent()">Create</button>
 </div>

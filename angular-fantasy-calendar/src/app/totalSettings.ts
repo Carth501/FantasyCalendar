@@ -1,5 +1,5 @@
 import { CalendarSettings } from './calendarSettings';
-import { CyclicalEvent, WeeklyEvent, MonthlyEvent, YearlyEvent, MonthlyDayOfWeekEvent } from './calendarEvent';
+import { CyclicalEvent, WeeklyEvent, MonthlyEvent, YearlyEvent, MonthlyDayOfWeekEvent, YearlyMonthlyDayOfWeekEvent } from './calendarEvent';
 
 export interface TotalSettings {
     calendarSettings: CalendarSettings;
@@ -8,4 +8,5 @@ export interface TotalSettings {
     monthlyEvents: MonthlyEvent[];
     yearlyEvents: YearlyEvent[];
     monthDOWEvents: MonthlyDayOfWeekEvent[];
+    yearMonthDOWEvents: YearlyMonthlyDayOfWeekEvent[];
 }

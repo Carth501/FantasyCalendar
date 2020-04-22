@@ -3,7 +3,7 @@ import { CalendarSettings } from './calendarSettings';
 import { Day } from './day';
 import { Month } from './month';
 import { TotalSettings } from './totalSettings';
-import { CyclicalEvent, WeeklyEvent, MonthlyEvent, YearlyEvent, MonthlyDayOfWeekEvent } from './calendarEvent';
+import { CyclicalEvent, WeeklyEvent, MonthlyEvent, YearlyEvent, MonthlyDayOfWeekEvent, YearlyMonthlyDayOfWeekEvent } from './calendarEvent';
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +34,10 @@ export class MonthService {
     for (let k = 0; k < ((monthLength + startingDoW) / daysPerWeek); k++) {
       month.weeks.push({id: k, days: this.createWeekProto(daysPerWeek)});
     }
+    const weekdayCounts: number[] = [];
+    for (let x = 0; x < daysPerWeek; x++) {
+      weekdayCounts.push(0);
+    }
     let i = 0;
     while (i < monthLength) {
       const dayOfMonth = i + 1;
@@ -50,9 +54,16 @@ export class MonthService {
                 totalSettings.monthlyEvents),
         yearlyEvents: this.getYearlyEventList(dayOfYear,
                 totalSettings.yearlyEvents),
-        monthDOWEvents: this.getMonthDOWEventList(currentWeekday, week,
-                totalSettings.monthDOWEvents)
+        monthDOWEvents: this.getMonthDOWEventList(currentWeekday, weekdayCounts[currentWeekday], totalSettings.monthDOWEvents),
+        yearMonthDOWEvents: this.getYearMonthDOWEventList(currentWeekday, monthNumber, weekdayCounts[currentWeekday],
+           totalSettings.yearMonthDOWEvents)
       };
+      weekdayCounts[currentWeekday]++;
+      /*
+      let message = '';
+      weekdayCounts.forEach(value => message += ('| ' + value + ' |'));
+      console.log(message);
+      */
       if (currentWeekday === daysPerWeek - 1) {
         currentWeekday = 0;
         week++;
@@ -128,20 +139,34 @@ export class MonthService {
     return result;
   }
 
-  getMonthDOWEventList(dayOfWeek: number, weekOfMonth: number, monthDOWEvents: MonthlyDayOfWeekEvent[]): MonthlyDayOfWeekEvent[] {
+  getMonthDOWEventList(dayOfWeek: number, weekdayCount: number, monthDOWEvents: MonthlyDayOfWeekEvent[]):
+  MonthlyDayOfWeekEvent[] {
     const result: MonthlyDayOfWeekEvent[] = [];
-    let message = '';
     if (monthDOWEvents) {
       monthDOWEvents.forEach(calendarEvent => {
-        message += calendarEvent.title;
-        if (weekOfMonth === (calendarEvent.weekOffset - 1)) {
-          message += ', correct week';
+        if (weekdayCount === (calendarEvent.weekOffset - 1)) {
           if (dayOfWeek === (calendarEvent.offset - 1)) {
-            message += ', correct day, adding.';
             result.push(calendarEvent);
           }
         }
-        console.log(message);
+      });
+    }
+    return result;
+  }
+
+  getYearMonthDOWEventList(dayOfWeek: number,
+                           monthOfYear: number, weekdayCount: number, yearMonthDOWEvents: YearlyMonthlyDayOfWeekEvent[]):
+                           YearlyMonthlyDayOfWeekEvent[] {
+    const result: YearlyMonthlyDayOfWeekEvent[] = [];
+    if (yearMonthDOWEvents) {
+      yearMonthDOWEvents.forEach(calendarEvent => {
+        if (monthOfYear === (calendarEvent.monthOffset - 1)) {
+          if (weekdayCount === (calendarEvent.weekOffset - 1)) {
+            if (dayOfWeek === (calendarEvent.offset - 1)) {
+              result.push(calendarEvent);
+            }
+          }
+        }
       });
     }
     return result;

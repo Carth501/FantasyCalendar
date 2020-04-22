@@ -29,6 +29,15 @@ export interface MonthlyDayOfWeekEvent extends MonthlyEvent {
     weekOffset: number;
 }
 
+export interface YearlyMonthlyDayOfWeekEvent extends MonthlyDayOfWeekEvent {
+    // On a certain day of the week, in a certain month, every year.
+    // Example: the second saturday in March
+    // Offset is used to choose which day of the week
+    // Week offset is used to choose how many weeks to skip
+    // Month offset is used to choose how many months to skip
+    monthOffset: number;
+}
+
 export const EMPTY_CYCLICAL_EVENT: CyclicalEvent = {
     title: null,
     duration: null,

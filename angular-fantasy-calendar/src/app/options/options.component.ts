@@ -5,7 +5,7 @@ import { EMPTY_LEAP_YEAR, LeapYear } from '../leapYear';
 import { TotalSettings } from '../totalSettings';
 import { YearService } from '../year.service';
 import * as eventTypes from '../calendarEvent';
-import { CalendarEvent, CyclicalEvent, YearlyEvent, MonthlyEvent, WeeklyEvent, MonthlyDayOfWeekEvent } from '../calendarEvent';
+import { CalendarEvent, CyclicalEvent, YearlyEvent, MonthlyEvent, WeeklyEvent, MonthlyDayOfWeekEvent, YearlyMonthlyDayOfWeekEvent } from '../calendarEvent';
 
 @Component({
   selector: 'app-options',
@@ -36,11 +36,12 @@ export class OptionsComponent {
   @Input() fromjson: string;
   @Output() readNewjson = new EventEmitter<string>();
 
-  @Input() cyclicalEvents: eventTypes.CyclicalEvent[];
-  @Input() weeklyEvents: eventTypes.WeeklyEvent[];
-  @Input() monthlyEvents: eventTypes.MonthlyEvent[];
-  @Input() yearlyEvents: eventTypes.YearlyEvent[];
-  @Input() monthDOWEvents: eventTypes.MonthlyDayOfWeekEvent[];
+  @Input() cyclicalEvents: CyclicalEvent[];
+  @Input() weeklyEvents: WeeklyEvent[];
+  @Input() monthlyEvents: MonthlyEvent[];
+  @Input() yearlyEvents: YearlyEvent[];
+  @Input() monthDOWEvents: MonthlyDayOfWeekEvent[];
+  @Input() yearMonthDOWEvents: YearlyMonthlyDayOfWeekEvent[];
 
   constructor(
     private yearService: YearService,
@@ -80,6 +81,9 @@ export class OptionsComponent {
       if (totalSettings.monthDOWEvents) {
         this.monthDOWEvents = totalSettings.monthDOWEvents;
       }
+      if (totalSettings.yearMonthDOWEvents) {
+        this.yearMonthDOWEvents = totalSettings.yearMonthDOWEvents;
+      }
     }
   }
 
@@ -92,13 +96,15 @@ export class OptionsComponent {
         monthNames: this.MonthNames.slice(),
         daysPerMonths: this.daysPerMonths.slice(),
         currentYear: this.currentYear,
-        leapYears: this.leapYears
+        leapYears: this.leapYears,
+
       },
       cyclicalEvents: this.cyclicalEvents,
       weeklyEvents: this.weeklyEvents,
       monthlyEvents: this.monthlyEvents,
       yearlyEvents: this.yearlyEvents,
-      monthDOWEvents: this.monthDOWEvents
+      monthDOWEvents: this.monthDOWEvents,
+      yearMonthDOWEvents: this.yearMonthDOWEvents
     };
     this.changes.emit(this.totalSettingsObject);
   }
@@ -154,6 +160,10 @@ export class OptionsComponent {
     this.monthDOWEvents.push(newEvent);
   }
 
+  createNewYearMonthDOWEvent(newEvent: YearlyMonthlyDayOfWeekEvent) {
+    this.yearMonthDOWEvents.push(newEvent);
+  }
+
   deleteCyclicalEvent(index: number): void {
     if (index >= 0) {
       this.cyclicalEvents.splice(index, 1);
@@ -184,6 +194,11 @@ export class OptionsComponent {
     }
   }
 
+  deleteYearMonthDOWEvent(index: number): void {
+    if (index >= 0) {
+      this.yearMonthDOWEvents.splice(index, 1);
+    }
+  }
 
   addLY(): void {
     this.leapYears.push(this.candidateLY);

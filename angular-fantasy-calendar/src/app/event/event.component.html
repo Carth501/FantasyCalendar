@@ -36,6 +36,13 @@
                 [editable]="editable"
             ></app-month-dow-fields>
         </div>
+        
+        <div *ngIf="eventType === 'yearMonthDOW'">
+            <app-year-month-dow-fields
+                [addEvent]="calendarEvent"
+                [editable]="editable"
+            ></app-year-month-dow-fields>
+        </div>
 
     </div>
 </div>

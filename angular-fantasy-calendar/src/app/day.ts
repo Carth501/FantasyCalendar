@@ -1,4 +1,4 @@
-import { CyclicalEvent, WeeklyEvent, MonthlyEvent, YearlyEvent, MonthlyDayOfWeekEvent } from './calendarEvent';
+import { CyclicalEvent, WeeklyEvent, MonthlyEvent, YearlyEvent, MonthlyDayOfWeekEvent, YearlyMonthlyDayOfWeekEvent } from './calendarEvent';
 
 export interface Day {
     id: number;
@@ -9,4 +9,5 @@ export interface Day {
     monthlyEvents?: MonthlyEvent[];
     yearlyEvents?: YearlyEvent[];
     monthDOWEvents?: MonthlyDayOfWeekEvent[];
+    yearMonthDOWEvents?: YearlyMonthlyDayOfWeekEvent[];
 }

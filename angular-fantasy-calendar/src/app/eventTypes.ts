@@ -3,5 +3,6 @@ export enum EventTypes {
     yearly = 'yearly',
     monthly = 'monthly',
     weekly = 'weekly',
-    monthDOW = 'monthDOW'
+    monthDOW = 'monthDOW',
+    yearMonthDOW = 'yearMonthDOW'
 }

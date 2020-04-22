@@ -149,6 +149,16 @@
                             X
                         </button>
                     </div>
+                    <div class="input-fields" *ngFor="let x of yearMonthDOWEvents; let idx = index; trackBy: trackArray">
+                        <app-event 
+                        [calendarEvent]="x" 
+                        [eventType]="'yearMonthDOW'"
+                        [editable]=true
+                        ></app-event>
+                        <button class="event-delete" (click)= "deleteYearMonthDOWEvent(idx)">
+                            X
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -158,6 +168,8 @@
             (newYearlyEvent)="createNewYearlyEvent($event)"
             (newMonthlyEvent)="createNewMonthlyEvent($event)"
             (newWeeklyEvent)="createNewWeeklyEvent($event)"
+            (newMonthlyDOWEvent)="createNewMonthDOWEvent($event)"
+            (newYearlyMonthlyDOWEvent)="createNewYearMonthDOWEvent($event)"
             ></app-new-event>
         </div>
 

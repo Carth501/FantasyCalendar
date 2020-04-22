@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { CyclicalEvent, MonthlyEvent, WeeklyEvent, YearlyEvent, MonthlyDayOfWeekEvent } from '../calendarEvent';
+import { CyclicalEvent, MonthlyEvent, WeeklyEvent, YearlyEvent, MonthlyDayOfWeekEvent, YearlyMonthlyDayOfWeekEvent } from '../calendarEvent';
 
 @Component({
   selector: 'app-new-event',
@@ -13,6 +13,7 @@ export class NewEventComponent {
   @Output() newMonthlyEvent = new EventEmitter<MonthlyEvent>();
   @Output() newWeeklyEvent = new EventEmitter<WeeklyEvent>();
   @Output() newMonthDOWEvent = new EventEmitter<MonthlyDayOfWeekEvent>();
+  @Output() newYearMonthDOWEvent = new EventEmitter<YearlyMonthlyDayOfWeekEvent>();
 
   @Output() setWindow = new EventEmitter<boolean>();
 
@@ -24,6 +25,7 @@ export class NewEventComponent {
   @Input() roundToNearest: boolean;
   @Input() month: number;
   @Input() weekOffset: number;
+  @Input() monthOffset: number;
 
   constructor() { }
 
@@ -57,6 +59,12 @@ export class NewEventComponent {
         error = true;
       }
     }
+    if (this.eventType === 'yearMonthDOW') {
+      if (this.monthOffset === null || this.monthOffset < 1 || this.monthOffset === undefined) {
+        document.getElementById('monthOffset').setAttribute('class', 'error');
+        error = true;
+      }
+    }
     if (!error) {
       this.newEventEmit();
       this.clearInput();
@@ -71,6 +79,7 @@ export class NewEventComponent {
     this.roundToNearest = null;
     this.month = null;
     this.weekOffset = null;
+    this.monthOffset = null;
   }
 
   newEventEmit(): void {
@@ -111,6 +120,15 @@ export class NewEventComponent {
         weekOffset: this.weekOffset
       };
       this.newMonthDOWEvent.emit(newCalendarEvent);
+    } else if (this.eventType === 'yearMonthDOW') {
+      const newCalendarEvent: YearlyMonthlyDayOfWeekEvent = {
+        title: this.title,
+        offset: this.offset,
+        duration: this.duration,
+        weekOffset: this.weekOffset,
+        monthOffset: this.monthOffset
+      };
+      this.newYearMonthDOWEvent.emit(newCalendarEvent);
     }
     this.closeWindow();
   }

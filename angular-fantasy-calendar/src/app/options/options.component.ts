@@ -148,6 +148,10 @@ export class OptionsComponent {
     this.cyclicalEvents.push(newEvent);
   }
 
+  createNewUniqueEvent(newEvent: UniqueEvent) {
+    this.uniqueEvents.push(newEvent);
+  }
+
   createNewYearlyEvent(newEvent: YearlyEvent) {
     this.yearlyEvents.push(newEvent);
   }
@@ -168,9 +172,19 @@ export class OptionsComponent {
     this.yearMonthDOWEvents.push(newEvent);
   }
 
+  createNewYearlyMonthlyEvent(newEvent: YearlyMonthlyEvent) {
+    this.yearlyMonthlyEvents.push(newEvent);
+  }
+
   deleteCyclicalEvent(index: number): void {
     if (index >= 0) {
       this.cyclicalEvents.splice(index, 1);
+    }
+  }
+
+  deleteUniqueEvent(index: number): void {
+    if (index >= 0) {
+      this.uniqueEvents.splice(index, 1);
     }
   }
 
@@ -201,6 +215,12 @@ export class OptionsComponent {
   deleteYearMonthDOWEvent(index: number): void {
     if (index >= 0) {
       this.yearMonthDOWEvents.splice(index, 1);
+    }
+  }
+
+  deleteYearMonthlyEvent(index: number): void {
+    if (index >= 0) {
+      this.yearlyMonthlyEvents.splice(index, 1);
     }
   }
 

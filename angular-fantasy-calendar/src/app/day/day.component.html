@@ -12,6 +12,12 @@
             <li *ngFor="let cyclicalEvent of day.cyclicalEvents">
                 {{cyclicalEvent.title}}
             </li>
+            <li *ngFor="let uniqueEvent of day.uniqueEvents">
+                {{uniqueEvent.title}}
+            </li>
+            <li *ngFor="let yearMonthlyEvent of day.yearMonthlyEvents">
+                {{yearMonthlyEvent.title}}
+            </li>
             <li *ngFor="let yearMonthDOWEvent of day.yearMonthDOWEvents">
                 {{yearMonthDOWEvent.title}}
             </li>

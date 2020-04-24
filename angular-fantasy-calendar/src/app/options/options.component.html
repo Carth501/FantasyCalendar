@@ -159,17 +159,29 @@
                             X
                         </button>
                     </div>
+                    <div class="input-fields" *ngFor="let x of yearlyMonthlyEvents; let idx = index; trackBy: trackArray">
+                        <app-event 
+                        [calendarEvent]="x" 
+                        [eventType]="'yearMonthly'"
+                        [editable]=true
+                        ></app-event>
+                        <button class="event-delete" (click)= "deleteYearMonthlyEvent(idx)">
+                            X
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="new-event-region">
             <app-new-event
             (newCyclicalEvent)="createNewCyclicalEvent($event)"
+            (newUniqueEvent)="createNewUniqueEvent($event)"
             (newYearlyEvent)="createNewYearlyEvent($event)"
             (newMonthlyEvent)="createNewMonthlyEvent($event)"
             (newWeeklyEvent)="createNewWeeklyEvent($event)"
             (newMonthlyDOWEvent)="createNewMonthDOWEvent($event)"
             (newYearlyMonthlyDOWEvent)="createNewYearMonthDOWEvent($event)"
+            (newYearlyMonthlyEvent)="createNewYearlyMonthlyEvent($event)"
             ></app-new-event>
         </div>
 

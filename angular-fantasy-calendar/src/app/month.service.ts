@@ -3,7 +3,8 @@ import { CalendarSettings } from './calendarSettings';
 import { Day } from './day';
 import { Month } from './month';
 import { TotalSettings } from './totalSettings';
-import { CyclicalEvent, WeeklyEvent, MonthlyEvent, YearlyEvent, MonthlyDayOfWeekEvent, YearlyMonthlyDayOfWeekEvent } from './calendarEvent';
+import { CyclicalEvent, WeeklyEvent, MonthlyEvent, YearlyEvent, MonthlyDayOfWeekEvent,
+  YearlyMonthlyDayOfWeekEvent, YearlyMonthlyEvent, UniqueEvent } from './calendarEvent';
 
 @Injectable({
   providedIn: 'root'
@@ -48,15 +49,20 @@ export class MonthService {
         dayOfYear,
         cyclicalEvents: this.getCyclicalEventList(monthStartingDayID + i,
                 totalSettings.cyclicalEvents),
+        uniqueEvents: this.getUniqueEventList(monthStartingDayID + dayOfMonth,
+                totalSettings.uniqueEvents),
         weeklyEvents: this.getWeeklyEventList(currentWeekday,
                 totalSettings.weeklyEvents),
         monthlyEvents: this.getMonthlyEventList(dayOfMonth,
                 totalSettings.monthlyEvents),
         yearlyEvents: this.getYearlyEventList(dayOfYear,
                 totalSettings.yearlyEvents),
-        monthDOWEvents: this.getMonthDOWEventList(currentWeekday, weekdayCounts[currentWeekday], totalSettings.monthDOWEvents),
-        yearMonthDOWEvents: this.getYearMonthDOWEventList(currentWeekday, monthNumber, weekdayCounts[currentWeekday],
-           totalSettings.yearMonthDOWEvents)
+        monthDOWEvents: this.getMonthDOWEventList(currentWeekday,
+                weekdayCounts[currentWeekday], totalSettings.monthDOWEvents),
+        yearMonthDOWEvents: this.getYearMonthDOWEventList(currentWeekday, monthNumber,
+                weekdayCounts[currentWeekday], totalSettings.yearMonthDOWEvents),
+        yearMonthlyEvents: this.getYearMonthlyEventList(dayOfMonth, monthNumber,
+                totalSettings.yearlyMonthlyEvents)
       };
       weekdayCounts[currentWeekday]++;
       /*
@@ -165,6 +171,33 @@ export class MonthService {
             if (dayOfWeek === (calendarEvent.offset - 1)) {
               result.push(calendarEvent);
             }
+          }
+        }
+      });
+    }
+    return result;
+  }
+
+  getUniqueEventList(dayID: number, uniqueEvents: UniqueEvent[]): UniqueEvent[] {
+    const result: UniqueEvent[] = [];
+    if (uniqueEvents) {
+      uniqueEvents.forEach(calendarEvent => {
+        if (dayID === (calendarEvent.offset - 1)) {
+          result.push(calendarEvent);
+        }
+      });
+    }
+    return result;
+  }
+
+  getYearMonthlyEventList(dayOfMonth: number, monthOfYear: number,
+                          yearMonthlyEvents: YearlyMonthlyEvent[]): YearlyMonthlyEvent[] {
+    const result: YearlyMonthlyEvent[] = [];
+    if (yearMonthlyEvents) {
+      yearMonthlyEvents.forEach(calendarEvent => {
+        if (monthOfYear === (calendarEvent.monthOffset - 1)) {
+          if (dayOfMonth === calendarEvent.offset) {
+            result.push(calendarEvent);
           }
         }
       });

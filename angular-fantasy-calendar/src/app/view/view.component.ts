@@ -17,17 +17,20 @@ export class ViewComponent implements OnInit {
 
   totalSettings: TotalSettings = {
     calendarSettings: null,
+    uniqueEvents: null,
     cyclicalEvents: null,
     weeklyEvents: null,
     monthlyEvents: null,
     yearlyEvents: null,
     monthDOWEvents: null,
-    yearMonthDOWEvents: null
+    yearMonthDOWEvents: null,
+    yearlyMonthlyEvents: null
   }; // initial values should not be passed to calendar component
   showNewEvent = false;
+  newEventDayID: number;
 
   myObserver = {
-    next: x => this.setWindow(true),
+    next: x => this.openWindow(x),
     error: err => console.error('Got an error: ' + err),
     complete: () => console.log('Got a complete notification')
   };
@@ -58,6 +61,11 @@ export class ViewComponent implements OnInit {
   newTotalSettings(newSettings: string): void {
     this.totalSettings = JSON.parse(newSettings);
     this.splitSettings(this.totalSettings);
+  }
+
+  openWindow(dayID: number): void {
+    this.setWindow(true);
+    this.newEventDayID = dayID;
   }
 
   setWindow(state: boolean): void {

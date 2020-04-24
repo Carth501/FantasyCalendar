@@ -1,18 +1,24 @@
 <div class="region">
     <select id="event-type" [(ngModel)]="eventType">
+        <option value="unique">Unique event, only happens once</option>
         <option value="cyclical">Cyclical, independent of calendar</option>
+        <option value="yearMonthly">Happens once a year in a given month</option>
         <option value="yearly">Happens once a year</option>
         <option value="yearMonthDOW">Happens once a year, based on the day of the week</option>
         <option value="monthly">Happens once a month</option>
         <option value="monthDOW">Happens on a certain day of a week</option>
         <option value="weekly">Happens once a week</option>
+        
     </select>
     <input id="title" [(ngModel)]="title" type="text" placeholder="Title"/>
     <div class="yearly" *ngIf="eventType === 'yearly'">
         <input id="offset" [(ngModel)]="offset" type="number" placeholder="Day of the year"/>
     </div>
-    <div class="not-yearly" *ngIf="eventType != 'yearly'">
+    <div class="not-yearly" *ngIf="eventType !== 'yearly' && eventType !== 'unique' && eventType !== 'yearMonthly'">
         <input id="offset" [(ngModel)]="offset" type="number" placeholder="Offset"/>
+    </div>
+    <div class="unique" *ngIf="eventType === 'unique'">
+        <input id="clickedDayID" [(ngModel)]="clickedDayID" type="number" placeholder="Day ID"/>
     </div>
     <input id="duration" [(ngModel)]="duration" type="number"  placeholder="Duration of event" min=1/>
 

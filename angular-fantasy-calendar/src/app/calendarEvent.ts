@@ -4,6 +4,12 @@ export interface CalendarEvent { // basic calendar event
     offset: number;
 }
 
+export interface UniqueEvent extends CalendarEvent {
+    // An event that only happens once such as a volcanic eruption,
+    // a hurricane, or a notable death.
+    // offset is the dayID
+}
+
 export interface CyclicalEvent extends CalendarEvent {
     // happens independent of the calendar settings. Based strictly of dayID
     repeatDays: number;
@@ -33,8 +39,16 @@ export interface YearlyMonthlyDayOfWeekEvent extends MonthlyDayOfWeekEvent {
     // On a certain day of the week, in a certain month, every year.
     // Example: the second saturday in March
     // Offset is used to choose which day of the week
-    // Week offset is used to choose how many weeks to skip
-    // Month offset is used to choose how many months to skip
+    // Week offset is the month this applies to
+    // Month offset is the month this applies to
+    monthOffset: number;
+}
+
+export interface YearlyMonthlyEvent extends YearlyEvent {
+    // A number of days into a month, regardless of the day
+    // of the week
+    // month offset is the month this applies to
+    // offset is the day of the month
     monthOffset: number;
 }
 

@@ -24,6 +24,8 @@ import { MonthlyFieldsComponent } from './event field components/monthly-fields/
 import { WeeklyFieldsComponent } from './event field components/weekly-fields/weekly-fields.component';
 import { MonthDOWFieldsComponent } from './event field components/month-dow-fields/month-dow-fields.component';
 import { YearMonthDowFieldsComponent } from './event field components/year-month-dow-fields/year-month-dow-fields.component';
+import { UniqueFieldsComponent } from './event field components/unique-fields/unique-fields.component';
+import { YearMonthlyFieldsComponent } from './event field components/year-monthly-fields/year-monthly-fields.component';
 
 
 
@@ -44,7 +46,9 @@ import { YearMonthDowFieldsComponent } from './event field components/year-month
     MonthlyFieldsComponent,
     WeeklyFieldsComponent,
     MonthDOWFieldsComponent,
-    YearMonthDowFieldsComponent
+    YearMonthDowFieldsComponent,
+    UniqueFieldsComponent,
+    YearMonthlyFieldsComponent
   ],
   imports: [
     BrowserModule,

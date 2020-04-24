@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { CyclicalEvent, MonthlyEvent, WeeklyEvent, YearlyEvent, MonthlyDayOfWeekEvent, YearlyMonthlyDayOfWeekEvent } from '../calendarEvent';
+import { CyclicalEvent, MonthlyEvent, WeeklyEvent, YearlyEvent, MonthlyDayOfWeekEvent, YearlyMonthlyDayOfWeekEvent, YearlyMonthlyEvent, UniqueEvent } from '../calendarEvent';
 
 @Component({
   selector: 'app-new-event',
@@ -14,6 +14,9 @@ export class NewEventComponent {
   @Output() newWeeklyEvent = new EventEmitter<WeeklyEvent>();
   @Output() newMonthDOWEvent = new EventEmitter<MonthlyDayOfWeekEvent>();
   @Output() newYearMonthDOWEvent = new EventEmitter<YearlyMonthlyDayOfWeekEvent>();
+  @Output() newYearMonthlyEvent = new EventEmitter<YearlyMonthlyEvent>();
+  @Output() newUniqueEvent = new EventEmitter<UniqueEvent>();
+  
 
   @Output() setWindow = new EventEmitter<boolean>();
 
@@ -26,6 +29,8 @@ export class NewEventComponent {
   @Input() month: number;
   @Input() weekOffset: number;
   @Input() monthOffset: number;
+
+  @Input() clickedDayID: number;
 
   constructor() { }
 
@@ -80,6 +85,7 @@ export class NewEventComponent {
     this.month = null;
     this.weekOffset = null;
     this.monthOffset = null;
+    this.clickedDayID = null;
   }
 
   newEventEmit(): void {
@@ -129,6 +135,21 @@ export class NewEventComponent {
         monthOffset: this.monthOffset
       };
       this.newYearMonthDOWEvent.emit(newCalendarEvent);
+    } else if (this.eventType === 'yearMonthly') {
+      const newCalendarEvent: YearlyMonthlyEvent = {
+        title: this.title,
+        offset: this.offset,
+        duration: this.duration,
+        monthOffset: this.monthOffset
+      };
+      this.newYearMonthlyEvent.emit(newCalendarEvent);
+    } else if (this.eventType === 'unique') {
+      const newCalendarEvent: UniqueEvent = {
+        title: this.title,
+        offset: this.clickedDayID,
+        duration: this.duration
+      };
+      this.newUniqueEvent.emit(newCalendarEvent);
     }
     this.closeWindow();
   }

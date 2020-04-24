@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { InMemoryDbService } from 'angular-in-memory-web-api';
-import { CyclicalEvent, YearlyEvent, WeeklyEvent, MonthlyEvent, MonthlyDayOfWeekEvent, YearlyMonthlyDayOfWeekEvent } from './calendarEvent';
+import { CyclicalEvent, YearlyEvent, WeeklyEvent, MonthlyEvent, MonthlyDayOfWeekEvent,
+  YearlyMonthlyDayOfWeekEvent, UniqueEvent, YearlyMonthlyEvent } from './calendarEvent';
 import { TotalSettings } from './totalSettings';
 import { YearMonthDowFieldsComponent } from './event field components/year-month-dow-fields/year-month-dow-fields.component';
 
@@ -9,6 +10,9 @@ import { YearMonthDowFieldsComponent } from './event field components/year-month
 })
 export class InMemoryDataService implements InMemoryDbService {
   createDb() {
+    const uniqueEvents: UniqueEvent[] = [
+      {title: 'This project\'s inception', offset: 4000050, duration: 1}
+    ];
     const cyclicalEvents: CyclicalEvent[] = [
       {title: 'Very rare!', offset: 6, duration: 1, repeatDays: 1620},
       {title: 'Full Moon', offset: 22, duration: 4, repeatDays: 29.530}
@@ -21,6 +25,9 @@ export class InMemoryDataService implements InMemoryDbService {
     const monthDOWEvents: MonthlyDayOfWeekEvent[] = [];
     const yearMonthDOWEvents: YearlyMonthlyDayOfWeekEvent[] = [
       { title: 'Thanksgiving', duration: 1, offset: 5, weekOffset: 4, monthOffset: 11}
+    ];
+    const yearlyMonthlyEvents: YearlyMonthlyEvent[] = [
+      { title: 'New Year\'s Day', duration: 1, offset: 1, monthOffset: 1 }
     ];
 
     const calendarSettings = {
@@ -39,12 +46,14 @@ export class InMemoryDataService implements InMemoryDbService {
     };
     const defaultSettings: TotalSettings = {
       calendarSettings,
+      uniqueEvents,
       cyclicalEvents,
       weeklyEvents,
       monthlyEvents,
       yearlyEvents,
       monthDOWEvents,
-      yearMonthDOWEvents
+      yearMonthDOWEvents,
+      yearlyMonthlyEvents
     };
     return {defaultSettings};
   }

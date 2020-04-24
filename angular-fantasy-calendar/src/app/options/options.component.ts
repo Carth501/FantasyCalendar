@@ -1,11 +1,11 @@
 import { Clipboard } from '@angular/cdk/clipboard';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { faArrowAltCircleUp, faBars } from '@fortawesome/free-solid-svg-icons';
+import { CyclicalEvent, MonthlyDayOfWeekEvent, MonthlyEvent, WeeklyEvent,
+  YearlyEvent, YearlyMonthlyDayOfWeekEvent, UniqueEvent, YearlyMonthlyEvent } from '../calendarEvent';
 import { EMPTY_LEAP_YEAR, LeapYear } from '../leapYear';
 import { TotalSettings } from '../totalSettings';
 import { YearService } from '../year.service';
-import * as eventTypes from '../calendarEvent';
-import { CalendarEvent, CyclicalEvent, YearlyEvent, MonthlyEvent, WeeklyEvent, MonthlyDayOfWeekEvent, YearlyMonthlyDayOfWeekEvent } from '../calendarEvent';
 
 @Component({
   selector: 'app-options',
@@ -37,11 +37,13 @@ export class OptionsComponent {
   @Output() readNewjson = new EventEmitter<string>();
 
   @Input() cyclicalEvents: CyclicalEvent[];
+  @Input() uniqueEvents: UniqueEvent[];
   @Input() weeklyEvents: WeeklyEvent[];
   @Input() monthlyEvents: MonthlyEvent[];
   @Input() yearlyEvents: YearlyEvent[];
   @Input() monthDOWEvents: MonthlyDayOfWeekEvent[];
   @Input() yearMonthDOWEvents: YearlyMonthlyDayOfWeekEvent[];
+  @Input() yearlyMonthlyEvents: YearlyMonthlyEvent[];
 
   constructor(
     private yearService: YearService,
@@ -100,11 +102,13 @@ export class OptionsComponent {
 
       },
       cyclicalEvents: this.cyclicalEvents,
+      uniqueEvents: this.uniqueEvents,
       weeklyEvents: this.weeklyEvents,
       monthlyEvents: this.monthlyEvents,
       yearlyEvents: this.yearlyEvents,
       monthDOWEvents: this.monthDOWEvents,
-      yearMonthDOWEvents: this.yearMonthDOWEvents
+      yearMonthDOWEvents: this.yearMonthDOWEvents,
+      yearlyMonthlyEvents: this.yearlyMonthlyEvents
     };
     this.changes.emit(this.totalSettingsObject);
   }

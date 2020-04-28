@@ -1,6 +1,6 @@
 import { Clipboard } from '@angular/cdk/clipboard';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { faArrowAltCircleUp, faBars } from '@fortawesome/free-solid-svg-icons';
+import { faArrowAltCircleUp } from '@fortawesome/free-solid-svg-icons';
 import { CyclicalEvent, MonthlyDayOfWeekEvent, MonthlyEvent, WeeklyEvent,
   YearlyEvent, YearlyMonthlyDayOfWeekEvent, UniqueEvent, YearlyMonthlyEvent } from '../calendarEvent';
 import { EMPTY_LEAP_YEAR, LeapYear } from '../leapYear';
@@ -14,13 +14,11 @@ import { YearService } from '../year.service';
 })
 export class OptionsComponent {
   faArrowAltCircleUp = faArrowAltCircleUp;
-  faBars = faBars;
   daysPerWeek;
   @Input() DoW_names: string[];
   @Input() MonthNames: string[];
   @Input() daysPerMonths: number[];
   daysPerYear: number;
-  hideSettings = true;
   @Output() changes = new EventEmitter<TotalSettings>();
   @Input() currentYear: number;
   @Input() newDoWName: string;
@@ -85,6 +83,12 @@ export class OptionsComponent {
       }
       if (totalSettings.yearMonthDOWEvents) {
         this.yearMonthDOWEvents = totalSettings.yearMonthDOWEvents;
+      }
+      if (totalSettings.yearlyMonthlyEvents) {
+        this.yearlyMonthlyEvents = totalSettings.yearlyMonthlyEvents;
+      }
+      if (totalSettings.uniqueEvents) {
+        this.uniqueEvents = totalSettings.uniqueEvents;
       }
     }
   }
@@ -261,9 +265,5 @@ export class OptionsComponent {
 
   newUserJSON(): void {
     this.readNewjson.emit(this.fromjson);
-  }
-
-  toggleSettingsSidebar(): void {
-    this.hideSettings = !this.hideSettings;
   }
 }

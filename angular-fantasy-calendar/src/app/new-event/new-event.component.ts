@@ -29,7 +29,6 @@ export class NewEventComponent {
   @Input() month: number;
   @Input() weekOffset: number;
   @Input() monthOffset: number;
-
   @Input() clickedDayID: number;
 
   constructor() { }
@@ -40,39 +39,49 @@ export class NewEventComponent {
 
   createEvent(): void {
     let error = false;
+    let message = '';
     if (this.title === null || this.title === '' || this.title === undefined) {
-      document.getElementById('title').setAttribute('class', 'error');
+      message += 'Title invalid\n';
       error = true;
     }
-    if (this.offset === null || this.offset < 1 || this.offset === undefined) {
-      document.getElementById('offset').setAttribute('class', 'error');
-      error = true;
+    if (this.eventType === 'unique') {
+      if (this.clickedDayID === null || this.clickedDayID < 1 || this.clickedDayID === undefined) {
+        message += 'Clicked day ID invalid\n';
+        error = true;
+      }
+    } else {
+      if (this.offset === null || this.offset < 1 || this.offset === undefined) {
+        message += 'Offset invalid\n';
+        error = true;
+      }
     }
     if (this.duration === null || this.duration < 1 || this.duration === undefined) {
-      document.getElementById('duration').setAttribute('class', 'error');
+      message += 'Duration invalid\n';
       error = true;
     }
     if (this.eventType === 'cyclical') {
       if (this.repeatDays === null || this.repeatDays < 1 || this.repeatDays === undefined) {
-        document.getElementById('repeatDays').setAttribute('class', 'error');
+        message += 'Repeat days invalid\n';
         error = true;
       }
     }
     if (this.eventType === 'monthDOW') {
       if (this.weekOffset === null || this.weekOffset < 1 || this.weekOffset === undefined) {
-        document.getElementById('weekOffset').setAttribute('class', 'error');
+        message += 'Month day of week invalid\n';
         error = true;
       }
     }
     if (this.eventType === 'yearMonthDOW') {
       if (this.monthOffset === null || this.monthOffset < 1 || this.monthOffset === undefined) {
-        document.getElementById('monthOffset').setAttribute('class', 'error');
+        message += 'Month Offset invalid\n';
         error = true;
       }
     }
     if (!error) {
       this.newEventEmit();
       this.clearInput();
+    } else {
+      console.log(message);
     }
   }
 

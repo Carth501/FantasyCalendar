@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { faArrowAltCircleUp } from '@fortawesome/free-solid-svg-icons';
+import { faArrowAltCircleUp, faBars } from '@fortawesome/free-solid-svg-icons';
 import * as _ from 'lodash';
 import { CalendarService } from '../calendar.service';
-import { CyclicalEvent, WeeklyEvent, MonthlyEvent, YearlyEvent } from '../calendarEvent';
+import { CyclicalEvent, WeeklyEvent, MonthlyEvent, YearlyEvent,
+  YearlyMonthlyEvent, YearlyMonthlyDayOfWeekEvent, UniqueEvent, MonthlyDayOfWeekEvent } from '../calendarEvent';
 import { TotalSettings } from '../totalSettings';
 import { CalendarEventService } from '../calendar-event.service';
 
@@ -14,6 +15,7 @@ import { CalendarEventService } from '../calendar-event.service';
 export class ViewComponent implements OnInit {
 
   faArrowAltCircleUp = faArrowAltCircleUp;
+  faBars = faBars;
 
   totalSettings: TotalSettings = {
     calendarSettings: null,
@@ -28,6 +30,7 @@ export class ViewComponent implements OnInit {
   }; // initial values should not be passed to calendar component
   showNewEvent = false;
   newEventDayID: number;
+  hideSettings = true;
 
   myObserver = {
     next: x => this.openWindow(x),
@@ -96,7 +99,35 @@ export class ViewComponent implements OnInit {
     this.totalSettings = {...this.totalSettings, yearlyEvents: tempEventArray};
   }
 
+  createNewMonthlyDOWEvent(newEvent: MonthlyDayOfWeekEvent): void {
+    const tempEventArray = this.totalSettings.monthDOWEvents.slice();
+    tempEventArray.push(newEvent);
+    this.totalSettings = {...this.totalSettings, monthDOWEvents: tempEventArray};
+  }
+
+  createNewYearlyMonthlyEvent(newEvent: YearlyMonthlyEvent): void {
+    const tempEventArray = this.totalSettings.yearlyMonthlyEvents.slice();
+    tempEventArray.push(newEvent);
+    this.totalSettings = {...this.totalSettings, yearlyMonthlyEvents: tempEventArray};
+  }
+
+  createNewYearlyMonthlyDOWEvent(newEvent: YearlyMonthlyDayOfWeekEvent): void {
+    const tempEventArray = this.totalSettings.yearMonthDOWEvents.slice();
+    tempEventArray.push(newEvent);
+    this.totalSettings = {...this.totalSettings, yearMonthDOWEvents: tempEventArray};
+  }
+
+  createNewUniqueEvent(newEvent: UniqueEvent): void {
+    const tempEventArray = this.totalSettings.uniqueEvents.slice();
+    tempEventArray.push(newEvent);
+    this.totalSettings = {...this.totalSettings, uniqueEvents: tempEventArray};
+  }
+
   closeEventWindow(): void {
     this.showNewEvent = false;
+  }
+
+  toggleSettingsSidebar(): void {
+    this.hideSettings = !this.hideSettings;
   }
 }

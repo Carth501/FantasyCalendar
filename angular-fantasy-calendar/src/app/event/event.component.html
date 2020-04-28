@@ -9,6 +9,13 @@
             ></app-cyclical-fields>
         </div>
 
+        <div *ngIf="eventType === 'unique'">
+            <app-unique-fields
+                [addEvent]="calendarEvent"
+                [editable]="editable"
+            ></app-unique-fields>
+        </div>
+
         <div *ngIf="eventType === 'yearly'">
             <app-yearly-fields
                 [addEvent]="calendarEvent"

@@ -2,18 +2,21 @@
 
 .settings-panel {
   height: 100%; /* Full-height: remove this if you want "auto" height */
-  width: 560px; /* Set the width of the sidebar */
+  width: 100%;
+  top: 0;
   position: fixed; /* Fixed Sidebar (stay in place on scroll) */
   z-index: 1; /* Stay on top */
-  top: 0; /* Stay at the top */
-  right: 0;
   background-color: rgba(190, 190, 190);
   overflow-x: hidden; /* Disable horizontal scroll */
 }
 
+.columns {
+  display: flex;
+  flex-direction: row;
+}
+
 .settings {
   display: flex;
-  flex-wrap: wrap;
   flex-direction: column;
 }
 
@@ -25,6 +28,11 @@
   flex-wrap: nowrap;
   flex-direction: row;
   border-top: 3px solid black;
+}
+
+.apply {
+  font-size: 30px;
+  padding: 10px;
 }
 
 .input-region {
@@ -100,22 +108,10 @@ input {
 .new-event-fields {
   width: 410px;
 }
-.sidebarToggle {
-  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
-  z-index: 1; /* Stay on top */
-  top: 0; /* Stay at the top */
-  right: 0;
-  padding-right: 50px;
-  padding-top: 10px;
-}
 
 .buttonText {
   font-size: 40px;
   border: none;
-}
-
-.buffer {
-  height: 80px;
 }
 
 .LYConfigs {
@@ -160,4 +156,6 @@ input {
   height: 20px;
   width: 25px;
   padding: 0px;
+  margin: 0px;
+  margin-left: 5px;
 }

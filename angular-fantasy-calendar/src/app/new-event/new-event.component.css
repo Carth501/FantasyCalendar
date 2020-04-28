@@ -10,6 +10,6 @@
 }
 
 
-.error {
-    border: red solid 2px;
+.needs-attention {
+    border: rgb(255, 140, 140) solid 2px;
 }

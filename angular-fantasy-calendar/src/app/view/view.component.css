@@ -27,3 +27,16 @@
     width: 20px;
     padding: 0px;
 }
+
+.sidebarToggle {
+    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    z-index: 2; /* Stay on top */
+    top: 0; /* Stay at the top */
+    right: 0;
+    padding-right: 50px;
+    padding-top: 10px;
+}
+
+.hide-scrollbar {
+    overflow: hidden;
+}

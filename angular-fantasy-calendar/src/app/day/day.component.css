@@ -26,3 +26,14 @@
     width: 200px;
     height: 200px;
 }
+
+ul {
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-block-start: 10px;
+    margin-block-end: 10px;
+}
+
+li {
+    margin-top: 4px;
+}

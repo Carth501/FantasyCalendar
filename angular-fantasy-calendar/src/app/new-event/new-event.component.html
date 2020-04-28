@@ -6,32 +6,103 @@
         <option value="yearly">Happens once a year</option>
         <option value="yearMonthDOW">Happens once a year, based on the day of the week</option>
         <option value="monthly">Happens once a month</option>
-        <option value="monthDOW">Happens on a certain day of a week</option>
+        <option value="monthDOW">Happens every month, based on the day of the week</option>
         <option value="weekly">Happens once a week</option>
         
     </select>
-    <input id="title" [(ngModel)]="title" type="text" placeholder="Title"/>
-    <div class="yearly" *ngIf="eventType === 'yearly'">
-        <input id="offset" [(ngModel)]="offset" type="number" placeholder="Day of the year"/>
+    <input 
+        [ngClass]="{
+            'needs-attention': !title
+        }" 
+        [(ngModel)]="title" 
+        type="text" 
+        placeholder="Title"/>
+    
+    <div *ngIf="eventType === 'yearly'">
+        <input 
+            [ngClass]="{
+                'needs-attention': !offset
+            }" 
+            [(ngModel)]="offset" 
+            type="number" 
+            placeholder="Day of the year"/>
     </div>
-    <div class="not-yearly" *ngIf="eventType !== 'yearly' && eventType !== 'unique' && eventType !== 'yearMonthly'">
-        <input id="offset" [(ngModel)]="offset" type="number" placeholder="Offset"/>
+    
+    <div *ngIf="eventType === 'yearMonthDOW' || eventType === 'yearMonthly'">
+        <input 
+            [ngClass]="{
+                'needs-attention': !monthOffset
+            }" 
+            [(ngModel)]="monthOffset" 
+            type="number" 
+            placeholder="Month of the year" 
+            min=1/>
     </div>
-    <div class="unique" *ngIf="eventType === 'unique'">
-        <input id="clickedDayID" [(ngModel)]="clickedDayID" type="number" placeholder="Day ID"/>
+    
+    <div *ngIf="eventType === 'yearMonthly'">
+        <input 
+            [ngClass]="{
+                'needs-attention': !offset
+            }" 
+            [(ngModel)]="offset" 
+            type="number" 
+            placeholder="Day of the month" 
+            min=1/>
     </div>
-    <input id="duration" [(ngModel)]="duration" type="number"  placeholder="Duration of event" min=1/>
+    
+    <div 
+        *ngIf="eventType !== 'yearly'
+            && eventType !== 'unique'
+            && eventType !== 'yearMonthly'">
+        <input 
+            [ngClass]="{
+                'needs-attention': !offset
+            }" 
+            [(ngModel)]="offset" 
+            type="number" 
+            placeholder="Offset"/>
+    </div>
+    
+    <div *ngIf="eventType === 'unique'">
+        <input 
+            [ngClass]="{
+                'needs-attention': !clickedDayID
+            }" 
+            [(ngModel)]="clickedDayID" 
+            type="number" 
+            placeholder="Day ID"/>
+    </div>
+    
+    <input 
+        [ngClass]="{
+            'needs-attention': !duration
+        }" 
+        [(ngModel)]="duration" 
+        type="number"
+        placeholder="Duration of event" 
+        min=1/>
 
-    <div class="cyclical" *ngIf="eventType === 'cyclical'">
-        <input id="repeatDays" [(ngModel)]="repeatDays" type="number" placeholder="Length of cycle" min=1/>
+    <div *ngIf="eventType === 'cyclical'">
+        <input 
+        [ngClass]="{
+            'needs-attention': !repeatDays
+        }" 
+        [(ngModel)]="repeatDays" 
+        type="number" 
+        placeholder="Length of cycle" 
+        min=1/>
     </div>
 
-    <div class="monthDOW" *ngIf="eventType === 'monthDOW' || eventType === 'yearMonthDOW'">
-        <input id="weekOffset" [(ngModel)]="weekOffset" type="number" placeholder="Week of the month" min=1/>
+    <div *ngIf="eventType === 'monthDOW' || eventType === 'yearMonthDOW'">
+        <input 
+        [ngClass]="{
+            'needs-attention': !weekOffset
+        }" 
+        [(ngModel)]="weekOffset" 
+        type="number" 
+        placeholder="Week of the month" 
+        min=1/>
     </div>
 
-    <div class="yearMonthDOW" *ngIf="eventType === 'yearMonthDOW'">
-        <input id="monthOffset" [(ngModel)]="monthOffset" type="number" placeholder="Month of the year" min=1/>
-    </div>
     <button class="createButton" (click)="createEvent()">Create</button>
 </div>

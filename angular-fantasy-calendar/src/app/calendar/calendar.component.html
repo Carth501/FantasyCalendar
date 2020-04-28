@@ -11,9 +11,10 @@
     </div>
 </div>
 
-<div class="year-sign" align="center" *ngIf="year && year.yearNumber != null && year.yearNumber != undefined">
+<div class="year-sign" align="center" *ngIf="year && year.yearNumber != null && year.yearNumber != undefined && eras && eras.length > 0 && currentEra != null">
     Year: <input [(ngModel)]="year.yearNumber" 
         (ngModelChange)="this.userYearChange.next($event)"/>
+    {{eras[currentEra].abbreviation}}
 </div>
 
 <app-year [year]="year" [daysOfWeek]="DoWNames"></app-year>

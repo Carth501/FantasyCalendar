@@ -6,6 +6,7 @@ import { CyclicalEvent, MonthlyDayOfWeekEvent, MonthlyEvent, WeeklyEvent,
 import { EMPTY_LEAP_YEAR, LeapYear } from '../leapYear';
 import { TotalSettings } from '../totalSettings';
 import { YearService } from '../year.service';
+import { Era } from '../era';
 
 @Component({
   selector: 'app-options',
@@ -42,6 +43,8 @@ export class OptionsComponent {
   @Input() monthDOWEvents: MonthlyDayOfWeekEvent[];
   @Input() yearMonthDOWEvents: YearlyMonthlyDayOfWeekEvent[];
   @Input() yearlyMonthlyEvents: YearlyMonthlyEvent[];
+  @Input() eras: Era[];
+  @Input() currentEra: number;
 
   constructor(
     private yearService: YearService,
@@ -65,6 +68,8 @@ export class OptionsComponent {
         this.daysPerYear = this.yearService.sumOfMonths(this.daysPerMonths);
         this.currentYear = totalSettings.calendarSettings.currentYear;
         this.leapYears = totalSettings.calendarSettings.leapYears;
+        this.eras = totalSettings.calendarSettings.eras;
+        this.currentEra = totalSettings.calendarSettings.currentEra;
       }
       if (totalSettings.cyclicalEvents) {
         this.cyclicalEvents = totalSettings.cyclicalEvents;

@@ -9,9 +9,18 @@
     <div class="columns">
         <div class="settings">
             <div class="settings-option">
-                <label>Default Year:</label>
                 <div class="input-region">
-                    <input [(ngModel)]="currentYear">
+                    <label>Default Year:</label>
+                    <input [(ngModel)]="currentYear" [min]="eras[currentEra].beginning" [max]="eras[currentEra].ending">
+                </div>
+                <div class="input-region">
+                    <label for="era">Default Era:</label>
+                    <select id="era" [(ngModel)]="currentEra">
+                        <option 
+                            *ngFor="let era of eras; index as i" 
+                            value=i>
+                        {{era.eraName}}</option>
+                    </select>
                 </div>
             </div>
     

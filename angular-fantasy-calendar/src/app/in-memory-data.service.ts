@@ -61,6 +61,11 @@ export class InMemoryDataService implements InMemoryDbService {
       DoW_names: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
       monthNames:
       ['January', 'Feburary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+      eras: [
+        {eraName: 'Before Common Era', abbreviation: 'BCE', ending: 1, reversed: true},
+        {eraName: 'Common Era', abbreviation: 'CE', beginning: 1, reversed: false}
+      ],
+      currentEra: 1,
       currentYear: 2020,
       leapYears: [
         {leapYearCycles: 4, leapYearOffset: 0, leapYearChange: 1, leapDayMonth: 1},

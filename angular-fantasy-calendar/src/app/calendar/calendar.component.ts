@@ -2,6 +2,7 @@ import { Component, Input, ViewChild } from '@angular/core';
 import { faArrowAltCircleLeft, faArrowAltCircleRight } from '@fortawesome/free-solid-svg-icons';
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { Era } from '../era';
 import { LeapYear } from '../leapYear';
 import { TotalSettings } from '../totalSettings';
 import { Year } from '../year';
@@ -31,6 +32,8 @@ export class CalendarComponent {
   DoWNames: string[];
   monthNames: string[];
   year: Year;
+  eras: Era[];
+  currentEra: number;
   yearLength: number;
   leapYears: LeapYear[];
 
@@ -52,6 +55,8 @@ export class CalendarComponent {
   settingsArrived(IncomingSettings): void {
     if (IncomingSettings && IncomingSettings.calendarSettings) {
       this.totalSettings = IncomingSettings;
+      this.eras = this.totalSettings.calendarSettings.eras;
+      this.currentEra = this.totalSettings.calendarSettings.currentEra;
       this.currentYear = this.totalSettings.calendarSettings.currentYear;
       this.daysPerMonths = this.totalSettings.calendarSettings.daysPerMonths;
       this.yearLength = this.yearService.sumOfMonths(this.daysPerMonths);
@@ -67,7 +72,9 @@ export class CalendarComponent {
 
   generateDisplayYear(): void {
     this.yearLength = this.calculateYearLength();
-    this.year = this.yearService.getDisplayYear( this.yearStartingID, this.daysPerMonths, this.yearStartingDOW, this.daysPerWeek, this.monthNames, this.currentYear, this.leapYears, this.totalSettings
+    this.year = this.yearService.getDisplayYear( this.yearStartingID,
+      this.daysPerMonths, this.yearStartingDOW, this.daysPerWeek,
+      this.monthNames, this.currentYear, this.leapYears, this.totalSettings
       );
   }
 
@@ -87,16 +94,17 @@ export class CalendarComponent {
   calcNextYearData(): void {
     this.yearStartingDOW = this.yearService.getNextStartingDoW(this.yearLength, this.yearStartingDOW, this.daysPerWeek);
     this.yearStartingID = this.yearService.getNextStartingID(this.yearStartingID, this.yearLength);
-    this.currentYear++;
+    this.incrementCurrentYear();
   }
 
   generateNextDisplayYear(): void {
     this.calcNextYearData();
+    this.checkEra();
     this.generateDisplayYear();
   }
 
   calcPreviousYearData(): void {
-    this.currentYear--;
+    this.decrementCurrentYear();
     this.yearLength = this.calculateYearLength();
     this.yearStartingDOW = this.yearService.getPreviousStartingDoW(this.yearLength, this.yearStartingDOW, this.daysPerWeek);
     this.yearStartingID = this.yearService.getPreviousStartingID(this.yearStartingID, this.yearLength);
@@ -104,11 +112,61 @@ export class CalendarComponent {
 
   generatePreviousDisplayYear(): void {
     this.calcPreviousYearData();
+    this.checkEra();
     this.generateDisplayYear();
+  }
+
+  checkEra(): void {
+    if ( this.eras[this.currentEra].beginning) {
+      if ( !this.eraReversed() ) {
+        if ( this.currentYear < this.eras[this.currentEra].beginning) {
+          this.currentEra--;
+          this.currentYear = this.eras[this.currentEra].ending;
+        }
+      } else {
+        if ( this.currentYear > this.eras[this.currentEra].beginning) {
+          this.currentEra--;
+          this.currentYear = this.eras[this.currentEra].ending;
+        }
+      }
+    }
+    if ( this.eras[this.currentEra].ending) {
+      if ( !this.eraReversed() ) {
+        if ( this.currentYear > this.eras[this.currentEra].ending) {
+          this.currentEra++;
+          this.currentYear = this.eras[this.currentEra].beginning;
+        }
+      } else {
+        if ( this.currentYear < this.eras[this.currentEra].ending) {
+          this.currentEra++;
+          this.currentYear = this.eras[this.currentEra].beginning;
+        }
+      }
+    }
   }
 
   calculateYearLength(): number {
     return this.yearService.daysInYear(this.daysPerMonths, this.currentYear,
       this.leapYears);
+  }
+
+  eraReversed(): boolean {
+    return this.eras[this.currentEra].reversed;
+  }
+  
+  incrementCurrentYear(): void {
+    if (this.eras[this.currentEra].reversed) {
+      this.currentYear--;
+    } else {
+      this.currentYear++;
+    }
+  }
+
+  decrementCurrentYear(): void {
+    if (this.eras[this.currentEra].reversed) {
+      this.currentYear++;
+    } else {
+      this.currentYear--;
+    }
   }
 }

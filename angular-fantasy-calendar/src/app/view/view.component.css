@@ -1,3 +1,10 @@
+h1 {
+    top: 20px;
+    left: 10px;
+    position: absolute;
+    font-size: 50px;
+}
+
 .scroll-to-top {
     position: fixed;
     bottom: 20px;
@@ -37,6 +44,10 @@
     padding-top: 10px;
 }
 
-.hide-scrollbar {
-    overflow: hidden;
+.calendar-space {
+    margin-top: 62px;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    overflow: scroll;
 }

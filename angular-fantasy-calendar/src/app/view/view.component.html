@@ -1,3 +1,7 @@
+<h1>
+    Custom Calendar
+</h1>
+
 <div class="sidebarToggle">
     <button (click)="toggleSettingsSidebar()" class="buttonText">
         <fa-icon [icon]="faBars" size="4x"></fa-icon>
@@ -11,12 +15,12 @@
     (readNewjson)="newTotalSettings($event)"
 ></app-options>
 
-<app-calendar 
-    [ngClass]="{
-        'hide-scrollbar': !hideSettings
-    }"
-    [settings]="totalSettings"
-></app-calendar>
+<div class="calendar-space" align="center">
+    <app-calendar 
+        [settings]="totalSettings"
+        align="center"
+    ></app-calendar>
+</div>
 
 <div class="new-event-panel" *ngIf="showNewEvent">
     <div class="topBar">

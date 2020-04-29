@@ -57,11 +57,21 @@ export class InMemoryDataService implements InMemoryDbService {
 
     const defaultCalendarSettings = {
       startingDayID: 4000000,
-      daysPerMonths: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
       startingDoW: 3,
       DoW_names: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-      monthNames:
-      ['January', 'Feburary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+      settingsMonths: [{name: 'Janury', length: 31},
+                      {name: 'Feburary', length: 31},
+                      {name: 'March', length: 31},
+                      {name: 'April', length: 31},
+                      {name: 'May', length: 31},
+                      {name: 'June', length: 31},
+                      {name: 'July', length: 31},
+                      {name: 'August', length: 31},
+                      {name: 'September', length: 31},
+                      {name: 'October', length: 31},
+                      {name: 'November', length: 31},
+                      {name: 'December', length: 31}
+      ],
       eras: [
         {eraName: 'Before Common Era', abbreviation: 'BCE', ending: 1, reversed: true},
         {eraName: 'Common Era', abbreviation: 'CE', beginning: 1, reversed: false}
@@ -114,11 +124,21 @@ export class InMemoryDataService implements InMemoryDbService {
 
     const sylrinCalendarSettings = {
       startingDayID: 4000000,
-      daysPerMonths: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
       startingDoW: 3,
       DoW_names: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-      monthNames:
-      ['', 'Loos', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+      settingsMonths: [{name: 'Janury', length: 31},
+                      {name: 'Feburary', length: 31},
+                      {name: 'March', length: 31},
+                      {name: 'April', length: 31},
+                      {name: 'May', length: 31},
+                      {name: 'June', length: 31},
+                      {name: 'July', length: 31},
+                      {name: 'August', length: 31},
+                      {name: 'September', length: 31},
+                      {name: 'October', length: 31},
+                      {name: 'November', length: 31},
+                      {name: 'December', length: 31}
+      ],
       eras: [
         {eraName: 'Before Common Era', abbreviation: 'BCE', ending: 1, reversed: true},
         {eraName: 'Common Era', abbreviation: 'CE', beginning: 1, reversed: false}

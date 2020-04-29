@@ -27,10 +27,10 @@
             <div class="settings-option">
                 <label>Months of the year:</label>
                 <div class="input-region">
-                    <div  *ngFor="let x of MonthNames; let idx = index; trackBy: trackArray">
+                    <div  *ngFor="let x of settingsMonths; let idx = index; trackBy: trackArray">
                         <div class="input-fields">
-                            <input class="month-name" type="text" [(ngModel)]="MonthNames[idx]"/>
-                            <input class="month-length" type="number" [(ngModel)]="daysPerMonths[idx]" min=1/>
+                            <input class="month-name" type="text" [(ngModel)]="settingsMonths[idx].name"/>
+                            <input class="month-length" type="number" [(ngModel)]="settingsMonths[idx].length" min=1/>
                             <button class="month-delete" (click)= "deleteMonth(idx)">
                                 X
                             </button>
@@ -40,8 +40,8 @@
                     <button id="submit-new-month" (click)="addMonth()">
                         add
                     </button>
-                    <div *ngIf="MonthNames">
-                        Number of months: {{MonthNames.length}}
+                    <div *ngIf="settingsMonths">
+                        Number of months: {{settingsMonths.length}}
                     </div>
                     <div *ngIf="daysPerYear">
                         Total days in a year: {{daysPerYear}}

@@ -5,6 +5,7 @@ import { Month } from './month';
 import { TotalSettings } from './totalSettings';
 import { CyclicalEvent, WeeklyEvent, MonthlyEvent, YearlyEvent, MonthlyDayOfWeekEvent,
   YearlyMonthlyDayOfWeekEvent, YearlyMonthlyEvent, UniqueEvent } from './calendarEvent';
+import { SettingsMonth } from './settingsMonth';
 
 @Injectable({
   providedIn: 'root'
@@ -22,14 +23,14 @@ export class MonthService {
 
   getDisplayMonth(
     yearStartingDayID: number, monthStartingDayID: number,
-    monthLength: number, startingDoW: number, daysPerWeek: number,
-    monthName: string, monthNumber: number, totalSettings: TotalSettings): Month {
+    monthLength: number, settingsMonth: SettingsMonth, startingDoW: number,
+    daysPerWeek: number, monthNumber: number, totalSettings: TotalSettings): Month {
 
     let currentWeekday = startingDoW;
     let week = 0;
     const month = {
       id: 0,
-      name: monthName,
+      name: settingsMonth.name,
       weeks: []
     };
     for (let k = 0; k < ((monthLength + startingDoW) / daysPerWeek); k++) {
@@ -205,8 +206,8 @@ export class MonthService {
     return result;
   }
 
-  getNextStartingDoW(monthLength: number, startingDoW: number, daysPerWeek: number): number {
-    const newStartingDoW: number = (monthLength + startingDoW) % daysPerWeek;
+  getNextStartingDoW(settingsMonth: SettingsMonth, startingDoW: number, daysPerWeek: number): number {
+    const newStartingDoW: number = (settingsMonth.length + startingDoW) % daysPerWeek;
     return newStartingDoW;
   }
 

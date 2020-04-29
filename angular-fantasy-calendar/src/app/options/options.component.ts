@@ -7,6 +7,7 @@ import { EMPTY_LEAP_YEAR, LeapYear } from '../leapYear';
 import { TotalSettings } from '../totalSettings';
 import { YearService } from '../year.service';
 import { Era } from '../era';
+import { SettingsMonth } from '../settingsMonth';
 
 @Component({
   selector: 'app-options',
@@ -17,8 +18,7 @@ export class OptionsComponent {
   faArrowAltCircleUp = faArrowAltCircleUp;
   daysPerWeek;
   @Input() DoW_names: string[];
-  @Input() MonthNames: string[];
-  @Input() daysPerMonths: number[];
+  @Input() settingsMonths: SettingsMonth[];
   daysPerYear: number;
   @Output() changes = new EventEmitter<TotalSettings>();
   @Input() currentYear: number;
@@ -67,9 +67,8 @@ export class OptionsComponent {
       if (totalSettings.calendarSettings) {
         this.DoW_names = totalSettings.calendarSettings.DoW_names;
         this.daysPerWeek = this.DoW_names.length;
-        this.MonthNames = totalSettings.calendarSettings.monthNames;
-        this.daysPerMonths = totalSettings.calendarSettings.daysPerMonths;
-        this.daysPerYear = this.yearService.sumOfMonths(this.daysPerMonths);
+        this.settingsMonths = totalSettings.calendarSettings.settingsMonths;
+        this.daysPerYear = this.yearService.sumOfMonthLengths(this.settingsMonths);
         this.currentYear = totalSettings.calendarSettings.currentYear;
         this.leapYears = totalSettings.calendarSettings.leapYears;
         this.eras = totalSettings.calendarSettings.eras;
@@ -103,14 +102,13 @@ export class OptionsComponent {
   }
 
   pushChanges(): void {
-    this.daysPerYear = this.yearService.sumOfMonths(this.daysPerMonths);
+    this.daysPerYear = this.yearService.sumOfMonthLengths(this.settingsMonths);
     this.totalSettingsObject = {
       calendarName: this.calendarName,
       calendarSettings: {
         ...this.totalSettingsObject.calendarSettings,
         DoW_names: this.DoW_names.slice(),
-        monthNames: this.MonthNames.slice(),
-        daysPerMonths: this.daysPerMonths.slice(),
+        settingsMonths: this.settingsMonths.slice(),
         currentYear: this.currentYear,
         leapYears: this.leapYears,
 
@@ -129,20 +127,20 @@ export class OptionsComponent {
 
 
   addMonth(): void {
+    // this should be using input binding instead of getElementByID
+    // for potential month values
     const newMonthInput = document.getElementById('new-month-field') as HTMLInputElement;
     if (newMonthInput.value) {
-      this.MonthNames.push(newMonthInput.value);
-      this.daysPerMonths.push(1);
-      this.daysPerYear = this.yearService.sumOfMonths(this.daysPerMonths);
+      this.settingsMonths.push({name: newMonthInput.value, length: 1});
+      this.daysPerYear = this.yearService.sumOfMonthLengths(this.settingsMonths);
       newMonthInput.value = '';
     }
   }
 
   deleteMonth(index: number): void {
     if (index >= 0) {
-      this.daysPerMonths.splice(index, 1);
-      this.MonthNames.splice(index, 1);
-      this.daysPerYear = this.yearService.sumOfMonths(this.daysPerMonths);
+      this.settingsMonths.splice(index, 1);
+      this.daysPerYear = this.yearService.sumOfMonthLengths(this.settingsMonths);
     }
   }
 

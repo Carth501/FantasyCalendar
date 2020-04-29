@@ -7,6 +7,7 @@ import { LeapYear } from '../leapYear';
 import { TotalSettings } from '../totalSettings';
 import { Year } from '../year';
 import { YearService } from '../year.service';
+import { SettingsMonth } from '../settingsMonth';
 
 @Component({
   selector: 'app-calendar',
@@ -27,10 +28,9 @@ export class CalendarComponent {
   currentYear: number;
   yearStartingID: number;
   yearStartingDOW: number;
-  daysPerMonths: number[];
   daysPerWeek: number;
   DoWNames: string[];
-  monthNames: string[];
+  settingsMonths: SettingsMonth[];
   year: Year;
   eras: Era[];
   currentEra: number;
@@ -58,13 +58,12 @@ export class CalendarComponent {
       this.eras = this.totalSettings.calendarSettings.eras;
       this.currentEra = this.totalSettings.calendarSettings.currentEra;
       this.currentYear = this.totalSettings.calendarSettings.currentYear;
-      this.daysPerMonths = this.totalSettings.calendarSettings.daysPerMonths;
-      this.yearLength = this.yearService.sumOfMonths(this.daysPerMonths);
       this.yearStartingID = this.totalSettings.calendarSettings.startingDayID;
       this.yearStartingDOW = this.totalSettings.calendarSettings.startingDoW;
       this.DoWNames = this.totalSettings.calendarSettings.DoW_names;
       this.daysPerWeek = this.DoWNames.length;
-      this.monthNames = this.totalSettings.calendarSettings.monthNames;
+      this.settingsMonths = this.totalSettings.calendarSettings.settingsMonths;
+      this.yearLength = this.yearService.sumOfMonthLengths(this.settingsMonths);
       this.leapYears = this.totalSettings.calendarSettings.leapYears;
       this.generateDisplayYear();
     }
@@ -73,8 +72,8 @@ export class CalendarComponent {
   generateDisplayYear(): void {
     this.yearLength = this.calculateYearLength();
     this.year = this.yearService.getDisplayYear( this.yearStartingID,
-      this.daysPerMonths, this.yearStartingDOW, this.daysPerWeek,
-      this.monthNames, this.currentYear, this.leapYears, this.totalSettings
+      this.settingsMonths, this.yearStartingDOW, this.daysPerWeek,
+      this.currentYear, this.leapYears, this.totalSettings
       );
   }
 
@@ -146,7 +145,7 @@ export class CalendarComponent {
   }
 
   calculateYearLength(): number {
-    return this.yearService.daysInYear(this.daysPerMonths, this.currentYear,
+    return this.yearService.daysInYear(this.settingsMonths, this.currentYear,
       this.leapYears);
   }
 

@@ -1,4 +1,4 @@
-<div class="input-fields">
+<div class="input-fields" *ngIf="yearMonthlyEvent">
     <div class="title" *ngIf="editable">
         <label for="title-field">Title</label>
         <input [disabled]="!editable" class="input-field"

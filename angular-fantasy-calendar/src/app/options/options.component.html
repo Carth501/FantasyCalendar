@@ -6,7 +6,7 @@
         Apply
     </button>
     
-    <div class="columns">
+    <div class="columns" *ngIf="totalSettingsObject">
         <div class="settings">
             <div class="settings-option">
                 <div class="input-region">
@@ -43,7 +43,7 @@
                     <div *ngIf="MonthNames">
                         Number of months: {{MonthNames.length}}
                     </div>
-                    <div>
+                    <div *ngIf="daysPerYear">
                         Total days in a year: {{daysPerYear}}
                     </div>
                 </div>

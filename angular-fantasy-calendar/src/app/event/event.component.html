@@ -1,5 +1,5 @@
 <div class="panel">
-    <button class="toggleEvent" (click)="toggleEvent()">{{calendarEvent.title}}</button>
+    <button class="toggleEvent" (click)="toggleEvent()" *ngIf="calendarEvent">{{calendarEvent.title}}</button>
     <div *ngIf="expanded">
 
         <div *ngIf="eventType === 'cyclical'">

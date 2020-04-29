@@ -9,13 +9,11 @@ import { TotalSettings } from './totalSettings';
 
 export class CalendarService {
 
-  private calenderSettingsURL = 'api/defaultSettings';
-
   constructor(
     private http: HttpClient
     ) { }
 
-  requestCalendar(): Observable<TotalSettings> {
-    return this.http.get<TotalSettings>(this.calenderSettingsURL);
+  requestCalendar(calenderSettingsURL: string): Observable<TotalSettings[]> {
+    return this.http.get<TotalSettings[]>(calenderSettingsURL);
   }
 }

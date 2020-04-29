@@ -9,19 +9,20 @@ import { TotalSettings } from './totalSettings';
 })
 export class InMemoryDataService implements InMemoryDbService {
   createDb() {
-    const uniqueEvents: UniqueEvent[] = [
+    const defaultCalendarName = 'Gregorian Calendar';
+    const defaultUniqueEvents: UniqueEvent[] = [
       {title: 'This project\'s inception', offset: 4000082, duration: 1},
       {title: 'Marty McFly Travels back to 1955', offset: 3987515, duration: 1}
     ];
-    const cyclicalEvents: CyclicalEvent[] = [
+    const defaultCyclicalEvents: CyclicalEvent[] = [
       {title: 'Full Moon', offset: 22, duration: 4, repeatDays: 29.530}
     ];
-    const weeklyEvents: WeeklyEvent[] = [];
-    const monthlyEvents: MonthlyEvent[] = [];
-    const yearlyEvents: YearlyEvent[] = [
+    const defaultWeeklyEvents: WeeklyEvent[] = [];
+    const defaultMonthlyEvents: MonthlyEvent[] = [];
+    const defaultYearlyEvents: YearlyEvent[] = [
     ];
-    const monthDOWEvents: MonthlyDayOfWeekEvent[] = [];
-    const yearMonthDOWEvents: YearlyMonthlyDayOfWeekEvent[] = [
+    const defaultMonthDOWEvents: MonthlyDayOfWeekEvent[] = [];
+    const defaultYearMonthDOWEvents: YearlyMonthlyDayOfWeekEvent[] = [
       { title: 'MLK Day', duration: 1, offset: 2, weekOffset: 3, monthOffset: 1},
       { title: 'Presidents\' Day', duration: 1, offset: 2, weekOffset: 3, monthOffset: 2},
       { title: 'Labor Day', duration: 1, offset: 2, weekOffset: 1, monthOffset: 9},
@@ -29,7 +30,7 @@ export class InMemoryDataService implements InMemoryDbService {
       { title: 'Thanksgiving', duration: 1, offset: 5, weekOffset: 4, monthOffset: 11}
     ];
 
-    const yearlyMonthlyEvents: YearlyMonthlyEvent[] = [
+    const defaultYearlyMonthlyEvents: YearlyMonthlyEvent[] = [
       { title: 'New Year\'s Day', duration: 1, offset: 1, monthOffset: 1 },
       { title: 'Groundhog Day', duration: 1, offset: 2, monthOffset: 2 },
       { title: 'Darwin Day', duration: 1, offset: 12, monthOffset: 2 },
@@ -54,7 +55,7 @@ export class InMemoryDataService implements InMemoryDbService {
       { title: 'New Year\'s Eve', duration: 1, offset: 31, monthOffset: 12 }
     ];
 
-    const calendarSettings = {
+    const defaultCalendarSettings = {
       startingDayID: 4000000,
       daysPerMonths: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
       startingDoW: 3,
@@ -74,17 +75,77 @@ export class InMemoryDataService implements InMemoryDbService {
       ]
     };
     const defaultSettings: TotalSettings = {
-      calendarSettings,
-      uniqueEvents,
-      cyclicalEvents,
-      weeklyEvents,
-      monthlyEvents,
-      yearlyEvents,
-      monthDOWEvents,
-      yearMonthDOWEvents,
-      yearlyMonthlyEvents
+      calendarName: defaultCalendarName,
+      calendarSettings: defaultCalendarSettings,
+      uniqueEvents: defaultUniqueEvents,
+      cyclicalEvents: defaultCyclicalEvents,
+      weeklyEvents: defaultWeeklyEvents,
+      monthlyEvents: defaultMonthlyEvents,
+      yearlyEvents: defaultYearlyEvents,
+      monthDOWEvents: defaultMonthDOWEvents,
+      yearMonthDOWEvents: defaultYearMonthDOWEvents,
+      yearlyMonthlyEvents: defaultYearlyMonthlyEvents
     };
-    return {defaultSettings};
+
+
+
+
+    const sylrinCalendarName = 'Shalan Calendar';
+    const sylrinUniqueEvents: UniqueEvent[] = [
+      {title: 'Death Breaks', offset: 4000082, duration: 1}
+    ];
+    const sylrinCyclicalEvents: CyclicalEvent[] = [
+      {title: 'Full Itric', offset: 3, duration: 2, repeatDays: 20.415153},
+      {title: 'Full Yristo', offset: 7, duration: 5, repeatDays: 50.741297}
+    ];
+    const sylrinWeeklyEvents: WeeklyEvent[] = [];
+    const sylrinMonthlyEvents: MonthlyEvent[] = [];
+    const sylrinYearlyEvents: YearlyEvent[] = [
+    ];
+    const sylrinMonthDOWEvents: MonthlyDayOfWeekEvent[] = [];
+    const sylrinYearMonthDOWEvents: YearlyMonthlyDayOfWeekEvent[] = [
+      { title: '', duration: 1, offset: 2, weekOffset: 3, monthOffset: 1}
+    ];
+
+    const sylrinYearlyMonthlyEvents: YearlyMonthlyEvent[] = [
+      { title: 'Omre\'s Ascension', duration: 1, offset: 23, monthOffset: 4 },
+      { title: 'Djarsday', duration: 1, offset: 31, monthOffset: 9 }
+    ];
+
+    const sylrinCalendarSettings = {
+      startingDayID: 4000000,
+      daysPerMonths: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
+      startingDoW: 3,
+      DoW_names: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+      monthNames:
+      ['', 'Loos', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+      eras: [
+        {eraName: 'Before Common Era', abbreviation: 'BCE', ending: 1, reversed: true},
+        {eraName: 'Common Era', abbreviation: 'CE', beginning: 1, reversed: false}
+      ],
+      currentEra: 1,
+      currentYear: 2020,
+      leapYears: [
+        {leapYearCycles: 4, leapYearOffset: 0, leapYearChange: 1, leapDayMonth: 1},
+        {leapYearCycles: 100, leapYearOffset: 0, leapYearChange: -1, leapDayMonth: 1},
+        {leapYearCycles: 400, leapYearOffset: 0, leapYearChange: 1, leapDayMonth: 1},
+      ]
+    };
+    const sylrinSettings: TotalSettings = {
+      calendarName: sylrinCalendarName,
+      calendarSettings: sylrinCalendarSettings,
+      uniqueEvents: sylrinUniqueEvents,
+      cyclicalEvents: sylrinCyclicalEvents,
+      weeklyEvents: sylrinWeeklyEvents,
+      monthlyEvents: sylrinMonthlyEvents,
+      yearlyEvents: sylrinYearlyEvents,
+      monthDOWEvents: sylrinMonthDOWEvents,
+      yearMonthDOWEvents: sylrinYearMonthDOWEvents,
+      yearlyMonthlyEvents: sylrinYearlyMonthlyEvents
+    };
+    const calendars = [
+      defaultSettings, sylrinSettings];
+    return {calendars};
   }
 
   // Overrides the genId method to ensure that a hero always has an id.

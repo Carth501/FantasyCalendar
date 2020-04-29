@@ -4,6 +4,7 @@ import { CyclicalEvent, WeeklyEvent, MonthlyEvent, YearlyEvent,
     UniqueEvent } from './calendarEvent';
 
 export interface TotalSettings {
+    calendarName: string;
     calendarSettings: CalendarSettings;
     uniqueEvents: UniqueEvent[];
     cyclicalEvents: CyclicalEvent[];

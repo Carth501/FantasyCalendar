@@ -14,10 +14,15 @@ import { CalendarEventService } from '../calendar-event.service';
 })
 export class ViewComponent implements OnInit {
 
+  private calenderSettingsURL = 'api/calendars';
+
   faArrowAltCircleUp = faArrowAltCircleUp;
   faBars = faBars;
 
+  calendars: TotalSettings[];
+
   totalSettings: TotalSettings = {
+    calendarName: null,
     calendarSettings: null,
     uniqueEvents: null,
     cyclicalEvents: null,
@@ -31,6 +36,8 @@ export class ViewComponent implements OnInit {
   showNewEvent = false;
   newEventDayID: number;
   hideSettings = true;
+
+  defaultCalendar = 0;
 
   myObserver = {
     next: x => this.openWindow(x),
@@ -46,11 +53,16 @@ export class ViewComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    this.getSettings();
+    this.getDefaultSettings();
   }
 
-  getSettings(): void {
-    this.calendarService.requestCalendar().subscribe(IncomingSettings => this.splitSettings(IncomingSettings));
+  getDefaultSettings(): void {
+    this.calendarService.requestCalendar(this.calenderSettingsURL).subscribe(IncomingCalendars => this.recieveCalendars(IncomingCalendars));
+  }
+
+  recieveCalendars(calendars: TotalSettings[]): void {
+    this.calendars = calendars;
+    this.splitSettings(this.calendars[this.defaultCalendar]);
   }
 
   splitSettings(totalSettings: TotalSettings): void {

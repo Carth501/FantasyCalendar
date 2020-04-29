@@ -35,6 +35,7 @@ export class OptionsComponent {
   @Input() fromjson: string;
   @Output() readNewjson = new EventEmitter<string>();
 
+  @Input() calendarName: string;
   @Input() cyclicalEvents: CyclicalEvent[];
   @Input() uniqueEvents: UniqueEvent[];
   @Input() weeklyEvents: WeeklyEvent[];
@@ -60,6 +61,9 @@ export class OptionsComponent {
 
   optionsArrived(totalSettings: TotalSettings): void {
     if (totalSettings) {
+      if (totalSettings.calendarName) {
+        this.calendarName = totalSettings.calendarName;
+      }
       if (totalSettings.calendarSettings) {
         this.DoW_names = totalSettings.calendarSettings.DoW_names;
         this.daysPerWeek = this.DoW_names.length;
@@ -101,6 +105,7 @@ export class OptionsComponent {
   pushChanges(): void {
     this.daysPerYear = this.yearService.sumOfMonths(this.daysPerMonths);
     this.totalSettingsObject = {
+      calendarName: this.calendarName,
       calendarSettings: {
         ...this.totalSettingsObject.calendarSettings,
         DoW_names: this.DoW_names.slice(),

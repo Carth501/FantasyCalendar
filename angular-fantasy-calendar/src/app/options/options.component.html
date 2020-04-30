@@ -9,18 +9,71 @@
     <div class="columns" *ngIf="totalSettingsObject">
         <div class="settings">
             <div class="settings-option">
-                <div class="input-region">
-                    <label>Default Year:</label>
-                    <input [(ngModel)]="currentYear" [min]="eras[currentEra].beginning" [max]="eras[currentEra].ending">
+                <label>Calendar Selection:</label>
+                <div class="Calendar Selector">
+                
+                    
+                    <mat-form-field>
+                        <mat-select 
+                            (selectionChange)="changeCalendar($event)">
+                            <mat-option *ngFor="let calendar of totalSettingsArray;
+                                        let i=index;" 
+                                        [value]="i">
+                                    {{calendar.calendarName}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                
+                
                 </div>
+            </div>
+            <div class="settings-option">
+                <label>Year Settings:</label>
                 <div class="input-region">
-                    <label for="era">Default Era:</label>
-                    <select id="era" [(ngModel)]="currentEra">
-                        <option 
-                            *ngFor="let era of eras; index as i" 
-                            value=i>
-                        {{era.eraName}}</option>
-                    </select>
+                    <div>
+                        <label>Default Year:</label>
+                        <input [(ngModel)]="currentYear" [min]="eras[currentEra].beginning" [max]="eras[currentEra].ending">
+                    </div>
+                    <div>
+                        <label for="era">Default Era:</label>
+                        <select id="era" [(ngModel)]="currentEra">
+                            <option 
+                                *ngFor="let era of eras; index as i" 
+                                value=i>
+                            {{era.eraName}}</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="era">Eras:</label>
+                        <div  *ngFor="let x of eras; let idx = index; trackBy: trackArray">
+                            <input class="era-name" type="text" [(ngModel)]="x.eraName"/>
+                            <input class="era-abbr" type="text" [(ngModel)]="x.abbreviation"/>
+                            <div *ngIf="x.beginning">
+                                <input class="era-begin" type="number" [(ngModel)]="x.beginning"/>
+                            </div>
+                            <div *ngIf="x.ending">
+                                <input class="era-end" type="number" [(ngModel)]="x.ending"/>
+                            </div>
+                            <input class="era-reverse" type="checkbox" [(ngModel)]="x.reversed"/>
+                            <button class="era-delete" (click)= "deleteEra(idx)">
+                                X
+                            </button>
+                        </div>
+                    </div>
+                    <div>
+                        New Era:
+                        <input class="new-era-name" type="text" [(ngModel)]="newEra.eraName" placeholder="Era Name"/>
+                        <input class="new-era-abbr" type="text" [(ngModel)]="newEra.abbreviation" placeholder="Era Abbreviation"/>
+                        <input class="new-era-begin" type="number" [(ngModel)]="newEra.beginning" placeholder="Start year number"/>
+                        <input class="new-era-end" type="number" [(ngModel)]="newEra.ending" placeholder="End year number"/>
+                        <div>
+                            <label for="era-reverse">Reverse</label>
+                            <input id="era-reverse" class="new-era-reverse" type="checkbox" [(ngModel)]="newEra.reversed"/>
+                        </div>
+                        <input class="new-era-index" type="number" [(ngModel)]="newEraIndex" [min]=1 [max]="eras.length + 1" placeholder="Era placement"/>
+                        <button class="new-era-create" (click)= "createNewEra()">
+                            add
+                        </button>
+                    </div>
                 </div>
             </div>
     
@@ -102,26 +155,7 @@
                 </div>
             </div>
     
-            <div class="settings-option">
-                <label>Save Calendar as JSON:</label>
-                <div id="jsonRegion" class="input-region">
-                    <button [cdkCopyToClipboard]="jsonSave" [cdkCopyToClipboardAttempts]="5">
-                        Copy Settings to Clipboard
-                    </button>
-                </div>
-            </div>
-    
-            <div class="loadJSON">
-                <label>Load Calendar from JSON</label>
-                <div class="loadControls">
-                    <textarea [(ngModel)]="fromjson" placeholder="Paste JSON data here">
-                    </textarea>
-                    <button (click)="newUserJSON()">
-                        Apply new JSON
-                    </button>
-                </div>
-            </div>
-    
+            
         </div>
     
         <div class="settings">
@@ -257,8 +291,26 @@
                 (newYearlyMonthlyEvent)="createNewYearlyMonthlyEvent($event)"
                 ></app-new-event>
             </div>
+            
+            <div class="settings-option">
+                <label>Save Calendar as JSON:</label>
+                <div id="jsonRegion" class="input-region">
+                    <button [cdkCopyToClipboard]="jsonSave" [cdkCopyToClipboardAttempts]="5">
+                        Copy Settings to Clipboard
+                    </button>
+                </div>
+            </div>
+    
+            <div class="loadJSON">
+                <label>Load Calendar from JSON</label>
+                <div class="loadControls">
+                    <textarea [(ngModel)]="fromjson" placeholder="Paste JSON data here">
+                    </textarea>
+                    <button (click)="newUserJSON()">
+                        Apply new JSON
+                    </button>
+                </div>
+            </div>
         </div>
-    
     </div>
-    
 </div>

@@ -26,6 +26,7 @@ import { MonthDOWFieldsComponent } from './event field components/month-dow-fiel
 import { YearMonthDowFieldsComponent } from './event field components/year-month-dow-fields/year-month-dow-fields.component';
 import { UniqueFieldsComponent } from './event field components/unique-fields/unique-fields.component';
 import { YearMonthlyFieldsComponent } from './event field components/year-monthly-fields/year-monthly-fields.component';
+import {MatSelectModule} from '@angular/material/select';
 
 
 
@@ -65,7 +66,8 @@ import { YearMonthlyFieldsComponent } from './event field components/year-monthl
     ),
 
     BrowserAnimationsModule,
-    ClipboardModule
+    ClipboardModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

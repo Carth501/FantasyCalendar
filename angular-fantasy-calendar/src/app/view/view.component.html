@@ -11,8 +11,9 @@
 <app-options
     *ngIf="!hideSettings"
     (changes)="splitSettings($event)"
-    [totalSettings]="totalSettings" 
+    [totalSettings]="calendars" 
     (readNewjson)="newTotalSettings($event)"
+    (switchTo)="viewCalendarSwitch($event)"
 ></app-options>
 
 <div class="calendar-space" align="center">

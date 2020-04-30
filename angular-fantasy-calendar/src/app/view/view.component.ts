@@ -69,6 +69,10 @@ export class ViewComponent implements OnInit {
     this.totalSettings = totalSettings;
   }
 
+  viewCalendarSwitch(index: number): void {
+    this.splitSettings(this.calendars[index]);
+  }
+
   scrollToTop(): void {
     window.scroll(0, 0);
   }

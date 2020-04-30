@@ -1,13 +1,14 @@
 import { Clipboard } from '@angular/cdk/clipboard';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { faArrowAltCircleUp } from '@fortawesome/free-solid-svg-icons';
-import { CyclicalEvent, MonthlyDayOfWeekEvent, MonthlyEvent, WeeklyEvent,
-  YearlyEvent, YearlyMonthlyDayOfWeekEvent, UniqueEvent, YearlyMonthlyEvent } from '../calendarEvent';
+import { CyclicalEvent, MonthlyDayOfWeekEvent, MonthlyEvent, UniqueEvent, WeeklyEvent, YearlyEvent, YearlyMonthlyDayOfWeekEvent, YearlyMonthlyEvent } from '../calendarEvent';
+import { EMPTY_ERA, Era } from '../era';
 import { EMPTY_LEAP_YEAR, LeapYear } from '../leapYear';
+import { SettingsMonth } from '../settingsMonth';
 import { TotalSettings } from '../totalSettings';
 import { YearService } from '../year.service';
-import { Era } from '../era';
-import { SettingsMonth } from '../settingsMonth';
+import { MatSelectChange } from '@angular/material/select';
+//import { MatSelectDataSource } from '@angular/material/select';
 
 @Component({
   selector: 'app-options',
@@ -25,15 +26,18 @@ export class OptionsComponent {
   @Input() newDoWName: string;
   @Input() leapYears: LeapYear[];
   @Input() candidateLY = EMPTY_LEAP_YEAR;
-  @Input() set totalSettings(totalSettingsObject) {
-    this.settingsArrived(totalSettingsObject);
+  @Input() set totalSettings(totalSettingsObjects) {
+    this.settingsArrived(totalSettingsObjects);
   }
+  @Input() calendarIndex: number;
+  totalSettingsArray: TotalSettings[];
   totalSettingsObject: TotalSettings;
 
   @Input() jsonSave: string;
 
   @Input() fromjson: string;
   @Output() readNewjson = new EventEmitter<string>();
+  @Output() switchTo = new EventEmitter<number>();
 
   @Input() calendarName: string;
   @Input() cyclicalEvents: CyclicalEvent[];
@@ -45,6 +49,8 @@ export class OptionsComponent {
   @Input() yearMonthDOWEvents: YearlyMonthlyDayOfWeekEvent[];
   @Input() yearlyMonthlyEvents: YearlyMonthlyEvent[];
   @Input() eras: Era[];
+  @Input() newEra = EMPTY_ERA;
+  @Input() newEraIndex: number;
   @Input() currentEra: number;
 
   constructor(
@@ -52,11 +58,23 @@ export class OptionsComponent {
     private clipboard: Clipboard
     ) { }
 
+  changeCalendar(change: MatSelectChange): void {
+    this.switchTo.emit(change.value);
+    this.initializeCalendar(change.value);
+  }
 
-  settingsArrived(totalSettings: TotalSettings): void {
-    this.jsonSave = JSON.stringify(totalSettings);
-    this.totalSettingsObject = totalSettings;
-    this.optionsArrived(totalSettings);
+  initializeCalendar(index: number): void {
+    this.totalSettingsObject = this.totalSettingsArray[index];
+    this.jsonSave = JSON.stringify(this.totalSettingsObject);
+    this.optionsArrived(this.totalSettingsObject);
+  }
+
+  settingsArrived(totalSettings: TotalSettings[]): void {
+    this.totalSettingsArray = totalSettings;
+    if (!this.calendarIndex) {
+      this.calendarIndex = 0;
+    }
+    this.initializeCalendar(this.calendarIndex);
   }
 
   optionsArrived(totalSettings: TotalSettings): void {
@@ -111,7 +129,7 @@ export class OptionsComponent {
         settingsMonths: this.settingsMonths.slice(),
         currentYear: this.currentYear,
         leapYears: this.leapYears,
-
+        eras: this.eras
       },
       cyclicalEvents: this.cyclicalEvents,
       uniqueEvents: this.uniqueEvents,
@@ -188,6 +206,11 @@ export class OptionsComponent {
     this.yearlyMonthlyEvents.push(newEvent);
   }
 
+  createNewEra() {
+    this.eras.splice((this.newEraIndex - 1), 0, this.newEra);
+    this.resetEmptyEra();
+  }
+
   deleteCyclicalEvent(index: number): void {
     if (index >= 0) {
       this.cyclicalEvents.splice(index, 1);
@@ -236,6 +259,12 @@ export class OptionsComponent {
     }
   }
 
+  deleteEra(index: number): void {
+    if (index >= 0) {
+      this.eras.splice(index, 1);
+    }
+  }
+
   addLY(): void {
     this.leapYears.push(this.candidateLY);
     this.candidateLY = {
@@ -244,6 +273,15 @@ export class OptionsComponent {
       leapYearChange: null,
       leapDayMonth: null
     };
+  }
+
+  resetEmptyEra(): void {
+    this.newEra.eraName = null;
+    this.newEra.abbreviation = null;
+    this.newEra.beginning = null;
+    this.newEra.ending = null;
+    this.newEra.reversed = null;
+    this.newEraIndex = null;
   }
 
   deleteLY(index: number): void {

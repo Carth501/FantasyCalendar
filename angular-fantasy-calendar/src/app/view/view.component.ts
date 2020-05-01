@@ -37,7 +37,7 @@ export class ViewComponent implements OnInit {
   newEventDayID: number;
   hideSettings = true;
 
-  defaultCalendar = 0;
+  calendarIndex = 1;
 
   myObserver = {
     next: x => this.openWindow(x),
@@ -62,7 +62,7 @@ export class ViewComponent implements OnInit {
 
   recieveCalendars(calendars: TotalSettings[]): void {
     this.calendars = calendars;
-    this.splitSettings(this.calendars[this.defaultCalendar]);
+    this.splitSettings(this.calendars[this.calendarIndex]);
   }
 
   splitSettings(totalSettings: TotalSettings): void {
@@ -70,7 +70,9 @@ export class ViewComponent implements OnInit {
   }
 
   viewCalendarSwitch(index: number): void {
-    this.splitSettings(this.calendars[index]);
+    this.calendarIndex = index;
+    console.log('viewCalendarSwitch ' + this.calendarIndex);
+    this.splitSettings(this.calendars[this.calendarIndex]);
   }
 
   scrollToTop(): void {

@@ -16,7 +16,7 @@
                     <mat-form-field>
                         <mat-select 
                             (selectionChange)="changeCalendar($event)">
-                            <mat-option *ngFor="let calendar of totalSettingsArray;
+                            <mat-option matInput *ngFor="let calendar of totalSettingsArray;
                                         let i=index;" 
                                         [value]="i">
                                     {{calendar.calendarName}}</mat-option>
@@ -29,19 +29,27 @@
             <div class="settings-option">
                 <label>Year Settings:</label>
                 <div class="input-region">
-                    <div>
-                        <label>Default Year:</label>
-                        <input [(ngModel)]="currentYear" [min]="eras[currentEra].beginning" [max]="eras[currentEra].ending">
-                    </div>
-                    <div>
-                        <label for="era">Default Era:</label>
-                        <select id="era" [(ngModel)]="currentEra">
-                            <option 
+                    <mat-form-field>
+                        <mat-label  >Default Year:</mat-label>
+                        <input 
+                        matInput 
+                        [(ngModel)]="currentYear">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <label 
+                            for="era" 
+                            matInput>
+                            Default Era:</label>
+                        <mat-select 
+                            matInput
+                            id="era" 
+                            [(ngModel)]="currentEra">
+                            <mat-option matInput
                                 *ngFor="let era of eras; index as i" 
                                 value=i>
-                            {{era.eraName}}</option>
-                        </select>
-                    </div>
+                                {{era.eraName}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
                     <div>
                         <label for="era">Eras:</label>
                         <div  *ngFor="let x of eras; let idx = index; trackBy: trackArray">

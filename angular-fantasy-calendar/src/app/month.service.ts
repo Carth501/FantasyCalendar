@@ -60,7 +60,8 @@ export class MonthService {
                 totalSettings.yearlyEvents),
         monthDOWEvents: this.getMonthDOWEventList(currentWeekday,
                 weekdayCounts[currentWeekday], totalSettings.monthDOWEvents),
-        yearMonthDOWEvents: this.getYearMonthDOWEventList(currentWeekday, monthNumber,
+        yearMonthDOWEvents: this.getYearMonthDOWEventList(daysPerWeek,
+                currentWeekday, monthNumber,
                 weekdayCounts[currentWeekday], totalSettings.yearMonthDOWEvents),
         yearMonthlyEvents: this.getYearMonthlyEventList(dayOfMonth, monthNumber,
                 totalSettings.yearlyMonthlyEvents)
@@ -96,11 +97,11 @@ export class MonthService {
       cyclicalEvents.forEach(calendarEvent => {
         if (index - calendarEvent.offset >= 0) {
           if (calendarEvent.repeatDays === 0) {
-            if (index - calendarEvent.offset <= (calendarEvent.duration - 1)) {
+            if (index - calendarEvent.offset <= (calendarEvent.duration)) {
               result.push(calendarEvent);
             }
           } else {
-            if ((index - calendarEvent.offset) % calendarEvent.repeatDays <= (calendarEvent.duration - 1)) {
+            if ((index - calendarEvent.offset) % calendarEvent.repeatDays <= (calendarEvent.duration)) {
               result.push(calendarEvent);
             }
           }
@@ -161,7 +162,7 @@ export class MonthService {
     return result;
   }
 
-  getYearMonthDOWEventList(dayOfWeek: number,
+  getYearMonthDOWEventList(daysPerWeek: number, dayOfWeek: number,
                            monthOfYear: number, weekdayCount: number, yearMonthDOWEvents: YearlyMonthlyDayOfWeekEvent[]):
                            YearlyMonthlyDayOfWeekEvent[] {
     const result: YearlyMonthlyDayOfWeekEvent[] = [];
@@ -173,6 +174,19 @@ export class MonthService {
               result.push(calendarEvent);
             }
           }
+          // check if the start happened less than the duration ago
+          // rework this to use a continuous array to handle duration
+          /*
+          if (weekdayCount >= (calendarEvent.weekOffset - 1)) {
+            const dayOfWeekDifference = (dayOfWeek - calendarEvent.offset);
+            let inBetween = (daysPerWeek * (weekdayCount - calendarEvent.weekOffset));
+            if (dayOfWeekDifference <= 0) { inBetween += daysPerWeek; }
+            const daysSince = (dayOfWeekDifference + inBetween);
+            if ( daysSince <= calendarEvent.duration && daysSince > 0) {
+                result.push(calendarEvent);
+            }
+          } 
+          */
         }
       });
     }

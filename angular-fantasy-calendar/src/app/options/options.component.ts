@@ -8,7 +8,6 @@ import { SettingsMonth } from '../settingsMonth';
 import { TotalSettings } from '../totalSettings';
 import { YearService } from '../year.service';
 import { MatSelectChange } from '@angular/material/select';
-//import { MatSelectDataSource } from '@angular/material/select';
 
 @Component({
   selector: 'app-options',
@@ -29,7 +28,9 @@ export class OptionsComponent {
   @Input() set totalSettings(totalSettingsObjects) {
     this.settingsArrived(totalSettingsObjects);
   }
-  @Input() calendarIndex: number;
+  @Input() set setCalendarIndex(calendarIndex) {
+    this.initializeCalendar(calendarIndex);
+  }
   totalSettingsArray: TotalSettings[];
   totalSettingsObject: TotalSettings;
 
@@ -63,18 +64,17 @@ export class OptionsComponent {
     this.initializeCalendar(change.value);
   }
 
-  initializeCalendar(index: number): void {
-    this.totalSettingsObject = this.totalSettingsArray[index];
-    this.jsonSave = JSON.stringify(this.totalSettingsObject);
-    this.optionsArrived(this.totalSettingsObject);
-  }
-
   settingsArrived(totalSettings: TotalSettings[]): void {
     this.totalSettingsArray = totalSettings;
-    if (!this.calendarIndex) {
-      this.calendarIndex = 0;
+    this.initializeCalendar(0);
+  }
+
+  initializeCalendar(index: number): void {
+    if (this.totalSettingsArray) {
+      this.totalSettingsObject = this.totalSettingsArray[index];
+      this.jsonSave = JSON.stringify(this.totalSettingsObject);
+      this.optionsArrived(this.totalSettingsObject);
     }
-    this.initializeCalendar(this.calendarIndex);
   }
 
   optionsArrived(totalSettings: TotalSettings): void {

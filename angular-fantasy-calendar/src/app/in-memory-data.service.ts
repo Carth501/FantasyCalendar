@@ -15,7 +15,7 @@ export class InMemoryDataService implements InMemoryDbService {
       {title: 'Marty McFly Travels back to 1955', offset: 3987515, duration: 1}
     ];
     const defaultCyclicalEvents: CyclicalEvent[] = [
-      {title: 'Full Moon', offset: 22, duration: 4, repeatDays: 29.530}
+      {title: 'Full Moon', offset: 22, duration: 3, repeatDays: 29.530}
     ];
     const defaultWeeklyEvents: WeeklyEvent[] = [];
     const defaultMonthlyEvents: MonthlyEvent[] = [];
@@ -60,16 +60,16 @@ export class InMemoryDataService implements InMemoryDbService {
       startingDoW: 3,
       DoW_names: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
       settingsMonths: [{name: 'Janaury', length: 31},
-                      {name: 'Feburary', length: 31},
+                      {name: 'Feburary', length: 28},
                       {name: 'March', length: 31},
-                      {name: 'April', length: 31},
+                      {name: 'April', length: 30},
                       {name: 'May', length: 31},
-                      {name: 'June', length: 31},
+                      {name: 'June', length: 30},
                       {name: 'July', length: 31},
                       {name: 'August', length: 31},
-                      {name: 'September', length: 31},
+                      {name: 'September', length: 30},
                       {name: 'October', length: 31},
-                      {name: 'November', length: 31},
+                      {name: 'November', length: 30},
                       {name: 'December', length: 31}
       ],
       eras: [
@@ -102,7 +102,29 @@ export class InMemoryDataService implements InMemoryDbService {
 
     const sylrinCalendarName = 'Shalan Calendar';
     const sylrinUniqueEvents: UniqueEvent[] = [
-      {title: 'Death Breaks', offset: 4000082, duration: 1}
+      {title: 'Narder Invaded', offset: 3928209, duration: 1}, // 590 ME
+      {title: 'Nardish Revolution begins', offset: 3934321, duration: 1}, // 600 ME
+      {title: 'Nardish Revolution ends', offset: 3936892, duration: 1}, // 605 ME
+      {title: 'Second Invasion of Narder', offset: 3945868, duration: 1},
+      // summerseve, 620
+      {title: 'Dawn Civil War Begins', offset: 3998922, duration: 1},
+      {title: 'Ver\'s death', offset: 3999299, duration: 1},
+      {title: 'De Lumine meets Kaiso', offset: 4000261, duration: 1},
+      {title: 'Oubat meets the party', offset: 4000276, duration: 1},
+      {title: 'Oubat joins the party', offset: 4000278, duration: 1},
+      {title: 'Esall and Kullak are rescued', offset: 4000281, duration: 1},
+      {title: 'Death Breaks', offset: 4000282, duration: 1},
+      {title: 'Kullak reveals his motives', offset: 4000284, duration: 1},
+      {title: 'Agna talks with Kullak', offset: 4000285, duration: 1},
+      {title: 'Party seperately reaches Taful', offset: 4000287, duration: 1},
+      {title: 'The Fighting Pits', offset: 4000288, duration: 1},
+      {title: 'Party is ambushed by the Society of Purity', offset: 4000290, duration: 1},
+      {title: 'Party returns to life', offset: 4000291, duration: 1},
+      {title: 'Party is sent out to find a Wyvernstone', offset: 4000295, duration: 1},
+      {title: 'Party is sent out to find a Wyvernstone', offset: 4000295, duration: 1},
+      {title: 'Party is attacked by ogres east of Jiddayd', offset: 4000305, duration: 1},
+      {title: 'Party \'meets\' the Catfolk tribe', offset: 4000306, duration: 1},
+      {title: 'Party fights two pixies', offset: 4000308, duration: 1}
     ];
     const sylrinCyclicalEvents: CyclicalEvent[] = [
       {title: 'Full Itric', offset: 3, duration: 2, repeatDays: 20.415153},
@@ -114,39 +136,56 @@ export class InMemoryDataService implements InMemoryDbService {
     ];
     const sylrinMonthDOWEvents: MonthlyDayOfWeekEvent[] = [];
     const sylrinYearMonthDOWEvents: YearlyMonthlyDayOfWeekEvent[] = [
-      { title: '', duration: 1, offset: 2, weekOffset: 3, monthOffset: 1}
+      { title: 'Athok\'s Games', duration: 8, offset: 1, weekOffset: 3, monthOffset: 15}
     ];
 
     const sylrinYearlyMonthlyEvents: YearlyMonthlyEvent[] = [
-      { title: 'Omre\'s Ascension', duration: 1, offset: 23, monthOffset: 4 },
-      { title: 'Djarsday', duration: 1, offset: 31, monthOffset: 9 }
+      { title: 'Omre\'s Ascension', duration: 1, offset: 27, monthOffset: 4 },
+      { title: 'Djarsday', duration: 1, offset: 31, monthOffset: 9 },
+      { title: 'Nardish Liberation Day', duration: 1, offset: 22, monthOffset: 1 },
+      { title: 'Gadren\'s Day', duration: 1, offset: 3, monthOffset: 3 },
+      { title: 'Athok\'s Games', duration: 8, offset: 3, monthOffset: 3 },
+      { title: 'North Summerseve', duration: 1, offset: 28, monthOffset: 4 },
+      { title: 'South Winterseve', duration: 1, offset: 28, monthOffset: 4 },
+      { title: 'North Summersend', duration: 1, offset: 19, monthOffset: 8 },
+      { title: 'South Wintersend', duration: 1, offset: 19, monthOffset: 8 },
+      { title: 'North Autumnfest', duration: 1, offset: 20, monthOffset: 8 },
+      { title: 'South Spring Bloom', duration: 1, offset: 20, monthOffset: 8 },
+      { title: 'North Winterseve', duration: 1, offset: 10, monthOffset: 12 },
+      { title: 'South Summerseve', duration: 1, offset: 10, monthOffset: 12 },
+      { title: 'North Springseve', duration: 1, offset: 40, monthOffset: 15 },
+      { title: 'South Autumnseve', duration: 1, offset: 40, monthOffset: 15 }
     ];
 
     const sylrinCalendarSettings = {
       startingDayID: 4000000,
-      startingDoW: 3,
-      DoW_names: ['Omresday', 'Torosday', 'Wasday', 'Darioday', 'Figasday', 'Soliday', 'Earday'],
-      settingsMonths: [{name: 'First', length: 31},
-                      {name: 'Second', length: 31},
-                      {name: 'Third', length: 31},
-                      {name: 'Fourth', length: 31},
-                      {name: 'Fifth', length: 31},
-                      {name: 'Sixth', length: 31},
-                      {name: 'Seventh', length: 31},
-                      {name: 'Eighth', length: 31},
-                      {name: 'Nineth', length: 31},
-                      {name: 'Tenth', length: 31}
+      startingDoW: 4,
+      DoW_names: ['Vesday', 'Orsday', 'Wasday', 'Arday', 'Figday', 'Tolday', 'Erday', 'Kesday'],
+      settingsMonths: [{name: 'Veskien', length: 40},
+                      {name: 'Greywin', length: 39},
+                      {name: 'Gilan', length: 40},
+                      {name: 'Orkien', length: 39},
+                      {name: 'Winen', length: 39},
+                      {name: 'Arkien', length: 39},
+                      {name: 'Sybil', length: 40},
+                      {name: 'Figkien', length: 39},
+                      {name: 'Elmirn', length: 39},
+                      {name: 'Amedust', length: 39},
+                      {name: 'Tolkien', length: 40},
+                      {name: 'Cynen', length: 39},
+                      {name: 'Nathyen', length: 39},
+                      {name: 'Erkien', length: 39},
+                      {name: 'Keskien', length: 40}
       ],
       eras: [
-        {eraName: 'Before Common Era', abbreviation: 'BCE', ending: 1, reversed: true},
-        {eraName: 'Common Era', abbreviation: 'CE', beginning: 1, reversed: false}
+        {eraName: 'Before Teturic', abbreviation: 'BT', ending: 1, reversed: true},
+        {eraName: 'Age of Ash', abbreviation: 'AoA', beginning: 1, ending:  309, reversed: false},
+        {eraName: 'Magic Era', abbreviation: 'ME', beginning: 1, reversed: false}
       ],
-      currentEra: 1,
-      currentYear: 2020,
+      currentEra: 2,
+      currentYear: 712,
       leapYears: [
-        {leapYearCycles: 4, leapYearOffset: 0, leapYearChange: 1, leapDayMonth: 1},
-        {leapYearCycles: 100, leapYearOffset: 0, leapYearChange: -1, leapDayMonth: 1},
-        {leapYearCycles: 400, leapYearOffset: 0, leapYearChange: 1, leapDayMonth: 1},
+        {leapYearCycles: 1000, leapYearOffset: 612, leapYearChange: 1, leapDayMonth: 5},
       ]
     };
     const sylrinSettings: TotalSettings = {
@@ -161,6 +200,8 @@ export class InMemoryDataService implements InMemoryDbService {
       yearMonthDOWEvents: sylrinYearMonthDOWEvents,
       yearlyMonthlyEvents: sylrinYearlyMonthlyEvents
     };
+
+
     const calendars = [
       defaultSettings, sylrinSettings];
     return {calendars};

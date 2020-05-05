@@ -37,7 +37,7 @@ export class ViewComponent implements OnInit {
   newEventDayID: number;
   hideSettings = true;
 
-  calendarIndex = 1;
+  calendarIndex = 0;
 
   myObserver = {
     next: x => this.openWindow(x),

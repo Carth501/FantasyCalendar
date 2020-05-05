@@ -36,10 +36,10 @@
                         [(ngModel)]="currentYear">
                     </mat-form-field>
                     <mat-form-field>
-                        <label 
+                        <mat-label 
                             for="era" 
                             matInput>
-                            Default Era:</label>
+                            Default Era:</mat-label>
                         <mat-select 
                             matInput
                             id="era" 
@@ -51,12 +51,23 @@
                         </mat-select>
                     </mat-form-field>
                     <div>
-                        <label for="era">Eras:</label>
-                        <div  *ngFor="let x of eras; let idx = index; trackBy: trackArray">
-                            <input class="era-name" type="text" [(ngModel)]="x.eraName"/>
-                            <input class="era-abbr" type="text" [(ngModel)]="x.abbreviation"/>
-                            <div *ngIf="x.beginning">
-                                <input class="era-begin" type="number" [(ngModel)]="x.beginning"/>
+                        <mat-label for="era">Eras:</mat-label>
+                        <mat-form-field  *ngFor="let x of eras; let idx = index; trackBy: trackArray">
+                            <input 
+                                matInput
+                                class="era-name" 
+                                type="text" 
+                                [(ngModel)]="x.eraName"/>
+                            <input 
+                                class="era-abbr" 
+                                type="text" 
+                                [(ngModel)]="x.abbreviation"/>
+                            <div 
+                                *ngIf="x.beginning">
+                                <input 
+                                    class="era-begin" 
+                                    type="number" 
+                                    [(ngModel)]="x.beginning"/>
                             </div>
                             <div *ngIf="x.ending">
                                 <input class="era-end" type="number" [(ngModel)]="x.ending"/>
@@ -65,9 +76,9 @@
                             <button class="era-delete" (click)= "deleteEra(idx)">
                                 X
                             </button>
-                        </div>
+                        </mat-form-field>
                     </div>
-                    <div>
+                    <mat-form-field>
                         New Era:
                         <input class="new-era-name" type="text" [(ngModel)]="newEra.eraName" placeholder="Era Name"/>
                         <input class="new-era-abbr" type="text" [(ngModel)]="newEra.abbreviation" placeholder="Era Abbreviation"/>
@@ -81,7 +92,7 @@
                         <button class="new-era-create" (click)= "createNewEra()">
                             add
                         </button>
-                    </div>
+                    </mat-form-field>
                 </div>
             </div>
     

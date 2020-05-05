@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { faArrowAltCircleUp, faBars } from '@fortawesome/free-solid-svg-icons';
 import * as _ from 'lodash';
-import { CalendarService } from '../calendar.service';
+import { CalendarService } from '../../calendar.service';
 import { CyclicalEvent, WeeklyEvent, MonthlyEvent, YearlyEvent,
-  YearlyMonthlyEvent, YearlyMonthlyDayOfWeekEvent, UniqueEvent, MonthlyDayOfWeekEvent } from '../calendarEvent';
-import { TotalSettings } from '../totalSettings';
-import { CalendarEventService } from '../calendar-event.service';
+  YearlyMonthlyEvent, YearlyMonthlyDayOfWeekEvent, UniqueEvent, MonthlyDayOfWeekEvent } from '../../calendarEvent';
+import { TotalSettings } from '../../totalSettings';
+import { CalendarEventService } from '../../calendar-event.service';
+import { Store } from '@ngrx/store';
+import { toggleOptions } from 'src/app/store/view.actions';
 
 @Component({
   selector: 'app-view',
@@ -46,6 +48,7 @@ export class ViewComponent implements OnInit {
   };
 
   constructor(
+    private store: Store<any>,
     private calendarService: CalendarService,
     private calendarEventService: CalendarEventService
     ) {
@@ -147,5 +150,6 @@ export class ViewComponent implements OnInit {
 
   toggleSettingsSidebar(): void {
     this.hideSettings = !this.hideSettings;
+    this.store.dispatch(toggleOptions({}));
   }
 }

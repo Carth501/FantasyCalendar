@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { CyclicalEvent, MonthlyEvent, WeeklyEvent, YearlyEvent, MonthlyDayOfWeekEvent, YearlyMonthlyDayOfWeekEvent, YearlyMonthlyEvent, UniqueEvent } from '../calendarEvent';
+import { CyclicalEvent, MonthlyEvent, WeeklyEvent, YearlyEvent, MonthlyDayOfWeekEvent, YearlyMonthlyDayOfWeekEvent, YearlyMonthlyEvent, UniqueEvent } from '../../calendarEvent';
 
 @Component({
   selector: 'app-new-event',

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Month } from '../month';
+import { Month } from '../../month';
 
 const DefaultDoWNames = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 

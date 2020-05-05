@@ -2,12 +2,12 @@ import { Component, Input, ViewChild } from '@angular/core';
 import { faArrowAltCircleLeft, faArrowAltCircleRight } from '@fortawesome/free-solid-svg-icons';
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { Era } from '../era';
-import { LeapYear } from '../leapYear';
-import { TotalSettings } from '../totalSettings';
-import { Year } from '../year';
-import { YearService } from '../year.service';
-import { SettingsMonth } from '../settingsMonth';
+import { Era } from '../../era';
+import { LeapYear } from '../../leapYear';
+import { TotalSettings } from '../../totalSettings';
+import { Year } from '../../year';
+import { YearService } from '../../year.service';
+import { SettingsMonth } from '../../settingsMonth';
 
 @Component({
   selector: 'app-calendar',

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Week } from '../week';
+import { Week } from '../../week';
 
 @Component({
   selector: 'app-week',

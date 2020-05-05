@@ -1,12 +1,12 @@
 import { Clipboard } from '@angular/cdk/clipboard';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { faArrowAltCircleUp } from '@fortawesome/free-solid-svg-icons';
-import { CyclicalEvent, MonthlyDayOfWeekEvent, MonthlyEvent, UniqueEvent, WeeklyEvent, YearlyEvent, YearlyMonthlyDayOfWeekEvent, YearlyMonthlyEvent } from '../calendarEvent';
-import { EMPTY_ERA, Era } from '../era';
-import { EMPTY_LEAP_YEAR, LeapYear } from '../leapYear';
-import { SettingsMonth } from '../settingsMonth';
-import { TotalSettings } from '../totalSettings';
-import { YearService } from '../year.service';
+import { CyclicalEvent, MonthlyDayOfWeekEvent, MonthlyEvent, UniqueEvent, WeeklyEvent, YearlyEvent, YearlyMonthlyDayOfWeekEvent, YearlyMonthlyEvent } from '../../calendarEvent';
+import { EMPTY_ERA, Era } from '../../era';
+import { EMPTY_LEAP_YEAR, LeapYear } from '../../leapYear';
+import { SettingsMonth } from '../../settingsMonth';
+import { TotalSettings } from '../../totalSettings';
+import { YearService } from '../../year.service';
 import { MatSelectChange } from '@angular/material/select';
 
 @Component({

@@ -8,16 +8,16 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CalendarComponent } from './calendar/calendar.component';
-import { DayComponent } from './day/day.component';
-import { EventComponent } from './event/event.component';
+import { CalendarComponent } from './components/calendar/calendar.component';
+import { DayComponent } from './components/day/day.component';
+import { EventComponent } from './components/event/event.component';
 import { InMemoryDataService } from './in-memory-data.service';
-import { MonthComponent } from './month/month.component';
-import { NewEventComponent } from './new-event/new-event.component';
-import { OptionsComponent } from './options/options.component';
-import { ViewComponent } from './view/view.component';
-import { WeekComponent } from './week/week.component';
-import { YearComponent } from './year/year.component';
+import { MonthComponent } from './components/month/month.component';
+import { NewEventComponent } from './components/new-event/new-event.component';
+import { OptionsComponent } from './components/options/options.component';
+import { ViewComponent } from './components/view/view.component';
+import { WeekComponent } from './components/week/week.component';
+import { YearComponent } from './components/year/year.component';
 import { CyclicalFieldsComponent } from './event field components/cyclical-fields/cyclical-fields.component';
 import { YearlyFieldsComponent } from './event field components/yearly-fields/yearly-fields.component';
 import { MonthlyFieldsComponent } from './event field components/monthly-fields/monthly-fields.component';
@@ -28,6 +28,9 @@ import { UniqueFieldsComponent } from './event field components/unique-fields/un
 import { YearMonthlyFieldsComponent } from './event field components/year-monthly-fields/year-monthly-fields.component';
 import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
 
 
 
@@ -69,7 +72,9 @@ import {MatInputModule} from '@angular/material/input';
     BrowserAnimationsModule,
     ClipboardModule,
     MatSelectModule,
-    MatInputModule
+    MatInputModule,
+    StoreModule.forRoot({}, {}),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
   ],
   providers: [],
   bootstrap: [AppComponent]

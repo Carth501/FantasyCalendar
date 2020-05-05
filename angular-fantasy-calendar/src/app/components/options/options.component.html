@@ -80,7 +80,12 @@
                     </div>
                     <mat-form-field>
                         New Era:
-                        <input class="new-era-name" type="text" [(ngModel)]="newEra.eraName" placeholder="Era Name"/>
+                        <input 
+                            matInput
+                            class="new-era-name" 
+                            type="text" 
+                            [(ngModel)]="newEra.eraName" 
+                            placeholder="Era Name"/>
                         <input class="new-era-abbr" type="text" [(ngModel)]="newEra.abbreviation" placeholder="Era Abbreviation"/>
                         <input class="new-era-begin" type="number" [(ngModel)]="newEra.beginning" placeholder="Start year number"/>
                         <input class="new-era-end" type="number" [(ngModel)]="newEra.ending" placeholder="End year number"/>

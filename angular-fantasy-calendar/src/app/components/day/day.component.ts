@@ -1,6 +1,7 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { setNewEventPanel } from 'src/app/store/actions/view.actions';
 import { Day } from '../../day';
-import { CalendarEventService } from '../../calendar-event.service';
 
 @Component({
   selector: 'app-day',
@@ -9,12 +10,13 @@ import { CalendarEventService } from '../../calendar-event.service';
 })
 export class DayComponent {
 
-  constructor(private calendarEventService: CalendarEventService) {}
+  constructor(
+    private store: Store<any>) {}
 
   @Input() day: Day;
   @Output() dayClick = new EventEmitter<number>();
 
   click(dayID: number): void {
-    this.calendarEventService.dayClick(dayID);
+    this.store.dispatch(setNewEventPanel({open: true, dayID}));
   }
 }

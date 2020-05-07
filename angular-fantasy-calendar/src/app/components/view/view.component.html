@@ -9,7 +9,7 @@
 </div>
 
 <app-options
-    *ngIf="!hideSettings"
+    *ngIf="optionsAreOpen | async"
     (changes)="splitSettings($event)"
     [totalSettings]="calendars" 
     (readNewjson)="newTotalSettings($event)"
@@ -24,7 +24,8 @@
     ></app-calendar>
 </div>
 
-<div class="new-event-panel" *ngIf="showNewEvent">
+<div class="new-event-panel" 
+    *ngIf="newEventPanelIsOpen | async">
     <div class="topBar">
         <h3>Create New Event</h3>
         <button (click)="closeEventWindow()">X</button>
@@ -38,8 +39,8 @@
     (newYearMonthlyEvent)="createNewYearlyMonthlyEvent($event)"
     (newYearMonthDOWEvent)="createNewYearlyMonthlyDOWEvent($event)"
     (newUniqueEvent)="createNewUniqueEvent($event)"
-    (setWindow)="setWindow($event)"
-    [clickedDayID]="newEventDayID"
+    (setWindow)="closeEventWindow()"
+    [clickedDayID]="newEventDayID | async"
     ></app-new-event>
 </div>
 

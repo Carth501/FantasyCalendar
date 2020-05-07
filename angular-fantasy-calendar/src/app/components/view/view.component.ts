@@ -7,7 +7,10 @@ import { CyclicalEvent, WeeklyEvent, MonthlyEvent, YearlyEvent,
 import { TotalSettings } from '../../totalSettings';
 import { CalendarEventService } from '../../calendar-event.service';
 import { Store } from '@ngrx/store';
-import { toggleOptions } from 'src/app/store/view.actions';
+import { toggleOptions, setNewEventPanel } from 'src/app/store/actions/view.actions';
+import * as fromSelectors from '../../store/reducers';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-view',
@@ -35,24 +38,21 @@ export class ViewComponent implements OnInit {
     yearMonthDOWEvents: null,
     yearlyMonthlyEvents: null
   }; // initial values should not be passed to calendar component
-  showNewEvent = false;
-  newEventDayID: number;
-  hideSettings = true;
+  newEventPanelIsOpen: Observable<boolean>;
+  newEventDayID: Observable<number>;
 
   calendarIndex = 0;
 
-  myObserver = {
-    next: x => this.openWindow(x),
-    error: err => console.error('Got an error: ' + err),
-    complete: () => console.log('Got a complete notification')
-  };
+  optionsAreOpen: Observable<boolean>;
 
   constructor(
     private store: Store<any>,
     private calendarService: CalendarService,
     private calendarEventService: CalendarEventService
     ) {
-      calendarEventService.dayclick$.subscribe(this.myObserver);
+      this.optionsAreOpen = this.store.select(fromSelectors.selectOptionsOpen);
+      this.newEventPanelIsOpen = this.store.select(fromSelectors.selectNewEventOpen);
+      this.newEventDayID = this.store.select(fromSelectors.selectNewEventDayID);
     }
 
   ngOnInit(): void {
@@ -85,15 +85,6 @@ export class ViewComponent implements OnInit {
   newTotalSettings(newSettings: string): void {
     this.totalSettings = JSON.parse(newSettings);
     this.splitSettings(this.totalSettings);
-  }
-
-  openWindow(dayID: number): void {
-    this.setWindow(true);
-    this.newEventDayID = dayID;
-  }
-
-  setWindow(state: boolean): void {
-    this.showNewEvent = state;
   }
 
   createNewCyclicalEvent(newEvent: CyclicalEvent): void {
@@ -145,11 +136,10 @@ export class ViewComponent implements OnInit {
   }
 
   closeEventWindow(): void {
-    this.showNewEvent = false;
+    this.store.dispatch(setNewEventPanel({open: false, dayID: 0}));
   }
 
   toggleSettingsSidebar(): void {
-    this.hideSettings = !this.hideSettings;
     this.store.dispatch(toggleOptions({}));
   }
 }

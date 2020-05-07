@@ -31,6 +31,7 @@ import {MatInputModule} from '@angular/material/input';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
+import * as viewReducer from './store/reducers/view.reducer';
 
 
 
@@ -73,8 +74,8 @@ import { environment } from '../environments/environment';
     ClipboardModule,
     MatSelectModule,
     MatInputModule,
-    StoreModule.forRoot({}, {}),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
+    StoreModule.forRoot({ view: viewReducer.reducer }, {}),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
   ],
   providers: [],
   bootstrap: [AppComponent]

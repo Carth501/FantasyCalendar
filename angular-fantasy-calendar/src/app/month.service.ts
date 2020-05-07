@@ -197,7 +197,7 @@ export class MonthService {
     const result: UniqueEvent[] = [];
     if (uniqueEvents) {
       uniqueEvents.forEach(calendarEvent => {
-        if (dayID === (calendarEvent.offset - 1)) {
+        if (dayID === calendarEvent.offset + 1) {
           result.push(calendarEvent);
         }
       });

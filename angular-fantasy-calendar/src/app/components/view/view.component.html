@@ -1,47 +1,49 @@
-<h1>
-    Custom Calendar
-</h1>
+<div class="view">
+    <h1>
+        Custom Calendar
+    </h1>
 
-<div class="sidebarToggle">
-    <button (click)="toggleSettingsSidebar()" class="buttonText">
-        <fa-icon [icon]="faBars" size="4x"></fa-icon>
-    </button>
-</div>
-
-<app-options
-    *ngIf="optionsAreOpen | async"
-    (changes)="splitSettings($event)"
-    [totalSettings]="calendars" 
-    (readNewjson)="newTotalSettings($event)"
-    (switchTo)="viewCalendarSwitch($event)"
-    [setCalendarIndex]="calendarIndex"
-></app-options>
-
-<div class="calendar-space" align="center">
-    <app-calendar 
-        [settings]="totalSettings"
-        align="center"
-    ></app-calendar>
-</div>
-
-<div class="new-event-panel" 
-    *ngIf="newEventPanelIsOpen | async">
-    <div class="topBar">
-        <h3>Create New Event</h3>
-        <button (click)="closeEventWindow()">X</button>
+    <div class="sidebarToggle">
+        <button (click)="toggleSettingsSidebar()" class="buttonText">
+            <fa-icon [icon]="faBars" size="4x"></fa-icon>
+        </button>
     </div>
-    <app-new-event
-    (newCyclicalEvent)="createNewCyclicalEvent($event)"
-    (newYearlyEvent)="createNewYearlyEvent($event)"
-    (newMonthlyEvent)="createNewMonthlyEvent($event)"
-    (newWeeklyEvent)="createNewWeeklyEvent($event)"
-    (newMonthDOWEvent)="createNewMonthlyDOWEvent($event)"
-    (newYearMonthlyEvent)="createNewYearlyMonthlyEvent($event)"
-    (newYearMonthDOWEvent)="createNewYearlyMonthlyDOWEvent($event)"
-    (newUniqueEvent)="createNewUniqueEvent($event)"
-    (setWindow)="closeEventWindow()"
-    [clickedDayID]="newEventDayID | async"
-    ></app-new-event>
+
+    <app-options
+        *ngIf="optionsAreOpen | async"
+        (changes)="splitSettings($event)"
+        [totalSettings]="calendars" 
+        (readNewjson)="newTotalSettings($event)"
+        (switchTo)="viewCalendarSwitch($event)"
+        [setCalendarIndex]="calendarIndex"
+    ></app-options>
+
+    <div class="calendar-space" align="center">
+        <app-calendar 
+            [settings]="totalSettings"
+            align="center"
+        ></app-calendar>
+    </div>
+
+    <div class="new-event-panel" 
+        *ngIf="newEventPanelIsOpen | async">
+        <div class="topBar">
+            <h3>Create New Event</h3>
+            <button (click)="closeEventWindow()">X</button>
+        </div>
+        <app-new-event
+        (newCyclicalEvent)="createNewCyclicalEvent($event)"
+        (newYearlyEvent)="createNewYearlyEvent($event)"
+        (newMonthlyEvent)="createNewMonthlyEvent($event)"
+        (newWeeklyEvent)="createNewWeeklyEvent($event)"
+        (newMonthDOWEvent)="createNewMonthlyDOWEvent($event)"
+        (newYearMonthlyEvent)="createNewYearlyMonthlyEvent($event)"
+        (newYearMonthDOWEvent)="createNewYearlyMonthlyDOWEvent($event)"
+        (newUniqueEvent)="createNewUniqueEvent($event)"
+        (setWindow)="closeEventWindow()"
+        [clickedDayID]="newEventDayID | async"
+        ></app-new-event>
+    </div>
 </div>
 
 <!--

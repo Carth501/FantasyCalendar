@@ -1,10 +1,10 @@
 @import "../../app.component.css";
 
-.calendar {
+.calendar-header {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  height: 0px;
+  height: fit-content;
   position: relative;
   top: 22px;
 }
@@ -17,6 +17,7 @@
 .year-sign {
   font-size: 60px;
   font-weight: bold;
+  align-self: flex-end;
 }
 
 .year-sign input {

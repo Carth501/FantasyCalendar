@@ -1,8 +1,14 @@
-<div class="calendar" align="center">
+<div class="calendar-header" align="center">
     <div>
         <button (click)= "generatePreviousDisplayYear()" *ngIf="yearLength <= yearStartingID" class="year-control">
             <fa-icon [icon]="faArrowAltCircleLeft" size="3x"></fa-icon>
         </button>
+    </div>
+    <div class="year-sign" align="center" *ngIf="year && year.yearNumber != null && year.yearNumber != undefined && eras && eras.length > 0 && currentEra != null"> 
+        <input 
+        [(ngModel)]="year.yearNumber" 
+            (ngModelChange)="this.userYearChange.next($event)"/>
+        {{eras[currentEra].abbreviation}}
     </div>
     <div>
         <button (click)= "generateNextDisplayYear()" class="year-control">
@@ -11,10 +17,5 @@
     </div>
 </div>
 
-<div class="year-sign" align="center" *ngIf="year && year.yearNumber != null && year.yearNumber != undefined && eras && eras.length > 0 && currentEra != null">
-    Year: <input [(ngModel)]="year.yearNumber" 
-        (ngModelChange)="this.userYearChange.next($event)"/>
-    {{eras[currentEra].abbreviation}}
-</div>
 
 <app-year [year]="year" [daysOfWeek]="DoWNames"></app-year>

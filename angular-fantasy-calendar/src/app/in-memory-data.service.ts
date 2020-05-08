@@ -9,6 +9,7 @@ import { TotalSettings } from './totalSettings';
 })
 export class InMemoryDataService implements InMemoryDbService {
   createDb() {
+    const defaultCalendarID = 0;
     const defaultCalendarName = 'Gregorian Calendar';
     const defaultUniqueEvents: UniqueEvent[] = [
       {title: 'This project\'s inception', offset: 4000082, duration: 1},
@@ -86,6 +87,7 @@ export class InMemoryDataService implements InMemoryDbService {
       ]
     };
     const defaultSettings: TotalSettings = {
+      calendarID: defaultCalendarID,
       calendarName: defaultCalendarName,
       calendarSettings: defaultCalendarSettings,
       uniqueEvents: defaultUniqueEvents,
@@ -101,6 +103,7 @@ export class InMemoryDataService implements InMemoryDbService {
 
 
 
+    const sylrinCalendarID = 1;
     const sylrinCalendarName = 'Shalan Calendar';
     const sylrinUniqueEvents: UniqueEvent[] = [
       {title: 'Narder Invaded', offset: 3928209, duration: 1}, // 590 ME
@@ -190,6 +193,7 @@ export class InMemoryDataService implements InMemoryDbService {
       ]
     };
     const sylrinSettings: TotalSettings = {
+      calendarID: sylrinCalendarID,
       calendarName: sylrinCalendarName,
       calendarSettings: sylrinCalendarSettings,
       uniqueEvents: sylrinUniqueEvents,

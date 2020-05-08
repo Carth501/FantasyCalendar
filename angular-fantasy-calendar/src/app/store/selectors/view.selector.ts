@@ -21,3 +21,8 @@ export const selectNewEventDayID = createSelector(
     selectView,
     ( state: State ) => state.dayID
 );
+
+export const selectCalendarIndex = createSelector(
+    selectView,
+    ( state: State ) => state.calendarIndex
+);

@@ -20,17 +20,21 @@ export class CalendarComponent implements OnInit {
 
   faArrowAltCircleLeft = faArrowAltCircleLeft;
   faArrowAltCircleRight = faArrowAltCircleRight;
-  @Input('settingsObs') set settingsObs(totalSettingsFiles: TotalSettings[]) {
-    if (totalSettingsFiles) {
-      console.log('A settings file arrived!');
-      this.settingsArrived(totalSettingsFiles[this.calendarIndex]);
-    } else {
-      console.log('Empty total settings arrived.');
+  @Input() set newSettings(totalSettings: TotalSettings) {
+    if (!!totalSettings) {
+      console.log('settings arrived');
+      this.settingsArrived(totalSettings);
     }
   }
   settingsLoaded = false;
   eventsLoaded = false;
-  @Input() calendarIndex = 0;
+  calendarIndex = 0;
+
+  @Input() set changeCalendarIndex(newIndex: number) {
+    if (newIndex >= 0) {
+
+    }
+  }
 
   @Input() totalSettings: TotalSettings;
 
@@ -166,7 +170,7 @@ export class CalendarComponent implements OnInit {
   eraReversed(): boolean {
     return this.eras[this.currentEra].reversed;
   }
-  
+
   incrementCurrentYear(): void {
     if (this.eras[this.currentEra].reversed) {
       this.currentYear--;

@@ -10,6 +10,8 @@ import { Store } from '@ngrx/store';
 import { toggleOptions, setNewEventPanel } from 'src/app/store/actions/view.actions';
 import * as fromSelectors from '../../store/selectors';
 import { Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
+import { CalendarSelectors } from '../../store/selectors';
 
 @Component({
   selector: 'app-view',
@@ -27,7 +29,7 @@ export class ViewComponent implements OnInit {
 
   newEventPanelIsOpen: Observable<boolean>;
   newEventDayID: Observable<number>;
-  currentCalendar$: Observable<TotalSettings[]>;
+  currentCalendar$: Observable<TotalSettings>;
 
   calendarIndex = 0;
 
@@ -41,8 +43,15 @@ export class ViewComponent implements OnInit {
       this.optionsAreOpen = this.store.select(fromSelectors.ViewSelectors.selectOptionsOpen);
       this.newEventPanelIsOpen = this.store.select(fromSelectors.ViewSelectors.selectNewEventOpen);
       this.newEventDayID = this.store.select(fromSelectors.ViewSelectors.selectNewEventDayID);
-      this.currentCalendar$ = this.store.select(fromSelectors.CalendarSelectors.selectTotalSettings);
+      this.currentCalendar$ = this.getCurrentCalendar$();
     }
+
+
+  getCurrentCalendar$(): Observable<TotalSettings> {
+    return this.store.select(CalendarSelectors.selectTotalSettings).pipe(
+      map(calendars => calendars.find(c => c.calendarID === this.calendarIndex))
+    );
+  }
 
   ngOnInit(): void {
     // this.store.dispatch({ type: '[View] Load TotalSettings})

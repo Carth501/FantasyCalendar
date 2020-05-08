@@ -26,11 +26,9 @@ export class OptionsComponent {
   @Input() leapYears: LeapYear[];
   @Input() candidateLY = EMPTY_LEAP_YEAR;
   @Input() set totalSettings(totalSettingsObjects) {
-    this.settingsArrived(totalSettingsObjects);
+    this.initializeCalendar(totalSettingsObjects);
   }
-  @Input() set setCalendarIndex(calendarIndex) {
-    this.initializeCalendar(calendarIndex);
-  }
+
   totalSettingsArray: TotalSettings[];
   totalSettingsObject: TotalSettings;
 
@@ -64,14 +62,9 @@ export class OptionsComponent {
     this.initializeCalendar(change.value);
   }
 
-  settingsArrived(totalSettings: TotalSettings[]): void {
-    this.totalSettingsArray = totalSettings;
-    this.initializeCalendar(0);
-  }
-
-  initializeCalendar(index: number): void {
-    if (this.totalSettingsArray) {
-      this.totalSettingsObject = this.totalSettingsArray[index];
+  initializeCalendar(totalSettings: TotalSettings): void {
+    if (totalSettings) {
+      this.totalSettingsObject = totalSettings;
       this.jsonSave = JSON.stringify(this.totalSettingsObject);
       this.optionsArrived(this.totalSettingsObject);
     }
@@ -122,6 +115,7 @@ export class OptionsComponent {
   pushChanges(): void {
     this.daysPerYear = this.yearService.sumOfMonthLengths(this.settingsMonths);
     this.totalSettingsObject = {
+      calendarID: 0,
       calendarName: this.calendarName,
       calendarSettings: {
         ...this.totalSettingsObject.calendarSettings,

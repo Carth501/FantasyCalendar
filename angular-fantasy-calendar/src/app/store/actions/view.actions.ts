@@ -9,3 +9,8 @@ export const setNewEventPanel = createAction(
     '[View] Toggle New Event Panel',
     props<{ open: boolean, dayID: number }>()
 );
+
+export const changeCalendar = createAction(
+    '[View] Change Calendar',
+    props<{ calendarIndex: number }>()
+);

@@ -11,17 +11,14 @@
 
     <app-options
         *ngIf="optionsAreOpen | async"
-        (changes)="splitSettings($event)"
-        [totalSettings]="calendars" 
-        (readNewjson)="newTotalSettings($event)"
-        (switchTo)="viewCalendarSwitch($event)"
         [setCalendarIndex]="calendarIndex"
     ></app-options>
 
     <div class="calendar-space" align="center">
         <app-calendar 
-            [settings]="totalSettings"
             align="center"
+            [calendarIndex]="calendarIndex"
+            [settingsObs]="currentCalendar$ | async"
         ></app-calendar>
     </div>
 
@@ -32,14 +29,6 @@
             <button (click)="closeEventWindow()">X</button>
         </div>
         <app-new-event
-        (newCyclicalEvent)="createNewCyclicalEvent($event)"
-        (newYearlyEvent)="createNewYearlyEvent($event)"
-        (newMonthlyEvent)="createNewMonthlyEvent($event)"
-        (newWeeklyEvent)="createNewWeeklyEvent($event)"
-        (newMonthDOWEvent)="createNewMonthlyDOWEvent($event)"
-        (newYearMonthlyEvent)="createNewYearlyMonthlyEvent($event)"
-        (newYearMonthDOWEvent)="createNewYearlyMonthlyDOWEvent($event)"
-        (newUniqueEvent)="createNewUniqueEvent($event)"
         (setWindow)="closeEventWindow()"
         [clickedDayID]="newEventDayID | async"
         ></app-new-event>

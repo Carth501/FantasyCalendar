@@ -32,6 +32,10 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import * as viewReducer from './store/reducers/view.reducer';
+import * as optionsReducer from './store/reducers/options.reducer';
+import * as calendarReducer from './store/reducers/calendar.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { CalendarEffects } from './store/effects/calendar.effects';
 
 
 
@@ -74,8 +78,15 @@ import * as viewReducer from './store/reducers/view.reducer';
     ClipboardModule,
     MatSelectModule,
     MatInputModule,
-    StoreModule.forRoot({ view: viewReducer.reducer }, {}),
+    StoreModule.forRoot(
+      {
+        view: viewReducer.reducer,
+        calendar: calendarReducer.reducer,
+        options: optionsReducer.reducer },
+      {}
+      ),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    EffectsModule.forRoot([CalendarEffects]),
   ],
   providers: [],
   bootstrap: [AppComponent]

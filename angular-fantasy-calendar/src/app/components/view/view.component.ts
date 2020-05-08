@@ -8,9 +8,8 @@ import { TotalSettings } from '../../totalSettings';
 import { CalendarEventService } from '../../calendar-event.service';
 import { Store } from '@ngrx/store';
 import { toggleOptions, setNewEventPanel } from 'src/app/store/actions/view.actions';
-import * as fromSelectors from '../../store/reducers';
+import * as fromSelectors from '../../store/selectors';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-view',
@@ -19,27 +18,16 @@ import { tap } from 'rxjs/operators';
 })
 export class ViewComponent implements OnInit {
 
-  private calenderSettingsURL = 'api/calendars';
 
   faArrowAltCircleUp = faArrowAltCircleUp;
   faBars = faBars;
 
-  calendars: TotalSettings[];
+  // View component no longer has total settings.
+  // Those are in store. Aquire with the calendar Selector.
 
-  totalSettings: TotalSettings = {
-    calendarName: null,
-    calendarSettings: null,
-    uniqueEvents: null,
-    cyclicalEvents: null,
-    weeklyEvents: null,
-    monthlyEvents: null,
-    yearlyEvents: null,
-    monthDOWEvents: null,
-    yearMonthDOWEvents: null,
-    yearlyMonthlyEvents: null
-  }; // initial values should not be passed to calendar component
   newEventPanelIsOpen: Observable<boolean>;
   newEventDayID: Observable<number>;
+  currentCalendar$: Observable<TotalSettings[]>;
 
   calendarIndex = 0;
 
@@ -50,19 +38,21 @@ export class ViewComponent implements OnInit {
     private calendarService: CalendarService,
     private calendarEventService: CalendarEventService
     ) {
-      this.optionsAreOpen = this.store.select(fromSelectors.selectOptionsOpen);
-      this.newEventPanelIsOpen = this.store.select(fromSelectors.selectNewEventOpen);
-      this.newEventDayID = this.store.select(fromSelectors.selectNewEventDayID);
+      this.optionsAreOpen = this.store.select(fromSelectors.ViewSelectors.selectOptionsOpen);
+      this.newEventPanelIsOpen = this.store.select(fromSelectors.ViewSelectors.selectNewEventOpen);
+      this.newEventDayID = this.store.select(fromSelectors.ViewSelectors.selectNewEventDayID);
+      this.currentCalendar$ = this.store.select(fromSelectors.CalendarSelectors.selectTotalSettings);
     }
 
   ngOnInit(): void {
+    // this.store.dispatch({ type: '[View] Load TotalSettings})
     this.getDefaultSettings();
   }
 
   getDefaultSettings(): void {
-    this.calendarService.requestCalendar(this.calenderSettingsURL).subscribe(IncomingCalendars => this.recieveCalendars(IncomingCalendars));
+    this.store.dispatch({ type: '[Calendar Page] Load Calendar' });
   }
-
+/*
   recieveCalendars(calendars: TotalSettings[]): void {
     this.calendars = calendars;
     this.splitSettings(this.calendars[this.calendarIndex]);
@@ -134,7 +124,7 @@ export class ViewComponent implements OnInit {
     tempEventArray.push(newEvent);
     this.totalSettings = {...this.totalSettings, uniqueEvents: tempEventArray};
   }
-
+*/
   closeEventWindow(): void {
     this.store.dispatch(setNewEventPanel({open: false, dayID: 0}));
   }

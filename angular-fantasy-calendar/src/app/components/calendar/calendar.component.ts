@@ -1,6 +1,6 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild, OnInit } from '@angular/core';
 import { faArrowAltCircleLeft, faArrowAltCircleRight } from '@fortawesome/free-solid-svg-icons';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { Era } from '../../era';
 import { LeapYear } from '../../leapYear';
@@ -8,22 +8,31 @@ import { TotalSettings } from '../../totalSettings';
 import { Year } from '../../year';
 import { YearService } from '../../year.service';
 import { SettingsMonth } from '../../settingsMonth';
+import * as fromSelectors from '../../store/selectors';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.css']
 })
-export class CalendarComponent {
+export class CalendarComponent implements OnInit {
 
   faArrowAltCircleLeft = faArrowAltCircleLeft;
   faArrowAltCircleRight = faArrowAltCircleRight;
-  @Input() set settings(totalSettings) {
-    this.settingsArrived(totalSettings);
+  @Input('settingsObs') set settingsObs(totalSettingsFiles: TotalSettings[]) {
+    if (totalSettingsFiles) {
+      console.log('A settings file arrived!');
+      this.settingsArrived(totalSettingsFiles[this.calendarIndex]);
+    } else {
+      console.log('Empty total settings arrived.');
+    }
   }
-  totalSettings: TotalSettings;
   settingsLoaded = false;
   eventsLoaded = false;
+  @Input() calendarIndex = 0;
+
+  @Input() totalSettings: TotalSettings;
 
   currentYear: number;
   yearStartingID: number;
@@ -42,6 +51,7 @@ export class CalendarComponent {
 
 
   constructor(
+    private store: Store<any>,
     private yearService: YearService) {
       // Debounce search.
       this.userYearChange.pipe(
@@ -52,7 +62,11 @@ export class CalendarComponent {
         });
       }
 
+  ngOnInit(): void {
+  }
+
   settingsArrived(IncomingSettings): void {
+    console.log('Total Settings Arrived');
     if (IncomingSettings && IncomingSettings.calendarSettings) {
       this.totalSettings = IncomingSettings;
       this.eras = this.totalSettings.calendarSettings.eras;

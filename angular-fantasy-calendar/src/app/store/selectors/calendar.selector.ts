@@ -9,5 +9,7 @@ export const calendarView = (state: AppState) => state.calendar;
 
 export const selectCalendars = createSelector(
     calendarView,
-    ( state: State ) => state.calendarList
+    ( state: State ) => {
+        return state.calendarList;
+    }
 );

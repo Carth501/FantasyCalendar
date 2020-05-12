@@ -1,15 +1,11 @@
-import { Component, Input, ViewChild, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { faArrowAltCircleLeft, faArrowAltCircleRight } from '@fortawesome/free-solid-svg-icons';
-import { Subject, Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { Era } from '../../era';
-import { LeapYear } from '../../leapYear';
+import { Calendar } from 'src/app/Calendar';
 import { Year } from '../../year';
 import { YearService } from '../../year.service';
-import { SettingsMonth } from '../../settingsMonth';
-import * as fromSelectors from '../../store/selectors';
-import { Store } from '@ngrx/store';
-import { Calendar } from 'src/app/Calendar';
 
 @Component({
   selector: 'app-calendar',
@@ -23,8 +19,6 @@ export class CalendarComponent implements OnInit {
   @Input() set newSettings(calendar: Calendar) {
     if (!!calendar) {
       this.settingsArrived(calendar);
-    } else {
-      debugger;
     }
   }
   settingsLoaded = false;
@@ -66,7 +60,7 @@ export class CalendarComponent implements OnInit {
   }
 
   settingsArrived(IncomingSettings): void {
-    if (IncomingSettings && IncomingSettings.calendarSettings) {
+    if (IncomingSettings) {
       this.calendar = IncomingSettings;
       this.yearStartingID = this.calendar.year.startingDayID;
       this.yearStartingDOW = this.calendar.year.startingDoW;

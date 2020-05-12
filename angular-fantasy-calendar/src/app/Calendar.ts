@@ -29,5 +29,5 @@ export interface Calendar {
         monthDOWEvents: MonthlyDayOfWeekEvent[];
         yearMonthDOWEvents: YearlyMonthlyDayOfWeekEvent[];
         yearlyMonthlyEvents: YearlyMonthlyEvent[];
-    }
+    };
 }

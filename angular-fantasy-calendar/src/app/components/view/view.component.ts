@@ -44,7 +44,6 @@ export class ViewComponent implements OnInit {
       this.newEventPanelIsOpen = this.store.select(fromSelectors.ViewSelectors.selectNewEventOpen);
       this.newEventDayID = this.store.select(fromSelectors.ViewSelectors.selectNewEventDayID);
       this.currentCalendar$ = this.getCurrentCalendar$();
-      this.currentCalendar$.subscribe(calendar => {if(!calendar){console.log('calendar empty')} else {console.log(calendar.calendarName)}});
     }
 
 

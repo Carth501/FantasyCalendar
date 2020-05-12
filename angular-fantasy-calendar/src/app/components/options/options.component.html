@@ -11,7 +11,8 @@
             <app-calendar-selector></app-calendar-selector>
         </div>
         <div class="settings-option">
-            <app-year-editor></app-year-editor>
+            <app-year-editor
+                [year]="calendarObject$ | async"></app-year-editor>
         </div>
 
         <div class="settings-option">

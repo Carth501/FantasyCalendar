@@ -7,7 +7,12 @@ export interface AppState {
 
 export const selectOptions = (state: AppState) => state.options;
 
-export const selectSettings = createSelector(
+export const selectCurrentCalendar = createSelector(
     selectOptions,
-    ( state: State ) => state.dirtySettings
+    ( state: State ) => state.dirtySettingsList.find(calendar => calendar.calendarID === state.currentCalendarID.valueOf())
+);
+
+export const selectCurrentID = createSelector(
+    selectOptions,
+    ( state: State ) => state.currentCalendarID
 );

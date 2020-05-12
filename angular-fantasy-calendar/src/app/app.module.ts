@@ -43,6 +43,7 @@ import { LeapYearEditorComponent } from './components/options/optionsSubsections
 import { EventsEditorComponent } from './components/options/optionsSubsections/events-editor/events-editor.component';
 import { JsonComponent } from './components/options/optionsSubsections/json/json.component';
 import { CalendarSelectorComponent } from './components/options/optionsSubsections/calendar-selector/calendar-selector.component';
+import { OptionsEffects } from './store/effects/options.effects';
 
 
 
@@ -100,7 +101,7 @@ import { CalendarSelectorComponent } from './components/options/optionsSubsectio
       {}
       ),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
-    EffectsModule.forRoot([CalendarEffects]),
+    EffectsModule.forRoot([CalendarEffects, OptionsEffects]),
   ],
   providers: [],
   bootstrap: [AppComponent]

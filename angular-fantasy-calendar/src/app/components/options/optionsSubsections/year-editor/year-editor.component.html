@@ -1,11 +1,12 @@
-<div class="settings-option">
-    <label>Year Settings:</label>
+<div class="settings-option" *ngIf="year">
+    <label>Year Settings: {{year.startingDayID}}</label>
+    <div style="color: red;" *ngIf="!year.eras">No Era Data</div>
     <div class="input-region">
         <mat-form-field>
             <mat-label  >Default Year:</mat-label>
             <input 
             matInput 
-            [(ngModel)]="currentYear">
+            [(ngModel)]="year.currentYear">
         </mat-form-field>
         <mat-form-field>
             <mat-label 
@@ -15,16 +16,16 @@
             <mat-select 
                 matInput
                 id="era" 
-                [(ngModel)]="currentEra">
+                [(ngModel)]="year.currentEra">
                 <mat-option matInput
-                    *ngFor="let era of eras; index as i" 
+                    *ngFor="let era of year.eras; index as i" 
                     value=i>
                     {{era.eraName}}</mat-option>
             </mat-select>
         </mat-form-field>
         <div>
             <mat-label for="era">Eras:</mat-label>
-            <mat-form-field  *ngFor="let x of eras; let idx = index; trackBy: trackArray">
+            <mat-form-field  *ngFor="let x of year.eras; let idx = index; trackBy: trackArray">
                 <input 
                     matInput
                     class="era-name" 
@@ -66,12 +67,12 @@
                 <input id="era-reverse" class="new-era-reverse" type="checkbox" [(ngModel)]="newEra.reversed"/>
             </div>
             <input 
-                *ngIf="eras"
+                *ngIf="year.eras"
                 class="new-era-index" 
                 type="number" 
                 [(ngModel)]="newEraIndex" 
                 [min]=1 
-                [max]="eras.length + 1" 
+                [max]="year.eras.length + 1" 
                 placeholder="Era placement"/>
             <button class="new-era-create" (click)= "createNewEra()">
                 add

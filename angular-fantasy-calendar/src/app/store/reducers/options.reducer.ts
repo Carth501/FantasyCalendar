@@ -3,16 +3,18 @@ import { OptionsActions } from '../actions';
 import { Calendar } from 'src/app/Calendar';
 
 export interface State {
-    dirtySettings: Calendar;
+    dirtySettingsList: Calendar[];
+    currentCalendarID: number;
 }
 
 export const initialState: State = {
-    dirtySettings: null,
+    dirtySettingsList: null,
+    currentCalendarID: 0
 };
 
 const optionsReducer = createReducer(
     initialState,
-    on(OptionsActions.setSettings, (state, {newCalendar}) => ({ ...state, dirtySettings: newCalendar})),
+    on(OptionsActions.setDirtyCalendars, (state, {calendars}) => ({ ...state, dirtySettingsList: calendars})),
 );
 
 export function reducer(state: State | undefined, action: Action) {

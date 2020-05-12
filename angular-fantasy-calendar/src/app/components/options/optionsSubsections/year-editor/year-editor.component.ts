@@ -9,9 +9,14 @@ import { Era, EMPTY_ERA } from 'src/app/era';
 })
 export class YearEditorComponent implements OnInit {
 
-  @Input() currentYear: number;
-  @Input() currentEra: number;
-  @Input() eras: Era[];
+
+  @Input() year: {
+        startingDayID: number;
+        startingDoW: number;
+        eras: Era[];
+        currentEra: number;
+        currentYear: number;
+    };
   @Input() newEra = EMPTY_ERA;
   @Input() newEraIndex: number;
   
@@ -21,7 +26,7 @@ export class YearEditorComponent implements OnInit {
   }
 
   createNewEra() {
-    this.eras.splice((this.newEraIndex - 1), 0, this.newEra);
+    this.year.eras.splice((this.newEraIndex - 1), 0, this.newEra);
     this.resetEmptyEra();
   }
 
@@ -36,7 +41,7 @@ export class YearEditorComponent implements OnInit {
 
   deleteEra(index: number): void {
     if (index >= 0) {
-      this.eras.splice(index, 1);
+      this.year.eras.splice(index, 1);
     }
   }
 

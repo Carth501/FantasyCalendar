@@ -1,7 +1,7 @@
 
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { faArrowAltCircleUp } from '@fortawesome/free-solid-svg-icons';
-import { CalendarSelectors } from '../../store/selectors';
+import { OptionsSelectors } from '../../store/selectors';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Calendar } from 'src/app/Calendar';
@@ -13,7 +13,7 @@ import { Calendar } from 'src/app/Calendar';
 })
 export class OptionsComponent {
   faArrowAltCircleUp = faArrowAltCircleUp;
-  @Output() changes = new EventEmitter<Calendar>();
+  //@Output() changes = new EventEmitter<Calendar>();
   /*
   @Input() set totalSettings(totalSettingsObjects) {
     this.initializeCalendar(totalSettingsObjects);
@@ -21,7 +21,7 @@ export class OptionsComponent {
   */
 
   calendarArray: Calendar[];
-  calendarObject: Calendar;
+  calendarObject$: Observable<Calendar>;
 
 
   @Input() calendarName: string;
@@ -29,8 +29,9 @@ export class OptionsComponent {
   constructor(
     private store: Store<any>,
     ) {
-      //this.totalSettingsChanged = this.store.select(CalendarSelectors.selectTotalSettings);
+      this.calendarObject$ = this.store.select(OptionsSelectors.selectCurrentCalendar);
     }
+
 
   initializeCalendar(calendar: Calendar): void {
     /*

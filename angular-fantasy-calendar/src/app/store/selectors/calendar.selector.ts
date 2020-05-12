@@ -7,7 +7,7 @@ export interface AppState {
 
 export const calendarView = (state: AppState) => state.calendar;
 
-export const selectTotalSettings = createSelector(
+export const selectCalendars = createSelector(
     calendarView,
-    ( state: State ) => state.totalSettingsList
+    ( state: State ) => state.calendarList
 );

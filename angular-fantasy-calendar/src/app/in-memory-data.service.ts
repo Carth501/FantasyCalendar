@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { InMemoryDbService } from 'angular-in-memory-web-api';
 import { CyclicalEvent, MonthlyDayOfWeekEvent, MonthlyEvent, UniqueEvent, WeeklyEvent,
   YearlyEvent, YearlyMonthlyDayOfWeekEvent, YearlyMonthlyEvent } from './calendarEvent';
-import { TotalSettings } from './totalSettings';
+import { Calendar } from './Calendar';
 
 @Injectable({
   providedIn: 'root',
@@ -56,48 +56,58 @@ export class InMemoryDataService implements InMemoryDbService {
       { title: 'New Year\'s Eve', duration: 1, offset: 31, monthOffset: 12 }
     ];
 
-    const defaultCalendarSettings = {
-      startingDayID: 4000000,
-      startingDoW: 3,
-      DoW_names: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-      settingsMonths: [
-        {name: 'January', length: 31},
-        {name: 'February', length: 28},
-        {name: 'March', length: 31},
-        {name: 'April', length: 30},
-        {name: 'May', length: 31},
-        {name: 'June', length: 30},
-        {name: 'July', length: 31},
-        {name: 'August', length: 31},
-        {name: 'September', length: 30},
-        {name: 'October', length: 31},
-        {name: 'November', length: 30},
-        {name: 'December', length: 31}
-      ],
-      eras: [
-        {eraName: 'Before Common Era', abbreviation: 'BCE', ending: 1, reversed: true},
-        {eraName: 'Common Era', abbreviation: 'CE', beginning: 1, reversed: false}
-      ],
-      currentEra: 1,
-      currentYear: 2020,
-      leapYears: [
-        {leapYearCycles: 4, leapYearOffset: 0, leapYearChange: 1, leapDayMonth: 1},
-        {leapYearCycles: 100, leapYearOffset: 0, leapYearChange: -1, leapDayMonth: 1},
-        {leapYearCycles: 400, leapYearOffset: 0, leapYearChange: 1, leapDayMonth: 1},
-      ]
-    };
-    const defaultSettings: TotalSettings = {
+    const defaultStartingDayID = 4000000;
+    const defaultStartingDoW = 3;
+    const defaultDoW = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const defaultMonths = [
+      {name: 'January', length: 31},
+      {name: 'February', length: 28},
+      {name: 'March', length: 31},
+      {name: 'April', length: 30},
+      {name: 'May', length: 31},
+      {name: 'June', length: 30},
+      {name: 'July', length: 31},
+      {name: 'August', length: 31},
+      {name: 'September', length: 30},
+      {name: 'October', length: 31},
+      {name: 'November', length: 30},
+      {name: 'December', length: 31}
+    ];
+    const defaultEras = [
+      {eraName: 'Before Common Era', abbreviation: 'BCE', ending: 1, reversed: true},
+      {eraName: 'Common Era', abbreviation: 'CE', beginning: 1, reversed: false}
+    ];
+    const defaultCurrentEra = 1;
+    const defaultCurrentYear = 2020;
+    const defaultLeapYearRules = [
+      {leapYearCycles: 4, leapYearOffset: 0, leapYearChange: 1, leapDayMonth: 1},
+      {leapYearCycles: 100, leapYearOffset: 0, leapYearChange: -1, leapDayMonth: 1},
+      {leapYearCycles: 400, leapYearOffset: 0, leapYearChange: 1, leapDayMonth: 1},
+    ];
+
+    const defaultSettings: Calendar = {
       calendarID: defaultCalendarID,
       calendarName: defaultCalendarName,
-      calendarSettings: defaultCalendarSettings,
-      uniqueEvents: defaultUniqueEvents,
-      cyclicalEvents: defaultCyclicalEvents,
-      weeklyEvents: defaultWeeklyEvents,
-      monthlyEvents: defaultMonthlyEvents,
-      yearlyEvents: defaultYearlyEvents,
-      monthDOWEvents: defaultMonthDOWEvents,
-      yearMonthDOWEvents: defaultYearMonthDOWEvents,
-      yearlyMonthlyEvents: defaultYearlyMonthlyEvents
+      year: {
+        startingDayID: defaultStartingDayID,
+        startingDoW: defaultStartingDoW,
+        eras: defaultEras,
+        currentEra: defaultCurrentEra,
+        currentYear: defaultCurrentYear
+      },
+      months: defaultMonths,
+      DoW: defaultDoW,
+      leapYearRules: defaultLeapYearRules,
+      events: {
+        uniqueEvents: defaultUniqueEvents,
+        cyclicalEvents: defaultCyclicalEvents,
+        weeklyEvents: defaultWeeklyEvents,
+        monthlyEvents: defaultMonthlyEvents,
+        yearlyEvents: defaultYearlyEvents,
+        monthDOWEvents: defaultMonthDOWEvents,
+        yearMonthDOWEvents: defaultYearMonthDOWEvents,
+        yearlyMonthlyEvents: defaultYearlyMonthlyEvents
+      }
     };
 
 
@@ -161,51 +171,61 @@ export class InMemoryDataService implements InMemoryDbService {
       { title: 'South Autumnseve', duration: 1, offset: 40, monthOffset: 15 }
     ];
 
-    const sylrinCalendarSettings = {
-      startingDayID: 4000000,
-      startingDoW: 4,
-      DoW_names: ['Vesday', 'Orsday', 'Wasday', 'Arday', 'Figday', 'Tolday', 'Erday', 'Kesday'],
-      settingsMonths: [{name: 'Veskien', length: 40},
-                      {name: 'Greywin', length: 39},
-                      {name: 'Gilan', length: 40},
-                      {name: 'Orkien', length: 39},
-                      {name: 'Winen', length: 39},
-                      {name: 'Arkien', length: 39},
-                      {name: 'Sybil', length: 40},
-                      {name: 'Figkien', length: 39},
-                      {name: 'Elmirn', length: 39},
-                      {name: 'Amedust', length: 39},
-                      {name: 'Tolkien', length: 40},
-                      {name: 'Cynen', length: 39},
-                      {name: 'Nathyen', length: 39},
-                      {name: 'Erkien', length: 39},
-                      {name: 'Keskien', length: 40}
-      ],
-      eras: [
-        {eraName: 'Before Teturic', abbreviation: 'BT', ending: 1, reversed: true},
-        {eraName: 'Age of Ash', abbreviation: 'AoA', beginning: 1, ending:  309, reversed: false},
-        {eraName: 'Magic Era', abbreviation: 'ME', beginning: 1, reversed: false}
-      ],
-      currentEra: 2,
-      currentYear: 712,
-      leapYears: [
-        {leapYearCycles: 1000, leapYearOffset: 612, leapYearChange: 1, leapDayMonth: 5},
-      ]
-    };
-    const sylrinSettings: TotalSettings = {
+    const sylrinStartingDayID = 4000000;
+    const sylrinStartingDoW = 4;
+    const sylrinDoW = ['Vesday', 'Orsday', 'Wasday', 'Arday', 'Figday', 'Tolday', 'Erday', 'Kesday'];
+    const sylrinMonths =
+      [{name: 'Veskien', length: 40},
+      {name: 'Greywin', length: 39},
+      {name: 'Gilan', length: 40},
+      {name: 'Orkien', length: 39},
+      {name: 'Winen', length: 39},
+      {name: 'Arkien', length: 39},
+      {name: 'Sybil', length: 40},
+      {name: 'Figkien', length: 39},
+      {name: 'Elmirn', length: 39},
+      {name: 'Amedust', length: 39},
+      {name: 'Tolkien', length: 40},
+      {name: 'Cynen', length: 39},
+      {name: 'Nathyen', length: 39},
+      {name: 'Erkien', length: 39},
+      {name: 'Keskien', length: 40}
+    ];
+    const sylrinEras = [
+      {eraName: 'Before Teturic', abbreviation: 'BT', ending: 1, reversed: true},
+      {eraName: 'Age of Ash', abbreviation: 'AoA', beginning: 1, ending:  309, reversed: false},
+      {eraName: 'Magic Era', abbreviation: 'ME', beginning: 1, reversed: false}
+    ];
+    const sylrinCurrentEra = 2;
+    const sylrinCurrentYear = 712;
+    const sylrinLeapYearRules = [
+      {leapYearCycles: 1000, leapYearOffset: 612, leapYearChange: 1, leapDayMonth: 5},
+    ];
+
+    const sylrinSettings: Calendar = {
       calendarID: sylrinCalendarID,
       calendarName: sylrinCalendarName,
-      calendarSettings: sylrinCalendarSettings,
-      uniqueEvents: sylrinUniqueEvents,
-      cyclicalEvents: sylrinCyclicalEvents,
-      weeklyEvents: sylrinWeeklyEvents,
-      monthlyEvents: sylrinMonthlyEvents,
-      yearlyEvents: sylrinYearlyEvents,
-      monthDOWEvents: sylrinMonthDOWEvents,
-      yearMonthDOWEvents: sylrinYearMonthDOWEvents,
-      yearlyMonthlyEvents: sylrinYearlyMonthlyEvents
+      year: {
+        startingDayID: sylrinStartingDayID,
+        startingDoW: sylrinStartingDoW,
+        eras: sylrinEras,
+        currentEra: sylrinCurrentEra,
+        currentYear: sylrinCurrentYear
+      },
+      months: sylrinMonths,
+      DoW: sylrinDoW,
+      leapYearRules: sylrinLeapYearRules,
+      events: {
+        uniqueEvents: sylrinUniqueEvents,
+        cyclicalEvents: sylrinCyclicalEvents,
+        weeklyEvents: sylrinWeeklyEvents,
+        monthlyEvents: sylrinMonthlyEvents,
+        yearlyEvents: sylrinYearlyEvents,
+        monthDOWEvents: sylrinMonthDOWEvents,
+        yearMonthDOWEvents: sylrinYearMonthDOWEvents,
+        yearlyMonthlyEvents: sylrinYearlyMonthlyEvents
+      }
     };
-
 
     const calendars = [
       defaultSettings, sylrinSettings];

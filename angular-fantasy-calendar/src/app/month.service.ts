@@ -1,11 +1,10 @@
 import { EventEmitter, Injectable, Output } from '@angular/core';
-import { CalendarSettings } from './calendarSettings';
 import { Day } from './day';
 import { Month } from './month';
-import { TotalSettings } from './totalSettings';
 import { CyclicalEvent, WeeklyEvent, MonthlyEvent, YearlyEvent, MonthlyDayOfWeekEvent,
   YearlyMonthlyDayOfWeekEvent, YearlyMonthlyEvent, UniqueEvent } from './calendarEvent';
 import { SettingsMonth } from './settingsMonth';
+import { Calendar } from './Calendar';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +13,6 @@ export class MonthService {
 
   @Output() needRefresh = new EventEmitter<any>();
 
-  calendarSettings: CalendarSettings;
   startingDayID: number;
   monthLength: number;
   startingDoW: number;
@@ -24,7 +22,7 @@ export class MonthService {
   getDisplayMonth(
     yearStartingDayID: number, monthStartingDayID: number,
     monthLength: number, settingsMonth: SettingsMonth, startingDoW: number,
-    daysPerWeek: number, monthNumber: number, totalSettings: TotalSettings): Month {
+    daysPerWeek: number, monthNumber: number, calendar: Calendar): Month {
 
     let currentWeekday = startingDoW;
     let week = 0;
@@ -44,27 +42,28 @@ export class MonthService {
     while (i < monthLength) {
       const dayOfMonth = i + 1;
       const dayOfYear = (monthStartingDayID + i) - yearStartingDayID + 1;
+      const events = calendar.events;
       month.weeks[week].days[currentWeekday] = {
         id: monthStartingDayID + i,
         dayOfMonth,
         dayOfYear,
         cyclicalEvents: this.getCyclicalEventList(monthStartingDayID + i,
-                totalSettings.cyclicalEvents),
+          events.cyclicalEvents),
         uniqueEvents: this.getUniqueEventList(monthStartingDayID + dayOfMonth,
-                totalSettings.uniqueEvents),
+          events.uniqueEvents),
         weeklyEvents: this.getWeeklyEventList(currentWeekday,
-                totalSettings.weeklyEvents),
+          events.weeklyEvents),
         monthlyEvents: this.getMonthlyEventList(dayOfMonth,
-                totalSettings.monthlyEvents),
+          events.monthlyEvents),
         yearlyEvents: this.getYearlyEventList(dayOfYear,
-                totalSettings.yearlyEvents),
+          events.yearlyEvents),
         monthDOWEvents: this.getMonthDOWEventList(currentWeekday,
-                weekdayCounts[currentWeekday], totalSettings.monthDOWEvents),
+          weekdayCounts[currentWeekday], events.monthDOWEvents),
         yearMonthDOWEvents: this.getYearMonthDOWEventList(daysPerWeek,
-                currentWeekday, monthNumber,
-                weekdayCounts[currentWeekday], totalSettings.yearMonthDOWEvents),
+          currentWeekday, monthNumber, weekdayCounts[currentWeekday],
+          events.yearMonthDOWEvents),
         yearMonthlyEvents: this.getYearMonthlyEventList(dayOfMonth, monthNumber,
-                totalSettings.yearlyMonthlyEvents)
+          events.yearlyMonthlyEvents)
       };
       weekdayCounts[currentWeekday]++;
       /*
@@ -185,7 +184,7 @@ export class MonthService {
             if ( daysSince <= calendarEvent.duration && daysSince > 0) {
                 result.push(calendarEvent);
             }
-          } 
+          }
           */
         }
       });

@@ -3,7 +3,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { CalendarService } from 'src/app/calendar.service';
-import { setTotalSettingsList } from '../actions/calendar.actions';
+import { setCalendarList } from '../actions/calendar.actions';
 
 @Injectable()
 export class CalendarEffects {
@@ -18,7 +18,7 @@ export class CalendarEffects {
   loadCalendars$ = this.actions$.pipe(
     ofType('[Calendar Page] Load Calendar'),
     switchMap(() => this.calendarService.requestCalendar$()),
-    map(newTotalSettingsList => setTotalSettingsList({newTotalSettingsList}))
+    map(newCalendarList => setCalendarList({newCalendarList}))
   );
 
 }

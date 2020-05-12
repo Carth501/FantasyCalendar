@@ -4,7 +4,6 @@ import * as _ from 'lodash';
 import { CalendarService } from '../../calendar.service';
 import { CyclicalEvent, WeeklyEvent, MonthlyEvent, YearlyEvent,
   YearlyMonthlyEvent, YearlyMonthlyDayOfWeekEvent, UniqueEvent, MonthlyDayOfWeekEvent } from '../../calendarEvent';
-import { TotalSettings } from '../../totalSettings';
 import { CalendarEventService } from '../../calendar-event.service';
 import { Store } from '@ngrx/store';
 import { toggleOptions, setNewEventPanel } from 'src/app/store/actions/view.actions';
@@ -12,6 +11,7 @@ import * as fromSelectors from '../../store/selectors';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { CalendarSelectors } from '../../store/selectors';
+import { Calendar } from 'src/app/Calendar';
 
 @Component({
   selector: 'app-view',
@@ -29,9 +29,9 @@ export class ViewComponent implements OnInit {
 
   newEventPanelIsOpen: Observable<boolean>;
   newEventDayID: Observable<number>;
-  currentCalendar$: Observable<TotalSettings>;
+  currentCalendar$: Observable<Calendar>;
 
-  calendarIndex = 0;
+  calendarID = 0;
 
   optionsAreOpen: Observable<boolean>;
 
@@ -47,9 +47,9 @@ export class ViewComponent implements OnInit {
     }
 
 
-  getCurrentCalendar$(): Observable<TotalSettings> {
-    return this.store.select(CalendarSelectors.selectTotalSettings).pipe(
-      map(calendars => calendars.find(c => c.calendarID === this.calendarIndex))
+  getCurrentCalendar$(): Observable<Calendar> {
+    return this.store.select(CalendarSelectors.selectCalendars).pipe(
+      map(calendars => calendars.find(c => c.calendarID === this.calendarID))
     );
   }
 

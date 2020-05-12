@@ -1,19 +1,21 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import { CalendarActions } from '../actions';
-import { TotalSettings } from 'src/app/totalSettings';
+import { Calendar } from 'src/app/Calendar';
 
 export interface State {
-    totalSettingsList: TotalSettings[];
+    calendarList: Calendar[];
 }
 
 export const initialState: State = {
-    totalSettingsList: [],
+    calendarList: [],
 };
 
 const optionsReducer = createReducer(
     initialState,
-    on(CalendarActions.pushTotalSettings, (state, {newTotalSettings}) => ({ ...state, totalSettings: newTotalSettings})),
-    on(CalendarActions.setTotalSettingsList, (state, {newTotalSettingsList}) => ({ ...state, totalSettingsList: newTotalSettingsList})),
+
+    on(CalendarActions.pushCalendar, (state, {newCalendar}) => ({ ...state, calendarList: [...state.calendarList, newCalendar]})),
+
+    on(CalendarActions.setCalendarList, (state, {newCalendarList}) => ({ ...state, calendarList: newCalendarList})),
 );
 
 export function reducer(state: State | undefined, action: Action) {

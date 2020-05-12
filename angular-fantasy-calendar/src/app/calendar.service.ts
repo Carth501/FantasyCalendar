@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { TotalSettings } from './totalSettings';
+import { Calendar } from './Calendar';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ export class CalendarService {
     private http: HttpClient
     ) { }
 
-  requestCalendar$(): Observable<TotalSettings[]> {
-    return this.http.get<TotalSettings[]>(this.calenderSettingsURL);
+  requestCalendar$(): Observable<Calendar[]> {
+    return this.http.get<Calendar[]>(this.calenderSettingsURL);
   }
 }

@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { MonthService } from './month.service';
 import { Year } from './year';
 import { LeapYear } from './leapYear';
-import { TotalSettings } from './totalSettings';
 import { SettingsMonth } from './settingsMonth';
+import { Calendar } from './Calendar';
 
 @Injectable({
   providedIn: 'root'
@@ -15,36 +15,36 @@ export class YearService {
 
 
   getDisplayYear(
-    startingDayID: number, settingsMonths: SettingsMonth[],
-    startingDoW: number, daysPerWeek: number, yearNumber: number,
-    leapYears: LeapYear[],
-    totalSettings: TotalSettings
+    startingDayID: number, startingDoW: number, yearNumber: number,
+    calendar: Calendar
     ): Year {
     const year = {
       id: 0,
       yearNumber,
-      months: []
+      months: [],
+      DoW: calendar.DoW,
     };
-    const monthLengths = this.leapYearChange(yearNumber, settingsMonths, leapYears);
+    const months = calendar.months;
+    const monthLengths = this.leapYearChange(yearNumber, months, calendar.leapYearRules);
     let nextDayID = startingDayID;
     let nextDoW = startingDoW;
     let month = 0;
-    while (month < settingsMonths.length) { // again, number of months in the year
+    while (month < calendar.months.length) { // again, number of months in the year
       year.months.push(this.monthService.getDisplayMonth(startingDayID,
-        nextDayID, monthLengths[month], settingsMonths[month], nextDoW, daysPerWeek, month, totalSettings));
+        nextDayID, monthLengths[month], months[month], nextDoW, calendar.DoW.length, month, calendar));
 
       nextDayID = this.monthService.getNextStartingID(nextDayID, monthLengths[month]);
 
-      nextDoW = this.monthService.getNextStartingDoW(settingsMonths[month], nextDoW, daysPerWeek);
+      nextDoW = this.monthService.getNextStartingDoW(months[month], nextDoW, calendar.DoW.length);
 
       month++;
     }
     return year;
   }
 
-  leapYearChange(yearNumber: number, settingsMonths: SettingsMonth[], leapYears: LeapYear[]): number[] {
+  leapYearChange(yearNumber: number, months: SettingsMonth[], leapYears: LeapYear[]): number[] {
       const tempMonths: number[] = [];
-      settingsMonths.forEach(element => {
+      months.forEach(element => {
         tempMonths.push(element.length);
       });
       if (leapYears) {
@@ -94,12 +94,13 @@ export class YearService {
     return sumOfMonths;
   }
 
-  daysInYear(settingsMonths: SettingsMonth[], yearNumber: number, leapYears: LeapYear[]): number {
-    let total = this.sumOfMonthLengths(settingsMonths);
-    if (leapYears) {
-      for (let i = 0; i < leapYears.length; i++) {
-        if ((yearNumber - leapYears[i].leapYearOffset) % leapYears[i].leapYearCycles === 0) {
-          total += leapYears[i].leapYearChange;
+  daysInYear(calendar: Calendar, yearNumber: number): number {
+    let total = this.sumOfMonthLengths(calendar.months);
+    const leapYearRules = calendar.leapYearRules;
+    if (leapYearRules) {
+      for (let i = 0; i < leapYearRules.length; i++) {
+        if ((yearNumber - leapYearRules[i].leapYearOffset) % leapYearRules[i].leapYearCycles === 0) {
+          total += leapYearRules[i].leapYearChange;
         }
       }
     }

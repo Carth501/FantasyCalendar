@@ -1,17 +1,18 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import { OptionsActions } from '../actions';
+import { Calendar } from 'src/app/Calendar';
 
 export interface State {
-    startingYear: number;
+    dirtySettings: Calendar;
 }
 
 export const initialState: State = {
-    startingYear: 2012,
+    dirtySettings: null,
 };
 
 const optionsReducer = createReducer(
     initialState,
-    on(OptionsActions.setStartingYear, (state, {year}) => ({ ...state, startingYear: year})),
+    on(OptionsActions.setSettings, (state, {newCalendar}) => ({ ...state, dirtySettings: newCalendar})),
 );
 
 export function reducer(state: State | undefined, action: Action) {

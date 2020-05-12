@@ -36,6 +36,13 @@ import * as optionsReducer from './store/reducers/options.reducer';
 import * as calendarReducer from './store/reducers/calendar.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { CalendarEffects } from './store/effects/calendar.effects';
+import { YearEditorComponent } from './components/options/optionsSubsections/year-editor/year-editor.component';
+import { MonthEditorComponent } from './components/options/optionsSubsections/month-editor/month-editor.component';
+import { WeekEditorComponent } from './components/options/optionsSubsections/week-editor/week-editor.component';
+import { LeapYearEditorComponent } from './components/options/optionsSubsections/leap-year-editor/leap-year-editor.component';
+import { EventsEditorComponent } from './components/options/optionsSubsections/events-editor/events-editor.component';
+import { JsonComponent } from './components/options/optionsSubsections/json/json.component';
+import { CalendarSelectorComponent } from './components/options/optionsSubsections/calendar-selector/calendar-selector.component';
 
 
 
@@ -58,7 +65,14 @@ import { CalendarEffects } from './store/effects/calendar.effects';
     MonthDOWFieldsComponent,
     YearMonthDowFieldsComponent,
     UniqueFieldsComponent,
-    YearMonthlyFieldsComponent
+    YearMonthlyFieldsComponent,
+    YearEditorComponent,
+    MonthEditorComponent,
+    WeekEditorComponent,
+    LeapYearEditorComponent,
+    EventsEditorComponent,
+    JsonComponent,
+    CalendarSelectorComponent
   ],
   imports: [
     BrowserModule,

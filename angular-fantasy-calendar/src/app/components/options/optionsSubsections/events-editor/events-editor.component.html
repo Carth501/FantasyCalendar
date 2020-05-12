@@ -1,0 +1,131 @@
+<label>Events:</label>
+
+<div class="input-region">
+    <div class="events-list">
+        <div class="event-category"
+            *ngIf="cyclicalEvents && cyclicalEvents.length > 0">
+            Cyclical Events
+            <div class="input-fields" *ngFor="let x of cyclicalEvents; let idx = index; trackBy: trackArray">
+                <app-event 
+                [calendarEvent]="x" 
+                [eventType]="'cyclical'"
+                [editable]=true
+                ></app-event>
+                <button class="event-delete" (click)= "deleteCyclicalEvent(idx)">
+                    X
+                </button>
+            </div>
+        </div>
+        <div class="event-category"
+            *ngIf="uniqueEvents && uniqueEvents.length > 0">
+            Unique Events
+            <div class="input-fields" *ngFor="let x of uniqueEvents; let idx = index; trackBy: trackArray">
+                <app-event 
+                [calendarEvent]="x" 
+                [eventType]="'unique'"
+                [editable]=true
+                ></app-event>
+                <button class="event-delete" (click)= "deleteUniqueEvent(idx)">
+                    X
+                </button>
+            </div>
+        </div>
+        <div class="event-category" 
+            *ngIf="yearlyEvents && yearlyEvents.length > 0">
+            Yearly Events
+            <div class="input-fields" *ngFor="let x of yearlyEvents; let idx = index; trackBy: trackArray">
+                <app-event 
+                [calendarEvent]="x" 
+                [eventType]="'yearly'"
+                [editable]=true
+                ></app-event>
+                <button class="event-delete" (click)= "deleteYearlyEvent(idx)">
+                    X
+                </button>
+            </div>
+        </div>
+        <div class="event-category" 
+            *ngIf="monthlyEvents && monthlyEvents.length > 0">
+            Monthly Events
+            <div class="input-fields" *ngFor="let x of monthlyEvents; let idx = index; trackBy: trackArray">
+                <app-event 
+                [calendarEvent]="x" 
+                [eventType]="'monthly'"
+                [editable]=true
+                ></app-event>
+                <button class="event-delete" (click)= "deleteMonthlyEvent(idx)">
+                    X
+                </button>
+            </div>
+        </div>
+        <div class="event-category"
+            *ngIf="weeklyEvents && weeklyEvents.length > 0">
+            Weekly Events
+            <div class="input-fields" *ngFor="let x of weeklyEvents; let idx = index; trackBy: trackArray">
+                <app-event 
+                [calendarEvent]="x" 
+                [eventType]="'weekly'"
+                [editable]=true
+                ></app-event>
+                <button class="event-delete" (click)= "deleteWeeklyEvent(idx)">
+                    X
+                </button>
+            </div>
+        </div>
+        <div class="event-category"
+            *ngIf="monthDOWEvents && monthDOWEvents.length > 0">
+            Monthly Events Based on the Day of the Week
+            <div class="input-fields" *ngFor="let x of monthDOWEvents; let idx = index; trackBy: trackArray">
+                <app-event 
+                [calendarEvent]="x" 
+                [eventType]="'monthDOW'"
+                [editable]=true
+                ></app-event>
+                <button class="event-delete" (click)= "deleteMonthDOWEvent(idx)">
+                    X
+                </button>
+            </div>
+        </div>
+        <div class="event-category"
+            *ngIf="yearMonthDOWEvents && yearMonthDOWEvents.length > 0">
+            Yearly Events Based on the Month and Day of the Week
+            <div class="input-fields" *ngFor="let x of yearMonthDOWEvents; let idx = index; trackBy: trackArray">
+                <app-event 
+                [calendarEvent]="x" 
+                [eventType]="'yearMonthDOW'"
+                [editable]=true
+                ></app-event>
+                <button class="event-delete" (click)= "deleteYearMonthDOWEvent(idx)">
+                    X
+                </button>
+            </div>
+        </div>
+        <div class="event-category"
+            *ngIf="yearlyMonthlyEvents && yearlyMonthlyEvents.length > 0">
+            Yearly Events Based on the Day of the Month
+            <div class="input-fields" *ngFor="let x of yearlyMonthlyEvents; let idx = index; trackBy: trackArray">
+                <app-event 
+                [calendarEvent]="x" 
+                [eventType]="'yearMonthly'"
+                [editable]=true
+                ></app-event>
+                <button class="event-delete" (click)= "deleteYearMonthlyEvent(idx)">
+                    X
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="new-event-region">
+    <app-new-event
+    (newCyclicalEvent)="createNewCyclicalEvent($event)"
+    (newUniqueEvent)="createNewUniqueEvent($event)"
+    (newYearlyEvent)="createNewYearlyEvent($event)"
+    (newMonthlyEvent)="createNewMonthlyEvent($event)"
+    (newWeeklyEvent)="createNewWeeklyEvent($event)"
+    (newMonthlyDOWEvent)="createNewMonthDOWEvent($event)"
+    (newYearlyMonthlyDOWEvent)="createNewYearMonthDOWEvent($event)"
+    (newYearlyMonthlyEvent)="createNewYearlyMonthlyEvent($event)"
+    ></app-new-event>
+</div>

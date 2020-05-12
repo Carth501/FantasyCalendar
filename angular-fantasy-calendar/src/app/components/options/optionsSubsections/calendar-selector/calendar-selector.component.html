@@ -1,0 +1,14 @@
+<label>Calendar Selection:</label>
+
+<div class="Calendar Selector">
+
+    <mat-form-field>
+        <mat-select 
+            (selectionChange)="changeCalendar($event)">
+            <mat-option matInput *ngFor="let calendar of calendarArray;
+                        let i=index;" 
+                        [value]="i">
+                    {{calendar.calendarName}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+</div>

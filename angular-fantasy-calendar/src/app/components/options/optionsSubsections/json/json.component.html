@@ -1,0 +1,18 @@
+<label>Save Calendar as JSON:</label>
+
+<div id="jsonRegion" class="input-region">
+    <button [cdkCopyToClipboard]="jsonSave" [cdkCopyToClipboardAttempts]="5">
+        Copy Settings to Clipboard
+    </button>
+</div>
+
+<div class="loadJSON">
+    <label>Load Calendar from JSON</label>
+    <div class="loadControls">
+        <textarea [(ngModel)]="fromjson" placeholder="Paste JSON data here">
+        </textarea>
+        <button (click)="newUserJSON()">
+            Apply new JSON
+        </button>
+    </div>
+</div>

@@ -1,6 +1,7 @@
 import { createAction, props } from '@ngrx/store';
+import { Calendar } from 'src/app/Calendar';
 
-export const setStartingYear = createAction(
-    '[Options] Set Starting Year',
-    props<{ year: number }>()
+export const setSettings = createAction(
+    '[Options] Set Calendar',
+    props<{ newCalendar: Calendar }>()
 );

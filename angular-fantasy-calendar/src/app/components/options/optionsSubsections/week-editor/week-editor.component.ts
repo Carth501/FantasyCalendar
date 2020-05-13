@@ -7,7 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class WeekEditorComponent implements OnInit {
 
-  @Input() DoW_names: string[];
+  @Input() DoW: string[];
   @Input() newDoWName: string;
   daysPerWeek;
 
@@ -17,14 +17,14 @@ export class WeekEditorComponent implements OnInit {
   }
 
   addDoW(): void {
-    this.DoW_names.push(this.newDoWName);
+    this.DoW.push(this.newDoWName);
     this.newDoWName = '';
   }
 
   deleteDoW(index: number): void {
     if (index >= 0) {
-      this.DoW_names.splice(index, 1);
-      this.daysPerWeek = this.DoW_names.length;
+      this.DoW.splice(index, 1);
+      this.daysPerWeek = this.DoW.length;
     }
   }
 

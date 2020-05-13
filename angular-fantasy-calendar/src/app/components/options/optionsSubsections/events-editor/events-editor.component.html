@@ -2,10 +2,9 @@
 
 <div class="input-region">
     <div class="events-list">
-        <div class="event-category"
-            *ngIf="cyclicalEvents && cyclicalEvents.length > 0">
-            Cyclical Events
-            <div class="input-fields" *ngFor="let x of cyclicalEvents; let idx = index; trackBy: trackArray">
+        <div class="event-category">
+            Cyclical Events {{eventLists.cyclicalEvents}}
+            <div class="input-fields" *ngFor="let x of eventLists.cyclicalEvents; let idx = index; trackBy: trackArray">
                 <app-event 
                 [calendarEvent]="x" 
                 [eventType]="'cyclical'"
@@ -16,10 +15,9 @@
                 </button>
             </div>
         </div>
-        <div class="event-category"
-            *ngIf="uniqueEvents && uniqueEvents.length > 0">
+        <div class="event-category">
             Unique Events
-            <div class="input-fields" *ngFor="let x of uniqueEvents; let idx = index; trackBy: trackArray">
+            <div class="input-fields" *ngFor="let x of eventLists.uniqueEvents; let idx = index; trackBy: trackArray">
                 <app-event 
                 [calendarEvent]="x" 
                 [eventType]="'unique'"
@@ -30,10 +28,9 @@
                 </button>
             </div>
         </div>
-        <div class="event-category" 
-            *ngIf="yearlyEvents && yearlyEvents.length > 0">
+        <div class="event-category" >
             Yearly Events
-            <div class="input-fields" *ngFor="let x of yearlyEvents; let idx = index; trackBy: trackArray">
+            <div class="input-fields" *ngFor="let x of eventLists.yearlyEvents; let idx = index; trackBy: trackArray">
                 <app-event 
                 [calendarEvent]="x" 
                 [eventType]="'yearly'"
@@ -44,10 +41,9 @@
                 </button>
             </div>
         </div>
-        <div class="event-category" 
-            *ngIf="monthlyEvents && monthlyEvents.length > 0">
+        <div class="event-category">
             Monthly Events
-            <div class="input-fields" *ngFor="let x of monthlyEvents; let idx = index; trackBy: trackArray">
+            <div class="input-fields" *ngFor="let x of eventLists.monthlyEvents; let idx = index; trackBy: trackArray">
                 <app-event 
                 [calendarEvent]="x" 
                 [eventType]="'monthly'"
@@ -58,10 +54,9 @@
                 </button>
             </div>
         </div>
-        <div class="event-category"
-            *ngIf="weeklyEvents && weeklyEvents.length > 0">
+        <div class="event-category">
             Weekly Events
-            <div class="input-fields" *ngFor="let x of weeklyEvents; let idx = index; trackBy: trackArray">
+            <div class="input-fields" *ngFor="let x of eventLists.weeklyEvents; let idx = index; trackBy: trackArray">
                 <app-event 
                 [calendarEvent]="x" 
                 [eventType]="'weekly'"
@@ -72,10 +67,9 @@
                 </button>
             </div>
         </div>
-        <div class="event-category"
-            *ngIf="monthDOWEvents && monthDOWEvents.length > 0">
+        <div class="event-category">
             Monthly Events Based on the Day of the Week
-            <div class="input-fields" *ngFor="let x of monthDOWEvents; let idx = index; trackBy: trackArray">
+            <div class="input-fields" *ngFor="let x of eventLists.monthDOWEvents; let idx = index; trackBy: trackArray">
                 <app-event 
                 [calendarEvent]="x" 
                 [eventType]="'monthDOW'"
@@ -86,10 +80,9 @@
                 </button>
             </div>
         </div>
-        <div class="event-category"
-            *ngIf="yearMonthDOWEvents && yearMonthDOWEvents.length > 0">
+        <div class="event-category">
             Yearly Events Based on the Month and Day of the Week
-            <div class="input-fields" *ngFor="let x of yearMonthDOWEvents; let idx = index; trackBy: trackArray">
+            <div class="input-fields" *ngFor="let x of eventLists.yearMonthDOWEvents; let idx = index; trackBy: trackArray">
                 <app-event 
                 [calendarEvent]="x" 
                 [eventType]="'yearMonthDOW'"
@@ -100,10 +93,9 @@
                 </button>
             </div>
         </div>
-        <div class="event-category"
-            *ngIf="yearlyMonthlyEvents && yearlyMonthlyEvents.length > 0">
+        <div class="event-category">
             Yearly Events Based on the Day of the Month
-            <div class="input-fields" *ngFor="let x of yearlyMonthlyEvents; let idx = index; trackBy: trackArray">
+            <div class="input-fields" *ngFor="let x of eventLists.yearlyMonthlyEvents; let idx = index; trackBy: trackArray">
                 <app-event 
                 [calendarEvent]="x" 
                 [eventType]="'yearMonthly'"

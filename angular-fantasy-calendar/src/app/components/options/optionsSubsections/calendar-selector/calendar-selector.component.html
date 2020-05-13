@@ -5,10 +5,9 @@
     <mat-form-field>
         <mat-select 
             (selectionChange)="changeCalendar($event)">
-            <mat-option matInput *ngFor="let calendar of calendarArray;
-                        let i=index;" 
-                        [value]="i">
-                    {{calendar.calendarName}}</mat-option>
+            <mat-option matInput *ngFor="let calendar of lookupArray" 
+                        [value]="calendar.key">
+                    {{calendar.value}}</mat-option>
         </mat-select>
     </mat-form-field>
 </div>

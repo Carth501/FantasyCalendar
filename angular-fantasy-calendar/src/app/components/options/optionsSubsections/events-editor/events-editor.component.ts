@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CyclicalEvent, UniqueEvent, WeeklyEvent, MonthlyEvent, YearlyEvent,
-  MonthlyDayOfWeekEvent, YearlyMonthlyDayOfWeekEvent, YearlyMonthlyEvent
+  MonthlyDayOfWeekEvent, YearlyMonthlyDayOfWeekEvent, YearlyMonthlyEvent, EventLists
   } from 'src/app/calendarEvent';
 
 @Component({
@@ -10,14 +10,7 @@ import { CyclicalEvent, UniqueEvent, WeeklyEvent, MonthlyEvent, YearlyEvent,
 })
 export class EventsEditorComponent implements OnInit {
 
-  @Input() cyclicalEvents: CyclicalEvent[];
-  @Input() uniqueEvents: UniqueEvent[];
-  @Input() weeklyEvents: WeeklyEvent[];
-  @Input() monthlyEvents: MonthlyEvent[];
-  @Input() yearlyEvents: YearlyEvent[];
-  @Input() monthDOWEvents: MonthlyDayOfWeekEvent[];
-  @Input() yearMonthDOWEvents: YearlyMonthlyDayOfWeekEvent[];
-  @Input() yearlyMonthlyEvents: YearlyMonthlyEvent[];
+  @Input() eventLists: EventLists;
 
   constructor() { }
 
@@ -25,81 +18,81 @@ export class EventsEditorComponent implements OnInit {
   }
 
   createNewCyclicalEvent(newEvent: CyclicalEvent) {
-    this.cyclicalEvents.push(newEvent);
+    this.eventLists.cyclicalEvents.push(newEvent);
   }
 
   createNewUniqueEvent(newEvent: UniqueEvent) {
-    this.uniqueEvents.push(newEvent);
+    this.eventLists.uniqueEvents.push(newEvent);
   }
 
   createNewYearlyEvent(newEvent: YearlyEvent) {
-    this.yearlyEvents.push(newEvent);
+    this.eventLists.yearlyEvents.push(newEvent);
   }
 
   createNewMonthlyEvent(newEvent: MonthlyEvent) {
-    this.monthlyEvents.push(newEvent);
+    this.eventLists.monthlyEvents.push(newEvent);
   }
 
   createNewWeeklyEvent(newEvent: WeeklyEvent) {
-    this.weeklyEvents.push(newEvent);
+    this.eventLists.weeklyEvents.push(newEvent);
   }
 
   createNewMonthDOWEvent(newEvent: MonthlyDayOfWeekEvent) {
-    this.monthDOWEvents.push(newEvent);
+    this.eventLists.monthDOWEvents.push(newEvent);
   }
 
   createNewYearMonthDOWEvent(newEvent: YearlyMonthlyDayOfWeekEvent) {
-    this.yearMonthDOWEvents.push(newEvent);
+    this.eventLists.yearMonthDOWEvents.push(newEvent);
   }
 
   createNewYearlyMonthlyEvent(newEvent: YearlyMonthlyEvent) {
-    this.yearlyMonthlyEvents.push(newEvent);
+    this.eventLists.yearlyMonthlyEvents.push(newEvent);
   }
   deleteCyclicalEvent(index: number): void {
     if (index >= 0) {
-      this.cyclicalEvents.splice(index, 1);
+      this.eventLists.cyclicalEvents.splice(index, 1);
     }
   }
 
   deleteUniqueEvent(index: number): void {
     if (index >= 0) {
-      this.uniqueEvents.splice(index, 1);
+      this.eventLists.uniqueEvents.splice(index, 1);
     }
   }
 
   deleteYearlyEvent(index: number): void {
     if (index >= 0) {
-      this.yearlyEvents.splice(index, 1);
+      this.eventLists.yearlyEvents.splice(index, 1);
     }
   }
 
   deleteMonthlyEvent(index: number): void {
     if (index >= 0) {
-      this.monthlyEvents.splice(index, 1);
+      this.eventLists.monthlyEvents.splice(index, 1);
     }
   }
 
   deleteWeeklyEvent(index: number): void {
     if (index >= 0) {
-      this.weeklyEvents.splice(index, 1);
+      this.eventLists.weeklyEvents.splice(index, 1);
     }
   }
 
   deleteMonthDOWEvent(index: number): void {
     if (index >= 0) {
-      this.monthDOWEvents.splice(index, 1);
+      this.eventLists.monthDOWEvents.splice(index, 1);
     }
   }
 
   deleteYearMonthDOWEvent(index: number): void {
     if (index >= 0) {
-      this.yearMonthDOWEvents.splice(index, 1);
+      this.eventLists.yearMonthDOWEvents.splice(index, 1);
     }
   }
 
   deleteYearMonthlyEvent(index: number): void {
     if (index >= 0) {
-      this.yearlyMonthlyEvents.splice(index, 1);
+      this.eventLists.yearlyMonthlyEvents.splice(index, 1);
     }
   }
 

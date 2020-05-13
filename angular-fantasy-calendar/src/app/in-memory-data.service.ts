@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { InMemoryDbService } from 'angular-in-memory-web-api';
 import { CyclicalEvent, MonthlyDayOfWeekEvent, MonthlyEvent, UniqueEvent, WeeklyEvent,
-  YearlyEvent, YearlyMonthlyDayOfWeekEvent, YearlyMonthlyEvent } from './calendarEvent';
+  YearlyEvent, YearlyMonthlyDayOfWeekEvent, YearlyMonthlyEvent, EventLists } from './calendarEvent';
 import { Calendar } from './Calendar';
 
 @Injectable({
@@ -56,6 +56,17 @@ export class InMemoryDataService implements InMemoryDbService {
       { title: 'New Year\'s Eve', duration: 1, offset: 31, monthOffset: 12 }
     ];
 
+    const defaultEventList: EventLists = {
+      uniqueEvents: defaultUniqueEvents,
+      cyclicalEvents: defaultCyclicalEvents,
+      weeklyEvents: defaultWeeklyEvents,
+      monthlyEvents: defaultMonthlyEvents,
+      yearlyEvents: defaultYearlyEvents,
+      monthDOWEvents: defaultMonthDOWEvents,
+      yearMonthDOWEvents: defaultYearMonthDOWEvents,
+      yearlyMonthlyEvents: defaultYearlyMonthlyEvents
+    };
+
     const defaultStartingDayID = 4000000;
     const defaultStartingDoW = 3;
     const defaultDoW = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -98,16 +109,7 @@ export class InMemoryDataService implements InMemoryDbService {
       months: defaultMonths,
       DoW: defaultDoW,
       leapYearRules: defaultLeapYearRules,
-      events: {
-        uniqueEvents: defaultUniqueEvents,
-        cyclicalEvents: defaultCyclicalEvents,
-        weeklyEvents: defaultWeeklyEvents,
-        monthlyEvents: defaultMonthlyEvents,
-        yearlyEvents: defaultYearlyEvents,
-        monthDOWEvents: defaultMonthDOWEvents,
-        yearMonthDOWEvents: defaultYearMonthDOWEvents,
-        yearlyMonthlyEvents: defaultYearlyMonthlyEvents
-      }
+      events: defaultEventList
     };
 
 
@@ -171,6 +173,17 @@ export class InMemoryDataService implements InMemoryDbService {
       { title: 'South Autumnseve', duration: 1, offset: 40, monthOffset: 15 }
     ];
 
+    const sylrinEventLists: EventLists = {
+      uniqueEvents: sylrinUniqueEvents,
+      cyclicalEvents: sylrinCyclicalEvents,
+      weeklyEvents: sylrinWeeklyEvents,
+      monthlyEvents: sylrinMonthlyEvents,
+      yearlyEvents: sylrinYearlyEvents,
+      monthDOWEvents: sylrinMonthDOWEvents,
+      yearMonthDOWEvents: sylrinYearMonthDOWEvents,
+      yearlyMonthlyEvents: sylrinYearlyMonthlyEvents
+    };
+
     const sylrinStartingDayID = 4000000;
     const sylrinStartingDoW = 4;
     const sylrinDoW = ['Vesday', 'Orsday', 'Wasday', 'Arday', 'Figday', 'Tolday', 'Erday', 'Kesday'];
@@ -215,16 +228,7 @@ export class InMemoryDataService implements InMemoryDbService {
       months: sylrinMonths,
       DoW: sylrinDoW,
       leapYearRules: sylrinLeapYearRules,
-      events: {
-        uniqueEvents: sylrinUniqueEvents,
-        cyclicalEvents: sylrinCyclicalEvents,
-        weeklyEvents: sylrinWeeklyEvents,
-        monthlyEvents: sylrinMonthlyEvents,
-        yearlyEvents: sylrinYearlyEvents,
-        monthDOWEvents: sylrinMonthDOWEvents,
-        yearMonthDOWEvents: sylrinYearMonthDOWEvents,
-        yearlyMonthlyEvents: sylrinYearlyMonthlyEvents
-      }
+      events: sylrinEventLists
     };
 
     const calendars = [

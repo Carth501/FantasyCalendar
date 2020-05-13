@@ -4,6 +4,17 @@ export interface CalendarEvent { // basic calendar event
     offset: number;
 }
 
+export interface EventLists {
+    uniqueEvents: UniqueEvent[];
+    cyclicalEvents: CyclicalEvent[];
+    weeklyEvents: WeeklyEvent[];
+    monthlyEvents: MonthlyEvent[];
+    yearlyEvents: YearlyEvent[];
+    monthDOWEvents: MonthlyDayOfWeekEvent[];
+    yearMonthDOWEvents: YearlyMonthlyDayOfWeekEvent[];
+    yearlyMonthlyEvents: YearlyMonthlyEvent[];
+}
+
 export interface UniqueEvent extends CalendarEvent {
     // An event that only happens once such as a volcanic eruption,
     // a hurricane, or a notable death.

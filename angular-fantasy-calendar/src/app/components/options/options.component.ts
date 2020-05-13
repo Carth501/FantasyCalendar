@@ -6,7 +6,11 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Calendar } from 'src/app/Calendar';
 import { YearMath } from 'src/app/yearMath';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
+import { SettingsMonth } from 'src/app/settingsMonth';
+import { LeapYear } from 'src/app/leapYear';
+import { CalendarEvent, EventLists } from 'src/app/calendarEvent';
+import { Lookup } from 'src/app/lookup';
 
 @Component({
   selector: 'app-options',
@@ -22,9 +26,14 @@ export class OptionsComponent {
   }
   */
 
+  @Input() lookupArray: Lookup[];
   calendarArray: Calendar[];
   calendarObject$: Observable<Calendar>;
   yearMath$: Observable<YearMath>;
+  months$: Observable<SettingsMonth[]>;
+  weeks$: Observable<string[]>;
+  leapYears$: Observable<LeapYear[]>;
+  events$: Observable<EventLists>;
 
   @Input() calendarName: string;
 
@@ -34,6 +43,18 @@ export class OptionsComponent {
       this.calendarObject$ = this.store.select(OptionsSelectors.selectCurrentCalendar);
       this.yearMath$ = this.calendarObject$.pipe(
         map(calendar => calendar.year)
+      );
+      this.months$ = this.calendarObject$.pipe(
+        map(calendar => calendar.months)
+      );
+      this.weeks$ = this.calendarObject$.pipe(
+        map(calendar => calendar.DoW)
+      );
+      this.leapYears$ = this.calendarObject$.pipe(
+        map(calendar => calendar.leapYearRules)
+      );
+      this.events$ = this.calendarObject$.pipe(
+        map(calendar => calendar.events)
       );
     }
 

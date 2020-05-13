@@ -12,6 +12,8 @@ import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { CalendarSelectors } from '../../store/selectors';
 import { Calendar } from 'src/app/Calendar';
+import { Lookup } from 'src/app/lookup';
+import { KeyValuePairsService } from 'src/app/key-value-pairs.service';
 
 @Component({
   selector: 'app-view',
@@ -30,6 +32,8 @@ export class ViewComponent implements OnInit {
   newEventPanelIsOpen: Observable<boolean>;
   newEventDayID: Observable<number>;
   currentCalendar$: Observable<Calendar>;
+  calendarList$: Observable<Calendar[]>;
+  calendarKeyValuePairs$: Observable<Lookup[]>;
 
   calendarID = 0;
 
@@ -38,18 +42,28 @@ export class ViewComponent implements OnInit {
   constructor(
     private store: Store<any>,
     private calendarService: CalendarService,
-    private calendarEventService: CalendarEventService
+    private calendarEventService: CalendarEventService,
+    private keyValuePairsService: KeyValuePairsService
     ) {
       this.optionsAreOpen = this.store.select(fromSelectors.ViewSelectors.selectOptionsOpen);
       this.newEventPanelIsOpen = this.store.select(fromSelectors.ViewSelectors.selectNewEventOpen);
       this.newEventDayID = this.store.select(fromSelectors.ViewSelectors.selectNewEventDayID);
+      this.calendarList$ = this.store.select(CalendarSelectors.selectCalendars);
       this.currentCalendar$ = this.getCurrentCalendar$();
+      this.calendarKeyValuePairs$ = this.getCalendarKVP$();
     }
 
 
   getCurrentCalendar$(): Observable<Calendar> {
-    return this.store.select(CalendarSelectors.selectCalendars).pipe(
+    return this.calendarList$.pipe(
       map(calendars => calendars.find(c => c.calendarID === this.calendarID))
+    );
+  }
+
+  getCalendarKVP$(): Observable<Lookup[]> {
+    return this.calendarKeyValuePairs$ = this.calendarList$.pipe(
+      map(calendars =>
+        this.keyValuePairsService.pullLookupsFromCalendarList(calendars))
     );
   }
 
@@ -61,79 +75,7 @@ export class ViewComponent implements OnInit {
   getDefaultSettings(): void {
     this.store.dispatch({ type: '[Calendar Page] Load Calendar' });
   }
-/*
-  recieveCalendars(calendars: TotalSettings[]): void {
-    this.calendars = calendars;
-    this.splitSettings(this.calendars[this.calendarIndex]);
-  }
 
-  splitSettings(totalSettings: TotalSettings): void {
-    this.totalSettings = totalSettings;
-  }
-
-  viewCalendarSwitch(index: number): void {
-    this.calendarIndex = index;
-    console.log('viewCalendarSwitch ' + this.calendarIndex);
-    this.splitSettings(this.calendars[this.calendarIndex]);
-  }
-
-  scrollToTop(): void {
-    window.scroll(0, 0);
-  }
-
-  newTotalSettings(newSettings: string): void {
-    this.totalSettings = JSON.parse(newSettings);
-    this.splitSettings(this.totalSettings);
-  }
-
-  createNewCyclicalEvent(newEvent: CyclicalEvent): void {
-    const tempEventArray = this.totalSettings.cyclicalEvents.slice();
-    tempEventArray.push(newEvent);
-    this.totalSettings = {...this.totalSettings, cyclicalEvents: tempEventArray};
-  }
-
-  createNewWeeklyEvent(newEvent: WeeklyEvent): void {
-    const tempEventArray = this.totalSettings.weeklyEvents.slice();
-    tempEventArray.push(newEvent);
-    this.totalSettings = {...this.totalSettings, weeklyEvents: tempEventArray};
-  }
-
-  createNewMonthlyEvent(newEvent: MonthlyEvent): void {
-    const tempEventArray = this.totalSettings.monthlyEvents.slice();
-    tempEventArray.push(newEvent);
-    this.totalSettings = {...this.totalSettings, monthlyEvents: tempEventArray};
-  }
-
-  createNewYearlyEvent(newEvent: YearlyEvent): void {
-    const tempEventArray = this.totalSettings.yearlyEvents.slice();
-    tempEventArray.push(newEvent);
-    this.totalSettings = {...this.totalSettings, yearlyEvents: tempEventArray};
-  }
-
-  createNewMonthlyDOWEvent(newEvent: MonthlyDayOfWeekEvent): void {
-    const tempEventArray = this.totalSettings.monthDOWEvents.slice();
-    tempEventArray.push(newEvent);
-    this.totalSettings = {...this.totalSettings, monthDOWEvents: tempEventArray};
-  }
-
-  createNewYearlyMonthlyEvent(newEvent: YearlyMonthlyEvent): void {
-    const tempEventArray = this.totalSettings.yearlyMonthlyEvents.slice();
-    tempEventArray.push(newEvent);
-    this.totalSettings = {...this.totalSettings, yearlyMonthlyEvents: tempEventArray};
-  }
-
-  createNewYearlyMonthlyDOWEvent(newEvent: YearlyMonthlyDayOfWeekEvent): void {
-    const tempEventArray = this.totalSettings.yearMonthDOWEvents.slice();
-    tempEventArray.push(newEvent);
-    this.totalSettings = {...this.totalSettings, yearMonthDOWEvents: tempEventArray};
-  }
-
-  createNewUniqueEvent(newEvent: UniqueEvent): void {
-    const tempEventArray = this.totalSettings.uniqueEvents.slice();
-    tempEventArray.push(newEvent);
-    this.totalSettings = {...this.totalSettings, uniqueEvents: tempEventArray};
-  }
-*/
   closeEventWindow(): void {
     this.store.dispatch(setNewEventPanel({open: false, dayID: 0}));
   }

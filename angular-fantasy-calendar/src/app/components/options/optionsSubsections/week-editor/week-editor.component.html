@@ -1,8 +1,8 @@
 <label>Days of the week:</label>
 
 <div class="input-region">
-    <div *ngFor="let x of DoW_names; let idx = index; trackBy: trackArray">
-        <input type="text" [(ngModel)]="DoW_names[idx]"/>
+    <div *ngFor="let x of DoW; let idx = index; trackBy: trackArray">
+        <input type="text" [(ngModel)]="DoW[idx]"/>
         <button class="dow-delete" (click)= "deleteDoW(idx)">
             X
         </button>
@@ -11,7 +11,7 @@
     <button (click)="addDoW()">
         add
     </button>
-    <div *ngIf="DoW_names">
-        Days in a week: {{DoW_names.length}}
+    <div *ngIf="DoW">
+        Days in a week: {{DoW.length}}
     </div>
 </div>

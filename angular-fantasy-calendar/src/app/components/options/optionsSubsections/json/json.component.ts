@@ -1,24 +1,26 @@
 import { Clipboard } from '@angular/cdk/clipboard';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Calendar } from 'src/app/Calendar';
+import { JsonService } from 'src/app/json.service';
 
 @Component({
   selector: 'app-json',
   templateUrl: './json.component.html',
   styleUrls: ['./json.component.css']
 })
-export class JsonComponent implements OnInit {
+export class JsonComponent {
 
-  @Input() jsonSave: string;
+  @Input() set calendar(calendar: Calendar) {
+    this.jsonSave = this.jsonService.calendarToJSON(calendar);
+  }
+  jsonSave: string;
 
   @Input() fromjson: string;
-  @Output() readNewjson = new EventEmitter<string>();
 
   constructor(
+    private jsonService: JsonService,
     private clipboard: Clipboard) { }
 
-  ngOnInit(): void {
-  }
-  // this.jsonSave = JSON.stringify(this.totalSettingsObject);
 
   clipboardJSON(): void {
     const pending = this.clipboard.beginCopy(this.jsonSave);
@@ -36,6 +38,6 @@ export class JsonComponent implements OnInit {
   }
 
   newUserJSON(): void {
-    this.readNewjson.emit(this.fromjson);
+    // dispatch action with new calendar object
   }
 }

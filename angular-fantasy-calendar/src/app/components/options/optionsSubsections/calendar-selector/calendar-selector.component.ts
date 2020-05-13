@@ -1,6 +1,6 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { MatSelectChange } from '@angular/material/select';
-import { Calendar } from 'src/app/Calendar';
+import { Lookup } from 'src/app/lookup';
 
 @Component({
   selector: 'app-calendar-selector',
@@ -9,9 +9,9 @@ import { Calendar } from 'src/app/Calendar';
 })
 export class CalendarSelectorComponent implements OnInit {
 
-  calendarArray: Calendar[];
+  @Input() lookupArray: Lookup[];
   @Output() switchTo = new EventEmitter<number>();
-  
+
   constructor() { }
 
   ngOnInit(): void {

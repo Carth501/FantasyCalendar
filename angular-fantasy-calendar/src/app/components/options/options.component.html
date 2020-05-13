@@ -8,31 +8,37 @@
     
     <div class="columns">
         <div class="settings-option">
-            <app-calendar-selector></app-calendar-selector>
+            <app-calendar-selector
+                [lookupArray]="lookupArray"></app-calendar-selector>
         </div>
-        <div class="settings-option">
+        <div class="settings-option" *ngIf="yearMath$">
             <app-year-editor
                 [year]="yearMath$ | async"></app-year-editor>
         </div>
 
-        <div class="settings-option">
-            <app-month-editor></app-month-editor>
+        <div class="settings-option" *ngIf="months$">
+            <app-month-editor
+                [settingsMonths]="months$ | async"></app-month-editor>
+        </div>
+
+        <div class="settings-option" *ngIf="weeks$">
+            <app-week-editor
+                [DoW]="weeks$ | async"></app-week-editor>
+        </div>
+
+        <div class="settings-option" *ngIf="leapYears$">
+            <app-leap-year-editor
+                [leapYears]="leapYears$ | async"></app-leap-year-editor>
+        </div>
+
+        <div class="settings-option" *ngIf="events$">
+            <app-events-editor
+                [eventLists]="events$ | async"></app-events-editor>
         </div>
 
         <div class="settings-option">
-            <app-week-editor></app-week-editor>
-        </div>
-
-        <div class="settings-option">
-            <app-leap-year-editor></app-leap-year-editor>
-        </div>
-
-        <div class="settings-option">
-            <app-events-editor></app-events-editor>
-        </div>
-
-        <div class="settings-option">
-            <app-json></app-json>
+            <app-json
+                [calendar]="calendarObject$ | async"></app-json>
         </div>
     </div>
 </div>

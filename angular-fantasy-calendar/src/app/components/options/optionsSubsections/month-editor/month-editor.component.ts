@@ -16,7 +16,6 @@ export class MonthEditorComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  // use selector to detect when the dirty calendar month array gets changed.
   addMonth(): void {
     // this should be using input binding instead of getElementByID
     // for potential month values

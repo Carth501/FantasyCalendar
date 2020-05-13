@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { MatSelectChange } from '@angular/material/select';
 import { Era, EMPTY_ERA } from 'src/app/era';
+import { YearMath } from 'src/app/yearMath';
 
 @Component({
   selector: 'app-year-editor',
@@ -10,16 +11,10 @@ import { Era, EMPTY_ERA } from 'src/app/era';
 export class YearEditorComponent implements OnInit {
 
 
-  @Input() year: {
-        startingDayID: number;
-        startingDoW: number;
-        eras: Era[];
-        currentEra: number;
-        currentYear: number;
-    };
+  @Input() year: YearMath;
   @Input() newEra = EMPTY_ERA;
   @Input() newEraIndex: number;
-  
+
   constructor() { }
 
   ngOnInit(): void {

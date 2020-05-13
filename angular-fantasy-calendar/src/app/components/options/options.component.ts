@@ -5,6 +5,8 @@ import { OptionsSelectors } from '../../store/selectors';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Calendar } from 'src/app/Calendar';
+import { YearMath } from 'src/app/yearMath';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-options',
@@ -13,7 +15,7 @@ import { Calendar } from 'src/app/Calendar';
 })
 export class OptionsComponent {
   faArrowAltCircleUp = faArrowAltCircleUp;
-  //@Output() changes = new EventEmitter<Calendar>();
+  // @Output() changes = new EventEmitter<Calendar>();
   /*
   @Input() set totalSettings(totalSettingsObjects) {
     this.initializeCalendar(totalSettingsObjects);
@@ -22,7 +24,7 @@ export class OptionsComponent {
 
   calendarArray: Calendar[];
   calendarObject$: Observable<Calendar>;
-
+  yearMath$: Observable<YearMath>;
 
   @Input() calendarName: string;
 
@@ -30,6 +32,9 @@ export class OptionsComponent {
     private store: Store<any>,
     ) {
       this.calendarObject$ = this.store.select(OptionsSelectors.selectCurrentCalendar);
+      this.yearMath$ = this.calendarObject$.pipe(
+        map(calendar => calendar.year)
+      );
     }
 
 

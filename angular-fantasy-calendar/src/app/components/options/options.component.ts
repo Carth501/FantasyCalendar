@@ -1,16 +1,17 @@
 
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { faArrowAltCircleUp } from '@fortawesome/free-solid-svg-icons';
-import { OptionsSelectors } from '../../store/selectors';
-import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Calendar } from 'src/app/Calendar';
-import { YearMath } from 'src/app/yearMath';
-import { map, tap } from 'rxjs/operators';
-import { SettingsMonth } from 'src/app/settingsMonth';
+import { EventLists } from 'src/app/calendarEvent';
 import { LeapYear } from 'src/app/leapYear';
-import { CalendarEvent, EventLists } from 'src/app/calendarEvent';
 import { Lookup } from 'src/app/lookup';
+import { SettingsMonth } from 'src/app/settingsMonth';
+import { YearMath } from 'src/app/yearMath';
+import { OptionsSelectors } from '../../store/selectors';
+import { CalendarService } from 'src/app/calendar.service';
 
 @Component({
   selector: 'app-options',
@@ -39,8 +40,9 @@ export class OptionsComponent {
 
   constructor(
     private store: Store<any>,
+    private calendarService: CalendarService
     ) {
-      this.calendarObject$ = this.store.select(OptionsSelectors.selectCurrentCalendar);
+      this.calendarObject$ = this.calendarService.getCurrentCalendar$();
       this.yearMath$ = this.calendarObject$.pipe(
         map(calendar => calendar.year)
       );

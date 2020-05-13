@@ -1,5 +1,6 @@
 import { createSelector } from '@ngrx/store';
 import { State } from '../reducers/view.reducer';
+import { calendarView, selectCalendars } from './calendar.selector';
 
 export interface AppState {
     view: State;

@@ -1,6 +1,9 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { MatSelectChange } from '@angular/material/select';
 import { Lookup } from 'src/app/lookup';
+import { Store } from '@ngrx/store';
+import { changeCalendar } from 'src/app/store/actions/view.actions';
+import { selectCalendarIndex } from 'src/app/store/selectors/view.selector';
 
 @Component({
   selector: 'app-calendar-selector',
@@ -11,16 +14,17 @@ export class CalendarSelectorComponent implements OnInit {
 
   @Input() lookupArray: Lookup[];
   @Output() switchTo = new EventEmitter<number>();
+  @Input() activeCalendar$ = this.store.select(selectCalendarIndex);
 
-  constructor() { }
+  constructor(
+    private store: Store,
+  ) { }
 
   ngOnInit(): void {
   }
 
 
   changeCalendar(change: MatSelectChange): void {
-    // do this with actions
-    this.switchTo.emit(change.value);
-    // this.initializeCalendar(change.value);
+    this.store.dispatch(changeCalendar({calendarIndex: change.value}));
   }
 }

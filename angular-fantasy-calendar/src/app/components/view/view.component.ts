@@ -35,7 +35,7 @@ export class ViewComponent implements OnInit {
   calendarList$: Observable<Calendar[]>;
   calendarKeyValuePairs$: Observable<Lookup[]>;
 
-  calendarID = 0;
+  calendarID$: Observable<number>;
 
   optionsAreOpen: Observable<boolean>;
 
@@ -49,16 +49,10 @@ export class ViewComponent implements OnInit {
       this.newEventPanelIsOpen = this.store.select(fromSelectors.ViewSelectors.selectNewEventOpen);
       this.newEventDayID = this.store.select(fromSelectors.ViewSelectors.selectNewEventDayID);
       this.calendarList$ = this.store.select(CalendarSelectors.selectCalendars);
-      this.currentCalendar$ = this.getCurrentCalendar$();
+      this.currentCalendar$ = this.calendarService.getCurrentCalendar$();
       this.calendarKeyValuePairs$ = this.getCalendarKVP$();
+      this.calendarID$ = this.store.select(fromSelectors.ViewSelectors.selectCalendarIndex);
     }
-
-
-  getCurrentCalendar$(): Observable<Calendar> {
-    return this.calendarList$.pipe(
-      map(calendars => calendars.find(c => c.calendarID === this.calendarID))
-    );
-  }
 
   getCalendarKVP$(): Observable<Lookup[]> {
     return this.calendarKeyValuePairs$ = this.calendarList$.pipe(

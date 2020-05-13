@@ -4,12 +4,10 @@ import { Calendar } from 'src/app/Calendar';
 
 export interface State {
     dirtySettingsList: Calendar[];
-    currentCalendarID: number;
 }
 
 export const initialState: State = {
-    dirtySettingsList: null,
-    currentCalendarID: 0
+    dirtySettingsList: null
 };
 
 const optionsReducer = createReducer(

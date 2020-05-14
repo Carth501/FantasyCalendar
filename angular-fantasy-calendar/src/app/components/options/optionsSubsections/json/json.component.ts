@@ -2,6 +2,9 @@ import { Clipboard } from '@angular/cdk/clipboard';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Calendar } from 'src/app/Calendar';
 import { JsonService } from 'src/app/json.service';
+import { pushCalendar } from 'src/app/store/actions/calendar.actions';
+import { CalendarService } from 'src/app/calendar.service';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-json',
@@ -19,7 +22,8 @@ export class JsonComponent {
 
   constructor(
     private jsonService: JsonService,
-    private clipboard: Clipboard) { }
+    private clipboard: Clipboard,
+    private store: Store) { }
 
 
   clipboardJSON(): void {
@@ -38,6 +42,6 @@ export class JsonComponent {
   }
 
   newUserJSON(): void {
-    // dispatch action with new calendar object
+    this.store.dispatch(pushCalendar({newCalendar: this.jsonService.JSONToCalendar(this.fromjson)}));
   }
 }

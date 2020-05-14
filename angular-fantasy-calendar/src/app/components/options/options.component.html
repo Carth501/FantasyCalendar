@@ -7,10 +7,6 @@
     </button>
     
     <div class="columns">
-        <div class="settings-option">
-            <app-calendar-selector
-                [lookupArray]="lookupArray"></app-calendar-selector>
-        </div>
         <div class="settings-option" *ngIf="yearMath$">
             <app-year-editor
                 [year]="yearMath$ | async"></app-year-editor>

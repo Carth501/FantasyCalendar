@@ -42,7 +42,7 @@ import { WeekEditorComponent } from './components/options/optionsSubsections/wee
 import { LeapYearEditorComponent } from './components/options/optionsSubsections/leap-year-editor/leap-year-editor.component';
 import { EventsEditorComponent } from './components/options/optionsSubsections/events-editor/events-editor.component';
 import { JsonComponent } from './components/options/optionsSubsections/json/json.component';
-import { CalendarSelectorComponent } from './components/options/optionsSubsections/calendar-selector/calendar-selector.component';
+import { CalendarSelectorComponent } from './components/calendar-selector/calendar-selector.component';
 import { OptionsEffects } from './store/effects/options.effects';
 
 

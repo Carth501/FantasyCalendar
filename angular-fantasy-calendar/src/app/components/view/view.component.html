@@ -9,9 +9,14 @@
         </button>
     </div>
 
+    <div class="calendar-selector">
+        <app-calendar-selector
+            align="center"
+            [lookupArray]="calendarKeyValuePairs$ | async"></app-calendar-selector>
+    </div>
+
     <app-options
         *ngIf="optionsAreOpen | async"
-        [lookupArray]="calendarKeyValuePairs$ | async"
     ></app-options>
 
     <div class="calendar-space" align="center">

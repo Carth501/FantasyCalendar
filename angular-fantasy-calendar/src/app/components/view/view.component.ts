@@ -37,7 +37,7 @@ export class ViewComponent implements OnInit {
 
   calendarID$: Observable<number>;
 
-  optionsAreOpen: Observable<boolean>;
+  optionsAreClosed$: Observable<boolean>;
 
   constructor(
     private store: Store<any>,
@@ -45,7 +45,7 @@ export class ViewComponent implements OnInit {
     private calendarEventService: CalendarEventService,
     private keyValuePairsService: KeyValuePairsService
     ) {
-      this.optionsAreOpen = this.store.select(fromSelectors.ViewSelectors.selectOptionsOpen);
+      this.optionsAreClosed$ = this.store.select(fromSelectors.ViewSelectors.selectOptionsClosed);
       this.newEventPanelIsOpen = this.store.select(fromSelectors.ViewSelectors.selectNewEventOpen);
       this.newEventDayID = this.store.select(fromSelectors.ViewSelectors.selectNewEventDayID);
       this.calendarList$ = this.store.select(CalendarSelectors.selectCalendars);

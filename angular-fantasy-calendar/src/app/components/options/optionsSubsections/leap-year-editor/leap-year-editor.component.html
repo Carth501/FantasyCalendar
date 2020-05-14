@@ -1,34 +1,77 @@
-<label>Leap year rules:</label>
+<div *ngIf="!!leapYears">
 
-<div class="input-region">
-    <div class="LYLabels">
-        <label>Years</label>
-        <label>Offset</label>
-        <label># of days</label>
-        <label>Month</label>
-    </div>
-    <div  
-    class="LYConfigs" 
-    *ngFor="let x of leapYears; let idx = index; trackBy: trackArray">
-        <input class="LYRule" type="number" [(ngModel)]="leapYears[idx].leapYearCycles"/>
-        <input class="LYRule" type="number" [(ngModel)]="leapYears[idx].leapYearOffset"/>
-        <input class="LYRule" type="number" [(ngModel)]="leapYears[idx].leapYearChange"/>
-        <input class="LYRule" type="number" [(ngModel)]="leapYears[idx].leapDayMonth"/>
-        <button class="ly-delete" (click)= "deleteLY(idx)">
-            X
-        </button>
-    </div>
-</div>
+    <label>Leap year rules:</label>
 
-<div class="new-leap-rule">
-    <label>new leap year rule</label>
-    <div class="new-lyr-fields">
-        <input class="newLYRule" type="number" [(ngModel)]="candidateLY.leapYearCycles" placeholder="length of cycle"/>
-        <input class="newLYRule" type="number" [(ngModel)]="candidateLY.leapYearOffset" placeholder="offset"/>
-        <input class="newLYRule" type="number" [(ngModel)]="candidateLY.leapYearChange" placeholder="change in days"/>
-        <input class="newLYRule" type="number" [(ngModel)]="candidateLY.leapDayMonth" placeholder="month affected"/>
-        <button (click)="addLY()">
-            add
-        </button>
+    <div class="input-region">
+        <div class="LYLabels">
+            <label>Years</label>
+            <label>Offset</label>
+            <label># of days</label>
+            <label>Month</label>
+        </div>
+        <div  
+        class="LYConfigs" 
+        *ngFor="let x of leapYears; let idx = index; trackBy: trackArray">
+            <mat-form-field>
+                <div class="leap-year-rule">
+                    <input 
+                        matInput
+                        class="LYRule" 
+                        type="number" 
+                        [(ngModel)]="leapYears[idx].leapYearCycles"/>
+                    <input 
+                        matInput
+                        class="LYRule"
+                        type="number"
+                        [(ngModel)]="leapYears[idx].leapYearOffset"/>
+                    <input
+                        matInput
+                        class="LYRule"
+                        type="number"
+                        [(ngModel)]="leapYears[idx].leapYearChange"/>
+                    <input
+                        matInput
+                        class="LYRule"
+                        type="number"
+                        [(ngModel)]="leapYears[idx].leapDayMonth"/>
+                    <button class="ly-delete" (click)= "deleteLY(idx)">
+                        X
+                    </button>
+                </div>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="new-leap-rule">
+        <label>new leap year rule</label>
+        <div class="new-lyr-fields">
+            <input
+                matInput
+                class="newLYRule"
+                type="number"
+                [(ngModel)]="candidateLY.leapYearCycles"
+                placeholder="length of cycle"/>
+            <input
+                matInput
+                class="newLYRule"
+                type="number"
+                [(ngModel)]="candidateLY.leapYearOffset"
+                placeholder="offset"/>
+            <input
+                matInput
+                class="newLYRule"
+                type="number"
+                [(ngModel)]="candidateLY.leapYearChange"
+                placeholder="change in days"/>
+            <input
+                matInput
+                class="newLYRule"
+                type="number"
+                [(ngModel)]="candidateLY.leapDayMonth"
+                placeholder="month affected"/>
+            <button (click)="addLY()">
+                add
+            </button>
+        </div>
     </div>
 </div>

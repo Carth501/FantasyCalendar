@@ -1,6 +1,6 @@
-<div class="settings-option" *ngIf="year">
-    <label>Year Settings: {{year.startingDayID}}</label>
-    <div class="input-region">
+<div class="settings-option" *ngIf="year && newEraIndex !== null">
+    <label>Year Settings:</label>
+    <div class="defaults">
         <mat-form-field>
             <mat-label  >Default Year:</mat-label>
             <input 
@@ -18,64 +18,95 @@
                 [(ngModel)]="year.currentEra">
                 <mat-option matInput
                     *ngFor="let era of year.eras; index as i" 
-                    value=i>
+                    [value]=i>
                     {{era.eraName}}</mat-option>
             </mat-select>
         </mat-form-field>
+        
         <div>
-            <mat-label for="era">Eras:</mat-label>
-            <mat-form-field  *ngFor="let x of year.eras; let idx = index; trackBy: trackArray">
-                <input 
-                    matInput
-                    class="era-name" 
-                    type="text" 
-                    [(ngModel)]="x.eraName"/>
-                <input 
-                    class="era-abbr" 
-                    type="text" 
-                    [(ngModel)]="x.abbreviation"/>
-                <div 
-                    *ngIf="x.beginning">
+            Eras:
+            <div class="era-list">
+                <mat-form-field  *ngFor="let x of year.eras; let idx = index; trackBy: trackArray">
                     <input 
-                        class="era-begin" 
-                        type="number" 
-                        [(ngModel)]="x.beginning"/>
-                </div>
-                <div *ngIf="x.ending">
-                    <input class="era-end" type="number" [(ngModel)]="x.ending"/>
-                </div>
-                <input class="era-reverse" type="checkbox" [(ngModel)]="x.reversed"/>
-                <button class="era-delete" (click)= "deleteEra(idx)">
-                    X
-                </button>
-            </mat-form-field>
-        </div>
-        <mat-form-field>
-            New Era:
-            <input 
-                matInput
-                class="new-era-name" 
-                type="text" 
-                [(ngModel)]="newEra.eraName" 
-                placeholder="Era Name"/>
-            <input class="new-era-abbr" type="text" [(ngModel)]="newEra.abbreviation" placeholder="Era Abbreviation"/>
-            <input class="new-era-begin" type="number" [(ngModel)]="newEra.beginning" placeholder="Start year number"/>
-            <input class="new-era-end" type="number" [(ngModel)]="newEra.ending" placeholder="End year number"/>
-            <div>
-                <label for="era-reverse">Reverse</label>
-                <input id="era-reverse" class="new-era-reverse" type="checkbox" [(ngModel)]="newEra.reversed"/>
+                        matInput
+                        class="era-name" 
+                        type="text" 
+                        [(ngModel)]="x.eraName"/>
+                    <input 
+                        matInput
+                        class="era-abbr" 
+                        type="text" 
+                        [(ngModel)]="x.abbreviation"/>
+                    <div 
+                        *ngIf="x.beginning">
+                        <input 
+                            matInput
+                            class="era-begin" 
+                            type="number" 
+                            [(ngModel)]="x.beginning"/>
+                    </div>
+                    <div *ngIf="x.ending">
+                        <input 
+                            matInput
+                            class="era-end" 
+                            type="number" 
+                            [(ngModel)]="x.ending"/>
+                    </div>
+                    <input 
+                        class="era-reverse"
+                        type="checkbox"
+                        [(ngModel)]="x.reversed"/>Reversed
+                    <button
+                        mat-raised-button
+                        class="era-delete" 
+                        (click)= "deleteEra(idx)">
+                        X
+                    </button>
+                </mat-form-field>
             </div>
-            <input 
-                *ngIf="year.eras"
-                class="new-era-index" 
-                type="number" 
-                [(ngModel)]="newEraIndex" 
-                [min]=1 
-                [max]="year.eras.length + 1" 
-                placeholder="Era placement"/>
-            <button class="new-era-create" (click)= "createNewEra()">
-                add
-            </button>
-        </mat-form-field>
+        </div>
+    </div>
+    <div class="new-era">
+        New Era:
+        <input 
+            matInput
+            class="new-era-name" 
+            type="text" 
+            [(ngModel)]="newEra.eraName" 
+            placeholder="Era Name"/>
+        <input 
+            matInput
+            class="new-era-abbr"
+            type="text"
+            [(ngModel)]="newEra.abbreviation"
+            placeholder="Era Abbreviation"/>
+        <input
+            matInput 
+            class="new-era-begin"
+            type="number"
+            [(ngModel)]="newEra.beginning"
+            placeholder="Start year number"/>
+        <input 
+            matInput
+            class="new-era-end"
+            type="number"
+            [(ngModel)]="newEra.ending"
+            placeholder="End year number"/>
+        <div>
+            <label for="era-reverse">Reverse</label>
+            <input id="era-reverse" class="new-era-reverse" type="checkbox" [(ngModel)]="newEra.reversed"/>
+        </div>
+        <input 
+            matInput
+            *ngIf="year.eras"
+            class="new-era-index" 
+            type="number" 
+            [(ngModel)]="newEraIndex" 
+            [min]=1 
+            [max]="year.eras.length + 1" 
+            placeholder="Era placement"/>
+        <button class="new-era-create" (click)= "createNewEra()">
+            add
+        </button>
     </div>
 </div>

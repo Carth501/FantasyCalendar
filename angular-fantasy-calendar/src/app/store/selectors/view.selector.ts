@@ -13,6 +13,11 @@ export const selectOptionsOpen = createSelector(
     ( state: State ) => state.optionsOpen
 );
 
+export const selectOptionsClosed = createSelector(
+    selectView,
+    ( state: State ) => !state.optionsOpen
+);
+
 export const selectNewEventOpen = createSelector(
     selectView,
     ( state: State ) => state.newEventOpen

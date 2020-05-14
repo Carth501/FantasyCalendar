@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
-import { Observable, combineLatest } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { Calendar } from './Calendar';
+import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { combineLatest, Observable } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
+import { Calendar } from './Calendar';
 import { selectCalendars } from './store/selectors/calendar.selector';
 import { selectCalendarIndex } from './store/selectors/view.selector';
-import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +28,8 @@ export class CalendarService {
     return combineLatest([this.getCalendarList$(), this.getCurrentCalendarID$()]).pipe(
       map(([list, id]) => { if (!!list.length) {
         return list.find(calendar => calendar.calendarID === id);
-      }})
+      }}),
+      filter(calendar => !!calendar)
     );
   }
 

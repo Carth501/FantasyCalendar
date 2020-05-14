@@ -1,0 +1,8 @@
+.settings-option {
+    width: 400px;
+}
+
+.era-list {
+    display: flex;
+    flex-direction: column;
+}

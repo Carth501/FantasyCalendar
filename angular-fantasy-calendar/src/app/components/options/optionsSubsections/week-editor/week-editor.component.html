@@ -2,12 +2,22 @@
 
 <div class="input-region">
     <div *ngFor="let x of DoW; let idx = index; trackBy: trackArray">
-        <input type="text" [(ngModel)]="DoW[idx]"/>
-        <button class="dow-delete" (click)= "deleteDoW(idx)">
-            X
-        </button>
+        <mat-form-field>
+            <div class="day">
+                <input
+                    matInput 
+                    type="text" 
+                    [(ngModel)]="DoW[idx]"/>
+                <button class="dow-delete" (click)= "deleteDoW(idx)">
+                    X
+                </button>
+            </div>
+        </mat-form-field>
     </div>
-    <input [(ngModel)]="newDoWName" placeholder="new day of the week"/>
+    <input 
+        matInput
+        [(ngModel)]="newDoWName" 
+        placeholder="new day of the week"/>
     <button (click)="addDoW()">
         add
     </button>

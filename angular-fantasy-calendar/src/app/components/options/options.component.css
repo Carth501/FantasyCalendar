@@ -23,9 +23,7 @@
 }
 
 .settings-option {
-  padding-left: 10px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding: 10px;
   display: flex;
   flex-wrap: nowrap;
   flex-direction: row;

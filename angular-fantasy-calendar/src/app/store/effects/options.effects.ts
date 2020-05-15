@@ -14,10 +14,12 @@ export class OptionsEffects {
     private calendarService: CalendarService
   ) {}
 
+  /*
   @Effect()
   copyCalendars$ = this.actions$.pipe(
     ofType(CalendarActions.setCalendarList),
     map(({newCalendarList: calendars}) =>
         OptionsActions.setDirtyCalendars({calendars} ))
   );
+  */
 }

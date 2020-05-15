@@ -1,18 +1,18 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { OptionsActions } from '../actions';
+import { OptionsActions, CalendarActions } from '../actions';
 import { Calendar } from 'src/app/Calendar';
 
 export interface State {
-    dirtySettingsList: Calendar[];
+    dirtySettings: Calendar;
 }
 
 export const initialState: State = {
-    dirtySettingsList: null
+    dirtySettings: null
 };
 
 const optionsReducer = createReducer(
     initialState,
-    on(OptionsActions.setDirtyCalendars, (state, {calendars}) => ({ ...state, dirtySettingsList: calendars})),
+    on(OptionsActions.setDirtyCalendar, (state, {calendar}) => ({ ...state, dirtySettings: calendar}))
 );
 
 export function reducer(state: State | undefined, action: Action) {

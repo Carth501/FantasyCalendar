@@ -4,10 +4,12 @@ import { Calendar } from 'src/app/Calendar';
 
 export interface State {
     calendarList: Calendar[];
+    activeCalendar: Calendar;
 }
 
 export const initialState: State = {
     calendarList: [],
+    activeCalendar: null
 };
 
 const optionsReducer = createReducer(
@@ -16,6 +18,7 @@ const optionsReducer = createReducer(
     on(CalendarActions.pushCalendar, (state, {newCalendar}) => ({ ...state, calendarList: addCalendar(state.calendarList, newCalendar)})),
 
     on(CalendarActions.setCalendarList, (state, {newCalendarList}) => ({ ...state, calendarList: newCalendarList})),
+    on(CalendarActions.setActiveCalendar, (state, {activeCalendar}) => ({...state, activeCalendar}))
 );
 
 export function reducer(state: State | undefined, action: Action) {

@@ -13,3 +13,10 @@ export const selectCalendars = createSelector(
         return state.calendarList;
     }
 );
+
+export const selectActiveCalendar = createSelector(
+    calendarView,
+    ( state: State ) => {
+        return state.activeCalendar;
+    }
+);

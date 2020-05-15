@@ -8,24 +8,30 @@
                 Cyclical Events {{eventLists.cyclicalEvents}}
                 <div class="input-fields" *ngFor="let x of eventLists.cyclicalEvents; let idx = index; trackBy: trackArray">
                     <app-event 
-                    [calendarEvent]="x" 
-                    [eventType]="'cyclical'"
-                    [editable]=true
+                        [calendarEvent]="x" 
+                        [eventType]="'cyclical'"
+                        [editable]=true
                     ></app-event>
-                    <button class="event-delete" (click)= "deleteCyclicalEvent(idx)">
+                    <button 
+                        class="event-delete" 
+                        (click)= "deleteCyclicalEvent(idx)">
                         X
                     </button>
                 </div>
             </div>
             <div class="event-category">
                 Unique Events
-                <div class="input-fields" *ngFor="let x of eventLists.uniqueEvents; let idx = index; trackBy: trackArray">
+                <div 
+                    class="input-fields" 
+                    *ngFor="let x of eventLists.uniqueEvents; let idx = index; trackBy: trackArray">
                     <app-event 
-                    [calendarEvent]="x" 
-                    [eventType]="'unique'"
-                    [editable]=true
+                        [calendarEvent]="x" 
+                        [eventType]="'unique'"
+                        [editable]=true
                     ></app-event>
-                    <button class="event-delete" (click)= "deleteUniqueEvent(idx)">
+                    <button 
+                        class="event-delete" 
+                        (click)= "deleteUniqueEvent(idx)">
                         X
                     </button>
                 </div>
@@ -34,11 +40,12 @@
                 Yearly Events
                 <div class="input-fields" *ngFor="let x of eventLists.yearlyEvents; let idx = index; trackBy: trackArray">
                     <app-event 
-                    [calendarEvent]="x" 
-                    [eventType]="'yearly'"
-                    [editable]=true
-                    ></app-event>
-                    <button class="event-delete" (click)= "deleteYearlyEvent(idx)">
+                        [calendarEvent]="x" 
+                        [eventType]="'yearly'"
+                        [editable]=true></app-event>
+                    <button 
+                        class="event-delete"
+                        (click)= "deleteYearlyEvent(idx)">
                         X
                     </button>
                 </div>
@@ -47,22 +54,26 @@
                 Monthly Events
                 <div class="input-fields" *ngFor="let x of eventLists.monthlyEvents; let idx = index; trackBy: trackArray">
                     <app-event 
-                    [calendarEvent]="x" 
-                    [eventType]="'monthly'"
-                    [editable]=true
+                        [calendarEvent]="x" 
+                        [eventType]="'monthly'"
+                        [editable]=true
                     ></app-event>
-                    <button class="event-delete" (click)= "deleteMonthlyEvent(idx)">
+                    <button
+                        class="event-delete"
+                        (click)= "deleteMonthlyEvent(idx)">
                         X
                     </button>
                 </div>
             </div>
             <div class="event-category">
                 Weekly Events
-                <div class="input-fields" *ngFor="let x of eventLists.weeklyEvents; let idx = index; trackBy: trackArray">
+                <div
+                    class="input-fields"
+                    *ngFor="let x of eventLists.weeklyEvents; let idx = index; trackBy: trackArray">
                     <app-event 
-                    [calendarEvent]="x" 
-                    [eventType]="'weekly'"
-                    [editable]=true
+                        [calendarEvent]="x" 
+                        [eventType]="'weekly'"
+                        [editable]=true
                     ></app-event>
                     <button class="event-delete" (click)= "deleteWeeklyEvent(idx)">
                         X

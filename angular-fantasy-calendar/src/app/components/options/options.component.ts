@@ -28,7 +28,6 @@ export class OptionsComponent {
   */
 
   @Input() lookupArray: Lookup[];
-  calendarArray: Calendar[];
   calendarObject$: Observable<Calendar>;
   yearMath$: Observable<YearMath>;
   months$: Observable<SettingsMonth[]>;

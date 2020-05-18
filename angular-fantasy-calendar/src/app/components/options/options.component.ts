@@ -1,24 +1,25 @@
 
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
 import { faArrowAltCircleUp } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, Subscriber, Subscription } from 'rxjs';
+import { map, first } from 'rxjs/operators';
 import { Calendar } from 'src/app/Calendar';
 import { EventLists } from 'src/app/calendarEvent';
 import { LeapYear } from 'src/app/leapYear';
 import { Lookup } from 'src/app/lookup';
 import { SettingsMonth } from 'src/app/settingsMonth';
 import { YearMath } from 'src/app/yearMath';
-import { OptionsSelectors } from '../../store/selectors';
+import { OptionsSelectors, CalendarSelectors } from '../../store/selectors';
 import { CalendarService } from 'src/app/calendar.service';
+import { OptionsActions, CalendarActions } from 'src/app/store/actions';
 
 @Component({
   selector: 'app-options',
   templateUrl: './options.component.html',
   styleUrls: ['./options.component.css']
 })
-export class OptionsComponent {
+export class OptionsComponent implements OnDestroy {
   faArrowAltCircleUp = faArrowAltCircleUp;
   // @Output() changes = new EventEmitter<Calendar>();
   /*
@@ -34,6 +35,7 @@ export class OptionsComponent {
   weeks$: Observable<string[]>;
   leapYears$: Observable<LeapYear[]>;
   events$: Observable<EventLists>;
+  activeCalendarSubscription: Subscription;
 
   @Input() calendarName: string;
 
@@ -57,31 +59,26 @@ export class OptionsComponent {
       this.events$ = this.calendarObject$.pipe(
         map(calendar => calendar.events)
       );
+      this.activeCalendarSubscription = this.store.select
+      (CalendarSelectors.selectActiveCalendar).subscribe
+        (activeCalendar => this.store.dispatch
+          (OptionsActions.setDirtyCalendar
+            ({calendar: activeCalendar})
+          )
+        );
     }
 
-
-  initializeCalendar(calendar: Calendar): void {
-    /*
-    if (totalSettings) {
-      this.totalSettingsObject = totalSettings;
-      this.optionsArrived(this.totalSettingsObject);
-    }
-    */
-  }
-
-  optionsArrived(calendar: Calendar): void {
-    // use a selector, copy the original from state
-    // the copy will be used for editing without changes to the original.
-    if (calendar) {
-      if (calendar.calendarName) {
-        this.calendarName = calendar.calendarName;
+    ngOnDestroy(): void {
+      if (this.activeCalendarSubscription) {
+        this.activeCalendarSubscription.unsubscribe();
       }
     }
-  }
-
 
   pushChanges(): void {
-    // use an action for this. Replaces the original in state with
-    // whatever is in options.
+    this.store.select(OptionsSelectors.selectDirtyCalendar).pipe(
+      first()
+    ).subscribe(newCalendar =>
+      this.store.dispatch(CalendarActions.pushCalendar({newCalendar}))
+    );
   }
 }

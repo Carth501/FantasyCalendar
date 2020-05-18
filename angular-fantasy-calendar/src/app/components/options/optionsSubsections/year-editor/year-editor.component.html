@@ -1,4 +1,4 @@
-<div class="settings-option" *ngIf="year && newEraIndex !== null">
+<div class="settings-option" *ngIf="year">
     <label>Year Settings:</label>
     <div class="defaults">
         <mat-form-field>
@@ -66,47 +66,13 @@
             </div>
         </div>
     </div>
-    <div class="new-era">
-        New Era:
-        <input 
-            matInput
-            class="new-era-name" 
-            type="text" 
-            [(ngModel)]="newEra.eraName" 
-            placeholder="Era Name"/>
-        <input 
-            matInput
-            class="new-era-abbr"
-            type="text"
-            [(ngModel)]="newEra.abbreviation"
-            placeholder="Era Abbreviation"/>
-        <input
-            matInput 
-            class="new-era-begin"
-            type="number"
-            [(ngModel)]="newEra.beginning"
-            placeholder="Start year number"/>
-        <input 
-            matInput
-            class="new-era-end"
-            type="number"
-            [(ngModel)]="newEra.ending"
-            placeholder="End year number"/>
-        <div>
-            <label for="era-reverse">Reverse</label>
-            <input id="era-reverse" class="new-era-reverse" type="checkbox" [(ngModel)]="newEra.reversed"/>
+    <div>
+        <button>New Era</button>
+        <div class="new-era-panel">
+            <app-new-era
+                (eraCreation)="createNewEra($event)"
+                [eraListLength]="year.eras.length"
+            ></app-new-era>
         </div>
-        <input 
-            matInput
-            *ngIf="year.eras"
-            class="new-era-index" 
-            type="number" 
-            [(ngModel)]="newEraIndex" 
-            [min]=1 
-            [max]="year.eras.length + 1" 
-            placeholder="Era placement"/>
-        <button class="new-era-create" (click)= "createNewEra()">
-            add
-        </button>
     </div>
 </div>

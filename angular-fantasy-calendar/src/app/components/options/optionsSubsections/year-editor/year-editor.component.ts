@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { MatSelectChange } from '@angular/material/select';
-import { Era, EMPTY_ERA } from 'src/app/era';
+import { Component, Input, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { EMPTY_ERA, Era } from 'src/app/era';
+import { OptionsActions } from 'src/app/store/actions';
 import { YearMath } from 'src/app/yearMath';
 
 @Component({
@@ -12,35 +13,29 @@ export class YearEditorComponent implements OnInit {
 
 
   @Input() year: YearMath;
-  @Input() newEra = EMPTY_ERA;
-  @Input() newEraIndex: number;
 
-  constructor() { }
+  constructor(
+    private store: Store<any>
+  ) { }
 
   ngOnInit(): void {
   }
 
-  createNewEra() {
-    this.year.eras.splice((this.newEraIndex - 1), 0, this.newEra);
-    this.resetEmptyEra();
-  }
-
-  resetEmptyEra(): void {
-    this.newEra.eraName = null;
-    this.newEra.abbreviation = null;
-    this.newEra.beginning = null;
-    this.newEra.ending = null;
-    this.newEra.reversed = null;
-    this.newEraIndex = null;
+  createNewEra({eraOrder, newEra}) {
+    this.year.eras.splice((eraOrder - 1), 0, newEra);
+    this.applyChange();
   }
 
   deleteEra(index: number): void {
-    if (index >= 0) {
-      this.year.eras.splice(index, 1);
-    }
+    this.year.eras.splice(index, 1);
+    this.applyChange();
   }
 
   trackArray(index, item) {
     return index;
+  }
+
+  applyChange() {
+    this.store.dispatch(OptionsActions.setYearMath({yearMath: this.year}));
   }
 }

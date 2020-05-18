@@ -19,28 +19,3 @@ export const setCalendarList = createAction(
     '[Calendar] Set Calendar List',
     props<{ newCalendarList: Calendar[] }>()
 );
-
-export const setYearMath = createAction(
-    '[Options] New Year Math',
-    props<{ yearMath: YearMath }>()
-);
-
-export const setEventLists = createAction(
-    '[Options] New Event Lists',
-    props<{ eventLists: EventLists }>()
-);
-
-export const setLeapYears = createAction(
-    '[Options] New Leap Year Rule',
-    props<{ leapYears: LeapYear[] }>()
-);
-
-export const setMonths = createAction(
-    '[Options] New Month List',
-    props<{ settingsMonths: SettingsMonth[] }>()
-);
-
-export const setDoW = createAction(
-    '[Options] New Day of Week List',
-    props<{ DoW: string[] }>()
-);

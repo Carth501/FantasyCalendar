@@ -44,6 +44,7 @@ import { EventsEditorComponent } from './components/options/optionsSubsections/e
 import { JsonComponent } from './components/options/optionsSubsections/json/json.component';
 import { CalendarSelectorComponent } from './components/calendar-selector/calendar-selector.component';
 import { OptionsEffects } from './store/effects/options.effects';
+import { NewEraComponent } from './components/options/optionsSubsections/new-era/new-era.component';
 
 
 
@@ -73,7 +74,8 @@ import { OptionsEffects } from './store/effects/options.effects';
     LeapYearEditorComponent,
     EventsEditorComponent,
     JsonComponent,
-    CalendarSelectorComponent
+    CalendarSelectorComponent,
+    NewEraComponent
   ],
   imports: [
     BrowserModule,

@@ -9,7 +9,7 @@
     <div class="columns">
         <div class="settings-option" *ngIf="yearMath$">
             <app-year-editor
-                [year]="yearMath$ | async"></app-year-editor>
+                [setYear]="yearMath$ | async"></app-year-editor>
         </div>
 
         <div class="settings-option" *ngIf="months$">

@@ -7,7 +7,7 @@
     <div class="year-sign" align="center" *ngIf="year && year.yearNumber != null && year.yearNumber != undefined && calendar && calendar.year.eras && calendar.year.eras.length > 0 && currentEra != null"> 
         <input 
         [(ngModel)]="year.yearNumber" 
-            (ngModelChange)="this.userYearChange.next($event)"/>
+        (ngModelChange)="this.userYearChange.next($event)"/>
         {{calendar.year.eras[currentEra].abbreviation}}
     </div>
     <div>

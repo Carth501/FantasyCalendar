@@ -1,4 +1,3 @@
-
 import { Component, Input, OnDestroy } from '@angular/core';
 import { faArrowAltCircleUp } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
@@ -13,6 +12,7 @@ import { YearMath } from 'src/app/yearMath';
 import { OptionsSelectors, CalendarSelectors } from '../../store/selectors';
 import { CalendarService } from 'src/app/calendar.service';
 import { OptionsActions, CalendarActions } from 'src/app/store/actions';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-options',
@@ -66,6 +66,15 @@ export class OptionsComponent implements OnDestroy {
             ({calendar: activeCalendar})
           )
         );
+        /*
+        // Debounce search.
+        this.userYearChangeSubscription = this.userYearChange.pipe(
+          debounceTime(400),
+          distinctUntilChanged())
+          .subscribe(value => {
+            this.jumpToYear(value);
+          });
+          */
     }
 
     ngOnDestroy(): void {

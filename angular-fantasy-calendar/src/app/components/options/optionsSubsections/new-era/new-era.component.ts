@@ -11,7 +11,7 @@ export class NewEraComponent {
   @Input() eraListLength;
   @Input() newEra = EMPTY_ERA;
   @Input() newEraOrder: number;
-  @Output() eraCreation = new EventEmitter<{number, Era}>();
+  @Output() eraCreation = new EventEmitter<{newEra: Era, newEraOrder: number}>();
 
   constructor() { }
 
@@ -21,7 +21,7 @@ export class NewEraComponent {
       this.newEra.abbreviation !== null &&
       this.newEra.beginning !== null &&
       this.newEra.ending !== null) {
-        this.eraCreation.emit({ number: this.newEraOrder, Era: this.newEra });
+        this.eraCreation.emit({ newEra: this.newEra, newEraOrder: this.newEraOrder });
         this.resetEmptyEra();
       }
   }

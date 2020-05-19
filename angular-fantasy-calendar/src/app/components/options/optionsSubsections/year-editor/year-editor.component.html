@@ -4,8 +4,9 @@
         <mat-form-field>
             <mat-label  >Default Year:</mat-label>
             <input 
-            matInput 
-            [(ngModel)]="year.currentYear">
+            matInput
+            (ngModelChange)="this.defaultYearChange.next($event)"
+            [ngModel]="year.currentYear">
         </mat-form-field>
         <mat-form-field>
             <mat-label 
@@ -15,7 +16,8 @@
             <mat-select 
                 matInput
                 id="era" 
-                [(ngModel)]="year.currentEra">
+                (ngModelChange)="this.defaultEraChange.next($event)"
+                [ngModel]="year.currentEra">
                 <mat-option matInput
                     *ngFor="let era of year.eras; index as i" 
                     [value]=i>

@@ -1,7 +1,7 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { faArrowAltCircleLeft, faArrowAltCircleRight } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { Calendar } from 'src/app/Calendar';
 import { Year } from '../../year';
@@ -12,7 +12,7 @@ import { YearService } from '../../year.service';
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.css']
 })
-export class CalendarComponent implements OnInit {
+export class CalendarComponent implements OnInit, OnDestroy {
 
   faArrowAltCircleLeft = faArrowAltCircleLeft;
   faArrowAltCircleRight = faArrowAltCircleRight;
@@ -43,12 +43,14 @@ export class CalendarComponent implements OnInit {
   userYearChange = new Subject<number>();
   @ViewChild('newMonth') newMonth;
 
+  userYearChangeSubscription: Subscription;
+
 
   constructor(
     private store: Store<any>,
     private yearService: YearService) {
       // Debounce search.
-      this.userYearChange.pipe(
+      this.userYearChangeSubscription = this.userYearChange.pipe(
         debounceTime(400),
         distinctUntilChanged())
         .subscribe(value => {
@@ -57,6 +59,12 @@ export class CalendarComponent implements OnInit {
       }
 
   ngOnInit(): void {
+  }
+
+  ngOnDestroy(): void {
+    if (this.userYearChangeSubscription) {
+      this.userYearChangeSubscription.unsubscribe();
+    }
   }
 
   settingsArrived(IncomingSettings): void {

@@ -29,39 +29,59 @@
             Eras:
             <div class="era-list">
                 <mat-form-field  *ngFor="let x of year.eras; let idx = index; trackBy: trackArray">
+                    <button
+                        *ngIf="idx != (eraEditingIndex$ | async)"
+                        (click)="changeEraEditingIndex(idx)">edit</button>
+                    <button
+                        *ngIf="idx == (eraEditingIndex$ | async)"
+                        (click)="changeEraEditingIndex(-1)">close</button>
                     <input 
                         matInput
                         class="era-name" 
                         type="text" 
-                        [(ngModel)]="x.eraName"/>
+                        [(ngModel)]="x.eraName"
+                        [readonly]="idx != (eraEditingIndex$ | async)"/>
                     <input 
                         matInput
                         class="era-abbr" 
                         type="text" 
-                        [(ngModel)]="x.abbreviation"/>
+                        [(ngModel)]="x.abbreviation"
+                        [readonly]="idx != (eraEditingIndex$ | async)"/>
                     <div 
                         *ngIf="x.beginning">
+                        <label
+                            for="era-begin">Beginning</label>
                         <input 
+                            id="era-begin"
                             matInput
                             class="era-begin" 
                             type="number" 
-                            [(ngModel)]="x.beginning"/>
+                            [(ngModel)]="x.beginning"
+                            [readonly]="idx != (eraEditingIndex$ | async)"/>
                     </div>
                     <div *ngIf="x.ending">
+                        <label
+                            for="era-end">Ending</label>
                         <input 
+                            id="era-end"
                             matInput
                             class="era-end" 
                             type="number" 
-                            [(ngModel)]="x.ending"/>
+                            [(ngModel)]="x.ending"
+                            [readonly]="idx != (eraEditingIndex$ | async)"/>
                     </div>
+                    <!--
                     <input 
                         class="era-reverse"
                         type="checkbox"
-                        [(ngModel)]="x.reversed"/>Reversed
+                        [(ngModel)]="x.reversed"
+                        [readonly]="idx != (eraEditingIndex$ | async)"/>Reversed
+                    -->
                     <button
                         mat-raised-button
                         class="era-delete" 
-                        (click)= "deleteEra(idx)">
+                        (click)= "deleteEra(idx)"
+                        *ngIf="idx == (eraEditingIndex$ | async)">
                         X
                     </button>
                 </mat-form-field>
@@ -69,8 +89,9 @@
         </div>
     </div>
     <div>
-        <button>New Era</button>
-        <div class="new-era-panel">
+        <button
+        (click)="toggleNewEraPanel()">New Era</button>
+        <div class="new-era-panel" *ngIf="newEraPanelOpen$ | async">
             <app-new-era
                 (eraCreation)="createNewEra($event)"
                 [eraListLength]="year.eras.length"

@@ -13,6 +13,16 @@ export const selectDirtyCalendar = createSelector(
     ( state: State ) => state.dirtySettings
 );
 
+export const selectNewEraPanelOpen = createSelector(
+    selectOptions,
+    ( state: State ) => state.newEraPanel
+);
+
+export const selectEraEditingIndex = createSelector(
+    selectOptions,
+    ( state: State ) => state.eraEditingIndex
+);
+
 /*
 export const selectCurrentID = createSelector(
     selectOptions,

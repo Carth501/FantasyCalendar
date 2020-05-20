@@ -35,3 +35,12 @@ export const setDoW = createAction(
     props<{ DoW: string[] }>()
 );
 
+export const toggleNewEra = createAction(
+    '[Options] Toggle New Era',
+    props<{ }>()
+);
+
+export const eraEditingIndex = createAction(
+    '[Options] Change Era Editing Index',
+    props<{ eraEditingIndex: number }>()
+);

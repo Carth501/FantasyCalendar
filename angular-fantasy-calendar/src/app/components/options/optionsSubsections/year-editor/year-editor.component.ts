@@ -3,8 +3,9 @@ import { Store } from '@ngrx/store';
 import * as _ from 'lodash';
 import { OptionsActions } from 'src/app/store/actions';
 import { YearMath } from 'src/app/yearMath';
-import { Subscription, Subject } from 'rxjs';
+import { Subscription, Subject, Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { selectNewEraPanelOpen, selectEraEditingIndex } from 'src/app/store/selectors/options.selector';
 
 @Component({
   selector: 'app-year-editor',
@@ -21,6 +22,9 @@ export class YearEditorComponent implements OnInit {
   defaultEraChangeSubscription: Subscription;
   defaultYearChange = new Subject<number>();
   defaultEraChange = new Subject<number>();
+
+  newEraPanelOpen$: Observable<boolean>;
+  eraEditingIndex$: Observable<number>;
 
   constructor(
     private store: Store<any>
@@ -40,6 +44,9 @@ export class YearEditorComponent implements OnInit {
       .subscribe(value => {
         this.changeDefaultEra(value);
       });
+
+    this.newEraPanelOpen$ = this.store.select(selectNewEraPanelOpen);
+    this.eraEditingIndex$ = this.store.select(selectEraEditingIndex);
     }
 
   ngOnInit(): void {
@@ -72,5 +79,13 @@ export class YearEditorComponent implements OnInit {
 
   applyChange() {
     this.store.dispatch(OptionsActions.setYearMath({yearMath: _.cloneDeep(this.year)}));
+  }
+
+  toggleNewEraPanel(): void {
+    this.store.dispatch(OptionsActions.toggleNewEra({}));
+  }
+
+  changeEraEditingIndex(newNumber: number): void {
+    this.store.dispatch(OptionsActions.eraEditingIndex({eraEditingIndex: newNumber}));
   }
 }

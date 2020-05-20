@@ -4,10 +4,14 @@ import { Calendar } from 'src/app/Calendar';
 
 export interface State {
     dirtySettings: Calendar;
+    newEraPanel: boolean;
+    eraEditingIndex: number;
 }
 
 export const initialState: State = {
-    dirtySettings: null
+    dirtySettings: null,
+    newEraPanel: false,
+    eraEditingIndex: -1
 };
 
 const optionsReducer = createReducer(
@@ -22,7 +26,10 @@ const optionsReducer = createReducer(
     on(OptionsActions.setMonths, (state, {settingsMonths}) => ({ ...state, dirtySettings:
         {...state.dirtySettings, settingsMonths}})),
     on(OptionsActions.setDoW, (state, {DoW}) => ({ ...state, dirtySettings:
-        {...state.dirtySettings, DoW}}))
+        {...state.dirtySettings, DoW}})),
+    on(OptionsActions.toggleNewEra, state => ({ ...state, newEraPanel: !state.newEraPanel})),
+    on(OptionsActions.eraEditingIndex, (state, {eraEditingIndex}) => ({ ...state, eraEditingIndex})),
+
 );
 
 export function reducer(state: State | undefined, action: Action) {

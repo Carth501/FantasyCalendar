@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { EMPTY_ERA, Era } from 'src/app/era';
+import { Store } from '@ngrx/store';
+import { OptionsActions } from 'src/app/store/actions';
 
 @Component({
   selector: 'app-new-era',
@@ -13,7 +15,9 @@ export class NewEraComponent {
   @Input() newEraOrder: number;
   @Output() eraCreation = new EventEmitter<{newEra: Era, newEraOrder: number}>();
 
-  constructor() { }
+  constructor(
+    private store: Store<any>
+  ) { }
 
   submit(): void {
     if (
@@ -24,6 +28,7 @@ export class NewEraComponent {
         this.eraCreation.emit({ newEra: this.newEra, newEraOrder: this.newEraOrder });
         this.resetEmptyEra();
       }
+    this.store.dispatch(OptionsActions.toggleNewEra({}));
   }
 
   resetEmptyEra(): void {

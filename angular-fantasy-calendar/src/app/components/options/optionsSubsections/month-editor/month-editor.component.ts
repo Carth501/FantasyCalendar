@@ -1,5 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import * as _ from 'lodash';
+import { Observable, Subscription, Subject } from 'rxjs';
 import { SettingsMonth } from 'src/app/settingsMonth';
+import { monthEditingIndex, setMonths } from 'src/app/store/actions/options.actions';
+import { selectMonthEditingIndex } from 'src/app/store/selectors/options.selector';
 
 @Component({
   selector: 'app-month-editor',
@@ -8,23 +13,32 @@ import { SettingsMonth } from 'src/app/settingsMonth';
 })
 export class MonthEditorComponent implements OnInit {
 
-  @Input() settingsMonths: SettingsMonth[];
+  @Input() set setMonths(months: SettingsMonth[]) {
+    this.settingsMonths = _.cloneDeep(months);
+  }
+
+  settingsMonths: SettingsMonth[];
+  @Input() newMonth: string;
   // daysPerYear: number; // not implemented
 
-  constructor() { }
+  monthEditingIndex$: Observable<number>;
+
+  constructor(
+    private store: Store
+  ) {
+    this.monthEditingIndex$ = this.store.select(selectMonthEditingIndex);
+  }
 
   ngOnInit(): void {
   }
 
   addMonth(): void {
-    // this should be using input binding instead of getElementByID
-    // for potential month values
-    const newMonthInput = document.getElementById('new-month-field') as HTMLInputElement;
-    if (newMonthInput.value) {
-      this.settingsMonths.push({name: newMonthInput.value, length: 1});
+    if (this.newMonth) {
+      this.settingsMonths.push({name: this.newMonth, length: 1});
       // this.daysPerYear = this.yearService.sumOfMonthLengths(this.settingsMonths);
       // not implemented
-      newMonthInput.value = '';
+      this.newMonth = '';
+      this.pushChanges();
     }
   }
 
@@ -33,7 +47,19 @@ export class MonthEditorComponent implements OnInit {
       this.settingsMonths.splice(index, 1);
       // this.daysPerYear = this.yearService.sumOfMonthLengths(this.settingsMonths);
       // not implemented
+      this.toggleEditMonth(-1);
     }
+  }
+
+  toggleEditMonth(index: number): void {
+    this.store.dispatch(monthEditingIndex({monthEditingIndex: index}));
+    if (index === -1) {
+      this.pushChanges();
+    }
+  }
+
+  pushChanges(): void {
+    this.store.dispatch(setMonths({settingsMonths: _.cloneDeep(this.settingsMonths)}));
   }
 
   trackArray(index, item) {

@@ -23,6 +23,17 @@ export const selectEraEditingIndex = createSelector(
     ( state: State ) => state.eraEditingIndex
 );
 
+export const selectMonthEditingIndex = createSelector(
+    selectOptions,
+    ( state: State ) => state.monthEditingIndex
+);
+
+export const selectDayOfWeekEditingIndex = createSelector(
+    selectOptions,
+    ( state: State ) => state.dayOfWeekEditingIndex
+);
+
+
 /*
 export const selectCurrentID = createSelector(
     selectOptions,

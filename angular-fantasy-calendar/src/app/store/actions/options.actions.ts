@@ -44,3 +44,13 @@ export const eraEditingIndex = createAction(
     '[Options] Change Era Editing Index',
     props<{ eraEditingIndex: number }>()
 );
+
+export const monthEditingIndex = createAction(
+    '[Options] Change Month Editing Index',
+    props<{ monthEditingIndex: number }>()
+);
+
+export const dayOfWeekEditingIndex = createAction(
+    '[Options] Change Day of Week Editing Index',
+    props<{ dayOfWeekEditingIndex: number }>()
+);

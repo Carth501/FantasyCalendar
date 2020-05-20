@@ -34,7 +34,7 @@
                         (click)="changeEraEditingIndex(idx)">edit</button>
                     <button
                         *ngIf="idx == (eraEditingIndex$ | async)"
-                        (click)="changeEraEditingIndex(-1)">close</button>
+                        (click)="changeEraEditingIndex(-1); applyChange()">close</button>
                     <input 
                         matInput
                         class="era-name" 
@@ -47,6 +47,9 @@
                         type="text" 
                         [(ngModel)]="x.abbreviation"
                         [readonly]="idx != (eraEditingIndex$ | async)"/>
+                    <!--
+                        If the era is the first in the list, it needs to not have the beginning field
+                    -->
                     <div 
                         *ngIf="x.beginning">
                         <label
@@ -59,6 +62,9 @@
                             [(ngModel)]="x.beginning"
                             [readonly]="idx != (eraEditingIndex$ | async)"/>
                     </div>
+                    <!--
+                        If the era is the last in the list, it needs to not have the ending field
+                    -->
                     <div *ngIf="x.ending">
                         <label
                             for="era-end">Ending</label>

@@ -14,12 +14,12 @@
 
         <div class="settings-option" *ngIf="months$">
             <app-month-editor
-                [settingsMonths]="months$ | async"></app-month-editor>
+                [setMonths]="months$ | async"></app-month-editor>
         </div>
 
         <div class="settings-option" *ngIf="weeks$">
             <app-week-editor
-                [DoW]="weeks$ | async"></app-week-editor>
+                [setDoW]="weeks$ | async"></app-week-editor>
         </div>
 
         <div class="settings-option" *ngIf="leapYears$">

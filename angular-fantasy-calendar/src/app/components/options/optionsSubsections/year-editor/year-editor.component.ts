@@ -19,8 +19,8 @@ export class YearEditorComponent implements OnInit {
   }
   @Input() year: YearMath;
   defaultYearChangeSubscription: Subscription;
-  defaultEraChangeSubscription: Subscription;
   defaultYearChange = new Subject<number>();
+  defaultEraChangeSubscription: Subscription;
   defaultEraChange = new Subject<number>();
 
   newEraPanelOpen$: Observable<boolean>;

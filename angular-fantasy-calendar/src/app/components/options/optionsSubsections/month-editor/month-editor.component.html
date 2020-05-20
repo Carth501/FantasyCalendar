@@ -9,14 +9,31 @@
                         matInput
                         class="month-name"
                         type="text"
+                        [readonly]="idx != (monthEditingIndex$ | async)"
                         [(ngModel)]="settingsMonths[idx].name"/>
                     <input
                         matInput
                         class="month-length"
                         type="number"
+                        [readonly]="idx != (monthEditingIndex$ | async)"
                         [(ngModel)]="settingsMonths[idx].length"
                         min=1/>
-                    <button class="month-delete" (click)= "deleteMonth(idx)">
+                    <button 
+                        class="month-edit" 
+                        *ngIf="idx != (monthEditingIndex$ | async)"
+                        (click)="toggleEditMonth(idx)">
+                        edit
+                    </button>
+                    <button 
+                        class="month-edit" 
+                        *ngIf="idx == (monthEditingIndex$ | async)"
+                        (click)="toggleEditMonth(-1)">
+                        close
+                    </button>
+                    <button 
+                        class="month-delete" 
+                        *ngIf="idx == (monthEditingIndex$ | async)"
+                        (click)= "deleteMonth(idx)">
                         X
                     </button>
                 </div>
@@ -25,6 +42,7 @@
         <input
             matInput
             id="new-month-field"
+            [(ngModel)]="newMonth"
             type="text"
             placeholder="new month">
         <button id="submit-new-month" (click)="addMonth()">

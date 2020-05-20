@@ -13,6 +13,7 @@ import { OptionsSelectors, CalendarSelectors } from '../../store/selectors';
 import { CalendarService } from 'src/app/calendar.service';
 import { OptionsActions, CalendarActions } from 'src/app/store/actions';
 import * as _ from 'lodash';
+import { toggleOptions } from 'src/app/store/actions/view.actions';
 
 @Component({
   selector: 'app-options',
@@ -89,5 +90,6 @@ export class OptionsComponent implements OnDestroy {
     ).subscribe(newCalendar =>
       this.store.dispatch(CalendarActions.pushCalendar({newCalendar}))
     );
+    this.store.dispatch(toggleOptions({}));
   }
 }

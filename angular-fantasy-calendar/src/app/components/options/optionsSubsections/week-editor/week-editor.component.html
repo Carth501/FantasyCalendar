@@ -7,8 +7,24 @@
                 <input
                     matInput 
                     type="text" 
+                    [readonly]="idx != (dayOfWeekEditingIndex$ | async)"
                     [(ngModel)]="DoW[idx]"/>
-                <button class="dow-delete" (click)= "deleteDoW(idx)">
+                <button 
+                    class="day-edit" 
+                    *ngIf="idx != (dayOfWeekEditingIndex$ | async)"
+                    (click)="toggleEditWeek(idx)">
+                    edit
+                </button>
+                <button 
+                    class="day-edit" 
+                    *ngIf="idx == (dayOfWeekEditingIndex$ | async)"
+                    (click)="toggleEditWeek(-1)">
+                    close
+                </button>
+                <button 
+                    class="dow-delete"
+                    (click)= "deleteDoW(idx)"
+                    *ngIf="idx == (dayOfWeekEditingIndex$ | async)">
                     X
                 </button>
             </div>

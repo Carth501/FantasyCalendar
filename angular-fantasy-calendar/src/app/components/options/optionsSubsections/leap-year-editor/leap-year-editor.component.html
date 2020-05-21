@@ -18,23 +18,42 @@
                         matInput
                         class="LYRule" 
                         type="number" 
+                        [readonly]="idx != (leapYearEditingIndex$ | async)"
                         [(ngModel)]="leapYears[idx].leapYearCycles"/>
                     <input 
                         matInput
                         class="LYRule"
                         type="number"
+                        [readonly]="idx != (leapYearEditingIndex$ | async)"
                         [(ngModel)]="leapYears[idx].leapYearOffset"/>
                     <input
                         matInput
                         class="LYRule"
                         type="number"
+                        [readonly]="idx != (leapYearEditingIndex$ | async)"
                         [(ngModel)]="leapYears[idx].leapYearChange"/>
                     <input
                         matInput
                         class="LYRule"
                         type="number"
+                        [readonly]="idx != (leapYearEditingIndex$ | async)"
                         [(ngModel)]="leapYears[idx].leapDayMonth"/>
-                    <button class="ly-delete" (click)= "deleteLY(idx)">
+                    <button 
+                        class="day-edit" 
+                        *ngIf="idx != (leapYearEditingIndex$ | async)"
+                        (click)="toggleEditLeapYear(idx)">
+                        edit
+                    </button>
+                    <button 
+                        class="day-edit" 
+                        *ngIf="idx == (leapYearEditingIndex$ | async)"
+                        (click)="toggleEditLeapYear(-1)">
+                        close
+                    </button>
+                    <button 
+                        class="ly-delete"
+                        *ngIf="idx == (leapYearEditingIndex$ | async)" 
+                        (click)= "deleteLY(idx)">
                         X
                     </button>
                 </div>
@@ -42,36 +61,13 @@
         </div>
     </div>
 
-    <div class="new-leap-rule">
-        <label>new leap year rule</label>
-        <div class="new-lyr-fields">
-            <input
-                matInput
-                class="newLYRule"
-                type="number"
-                [(ngModel)]="candidateLY.leapYearCycles"
-                placeholder="length of cycle"/>
-            <input
-                matInput
-                class="newLYRule"
-                type="number"
-                [(ngModel)]="candidateLY.leapYearOffset"
-                placeholder="offset"/>
-            <input
-                matInput
-                class="newLYRule"
-                type="number"
-                [(ngModel)]="candidateLY.leapYearChange"
-                placeholder="change in days"/>
-            <input
-                matInput
-                class="newLYRule"
-                type="number"
-                [(ngModel)]="candidateLY.leapDayMonth"
-                placeholder="month affected"/>
-            <button (click)="addLY()">
-                add
-            </button>
-        </div>
+    <button
+        (click)="toggleNewLeapYear()">
+        New Leap Year
+    </button>
+    <div class="new-leap-year-panel" *ngIf="newLeapYearPanel$ | async">
+        <app-new-leap-year-rule
+            (leapYearCreation)="createNewLeapYear($event)"
+        ></app-new-leap-year-rule>
     </div>
 </div>

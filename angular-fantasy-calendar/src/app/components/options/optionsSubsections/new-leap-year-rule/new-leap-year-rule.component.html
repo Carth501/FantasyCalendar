@@ -1,0 +1,30 @@
+<label>new leap year rule</label>
+<div class="new-lyr-fields">
+    <input
+        matInput
+        class="newLYRule"
+        type="number"
+        [(ngModel)]="candidateLY.leapYearCycles"
+        placeholder="length of cycle"/>
+    <input
+        matInput
+        class="newLYRule"
+        type="number"
+        [(ngModel)]="candidateLY.leapYearOffset"
+        placeholder="offset"/>
+    <input
+        matInput
+        class="newLYRule"
+        type="number"
+        [(ngModel)]="candidateLY.leapYearChange"
+        placeholder="change in days"/>
+    <input
+        matInput
+        class="newLYRule"
+        type="number"
+        [(ngModel)]="candidateLY.leapDayMonth"
+        placeholder="month affected"/>
+    <button (click)="addLY()">
+        add
+    </button>
+</div>

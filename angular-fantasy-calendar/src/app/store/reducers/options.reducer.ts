@@ -5,17 +5,21 @@ import { Calendar } from 'src/app/Calendar';
 export interface State {
     dirtySettings: Calendar;
     newEraPanel: boolean;
+    newLeapYearPanel: boolean;
     eraEditingIndex: number;
     monthEditingIndex: number;
     dayOfWeekEditingIndex: number;
+    leapYearEditingIndex: number;
 }
 
 export const initialState: State = {
     dirtySettings: null,
     newEraPanel: false,
+    newLeapYearPanel: false,
     eraEditingIndex: -1,
     monthEditingIndex: -1,
-    dayOfWeekEditingIndex: -1
+    dayOfWeekEditingIndex: -1,
+    leapYearEditingIndex: -1
 };
 
 const optionsReducer = createReducer(
@@ -32,9 +36,11 @@ const optionsReducer = createReducer(
     on(OptionsActions.setDoW, (state, {DoW}) => ({ ...state, dirtySettings:
         {...state.dirtySettings, DoW}})),
     on(OptionsActions.toggleNewEra, state => ({ ...state, newEraPanel: !state.newEraPanel})),
+    on(OptionsActions.toggleNewLeapYear, state => ({ ...state, newLeapYearPanel: !state.newLeapYearPanel})),
     on(OptionsActions.eraEditingIndex, (state, {eraEditingIndex}) => ({ ...state, eraEditingIndex})),
     on(OptionsActions.monthEditingIndex, (state, {monthEditingIndex}) => ({ ...state, monthEditingIndex})),
     on(OptionsActions.dayOfWeekEditingIndex, (state, {dayOfWeekEditingIndex}) => ({ ...state, dayOfWeekEditingIndex})),
+    on(OptionsActions.leapYearEditingIndex, (state, {leapYearEditingIndex}) => ({ ...state, leapYearEditingIndex})),
 
 );
 

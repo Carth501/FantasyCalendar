@@ -18,6 +18,12 @@ export const selectNewEraPanelOpen = createSelector(
     ( state: State ) => state.newEraPanel
 );
 
+export const selectNewLeapYearPanelOpen = createSelector(
+    selectOptions,
+    ( state: State ) => state.newLeapYearPanel
+);
+
+
 export const selectEraEditingIndex = createSelector(
     selectOptions,
     ( state: State ) => state.eraEditingIndex
@@ -32,6 +38,12 @@ export const selectDayOfWeekEditingIndex = createSelector(
     selectOptions,
     ( state: State ) => state.dayOfWeekEditingIndex
 );
+
+export const selectLeapYearEditingIndex = createSelector(
+    selectOptions,
+    ( state: State ) => state.leapYearEditingIndex
+);
+
 
 
 /*

@@ -137,10 +137,11 @@ export class InMemoryDataService implements InMemoryDbService {
       {title: 'Party is ambushed by the Society of Purity', offset: 4000290, duration: 1},
       {title: 'Party returns to life', offset: 4000291, duration: 1},
       {title: 'Party is sent out to find a Wyvernstone', offset: 4000295, duration: 1},
-      {title: 'Party is sent out to find a Wyvernstone', offset: 4000295, duration: 1},
       {title: 'Party is attacked by ogres east of Jiddayd', offset: 4000305, duration: 1},
       {title: 'Party \'meets\' the Catfolk tribe', offset: 4000306, duration: 1},
-      {title: 'Party fights two pixies', offset: 4000308, duration: 1}
+      {title: 'Party fights two pixies', offset: 4000308, duration: 1},
+      {title: 'Party escapes the Sacrat Pits', offset: 4000310, duration: 1},
+      {title: 'Party escapes the Thousand Spires', offset: 4000312, duration: 1}
     ];
     const sylrinCyclicalEvents: CyclicalEvent[] = [
       {title: 'Full Itric', offset: 3, duration: 2, repeatDays: 20.415153},

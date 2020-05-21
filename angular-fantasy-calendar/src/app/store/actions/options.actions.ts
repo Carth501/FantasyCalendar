@@ -40,6 +40,11 @@ export const toggleNewEra = createAction(
     props<{ }>()
 );
 
+export const toggleNewLeapYear = createAction(
+    '[Options] Toggle New Leap Year',
+    props<{ }>()
+);
+
 export const eraEditingIndex = createAction(
     '[Options] Change Era Editing Index',
     props<{ eraEditingIndex: number }>()
@@ -53,4 +58,9 @@ export const monthEditingIndex = createAction(
 export const dayOfWeekEditingIndex = createAction(
     '[Options] Change Day of Week Editing Index',
     props<{ dayOfWeekEditingIndex: number }>()
+);
+
+export const leapYearEditingIndex = createAction(
+    '[Options] Change Leap Year Editing Index',
+    props<{ leapYearEditingIndex: number }>()
 );

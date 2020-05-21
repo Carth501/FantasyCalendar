@@ -45,6 +45,7 @@ import { JsonComponent } from './components/options/optionsSubsections/json/json
 import { CalendarSelectorComponent } from './components/calendar-selector/calendar-selector.component';
 import { OptionsEffects } from './store/effects/options.effects';
 import { NewEraComponent } from './components/options/optionsSubsections/new-era/new-era.component';
+import { NewLeapYearRuleComponent } from './components/options/optionsSubsections/new-leap-year-rule/new-leap-year-rule.component';
 
 
 
@@ -75,7 +76,8 @@ import { NewEraComponent } from './components/options/optionsSubsections/new-era
     EventsEditorComponent,
     JsonComponent,
     CalendarSelectorComponent,
-    NewEraComponent
+    NewEraComponent,
+    NewLeapYearRuleComponent
   ],
   imports: [
     BrowserModule,

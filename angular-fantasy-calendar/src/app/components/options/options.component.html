@@ -24,7 +24,7 @@
 
         <div class="settings-option" *ngIf="leapYears$">
             <app-leap-year-editor
-                [leapYears]="leapYears$ | async"></app-leap-year-editor>
+                [setLeapYear]="leapYears$ | async"></app-leap-year-editor>
         </div>
 
         <div class="settings-option" *ngIf="events$">

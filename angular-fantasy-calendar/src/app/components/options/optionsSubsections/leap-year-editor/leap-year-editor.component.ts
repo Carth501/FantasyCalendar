@@ -1,5 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { LeapYear, EMPTY_LEAP_YEAR } from 'src/app/leapYear';
+import * as _ from 'lodash';
+import { Store } from '@ngrx/store';
+import { setLeapYears, leapYearEditingIndex, toggleNewLeapYear } from 'src/app/store/actions/options.actions';
+import { Observable } from 'rxjs';
+import { selectLeapYearEditingIndex, selectNewLeapYearPanelOpen } from 'src/app/store/selectors/options.selector';
 
 @Component({
   selector: 'app-leap-year-editor',
@@ -8,29 +13,46 @@ import { LeapYear, EMPTY_LEAP_YEAR } from 'src/app/leapYear';
 })
 export class LeapYearEditorComponent implements OnInit {
 
-  @Input() leapYears: LeapYear[];
-  @Input() candidateLY = EMPTY_LEAP_YEAR;
 
-  constructor() { }
-
-  ngOnInit(): void {
+  @Input() set setLeapYear(leapYears: LeapYear[]) {
+    this.leapYears = _.cloneDeep(leapYears);
   }
 
+  leapYears: LeapYear[];
+  leapYearEditingIndex$: Observable<number>;
+  newLeapYearPanel$: Observable<boolean>;
 
-  addLY(): void {
-    this.leapYears.push(this.candidateLY);
-    this.candidateLY = {
-      leapYearCycles: null,
-      leapYearOffset: null,
-      leapYearChange: null,
-      leapDayMonth: null
-    };
+  constructor(
+    private store: Store
+  ) {
+    this.leapYearEditingIndex$ = this.store.select(selectLeapYearEditingIndex);
+    this.newLeapYearPanel$ = this.store.select(selectNewLeapYearPanelOpen);
+  }
+
+  ngOnInit(): void {
   }
 
   deleteLY(index: number): void {
     if (index >= 0) {
       this.leapYears.splice(index, 1);
     }
+  }
+
+  createNewLeapYear(newLeapYear: LeapYear) {
+    this.leapYears.push(newLeapYear);
+    this.pushLeapYears();
+  }
+
+  toggleEditLeapYear(index: number): void {
+    this.store.dispatch(leapYearEditingIndex({leapYearEditingIndex: index}));
+  }
+
+  pushLeapYears(): void {
+    this.store.dispatch(setLeapYears({leapYears: _.cloneDeep(this.leapYears)}));
+  }
+
+  toggleNewLeapYear(): void {
+    this.store.dispatch(toggleNewLeapYear({}));
   }
 
   trackArray(index, item) {

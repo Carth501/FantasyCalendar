@@ -8,12 +8,14 @@
   z-index: 1; /* Stay on top */
   background-color: rgba(190, 190, 190);
   overflow-x: hidden; /* Disable horizontal scroll */
+  overflow-y: scroll;
 }
 
 .column {
   display: flex;
-  flex-flow: column wrap;
-  align-content: space-around;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .settings-option {

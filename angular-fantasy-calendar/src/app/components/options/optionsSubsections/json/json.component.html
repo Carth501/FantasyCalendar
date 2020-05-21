@@ -13,10 +13,14 @@
 <div class="loadJSON">
     <label>Load Calendar from JSON</label>
     <div class="loadControls">
-        <textarea [(ngModel)]="fromjson" placeholder="Paste JSON data here">
+        <textarea 
+            class="jsonArea"
+            [(ngModel)]="fromjson" 
+            placeholder="Paste JSON data here">
         </textarea>
         <button 
             mat-flat-button
+            class="applyJSON"
             color="primary"
             (click)="newUserJSON()">
             Apply new JSON

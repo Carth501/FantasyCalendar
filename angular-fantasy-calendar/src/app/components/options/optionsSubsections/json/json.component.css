@@ -1,0 +1,9 @@
+.applyJSON {
+    float: right;
+}
+
+.jsonArea {
+    height: 200px;
+    width: 99%;
+    resize: vertical;
+}

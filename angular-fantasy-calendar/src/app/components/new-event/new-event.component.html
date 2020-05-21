@@ -1,16 +1,17 @@
 <div class="region">
-    <select id="event-type" [(ngModel)]="eventType">
-        <option value="unique">Unique event, only happens once</option>
-        <option value="cyclical">Cyclical, independent of calendar</option>
-        <option value="yearMonthly">Happens once a year in a given month</option>
-        <option value="yearly">Happens once a year</option>
-        <option value="yearMonthDOW">Happens once a year, based on the day of the week</option>
-        <option value="monthly">Happens once a month</option>
-        <option value="monthDOW">Happens every month, based on the day of the week</option>
-        <option value="weekly">Happens once a week</option>
+    <mat-select id="event-type" [(ngModel)]="eventType">
+        <mat-option value="unique">Unique event, only happens once</mat-option>
+        <mat-option value="cyclical">Cyclical, independent of calendar</mat-option>
+        <mat-option value="yearMonthly">Happens once a year in a given month</mat-option>
+        <mat-option value="yearly">Happens once a year</mat-option>
+        <mat-option value="yearMonthDOW">Happens once a year, based on the day of the week</mat-option>
+        <mat-option value="monthly">Happens once a month</mat-option>
+        <mat-option value="monthDOW">Happens every month, based on the day of the week</mat-option>
+        <mat-option value="weekly">Happens once a week</mat-option>
         
-    </select>
+    </mat-select>
     <input 
+        matInput
         [ngClass]="{
             'needs-attention': !title
         }" 
@@ -20,6 +21,7 @@
     
     <div *ngIf="eventType === 'yearly'">
         <input 
+            matInput
             [ngClass]="{
                 'needs-attention': !offset
             }" 
@@ -30,6 +32,7 @@
     
     <div *ngIf="eventType === 'yearMonthDOW' || eventType === 'yearMonthly'">
         <input 
+            matInput
             [ngClass]="{
                 'needs-attention': !monthOffset
             }" 
@@ -41,6 +44,7 @@
     
     <div *ngIf="eventType === 'yearMonthly'">
         <input 
+            matInput
             [ngClass]="{
                 'needs-attention': !offset
             }" 
@@ -55,6 +59,7 @@
             && eventType !== 'unique'
             && eventType !== 'yearMonthly'">
         <input 
+            matInput
             [ngClass]="{
                 'needs-attention': !offset
             }" 
@@ -65,6 +70,7 @@
     
     <div *ngIf="eventType === 'unique'">
         <input 
+            matInput
             [ngClass]="{
                 'needs-attention': !clickedDayID
             }" 
@@ -74,6 +80,7 @@
     </div>
     
     <input 
+        matInput
         [ngClass]="{
             'needs-attention': !duration
         }" 
@@ -84,25 +91,32 @@
 
     <div *ngIf="eventType === 'cyclical'">
         <input 
-        [ngClass]="{
-            'needs-attention': !repeatDays
-        }" 
-        [(ngModel)]="repeatDays" 
-        type="number" 
-        placeholder="Length of cycle" 
-        min=1/>
+            matInput
+            [ngClass]="{
+                'needs-attention': !repeatDays
+            }" 
+            [(ngModel)]="repeatDays" 
+            type="number" 
+            placeholder="Length of cycle" 
+            min=1/>
     </div>
 
     <div *ngIf="eventType === 'monthDOW' || eventType === 'yearMonthDOW'">
         <input 
-        [ngClass]="{
-            'needs-attention': !weekOffset
-        }" 
-        [(ngModel)]="weekOffset" 
-        type="number" 
-        placeholder="Week of the month" 
-        min=1/>
+            matInput
+            [ngClass]="{
+                'needs-attention': !weekOffset
+            }" 
+            [(ngModel)]="weekOffset" 
+            type="number" 
+            placeholder="Week of the month" 
+            min=1/>
     </div>
 
-    <button class="createButton" (click)="createEvent()">Create</button>
+    <button 
+        mat-flat-button
+        color="primary"
+        class="createButton"
+        (click)="createEvent()">
+        Create</button>
 </div>

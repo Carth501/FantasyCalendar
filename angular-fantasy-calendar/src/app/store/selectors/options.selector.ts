@@ -23,6 +23,10 @@ export const selectNewLeapYearPanelOpen = createSelector(
     ( state: State ) => state.newLeapYearPanel
 );
 
+export const selectNewEventPanelOpen = createSelector(
+    selectOptions,
+    ( state: State ) => state.newEventPanel
+);
 
 export const selectEraEditingIndex = createSelector(
     selectOptions,
@@ -44,6 +48,35 @@ export const selectLeapYearEditingIndex = createSelector(
     ( state: State ) => state.leapYearEditingIndex
 );
 
+export const selectYearOptionsOpen = createSelector(
+    selectOptions,
+    ( state: State ) => state.yearOptionsOpen
+);
+
+export const selectMonthOptionsOpen = createSelector(
+    selectOptions,
+    ( state: State ) => state.monthOptionsOpen
+);
+
+export const selectWeekOptionsOpen = createSelector(
+    selectOptions,
+    ( state: State ) => state.weekOptionsOpen
+);
+
+export const selectLeapYearOptionsOpen = createSelector(
+    selectOptions,
+    ( state: State ) => state.leapYearOptionsOpen
+);
+
+export const selectEventOptionsOpen = createSelector(
+    selectOptions,
+    ( state: State ) => state.eventOptionsOpen
+);
+
+export const selectJSONOptionsOpen = createSelector(
+    selectOptions,
+    ( state: State ) => state.jsonOptionsOpen
+);
 
 
 /*

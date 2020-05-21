@@ -16,7 +16,7 @@ export class NewEventComponent {
   @Output() newYearMonthDOWEvent = new EventEmitter<YearlyMonthlyDayOfWeekEvent>();
   @Output() newYearMonthlyEvent = new EventEmitter<YearlyMonthlyEvent>();
   @Output() newUniqueEvent = new EventEmitter<UniqueEvent>();
-  
+
 
   @Output() setWindow = new EventEmitter<boolean>();
 

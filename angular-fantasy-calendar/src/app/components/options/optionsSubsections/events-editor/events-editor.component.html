@@ -121,17 +121,21 @@
             </div>
         </div>
     </div>
-
-    <div class="new-event-region">
+    <button
+        (click)="toggleNewEventPanel()">New Event
+    </button>
+    <div 
+        class="new-event-region" 
+        *ngIf="newEventPanelOpen$ | async">
         <app-new-event
-        (newCyclicalEvent)="createNewCyclicalEvent($event)"
-        (newUniqueEvent)="createNewUniqueEvent($event)"
-        (newYearlyEvent)="createNewYearlyEvent($event)"
-        (newMonthlyEvent)="createNewMonthlyEvent($event)"
-        (newWeeklyEvent)="createNewWeeklyEvent($event)"
-        (newMonthlyDOWEvent)="createNewMonthDOWEvent($event)"
-        (newYearlyMonthlyDOWEvent)="createNewYearMonthDOWEvent($event)"
-        (newYearlyMonthlyEvent)="createNewYearlyMonthlyEvent($event)"
+            (newCyclicalEvent)="createNewCyclicalEvent($event)"
+            (newUniqueEvent)="createNewUniqueEvent($event)"
+            (newYearlyEvent)="createNewYearlyEvent($event)"
+            (newMonthlyEvent)="createNewMonthlyEvent($event)"
+            (newWeeklyEvent)="createNewWeeklyEvent($event)"
+            (newMonthlyDOWEvent)="createNewMonthDOWEvent($event)"
+            (newYearlyMonthlyDOWEvent)="createNewYearMonthDOWEvent($event)"
+            (newYearlyMonthlyEvent)="createNewYearlyMonthlyEvent($event)"
         ></app-new-event>
     </div>
 </div>

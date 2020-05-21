@@ -17,7 +17,7 @@ export class YearEditorComponent implements OnInit {
   @Input() set setYear(yearMath: YearMath) {
     this.year = _.cloneDeep(yearMath);
   }
-  @Input() year: YearMath;
+  year: YearMath;
   defaultYearChangeSubscription: Subscription;
   defaultYearChange = new Subject<number>();
   defaultEraChangeSubscription: Subscription;

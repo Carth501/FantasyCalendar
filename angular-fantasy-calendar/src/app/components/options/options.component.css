@@ -10,11 +10,11 @@
   overflow-x: hidden; /* Disable horizontal scroll */
 }
 
-.columns {
+.column {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: wrap;
-  align-items: flex-start;
+  align-content: space-around;
 }
 
 .settings {
@@ -24,6 +24,7 @@
 
 .settings-option {
   padding: 10px;
+  width: 600px;
   display: flex;
   flex-wrap: nowrap;
   flex-direction: row;

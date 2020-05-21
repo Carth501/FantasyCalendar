@@ -14,6 +14,8 @@ import { CalendarService } from 'src/app/calendar.service';
 import { OptionsActions, CalendarActions } from 'src/app/store/actions';
 import * as _ from 'lodash';
 import { toggleOptions } from 'src/app/store/actions/view.actions';
+import { selectYearOptionsOpen, selectMonthOptionsOpen, selectWeekOptionsOpen, selectLeapYearOptionsOpen, selectEventOptionsOpen, selectJSONOptionsOpen } from 'src/app/store/selectors/options.selector';
+import { toggleYearOptions, toggleMonthOptions, toggleWeekOptions, toggleLeapYearOptions, toggleEventOptions, toggleJSONOptions } from 'src/app/store/actions/options.actions';
 
 @Component({
   selector: 'app-options',
@@ -39,6 +41,13 @@ export class OptionsComponent implements OnDestroy {
   activeCalendarSubscription: Subscription;
 
   @Input() calendarName: string;
+
+  yearOpen$: Observable<boolean>;
+  monthOpen$: Observable<boolean>;
+  weekOpen$: Observable<boolean>;
+  leapYearOpen$: Observable<boolean>;
+  eventOpen$: Observable<boolean>;
+  jsonOpen$: Observable<boolean>;
 
   constructor(
     private store: Store<any>,
@@ -76,6 +85,12 @@ export class OptionsComponent implements OnDestroy {
             this.jumpToYear(value);
           });
           */
+      this.yearOpen$ = this.store.select(selectYearOptionsOpen);
+      this.monthOpen$ = this.store.select(selectMonthOptionsOpen);
+      this.weekOpen$ = this.store.select(selectWeekOptionsOpen);
+      this.leapYearOpen$ = this.store.select(selectLeapYearOptionsOpen);
+      this.eventOpen$ = this.store.select(selectEventOptionsOpen);
+      this.jsonOpen$ = this.store.select(selectJSONOptionsOpen);
     }
 
     ngOnDestroy(): void {
@@ -91,5 +106,29 @@ export class OptionsComponent implements OnDestroy {
       this.store.dispatch(CalendarActions.pushCalendar({newCalendar}))
     );
     this.store.dispatch(toggleOptions({}));
+  }
+
+  toggleYearOptions(): void {
+    this.store.dispatch(toggleYearOptions({}));
+  }
+
+  toggleMonthOptions(): void {
+    this.store.dispatch(toggleMonthOptions({}));
+  }
+
+  toggleWeekOptions(): void {
+    this.store.dispatch(toggleWeekOptions({}));
+  }
+
+  toggleLeapYearOptions(): void {
+    this.store.dispatch(toggleLeapYearOptions({}));
+  }
+
+  toggleEventOptions(): void {
+    this.store.dispatch(toggleEventOptions({}));
+  }
+
+  toggleJSONOptions(): void {
+    this.store.dispatch(toggleJSONOptions({}));
   }
 }

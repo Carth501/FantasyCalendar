@@ -6,34 +6,46 @@
         Apply
     </button>
     
-    <div class="columns">
+    <div class="column">
         <div class="settings-option" *ngIf="yearMath$">
+            <button (click)="toggleYearOptions()">Year Editor</button>
             <app-year-editor
+                *ngIf="yearOpen$ | async"
                 [setYear]="yearMath$ | async"></app-year-editor>
         </div>
 
         <div class="settings-option" *ngIf="months$">
+            <button (click)="toggleMonthOptions()">Month Editor</button>
             <app-month-editor
+                *ngIf="monthOpen$ | async"
                 [setMonths]="months$ | async"></app-month-editor>
         </div>
 
         <div class="settings-option" *ngIf="weeks$">
+            <button (click)="toggleWeekOptions()">Week Editor</button>
             <app-week-editor
+                *ngIf="weekOpen$ | async"
                 [setDoW]="weeks$ | async"></app-week-editor>
         </div>
 
         <div class="settings-option" *ngIf="leapYears$">
+            <button (click)="toggleLeapYearOptions()">Leap Year Rule Editor</button>
             <app-leap-year-editor
+                *ngIf="leapYearOpen$ | async"
                 [setLeapYear]="leapYears$ | async"></app-leap-year-editor>
         </div>
 
         <div class="settings-option" *ngIf="events$">
+            <button (click)="toggleEventOptions()">Event Editor</button>
             <app-events-editor
-                [eventLists]="events$ | async"></app-events-editor>
+                *ngIf="eventOpen$ | async"
+                [setEventLists]="events$ | async"></app-events-editor>
         </div>
 
         <div class="settings-option">
+            <button (click)="toggleJSONOptions()">JSON Options</button>
             <app-json
+                *ngIf="jsonOpen$ | async"
                 [calendar]="calendarObject$ | async"></app-json>
         </div>
     </div>

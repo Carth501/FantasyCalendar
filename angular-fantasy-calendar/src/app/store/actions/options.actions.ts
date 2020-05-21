@@ -17,7 +17,7 @@ export const setYearMath = createAction(
 
 export const setEventLists = createAction(
     '[Options] New Event Lists',
-    props<{ eventLists: EventLists }>()
+    props<{ events: EventLists }>()
 );
 
 export const setLeapYears = createAction(
@@ -45,6 +45,11 @@ export const toggleNewLeapYear = createAction(
     props<{ }>()
 );
 
+export const toggleNewEvent = createAction(
+    '[Options] Toggle New Event',
+    props<{ }>()
+);
+
 export const eraEditingIndex = createAction(
     '[Options] Change Era Editing Index',
     props<{ eraEditingIndex: number }>()
@@ -63,4 +68,34 @@ export const dayOfWeekEditingIndex = createAction(
 export const leapYearEditingIndex = createAction(
     '[Options] Change Leap Year Editing Index',
     props<{ leapYearEditingIndex: number }>()
+);
+
+export const toggleYearOptions = createAction(
+    '[Options] Toggle Year Options',
+    props<{ }>()
+);
+
+export const toggleMonthOptions = createAction(
+    '[Options] Toggle Month Options',
+    props<{ }>()
+);
+
+export const toggleWeekOptions = createAction(
+    '[Options] Toggle Week Options',
+    props<{ }>()
+);
+
+export const toggleLeapYearOptions = createAction(
+    '[Options] Toggle Leap Year Options',
+    props<{ }>()
+);
+
+export const toggleEventOptions = createAction(
+    '[Options] Toggle Event Options',
+    props<{ }>()
+);
+
+export const toggleJSONOptions = createAction(
+    '[Options] Toggle JSON Options',
+    props<{ }>()
 );

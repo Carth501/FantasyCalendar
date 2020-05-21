@@ -4,9 +4,9 @@
         <mat-form-field>
             <mat-label  >Default Year:</mat-label>
             <input 
-            matInput
-            (ngModelChange)="this.defaultYearChange.next($event)"
-            [ngModel]="year.currentYear">
+                matInput
+                (ngModelChange)="this.defaultYearChange.next($event)"
+                [ngModel]="year.currentYear">
         </mat-form-field>
         <mat-form-field>
             <mat-label 
@@ -30,9 +30,13 @@
             <div class="era-list">
                 <mat-form-field  *ngFor="let x of year.eras; let idx = index; trackBy: trackArray">
                     <button
+                        mat-flat-button
+                        color="primary"
                         *ngIf="idx != (eraEditingIndex$ | async)"
                         (click)="changeEraEditingIndex(idx)">edit</button>
                     <button
+                        mat-flat-button
+                        color="primary"
                         *ngIf="idx == (eraEditingIndex$ | async)"
                         (click)="changeEraEditingIndex(-1); applyChange()">close</button>
                     <input 
@@ -84,7 +88,8 @@
                         [readonly]="idx != (eraEditingIndex$ | async)"/>Reversed
                     -->
                     <button
-                        mat-raised-button
+                        mat-mini-fab
+                        color="warn"
                         class="era-delete" 
                         (click)= "deleteEra(idx)"
                         *ngIf="idx == (eraEditingIndex$ | async)">
@@ -96,7 +101,10 @@
     </div>
     <div>
         <button
-        (click)="toggleNewEraPanel()">New Era</button>
+            mat-flat-button
+            color="primary"
+            (click)="toggleNewEraPanel()">
+            New Era</button>
         <div class="new-era-panel" *ngIf="newEraPanelOpen$ | async">
             <app-new-era
                 (eraCreation)="createNewEra($event)"

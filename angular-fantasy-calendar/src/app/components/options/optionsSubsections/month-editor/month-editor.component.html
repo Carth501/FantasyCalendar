@@ -3,7 +3,8 @@
 
     <div class="input-region">
         <div  *ngFor="let x of settingsMonths; let idx = index; trackBy: trackArray">
-            <mat-form-field>
+            <mat-form-field
+                class="month-row">
                 <div class="input-fields">
                     <input
                         matInput
@@ -19,18 +20,24 @@
                         [(ngModel)]="settingsMonths[idx].length"
                         min=1/>
                     <button 
+                        mat-flat-button
+                        color="primary"
                         class="month-edit" 
                         *ngIf="idx != (monthEditingIndex$ | async)"
                         (click)="toggleEditMonth(idx)">
                         edit
                     </button>
                     <button 
+                        mat-flat-button
+                        color="primary"
                         class="month-edit" 
                         *ngIf="idx == (monthEditingIndex$ | async)"
                         (click)="toggleEditMonth(-1)">
                         close
                     </button>
                     <button 
+                        mat-mini-fab
+                        color="warn"
                         class="month-delete" 
                         *ngIf="idx == (monthEditingIndex$ | async)"
                         (click)= "deleteMonth(idx)">
@@ -45,7 +52,11 @@
             [(ngModel)]="newMonth"
             type="text"
             placeholder="new month">
-        <button id="submit-new-month" (click)="addMonth()">
+        <button 
+            mat-flat-button
+            color="primary"
+            id="submit-new-month"
+            (click)="addMonth()">
             add
         </button>
         <div *ngIf="settingsMonths">

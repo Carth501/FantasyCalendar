@@ -5,7 +5,7 @@
     <div class="input-region">
         <div class="events-list">
             <div class="event-category">
-                Cyclical Events {{eventLists.cyclicalEvents}}
+                Cyclical Events
                 <div class="input-fields" *ngFor="let x of eventLists.cyclicalEvents; let idx = index; trackBy: trackArray">
                     <app-event 
                         [calendarEvent]="x" 
@@ -13,6 +13,8 @@
                         [editable]=true
                     ></app-event>
                     <button 
+                        mat-mini-fab
+                        color="warn"
                         class="event-delete" 
                         (click)= "deleteCyclicalEvent(idx)">
                         X
@@ -30,6 +32,8 @@
                         [editable]=true
                     ></app-event>
                     <button 
+                        mat-mini-fab
+                        color="warn"
                         class="event-delete" 
                         (click)= "deleteUniqueEvent(idx)">
                         X
@@ -44,6 +48,8 @@
                         [eventType]="'yearly'"
                         [editable]=true></app-event>
                     <button 
+                        mat-mini-fab
+                        color="warn"
                         class="event-delete"
                         (click)= "deleteYearlyEvent(idx)">
                         X
@@ -59,6 +65,8 @@
                         [editable]=true
                     ></app-event>
                     <button
+                        mat-mini-fab
+                        color="warn"
                         class="event-delete"
                         (click)= "deleteMonthlyEvent(idx)">
                         X
@@ -75,7 +83,11 @@
                         [eventType]="'weekly'"
                         [editable]=true
                     ></app-event>
-                    <button class="event-delete" (click)= "deleteWeeklyEvent(idx)">
+                    <button 
+                        mat-mini-fab
+                        color="warn"
+                        class="event-delete"
+                        (click)= "deleteWeeklyEvent(idx)">
                         X
                     </button>
                 </div>
@@ -84,11 +96,15 @@
                 Monthly Events Based on the Day of the Week
                 <div class="input-fields" *ngFor="let x of eventLists.monthDOWEvents; let idx = index; trackBy: trackArray">
                     <app-event 
-                    [calendarEvent]="x" 
-                    [eventType]="'monthDOW'"
-                    [editable]=true
+                        [calendarEvent]="x" 
+                        [eventType]="'monthDOW'"
+                        [editable]=true
                     ></app-event>
-                    <button class="event-delete" (click)= "deleteMonthDOWEvent(idx)">
+                    <button 
+                        mat-mini-fab
+                        color="warn"
+                        class="event-delete"
+                        (click)= "deleteMonthDOWEvent(idx)">
                         X
                     </button>
                 </div>
@@ -97,11 +113,15 @@
                 Yearly Events Based on the Month and Day of the Week
                 <div class="input-fields" *ngFor="let x of eventLists.yearMonthDOWEvents; let idx = index; trackBy: trackArray">
                     <app-event 
-                    [calendarEvent]="x" 
-                    [eventType]="'yearMonthDOW'"
-                    [editable]=true
+                        [calendarEvent]="x" 
+                        [eventType]="'yearMonthDOW'"
+                        [editable]=true
                     ></app-event>
-                    <button class="event-delete" (click)= "deleteYearMonthDOWEvent(idx)">
+                    <button
+                        mat-mini-fab
+                        color="warn"
+                        class="event-delete"
+                        (click)= "deleteYearMonthDOWEvent(idx)">
                         X
                     </button>
                 </div>
@@ -110,11 +130,15 @@
                 Yearly Events Based on the Day of the Month
                 <div class="input-fields" *ngFor="let x of eventLists.yearlyMonthlyEvents; let idx = index; trackBy: trackArray">
                     <app-event 
-                    [calendarEvent]="x" 
-                    [eventType]="'yearMonthly'"
-                    [editable]=true
+                        [calendarEvent]="x" 
+                        [eventType]="'yearMonthly'"
+                        [editable]=true
                     ></app-event>
-                    <button class="event-delete" (click)= "deleteYearMonthlyEvent(idx)">
+                    <button
+                        mat-mini-fab
+                        color="warn"
+                        class="event-delete"
+                        (click)= "deleteYearMonthlyEvent(idx)">
                         X
                     </button>
                 </div>
@@ -122,7 +146,11 @@
         </div>
     </div>
     <button
-        (click)="toggleNewEventPanel()">New Event
+        mat-flat-button
+        color="primary"
+        (click)="toggleNewEventPanel()"
+        class="newEventButton">
+        New Event
     </button>
     <div 
         class="new-event-region" 

@@ -12,151 +12,21 @@
 
 .column {
   display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
+  flex-flow: column wrap;
   align-content: space-around;
-}
-
-.settings {
-  display: flex;
-  flex-direction: column;
 }
 
 .settings-option {
   padding: 10px;
   width: 600px;
   display: flex;
-  flex-wrap: nowrap;
-  flex-direction: row;
+  flex-direction: column;
+  align-content: stretch;
   border: 3px solid black;
+  margin: 20px;
 }
 
 .apply {
   font-size: 30px;
   padding: 10px;
-}
-
-.input-region {
-  width: 410px;
-}
-
-label {
-  margin-right: 5px;
-  margin-left: 10px;
-}
-
-input {
-  margin-top: 4px;
-  margin-bottom: 4px;
-  width: 250px;
-}
-
-.input-fields {
-  display: flex;
-  flex-direction: row;
-}
-
-.month-name {
-  width: 40%;
-}
-
-.month-length {
-  width: 20%;
-}
-
-.settings-option label {
-  width: 140px !important;
-}
-
-.event-name {
-  width: 90px;
-}
-
-.other-event-fields {
-  width: 54px;
-}
-
-.event-duration-fields {
-  width: 30px;
-}
-
-.new-leap-rule {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-}
-
-.new-leap-rule label {
-  width: 140px !important;
-}
-
-.events-list {
-  width: 350px;
-}
-
-.new-event-region label {
-  width: 140px !important;
-}
-.new-event-region {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-}
-
-.new-lyr-fields {
-  width: 410px;
-}
-.new-event-fields {
-  width: 410px;
-}
-
-.buttonText {
-  font-size: 40px;
-  border: none;
-}
-
-.LYConfigs {
-  width: 294px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-}
-
-.LYLabels {
-  width: 250px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-}
-
-.LYRule {
-  width: 60px;
-}
-
-#jsonSaveField {
-  resize: none;
-}
-
-.loadJSON {
-  display: flex;
-  flex-direction: row;
-}
-
-.loadControls {
-  display: flex;
-  flex-direction: column;
-}
-
-.eventsFields {
-  display: flex;
-  flex-direction: row;
-}
-
-.event-delete {
-  right: 1;
-  height: 20px;
-  width: 25px;
-  padding: 0px;
-  margin: 0px;
-  margin-left: 5px;
 }

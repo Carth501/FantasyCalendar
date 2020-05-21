@@ -4,8 +4,16 @@
     </h1>
 
     <div class="sidebarToggle">
-        <button (click)="toggleSettingsSidebar()" class="buttonText">
-            <fa-icon [icon]="faBars" size="4x"></fa-icon>
+        <button 
+            mat-raised-button
+            color="primary"
+            (click)="toggleSettingsSidebar()">
+            <div
+                class="buttonText">
+                <fa-icon 
+                    [icon]="faBars" 
+                    size="4x"></fa-icon>
+            </div>
         </button>
     </div>
 

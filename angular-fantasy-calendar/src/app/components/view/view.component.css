@@ -60,3 +60,7 @@ h1 {
     right: 180px;
     top: 10px;
 }
+
+.buttonText {
+    padding-top: 6px;
+}

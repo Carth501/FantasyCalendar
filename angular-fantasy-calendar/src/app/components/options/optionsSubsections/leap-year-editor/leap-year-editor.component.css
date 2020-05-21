@@ -3,10 +3,6 @@
     flex-direction: row;
 }
 
-.container{
-    width: 200px;
-}
-
 .new-leap-year-panel {
     position: fixed;
     border: black solid 2px;

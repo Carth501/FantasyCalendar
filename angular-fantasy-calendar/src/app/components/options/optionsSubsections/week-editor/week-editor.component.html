@@ -10,18 +10,24 @@
                     [readonly]="idx != (dayOfWeekEditingIndex$ | async)"
                     [(ngModel)]="DoW[idx]"/>
                 <button 
+                    mat-flat-button
+                    color="primary"
                     class="day-edit" 
                     *ngIf="idx != (dayOfWeekEditingIndex$ | async)"
                     (click)="toggleEditWeek(idx)">
                     edit
                 </button>
                 <button 
+                    mat-flat-button
+                    color="primary"
                     class="day-edit" 
                     *ngIf="idx == (dayOfWeekEditingIndex$ | async)"
                     (click)="toggleEditWeek(-1)">
                     close
                 </button>
                 <button 
+                    mat-mini-fab
+                    color="warn"
                     class="dow-delete"
                     (click)= "deleteDoW(idx)"
                     *ngIf="idx == (dayOfWeekEditingIndex$ | async)">
@@ -34,7 +40,10 @@
         matInput
         [(ngModel)]="newDoWName" 
         placeholder="new day of the week"/>
-    <button (click)="addDoW()">
+    <button 
+        mat-flat-button
+        color="primary"
+        (click)="addDoW()">
         add
     </button>
     <div *ngIf="DoW">

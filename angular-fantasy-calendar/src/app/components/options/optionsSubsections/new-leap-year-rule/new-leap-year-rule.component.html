@@ -24,7 +24,10 @@
         type="number"
         [(ngModel)]="candidateLY.leapDayMonth"
         placeholder="month affected"/>
-    <button (click)="addLY()">
+    <button 
+        mat-flat-button
+        color="primary"
+        (click)="addLY()">
         add
     </button>
 </div>

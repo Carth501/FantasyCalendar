@@ -2,66 +2,79 @@
 
     <label>Leap year rules:</label>
 
-    <div class="input-region">
-        <div class="LYLabels">
-            <label>Years</label>
-            <label>Offset</label>
-            <label># of days</label>
-            <label>Month</label>
-        </div>
-        <div  
+    <table class="input-region">
+        <tr 
+        class="LYLabels">
+            <th>Years</th>
+            <th>Offset</th>
+            <th># of days</th>
+            <th>Month</th>
+        </tr>
+        <tr  
         class="LYConfigs" 
         *ngFor="let x of leapYears; let idx = index; trackBy: trackArray">
-            <mat-form-field>
-                <div class="leap-year-rule">
-                    <input 
-                        matInput
-                        class="LYRule" 
-                        type="number" 
-                        [readonly]="idx != (leapYearEditingIndex$ | async)"
-                        [(ngModel)]="leapYears[idx].leapYearCycles"/>
-                    <input 
-                        matInput
-                        class="LYRule"
-                        type="number"
-                        [readonly]="idx != (leapYearEditingIndex$ | async)"
-                        [(ngModel)]="leapYears[idx].leapYearOffset"/>
-                    <input
-                        matInput
-                        class="LYRule"
-                        type="number"
-                        [readonly]="idx != (leapYearEditingIndex$ | async)"
-                        [(ngModel)]="leapYears[idx].leapYearChange"/>
-                    <input
-                        matInput
-                        class="LYRule"
-                        type="number"
-                        [readonly]="idx != (leapYearEditingIndex$ | async)"
-                        [(ngModel)]="leapYears[idx].leapDayMonth"/>
-                    <button 
-                        class="day-edit" 
-                        *ngIf="idx != (leapYearEditingIndex$ | async)"
-                        (click)="toggleEditLeapYear(idx)">
-                        edit
-                    </button>
-                    <button 
-                        class="day-edit" 
-                        *ngIf="idx == (leapYearEditingIndex$ | async)"
-                        (click)="toggleEditLeapYear(-1)">
-                        close
-                    </button>
-                    <button 
-                        class="ly-delete"
-                        *ngIf="idx == (leapYearEditingIndex$ | async)" 
-                        (click)= "deleteLY(idx)">
-                        X
-                    </button>
-                </div>
-            </mat-form-field>
-        </div>
-    </div>
+            <td>
+                <input 
+                    matInput
+                    class="LYRule" 
+                    type="number" 
+                    [readonly]="idx != (leapYearEditingIndex$ | async)"
+                    [(ngModel)]="leapYears[idx].leapYearCycles"/>
+            </td>
+            <td>
+                <input 
+                    matInput
+                    class="LYRule"
+                    type="number"
+                    [readonly]="idx != (leapYearEditingIndex$ | async)"
+                    [(ngModel)]="leapYears[idx].leapYearOffset"/>
+            </td>
+            <td>
+                <input
+                    matInput
+                    class="LYRule"
+                    type="number"
+                    [readonly]="idx != (leapYearEditingIndex$ | async)"
+                    [(ngModel)]="leapYears[idx].leapYearChange"/>
+            </td>
+            <td>
+                <input
+                    matInput
+                    class="LYRule"
+                    type="number"
+                    [readonly]="idx != (leapYearEditingIndex$ | async)"
+                    [(ngModel)]="leapYears[idx].leapDayMonth"/>
+            </td>
+            <button 
+                mat-flat-button
+                color="primary"
+                class="day-edit" 
+                *ngIf="idx != (leapYearEditingIndex$ | async)"
+                (click)="toggleEditLeapYear(idx)">
+                edit
+            </button>
+            <button 
+                mat-flat-button
+                color="primary"
+                class="day-edit" 
+                *ngIf="idx == (leapYearEditingIndex$ | async)"
+                (click)="toggleEditLeapYear(-1)">
+                close
+            </button>
+            <button 
+                mat-mini-fab
+                color="warn"
+                class="ly-delete"
+                *ngIf="idx == (leapYearEditingIndex$ | async)" 
+                (click)= "deleteLY(idx)">
+                X
+            </button>
+        </tr>
+    </table>
 
     <button
+        mat-flat-button
+        color="primary"
         (click)="toggleNewLeapYear()">
         New Leap Year
     </button>

@@ -42,7 +42,11 @@
         [max]="eraListLength + 1"
         placeholder="Era placement"
         autocomplete="off"/>
-    <button class="new-era-create" (click)= "submit()">
+    <button 
+        mat-flat-button
+        color="primary"
+        class="new-era-create"
+        (click)= "submit()">
         add
     </button>
 </div>

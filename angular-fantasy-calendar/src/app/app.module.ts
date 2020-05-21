@@ -28,6 +28,7 @@ import { UniqueFieldsComponent } from './event field components/unique-fields/un
 import { YearMonthlyFieldsComponent } from './event field components/year-monthly-fields/year-monthly-fields.component';
 import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
+import {MatButtonModule} from '@angular/material/button';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
@@ -97,6 +98,7 @@ import { NewLeapYearRuleComponent } from './components/options/optionsSubsection
     ClipboardModule,
     MatSelectModule,
     MatInputModule,
+    MatButtonModule,
     StoreModule.forRoot(
       {
         view: viewReducer.reducer,

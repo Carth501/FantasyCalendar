@@ -94,13 +94,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     "./src/app/components/view/view.component.ts");
 
     var routes = [{
-      path: 'calendar',
+      path: '',
       component: _components_view_view_component__WEBPACK_IMPORTED_MODULE_2__["ViewComponent"]
-    }, {
-      path: '*',
-      redirectTo: '/calendar',
-      pathMatch: 'full'
-    }];
+    }
+    /*
+    ,
+    { path: '', redirectTo: '/calendar', pathMatch: 'full'}
+    */
+    ];
 
     var AppRoutingModule = function AppRoutingModule() {
       _classCallCheck(this, AppRoutingModule);

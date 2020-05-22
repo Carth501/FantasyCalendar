@@ -27,7 +27,7 @@ export class CalendarService {
 
   getCurrentCalendar$(): Observable<Calendar> {
     return combineLatest([this.getCalendarList$(), this.getCurrentCalendarID$()]).pipe(
-      map(([list, id]) => { 
+      map(([list, id]) => {
         if (!!list.length) {
           return list.find(calendar => calendar.calendarID === id);
         } else {

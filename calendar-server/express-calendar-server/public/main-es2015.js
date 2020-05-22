@@ -42,8 +42,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const routes = [
-    { path: 'calendar', component: _components_view_view_component__WEBPACK_IMPORTED_MODULE_2__["ViewComponent"] },
-    { path: '*', redirectTo: '/calendar', pathMatch: 'full' }
+    { path: '', component: _components_view_view_component__WEBPACK_IMPORTED_MODULE_2__["ViewComponent"] }
+    /*
+    ,
+    { path: '', redirectTo: '/calendar', pathMatch: 'full'}
+    */
 ];
 class AppRoutingModule {
 }

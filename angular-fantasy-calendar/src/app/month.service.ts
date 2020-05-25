@@ -219,8 +219,8 @@ export class MonthService {
     return result;
   }
 
-  getNextStartingDoW(settingsMonth: SettingsMonth, startingDoW: number, daysPerWeek: number): number {
-    const newStartingDoW: number = (settingsMonth.length + startingDoW) % daysPerWeek;
+  getNextStartingDoW(monthLength: number, startingDoW: number, daysPerWeek: number): number {
+    const newStartingDoW: number = (monthLength + startingDoW) % daysPerWeek;
     return newStartingDoW;
   }
 

@@ -11,7 +11,7 @@ import { AppComponent } from './app.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { DayComponent } from './components/day/day.component';
 import { EventComponent } from './components/event/event.component';
-import { InMemoryDataService } from './in-memory-data.service';
+// import { InMemoryDataService } from './in-memory-data.service';
 import { MonthComponent } from './components/month/month.component';
 import { NewEventComponent } from './components/new-event/new-event.component';
 import { OptionsComponent } from './components/options/options.component';
@@ -87,12 +87,14 @@ import { NewLeapYearRuleComponent } from './components/options/optionsSubsection
     HttpClientModule,
     FontAwesomeModule,
 
+    /*
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.
     // Remove it when a real server is ready to receive requests.
     HttpClientInMemoryWebApiModule.forRoot(
       InMemoryDataService, { dataEncapsulation: false }
     ),
+    */
 
     BrowserAnimationsModule,
     ClipboardModule,

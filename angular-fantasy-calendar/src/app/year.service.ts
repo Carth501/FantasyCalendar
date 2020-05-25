@@ -35,7 +35,7 @@ export class YearService {
 
       nextDayID = this.monthService.getNextStartingID(nextDayID, monthLengths[month]);
 
-      nextDoW = this.monthService.getNextStartingDoW(months[month], nextDoW, calendar.DoW.length);
+      nextDoW = this.monthService.getNextStartingDoW(monthLengths[month], nextDoW, calendar.DoW.length);
 
       month++;
     }

@@ -46,8 +46,8 @@ h1 {
 }
 
 .calendar-space {
-    margin-top: 62px;
-    height: calc(100% - 62px);
+    margin-top: 82px;
+    height: calc(100% - 82px);
     width: 100%;
     position: fixed;
     overflow-y: scroll;

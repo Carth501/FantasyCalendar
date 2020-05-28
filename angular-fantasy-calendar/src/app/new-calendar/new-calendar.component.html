@@ -7,6 +7,9 @@
             (switchTo)="changeCopyTarget($event)"
             [lookupArray]="calendarKeyValuePairs$ | async">
         </app-calendar-selector>
+    </div>
+    <div
+        class="lower-line">
         <mat-form-field>
             <mat-label>Name the new calendar</mat-label>
             <div
@@ -17,6 +20,7 @@
             </div>
         </mat-form-field>
         <button
+            class="copy-button"
             mat-flat-button
             color="primary"
             (click)="copyTargetCalendar()">

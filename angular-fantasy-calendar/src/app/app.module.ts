@@ -5,13 +5,13 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+// import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { DayComponent } from './components/day/day.component';
 import { EventComponent } from './components/event/event.component';
-// import { InMemoryDataService } from './in-memory-data.service';
+import { InMemoryDataService } from './in-memory-data.service';
 import { MonthComponent } from './components/month/month.component';
 import { NewEventComponent } from './components/new-event/new-event.component';
 import { OptionsComponent } from './components/options/options.component';
@@ -47,6 +47,7 @@ import { CalendarSelectorComponent } from './components/calendar-selector/calend
 import { OptionsEffects } from './store/effects/options.effects';
 import { NewEraComponent } from './components/options/optionsSubsections/new-era/new-era.component';
 import { NewLeapYearRuleComponent } from './components/options/optionsSubsections/new-leap-year-rule/new-leap-year-rule.component';
+import { NewCalendarComponent } from './new-calendar/new-calendar.component';
 
 
 
@@ -78,7 +79,8 @@ import { NewLeapYearRuleComponent } from './components/options/optionsSubsection
     JsonComponent,
     CalendarSelectorComponent,
     NewEraComponent,
-    NewLeapYearRuleComponent
+    NewLeapYearRuleComponent,
+    NewCalendarComponent
   ],
   imports: [
     BrowserModule,

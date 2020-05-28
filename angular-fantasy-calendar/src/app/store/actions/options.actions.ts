@@ -99,3 +99,8 @@ export const toggleJSONOptions = createAction(
     '[Options] Toggle JSON Options',
     props<{ }>()
 );
+
+export const toggleNewCalendarOptions = createAction(
+    '[Options] Toggle New Calendar Options',
+    props<{ }>()
+);

@@ -1,6 +1,9 @@
 <div class="view">
     <h1>
         Custom Calendar
+        <h6>
+            v1.0
+        </h6>
     </h1>
 
     <div class="sidebarToggle">
@@ -20,6 +23,7 @@
     <div class="calendar-selector">
         <app-calendar-selector
             align="center"
+            (switchTo)="switchCalendar($event)"
             [lookupArray]="calendarKeyValuePairs$ | async"></app-calendar-selector>
     </div>
 
@@ -38,7 +42,11 @@
         *ngIf="newEventPanelIsOpen | async">
         <div class="topBar">
             <h3>Create New Event</h3>
-            <button (click)="closeEventWindow()">X</button>
+            <button
+                class="close-event-window"
+                mat-mini-fab
+                color="warn"
+                (click)="closeEventWindow()">X</button>
         </div>
         <app-new-event
         (setWindow)="closeEventWindow()"

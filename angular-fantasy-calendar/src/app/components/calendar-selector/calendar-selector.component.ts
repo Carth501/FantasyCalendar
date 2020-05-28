@@ -25,6 +25,6 @@ export class CalendarSelectorComponent implements OnInit {
 
 
   changeCalendar(change: MatSelectChange): void {
-    this.store.dispatch(changeCalendar({calendarIndex: change.value}));
+    this.switchTo.emit(change.value);
   }
 }

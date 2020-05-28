@@ -1,0 +1,6 @@
+{
+    "/api/calendars": {
+        "target": "http://104.14.24.16:2233/",
+        "secure": false
+    }
+}

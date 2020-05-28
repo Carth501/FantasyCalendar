@@ -78,6 +78,11 @@ export const selectJSONOptionsOpen = createSelector(
     ( state: State ) => state.jsonOptionsOpen
 );
 
+export const selectNewCalendarOptionsOpen = createSelector(
+    selectOptions,
+    ( state: State ) => state.newCalendarOptionsOpen
+);
+
 
 /*
 export const selectCurrentID = createSelector(

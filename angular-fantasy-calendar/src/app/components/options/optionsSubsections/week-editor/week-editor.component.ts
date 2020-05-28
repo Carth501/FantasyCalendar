@@ -47,7 +47,7 @@ export class WeekEditorComponent implements OnInit {
 
   toggleEditWeek(index: number): void {
     this.store.dispatch(dayOfWeekEditingIndex({dayOfWeekEditingIndex: index}));
-    if(index === -1){
+    if (index === -1) {
       this.pushDoW();
     }
   }

@@ -1,12 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { combineLatest, Observable } from 'rxjs';
-import { filter, map, mapTo } from 'rxjs/operators';
+import { combineLatest, Observable, throwError } from 'rxjs';
+import { filter, map, tap } from 'rxjs/operators';
 import { Calendar } from './Calendar';
+import { KeyValuePairsService } from './key-value-pairs.service';
+import { Lookup } from './lookup';
+import { pushCalendar } from './store/actions/calendar.actions';
+import { CalendarSelectors } from './store/selectors';
 import { selectCalendars } from './store/selectors/calendar.selector';
 import { selectCalendarIndex } from './store/selectors/view.selector';
-import { setActiveCalendar } from './store/actions/calendar.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +21,8 @@ export class CalendarService {
 
   constructor(
     private http: HttpClient,
-    private store: Store
+    private store: Store,
+    private keyValuePairsService: KeyValuePairsService
     ) { }
 
   requestCalendar$(): Observable<Calendar[]> {
@@ -37,11 +41,35 @@ export class CalendarService {
     );
   }
 
+  getCalendarByID$(id: number): Observable<Calendar> {
+    const result = this.getCalendarList$().pipe(
+      filter(calendars => !!calendars),
+      map(calendars => calendars.find(c => c.calendarID === id)),
+      tap (calendar => {
+        if (!calendar) {
+          throwError(`ID ${id} not vaild.`);
+        }
+      })
+    );
+    return result;
+  }
+
   getCalendarList$(): Observable<Calendar[]> {
     return this.store.select(selectCalendars);
   }
 
   getCurrentCalendarID$(): Observable<number> {
     return this.store.select(selectCalendarIndex);
+  }
+
+  getCalendarKVP$(): Observable<Lookup[]> {
+    return this.store.select(CalendarSelectors.selectCalendars).pipe(
+      map(calendars =>
+        this.keyValuePairsService.pullLookupsFromCalendarList(calendars))
+    );
+  }
+
+  addNewCalendar(newCalendar: Calendar): void {
+    this.store.dispatch(pushCalendar({newCalendar}));
   }
 }

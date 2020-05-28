@@ -6,7 +6,7 @@ import { CyclicalEvent, WeeklyEvent, MonthlyEvent, YearlyEvent,
   YearlyMonthlyEvent, YearlyMonthlyDayOfWeekEvent, UniqueEvent, MonthlyDayOfWeekEvent } from '../../calendarEvent';
 import { CalendarEventService } from '../../calendar-event.service';
 import { Store } from '@ngrx/store';
-import { toggleOptions, setNewEventPanel } from 'src/app/store/actions/view.actions';
+import { toggleOptions, setNewEventPanel, changeCalendar } from 'src/app/store/actions/view.actions';
 import * as fromSelectors from '../../store/selectors';
 import { Observable, Subscription } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
@@ -43,8 +43,7 @@ export class ViewComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store<any>,
     private calendarService: CalendarService,
-    private calendarEventService: CalendarEventService,
-    private keyValuePairsService: KeyValuePairsService
+    private calendarEventService: CalendarEventService
     ) {
       this.optionsAreClosed$ = this.store.select(fromSelectors.ViewSelectors.selectOptionsClosed);
       this.newEventPanelIsOpen = this.store.select(fromSelectors.ViewSelectors.selectNewEventOpen);
@@ -54,16 +53,9 @@ export class ViewComponent implements OnInit, OnDestroy {
       this.currentCalendarSubscription = this.currentCalendar$.subscribe(
         activeCalendar => this.store.dispatch(CalendarActions.setActiveCalendar({activeCalendar}))
       );
-      this.calendarKeyValuePairs$ = this.getCalendarKVP$();
+      this.calendarKeyValuePairs$ = this.calendarService.getCalendarKVP$();
       this.calendarID$ = this.store.select(fromSelectors.ViewSelectors.selectCalendarIndex);
     }
-
-  getCalendarKVP$(): Observable<Lookup[]> {
-    return this.calendarKeyValuePairs$ = this.calendarList$.pipe(
-      map(calendars =>
-        this.keyValuePairsService.pullLookupsFromCalendarList(calendars))
-    );
-  }
 
   ngOnInit(): void {
     // this.store.dispatch({ type: '[View] Load TotalSettings})
@@ -86,5 +78,9 @@ export class ViewComponent implements OnInit, OnDestroy {
 
   toggleSettingsSidebar(): void {
     this.store.dispatch(toggleOptions({}));
+  }
+
+  switchCalendar(index: number): void {
+    this.store.dispatch(changeCalendar({calendarIndex: index}));
   }
 }

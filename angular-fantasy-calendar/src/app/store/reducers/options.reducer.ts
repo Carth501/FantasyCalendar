@@ -17,6 +17,7 @@ export interface State {
     leapYearOptionsOpen: boolean;
     eventOptionsOpen: boolean;
     jsonOptionsOpen: boolean;
+    newCalendarOptionsOpen: boolean;
 }
 
 export const initialState: State = {
@@ -34,6 +35,7 @@ export const initialState: State = {
     leapYearOptionsOpen: false,
     eventOptionsOpen: false,
     jsonOptionsOpen: false,
+    newCalendarOptionsOpen: false
 };
 
 const optionsReducer = createReducer(
@@ -62,6 +64,7 @@ const optionsReducer = createReducer(
     on(OptionsActions.toggleLeapYearOptions, state => ({ ...state, leapYearOptionsOpen: !state.leapYearOptionsOpen})),
     on(OptionsActions.toggleEventOptions, state => ({ ...state, eventOptionsOpen: !state.eventOptionsOpen})),
     on(OptionsActions.toggleJSONOptions, state => ({ ...state, jsonOptionsOpen: !state.jsonOptionsOpen})),
+    on(OptionsActions.toggleNewCalendarOptions, state => ({ ...state, newCalendarOptionsOpen: !state.newCalendarOptionsOpen})),
 
 );
 

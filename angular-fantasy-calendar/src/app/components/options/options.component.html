@@ -76,5 +76,16 @@
                 *ngIf="jsonOpen$ | async"
                 [calendar]="calendarObject$ | async"></app-json>
         </div>
+
+        <div class="settings-option">
+            <button 
+                mat-flat-button
+                color="primary"
+                (click)="toggleNewCalendarOptions()">
+                New Calendar Operations</button>
+            <app-new-calendar
+                *ngIf="newCalendarOpen$ | async">
+            </app-new-calendar>
+        </div>
     </div>
 </div>

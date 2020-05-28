@@ -14,8 +14,6 @@ import { CalendarService } from 'src/app/calendar.service';
 import { OptionsActions, CalendarActions } from 'src/app/store/actions';
 import * as _ from 'lodash';
 import { toggleOptions } from 'src/app/store/actions/view.actions';
-import { selectYearOptionsOpen, selectMonthOptionsOpen, selectWeekOptionsOpen, selectLeapYearOptionsOpen, selectEventOptionsOpen, selectJSONOptionsOpen } from 'src/app/store/selectors/options.selector';
-import { toggleYearOptions, toggleMonthOptions, toggleWeekOptions, toggleLeapYearOptions, toggleEventOptions, toggleJSONOptions } from 'src/app/store/actions/options.actions';
 
 @Component({
   selector: 'app-options',
@@ -48,6 +46,7 @@ export class OptionsComponent implements OnDestroy {
   leapYearOpen$: Observable<boolean>;
   eventOpen$: Observable<boolean>;
   jsonOpen$: Observable<boolean>;
+  newCalendarOpen$: Observable<boolean>;
 
   constructor(
     private store: Store<any>,
@@ -85,12 +84,13 @@ export class OptionsComponent implements OnDestroy {
             this.jumpToYear(value);
           });
           */
-      this.yearOpen$ = this.store.select(selectYearOptionsOpen);
-      this.monthOpen$ = this.store.select(selectMonthOptionsOpen);
-      this.weekOpen$ = this.store.select(selectWeekOptionsOpen);
-      this.leapYearOpen$ = this.store.select(selectLeapYearOptionsOpen);
-      this.eventOpen$ = this.store.select(selectEventOptionsOpen);
-      this.jsonOpen$ = this.store.select(selectJSONOptionsOpen);
+      this.yearOpen$ = this.store.select(OptionsSelectors.selectYearOptionsOpen);
+      this.monthOpen$ = this.store.select(OptionsSelectors.selectMonthOptionsOpen);
+      this.weekOpen$ = this.store.select(OptionsSelectors.selectWeekOptionsOpen);
+      this.leapYearOpen$ = this.store.select(OptionsSelectors.selectLeapYearOptionsOpen);
+      this.eventOpen$ = this.store.select(OptionsSelectors.selectEventOptionsOpen);
+      this.jsonOpen$ = this.store.select(OptionsSelectors.selectJSONOptionsOpen);
+      this.newCalendarOpen$ = this.store.select(OptionsSelectors.selectNewCalendarOptionsOpen);
     }
 
     ngOnDestroy(): void {
@@ -109,26 +109,30 @@ export class OptionsComponent implements OnDestroy {
   }
 
   toggleYearOptions(): void {
-    this.store.dispatch(toggleYearOptions({}));
+    this.store.dispatch(OptionsActions.toggleYearOptions({}));
   }
 
   toggleMonthOptions(): void {
-    this.store.dispatch(toggleMonthOptions({}));
+    this.store.dispatch(OptionsActions.toggleMonthOptions({}));
   }
 
   toggleWeekOptions(): void {
-    this.store.dispatch(toggleWeekOptions({}));
+    this.store.dispatch(OptionsActions.toggleWeekOptions({}));
   }
 
   toggleLeapYearOptions(): void {
-    this.store.dispatch(toggleLeapYearOptions({}));
+    this.store.dispatch(OptionsActions.toggleLeapYearOptions({}));
   }
 
   toggleEventOptions(): void {
-    this.store.dispatch(toggleEventOptions({}));
+    this.store.dispatch(OptionsActions.toggleEventOptions({}));
   }
 
   toggleJSONOptions(): void {
-    this.store.dispatch(toggleJSONOptions({}));
+    this.store.dispatch(OptionsActions.toggleJSONOptions({}));
+  }
+
+  toggleNewCalendarOptions(): void {
+    this.store.dispatch(OptionsActions.toggleNewCalendarOptions({}));
   }
 }

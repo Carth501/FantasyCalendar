@@ -1,0 +1,26 @@
+<div
+    class="copy-calendar">
+    <div> Copy a calendar: </div>
+    <div class="calendar-selector">
+        <app-calendar-selector
+            align="center"
+            (switchTo)="changeCopyTarget($event)"
+            [lookupArray]="calendarKeyValuePairs$ | async">
+        </app-calendar-selector>
+        <mat-form-field>
+            <mat-label>Name the new calendar</mat-label>
+            <div
+                [ngClass]="newNameHighlighted ? 'highlight' : ''">
+                <input
+                    [(ngModel)]="newCalendarName"
+                    matInput/>
+            </div>
+        </mat-form-field>
+        <button
+            mat-flat-button
+            color="primary"
+            (click)="copyTargetCalendar()">
+            Copy
+        </button>
+    </div>
+</div>

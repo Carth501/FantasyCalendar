@@ -24,11 +24,6 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 db.once('open', function() {
-  db.db.collection('calendars', function(err, collection) { 
-    collection.find({}).toArray(function(err, data){
-      calendarList = data;
-    });
-  });
 
   console.log('MongoDB connection success!');
   dbConnected = true;
@@ -92,11 +87,20 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/api/calendars', (req, res) => {
+  if (!dbConnected) {
+    res.statusCode(503)
+    return;
+  }
   const calendars = getCalendars();
   res.send(calendars)
 })
 
 function getCalendars() {
+  db.db.collection('calendars', function(err, collection) { 
+    collection.find({}).toArray(function(err, data){
+      calendarList = data;
+    });
+  });
   //silence.speak();
   return calendarList;
 }

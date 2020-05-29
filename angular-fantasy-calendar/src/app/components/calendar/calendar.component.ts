@@ -1,11 +1,13 @@
-import { Component, Input, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { faArrowAltCircleLeft, faArrowAltCircleRight } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
 import { Subject, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { Calendar } from 'src/app/Calendar';
+import * as fromActions from '../../store/actions';
 import { Year } from '../../year';
 import { YearService } from '../../year.service';
+import { CalendarService } from 'src/app/calendar.service';
 
 @Component({
   selector: 'app-calendar',
@@ -48,7 +50,8 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
   constructor(
     private store: Store<any>,
-    private yearService: YearService) {
+    private yearService: YearService,
+    private calendarService: CalendarService) {
       // Debounce search.
       this.userYearChangeSubscription = this.userYearChange.pipe(
         debounceTime(400),
@@ -74,6 +77,19 @@ export class CalendarComponent implements OnInit, OnDestroy {
       this.yearStartingDOW = this.calendar.year.startingDoW;
       this.currentEra = this.calendar.year.currentEra;
       this.currentYear = this.calendar.year.currentYear;
+      if (IncomingSettings.events) {
+        const newTagList = this.calendarService.generateTagList(this.calendar.events);
+        this.store.dispatch(
+          fromActions.CalendarActions.setTagList(
+            { newTagList }
+          )
+        );
+        this.store.dispatch(
+          fromActions.CalendarActions.changeFilter(
+            { newFilter: newTagList }
+          )
+        );
+      }
       this.generateDisplayYear();
     }
   }

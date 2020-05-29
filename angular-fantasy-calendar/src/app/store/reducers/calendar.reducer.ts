@@ -5,11 +5,15 @@ import { Calendar } from 'src/app/Calendar';
 export interface State {
     calendarList: Calendar[];
     activeCalendar: Calendar;
+    tagList: string[];
+    currentFilter: string[];
 }
 
 export const initialState: State = {
     calendarList: [],
-    activeCalendar: null
+    activeCalendar: null,
+    tagList: [],
+    currentFilter: []
 };
 
 const optionsReducer = createReducer(
@@ -18,7 +22,14 @@ const optionsReducer = createReducer(
     on(CalendarActions.pushCalendar, (state, {newCalendar}) => ({ ...state, calendarList: addCalendar(state.calendarList, newCalendar)})),
 
     on(CalendarActions.setCalendarList, (state, {newCalendarList}) => ({ ...state, calendarList: newCalendarList})),
-    on(CalendarActions.setActiveCalendar, (state, {activeCalendar}) => ({...state, activeCalendar}))
+    on(CalendarActions.setActiveCalendar, (state, {activeCalendar}) => ({...state, activeCalendar})),
+    on(CalendarActions.setTagList, (state, {newTagList}) => ({ ...state, tagList: newTagList })),
+    on(CalendarActions.createTag, (state, {newTag}) => ({ ...state, tagList: {...state.tagList, newTag} })),
+    on(CalendarActions.deleteTag, (state, {targetTag}) => {
+        const tagList = state.tagList.filter(tag => tag !== targetTag);
+        return { ...state, tagList };
+    }),
+    on(CalendarActions.changeFilter, (state, {newFilter}) => ({ ...state, currentFilter: newFilter })),
 );
 
 export function reducer(state: State | undefined, action: Action) {

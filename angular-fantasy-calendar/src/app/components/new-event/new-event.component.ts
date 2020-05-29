@@ -103,28 +103,32 @@ export class NewEventComponent {
         title: this.title,
         offset: this.offset,
         duration: this.duration,
-        repeatDays: this.repeatDays
+        repeatDays: this.repeatDays,
+        tags: []
       };
       this.newCyclicalEvent.emit(newCalendarEvent);
     } else if (this.eventType === 'yearly') {
       const newCalendarEvent: YearlyEvent = {
         title: this.title,
         offset: this.offset,
-        duration: this.duration
+        duration: this.duration,
+        tags: []
       };
       this.newYearlyEvent.emit(newCalendarEvent);
     } else if (this.eventType === 'monthly') {
       const newCalendarEvent: MonthlyEvent = {
         title: this.title,
         offset: this.offset,
-        duration: this.duration
+        duration: this.duration,
+        tags: []
       };
       this.newMonthlyEvent.emit(newCalendarEvent);
     } else if (this.eventType === 'weekly') {
       const newCalendarEvent: WeeklyEvent = {
         title: this.title,
         offset: this.offset,
-        duration: this.duration
+        duration: this.duration,
+        tags: []
       };
       this.newWeeklyEvent.emit(newCalendarEvent);
     } else if (this.eventType === 'monthDOW') {
@@ -132,6 +136,7 @@ export class NewEventComponent {
         title: this.title,
         offset: this.offset,
         duration: this.duration,
+        tags: [],
         weekOffset: this.weekOffset
       };
       this.newMonthDOWEvent.emit(newCalendarEvent);
@@ -140,6 +145,7 @@ export class NewEventComponent {
         title: this.title,
         offset: this.offset,
         duration: this.duration,
+        tags: [],
         weekOffset: this.weekOffset,
         monthOffset: this.monthOffset
       };
@@ -149,6 +155,7 @@ export class NewEventComponent {
         title: this.title,
         offset: this.offset,
         duration: this.duration,
+        tags: [],
         monthOffset: this.monthOffset
       };
       this.newYearMonthlyEvent.emit(newCalendarEvent);
@@ -156,7 +163,8 @@ export class NewEventComponent {
       const newCalendarEvent: UniqueEvent = {
         title: this.title,
         offset: this.clickedDayID,
-        duration: this.duration
+        duration: this.duration,
+        tags: []
       };
       this.newUniqueEvent.emit(newCalendarEvent);
     }

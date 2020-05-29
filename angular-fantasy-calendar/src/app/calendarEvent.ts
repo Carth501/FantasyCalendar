@@ -2,6 +2,7 @@ export interface CalendarEvent { // basic calendar event
     title: string;
     duration: number;
     offset: number;
+    tags: string[];
 }
 
 export interface EventLists {
@@ -67,21 +68,25 @@ export const EMPTY_CYCLICAL_EVENT: CyclicalEvent = {
     title: null,
     duration: null,
     offset: null,
-    repeatDays: null
+    repeatDays: null,
+    tags: []
 };
 
 export const EMPTY_WEEKLY_EVENT: WeeklyEvent = {
     title: null,
     duration: null,
-    offset: null
+    offset: null,
+    tags: []
 };
 export const EMPTY_MONTHLY_EVENT: MonthlyEvent = {
     title: null,
     duration: null,
-    offset: null
+    offset: null,
+    tags: []
 };
 export const EMPTY_YEARLY_EVENT: YearlyEvent = {
     title: null,
     duration: null,
-    offset: null
+    offset: null,
+    tags: []
 };

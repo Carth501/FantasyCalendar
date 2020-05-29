@@ -10,6 +10,7 @@ import { pushCalendar } from './store/actions/calendar.actions';
 import { CalendarSelectors } from './store/selectors';
 import { selectCalendars } from './store/selectors/calendar.selector';
 import { selectCalendarIndex } from './store/selectors/view.selector';
+import { EventLists } from './calendarEvent';
 
 @Injectable({
   providedIn: 'root'
@@ -71,5 +72,85 @@ export class CalendarService {
 
   addNewCalendar(newCalendar: Calendar): void {
     this.store.dispatch(pushCalendar({newCalendar}));
+  }
+
+  generateTagList(eventLists: EventLists): string[] {
+    const result = [];
+    eventLists.cyclicalEvents.forEach(event => {
+      if (!!event.tags) {
+        event.tags.forEach(tag => {
+          if (!result.includes(tag)) {
+            result.push(tag);
+          }
+        });
+      }
+    });
+    eventLists.monthDOWEvents.forEach(event => {
+      if (!!event.tags) {
+        event.tags.forEach(tag => {
+          if (!result.includes(tag)) {
+            result.push(tag);
+          }
+        });
+      }
+    });
+    eventLists.monthlyEvents.forEach(event => {
+      if (!!event.tags) {
+        event.tags.forEach(tag => {
+          if (!result.includes(tag)) {
+            result.push(tag);
+          }
+        });
+      }
+    });
+    console.log('unique event list found:' + !!eventLists.uniqueEvents);
+    eventLists.uniqueEvents.forEach(event => {
+      console.log('tag list found:' + !!event.tags);
+      if (!!event.tags) {
+        event.tags.forEach(tag => {
+          console.log('tag:' + tag);
+          if (!result.includes(tag)) {
+            result.push(tag);
+          }
+        });
+      }
+    });
+    eventLists.weeklyEvents.forEach(event => {
+      if (!!event.tags) {
+        event.tags.forEach(tag => {
+          if (!result.includes(tag)) {
+            result.push(tag);
+          }
+        });
+      }
+    });
+    eventLists.yearMonthDOWEvents.forEach(event => {
+      if (!!event.tags) {
+        event.tags.forEach(tag => {
+          if (!result.includes(tag)) {
+            result.push(tag);
+          }
+        });
+      }
+    });
+    eventLists.yearlyEvents.forEach(event => {
+      if (!!event.tags) {
+        event.tags.forEach(tag => {
+          if (!result.includes(tag)) {
+            result.push(tag);
+          }
+        });
+      }
+    });
+    eventLists.yearlyMonthlyEvents.forEach(event => {
+      if (!!event.tags) {
+        event.tags.forEach(tag => {
+          if (!result.includes(tag)) {
+            result.push(tag);
+          }
+        });
+      }
+    });
+    return result;
   }
 }

@@ -11,7 +11,7 @@ import { AppComponent } from './app.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { DayComponent } from './components/day/day.component';
 import { EventComponent } from './components/event/event.component';
-import { InMemoryDataService } from './in-memory-data.service';
+// import { InMemoryDataService } from './in-memory-data.service';
 import { MonthComponent } from './components/month/month.component';
 import { NewEventComponent } from './components/new-event/new-event.component';
 import { OptionsComponent } from './components/options/options.component';
@@ -48,6 +48,7 @@ import { OptionsEffects } from './store/effects/options.effects';
 import { NewEraComponent } from './components/options/optionsSubsections/new-era/new-era.component';
 import { NewLeapYearRuleComponent } from './components/options/optionsSubsections/new-leap-year-rule/new-leap-year-rule.component';
 import { NewCalendarComponent } from './new-calendar/new-calendar.component';
+import { FiltersComponent } from './components/filters/filters.component';
 
 
 
@@ -80,7 +81,8 @@ import { NewCalendarComponent } from './new-calendar/new-calendar.component';
     CalendarSelectorComponent,
     NewEraComponent,
     NewLeapYearRuleComponent,
-    NewCalendarComponent
+    NewCalendarComponent,
+    FiltersComponent
   ],
   imports: [
     BrowserModule,

@@ -20,3 +20,17 @@ export const selectActiveCalendar = createSelector(
         return state.activeCalendar;
     }
 );
+
+export const selectTagList = createSelector(
+    calendarView,
+    ( state: State ) => {
+        return state.tagList;
+    }
+);
+
+export const selectFilter = createSelector(
+    calendarView,
+    ( state: State ) => {
+        return state.currentFilter;
+    }
+);

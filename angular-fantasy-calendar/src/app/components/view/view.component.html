@@ -6,6 +6,15 @@
         </h6>
     </h1>
 
+    <div
+        class="filter-region">
+        <app-filters
+            [tagList]="tagList$ | async"
+            [filter]="filter$ | async">
+
+        </app-filters>
+    </div>
+
     <div class="sidebarToggle">
         <button 
             mat-raised-button

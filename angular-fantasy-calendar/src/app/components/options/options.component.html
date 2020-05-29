@@ -66,16 +66,15 @@
                 [setEventLists]="events$ | async"></app-events-editor>
         </div>
 
+        <!--
         <div class="settings-option">
             <button 
                 mat-flat-button
                 color="primary"
                 (click)="toggleJSONOptions()">
                 JSON Options</button>
-            <app-json
-                *ngIf="jsonOpen$ | async"
-                [calendar]="calendarObject$ | async"></app-json>
         </div>
+        -->
 
         <div class="settings-option">
             <button 
@@ -83,9 +82,12 @@
                 color="primary"
                 (click)="toggleNewCalendarOptions()">
                 New Calendar</button>
-            <app-new-calendar
-                *ngIf="newCalendarOpen$ | async">
-            </app-new-calendar>
+                <app-new-calendar
+                    *ngIf="newCalendarOpen$ | async">
+                </app-new-calendar>
+                <app-json
+                    *ngIf="newCalendarOpen$ | async"
+                    [calendar]="calendarObject$ | async"></app-json>
         </div>
     </div>
 </div>

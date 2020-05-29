@@ -4,11 +4,15 @@ import { CyclicalEvent, MonthlyDayOfWeekEvent, MonthlyEvent, UniqueEvent, Weekly
   YearlyEvent, YearlyMonthlyDayOfWeekEvent, YearlyMonthlyEvent, EventLists } from './calendarEvent';
 import { Calendar } from './Calendar';
 
+  /*
 @Injectable({
   providedIn: 'root',
 })
+
+
 export class InMemoryDataService implements InMemoryDbService {
   createDb() {
+
     const defaultCalendarID = 0;
     const defaultCalendarName = 'Gregorian Calendar';
     const defaultUniqueEvents: UniqueEvent[] = [
@@ -246,3 +250,4 @@ export class InMemoryDataService implements InMemoryDbService {
   //   return heroes.length > 0 ? Math.max(...heroes.map(hero => hero.id)) + 1 : 11;
   // }
 }
+  */

@@ -1,9 +1,5 @@
 import { createAction, props } from '@ngrx/store';
 import { Calendar } from 'src/app/Calendar';
-import { YearMath } from 'src/app/yearMath';
-import { EventLists } from 'src/app/calendarEvent';
-import { LeapYear } from 'src/app/leapYear';
-import { SettingsMonth } from 'src/app/settingsMonth';
 
 export const setActiveCalendar = createAction(
     '[Calendar] Set Active Calendar',
@@ -18,4 +14,24 @@ export const pushCalendar = createAction(
 export const setCalendarList = createAction(
     '[Calendar] Set Calendar List',
     props<{ newCalendarList: Calendar[] }>()
+);
+
+export const setTagList = createAction(
+    '[View] Set Tag List',
+    props<{ newTagList: string[] }>()
+);
+
+export const createTag = createAction(
+    '[View] Create Tag',
+    props<{ newTag: string }>()
+);
+
+export const deleteTag = createAction(
+    '[View] Delete Tag',
+    props<{ targetTag: string }>()
+);
+
+export const changeFilter = createAction(
+    '[View] changeFilter',
+    props<{ newFilter: string[] }>()
 );

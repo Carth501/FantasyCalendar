@@ -1,20 +1,16 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { faArrowAltCircleUp, faBars } from '@fortawesome/free-solid-svg-icons';
-import * as _ from 'lodash';
-import { CalendarService } from '../../calendar.service';
-import { CyclicalEvent, WeeklyEvent, MonthlyEvent, YearlyEvent,
-  YearlyMonthlyEvent, YearlyMonthlyDayOfWeekEvent, UniqueEvent, MonthlyDayOfWeekEvent } from '../../calendarEvent';
-import { CalendarEventService } from '../../calendar-event.service';
 import { Store } from '@ngrx/store';
-import { toggleOptions, setNewEventPanel, changeCalendar } from 'src/app/store/actions/view.actions';
-import * as fromSelectors from '../../store/selectors';
-import { Observable, Subscription } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
-import { CalendarSelectors } from '../../store/selectors';
+import { Observable, Subscription, of } from 'rxjs';
 import { Calendar } from 'src/app/Calendar';
 import { Lookup } from 'src/app/lookup';
-import { KeyValuePairsService } from 'src/app/key-value-pairs.service';
 import { CalendarActions } from 'src/app/store/actions';
+import { changeCalendar, setNewEventPanel, toggleOptions } from 'src/app/store/actions/view.actions';
+import { CalendarEventService } from '../../calendar-event.service';
+import { CalendarService } from '../../calendar.service';
+import * as fromSelectors from '../../store/selectors';
+import { CalendarSelectors } from '../../store/selectors';
+import { startWith, delay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-view',
@@ -39,6 +35,8 @@ export class ViewComponent implements OnInit, OnDestroy {
   calendarID$: Observable<number>;
 
   optionsAreClosed$: Observable<boolean>;
+  filter$: Observable<string[]>;
+  tagList$: Observable<string[]>;
 
   constructor(
     private store: Store<any>,
@@ -60,6 +58,12 @@ export class ViewComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     // this.store.dispatch({ type: '[View] Load TotalSettings})
     this.getDefaultSettings();
+    this.tagList$ = this.store.select(fromSelectors.CalendarSelectors.selectTagList).pipe(
+      delay(0)
+    );
+    this.filter$ = this.store.select(fromSelectors.CalendarSelectors.selectFilter).pipe(
+      delay(0)
+    );
   }
 
   ngOnDestroy(): void {

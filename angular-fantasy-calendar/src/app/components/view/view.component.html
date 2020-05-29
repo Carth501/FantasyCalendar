@@ -8,9 +8,19 @@
 
     <div
         class="filter-region">
+        <div
+            class="toggle-filter-button">
+            <button
+                mat-raised-button
+                color="primary"
+                (click)="toggleFilterPanel()">
+                Filter Panel
+            </button>
+        </div>
         <app-filters
-            [tagList]="tagList$ | async"
-            [filter]="filter$ | async">
+            *ngIf="openFilterPanel$ | async"
+            [setTagList]="tagList$ | async"
+            [setFilter]="filter$ | async">
 
         </app-filters>
     </div>

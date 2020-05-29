@@ -7,13 +7,15 @@ export interface State {
     activeCalendar: Calendar;
     tagList: string[];
     currentFilter: string[];
+    openFilterPanel: boolean;
 }
 
 export const initialState: State = {
     calendarList: [],
     activeCalendar: null,
     tagList: [],
-    currentFilter: []
+    currentFilter: [],
+    openFilterPanel: false
 };
 
 const optionsReducer = createReducer(
@@ -30,6 +32,7 @@ const optionsReducer = createReducer(
         return { ...state, tagList };
     }),
     on(CalendarActions.changeFilter, (state, {newFilter}) => ({ ...state, currentFilter: newFilter })),
+    on(CalendarActions.toggleFilterPanel, (state, {}) => ({ ...state, openFilterPanel: !state.openFilterPanel })),
 );
 
 export function reducer(state: State | undefined, action: Action) {

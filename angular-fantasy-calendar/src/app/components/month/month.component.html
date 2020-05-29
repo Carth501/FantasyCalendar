@@ -9,7 +9,9 @@
     <tr *ngFor="let week of month.weeks" class="week-repeater">
         <td *ngFor="let day of week.days" class="day-repeater">
             <div *ngIf="day" class="day-container">
-                <app-day [day]="day"></app-day>
+                <app-day 
+                    [day]="day">
+                </app-day>
             </div>
         </td>
     </tr>

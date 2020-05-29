@@ -34,3 +34,10 @@ export const selectFilter = createSelector(
         return state.currentFilter;
     }
 );
+
+export const selectOpenFilterPanel = createSelector(
+    calendarView,
+    ( state: State ) => {
+        return state.openFilterPanel;
+    }
+);

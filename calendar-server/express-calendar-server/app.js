@@ -91,18 +91,15 @@ app.get('/api/calendars', (req, res) => {
     res.statusCode(503)
     return;
   }
-  const calendars = getCalendars();
-  res.send(calendars)
+  loadCalendars(calendar => res.send(calendar));
 })
 
-function getCalendars() {
+function loadCalendars(callback) {
   db.db.collection('calendars', function(err, collection) { 
-    collection.find({}).toArray(function(err, data){
-      calendarList = data;
+    collection.find({}).toArray(function(err, calendars){
+      callback(calendars);
     });
   });
-  //silence.speak();
-  return calendarList;
 }
 
 

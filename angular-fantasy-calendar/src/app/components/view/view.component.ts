@@ -1,16 +1,17 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { faArrowAltCircleUp, faBars } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
-import { Observable, Subscription, of } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
+import { delay } from 'rxjs/operators';
 import { Calendar } from 'src/app/Calendar';
 import { Lookup } from 'src/app/lookup';
 import { CalendarActions } from 'src/app/store/actions';
+import { toggleFilterPanel } from 'src/app/store/actions/calendar.actions';
 import { changeCalendar, setNewEventPanel, toggleOptions } from 'src/app/store/actions/view.actions';
 import { CalendarEventService } from '../../calendar-event.service';
 import { CalendarService } from '../../calendar.service';
 import * as fromSelectors from '../../store/selectors';
 import { CalendarSelectors } from '../../store/selectors';
-import { startWith, delay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-view',
@@ -37,6 +38,7 @@ export class ViewComponent implements OnInit, OnDestroy {
   optionsAreClosed$: Observable<boolean>;
   filter$: Observable<string[]>;
   tagList$: Observable<string[]>;
+  openFilterPanel$: Observable<boolean>;
 
   constructor(
     private store: Store<any>,
@@ -53,6 +55,7 @@ export class ViewComponent implements OnInit, OnDestroy {
       );
       this.calendarKeyValuePairs$ = this.calendarService.getCalendarKVP$();
       this.calendarID$ = this.store.select(fromSelectors.ViewSelectors.selectCalendarIndex);
+      this.openFilterPanel$ = this.store.select(fromSelectors.CalendarSelectors.selectOpenFilterPanel);
     }
 
   ngOnInit(): void {
@@ -70,6 +73,10 @@ export class ViewComponent implements OnInit, OnDestroy {
     if (this.currentCalendarSubscription) {
       this.currentCalendarSubscription.unsubscribe();
     }
+  }
+
+  toggleFilterPanel(): void {
+    this.store.dispatch(toggleFilterPanel({}));
   }
 
   getDefaultSettings(): void {

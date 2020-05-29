@@ -8,31 +8,36 @@
         </div>
     </div>
     <div class="day-content">
-        <ul>
-            <li *ngFor="let cyclicalEvent of day.cyclicalEvents">
-                {{cyclicalEvent.title}}
-            </li>
-            <li *ngFor="let uniqueEvent of day.uniqueEvents">
-                {{uniqueEvent.title}}
-            </li>
-            <li *ngFor="let yearMonthlyEvent of day.yearMonthlyEvents">
-                {{yearMonthlyEvent.title}}
-            </li>
-            <li *ngFor="let yearMonthDOWEvent of day.yearMonthDOWEvents">
-                {{yearMonthDOWEvent.title}}
-            </li>
-            <li *ngFor="let yearlyEvent of day.yearlyEvents">
-                {{yearlyEvent.title}}
-            </li>
-            <li *ngFor="let monthlyEvent of day.monthlyEvents">
-                {{monthlyEvent.title}}
-            </li>
-            <li *ngFor="let weeklyEvent of day.weeklyEvents">
-                {{weeklyEvent.title}}
-            </li>
-            <li *ngFor="let monthDOWEvent of day.monthDOWEvents">
-                {{monthDOWEvent.title}}
-            </li>
-        </ul>
+        <div *ngFor="let bubble of bubbles$ | async">
+            <app-event-bubbles 
+                [eventName]="bubble">
+            </app-event-bubbles>
+        </div>
+
+        <!-- <div *ngFor="let cyclicalEvent of day.cyclicalEvents">
+            {{cyclicalEvent.title}}
+        </div>
+        <div *ngFor="let uniqueEvent of day.uniqueEvents">
+            
+            {{uniqueEvent.title}}
+        </div>
+        <div *ngFor="let yearMonthlyEvent of day.yearMonthlyEvents">
+            {{yearMonthlyEvent.title}}
+        </div>
+        <div *ngFor="let yearMonthDOWEvent of day.yearMonthDOWEvents">
+            {{yearMonthDOWEvent.title}}
+        </div>
+        <div *ngFor="let yearlyEvent of day.yearlyEvents">
+            {{yearlyEvent.title}}
+        </div>
+        <div *ngFor="let monthlyEvent of day.monthlyEvents">
+            {{monthlyEvent.title}}
+        </div>
+        <div *ngFor="let weeklyEvent of day.weeklyEvents">
+            {{weeklyEvent.title}}
+        </div>
+        <div *ngFor="let monthDOWEvent of day.monthDOWEvents">
+            {{monthDOWEvent.title}}
+        </div> -->
     </div>
 </div>

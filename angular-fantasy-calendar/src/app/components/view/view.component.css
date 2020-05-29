@@ -67,3 +67,15 @@ h1 {
 .buttonText {
     padding-top: 6px;
 }
+
+.filter-region {
+    z-index: 1;
+    position: absolute;
+    top: 200px;
+    border: black 2px solid;
+    background-color: rgba(190, 190, 190);
+}
+
+.toggle-filter-button {
+    padding: 4px;
+}

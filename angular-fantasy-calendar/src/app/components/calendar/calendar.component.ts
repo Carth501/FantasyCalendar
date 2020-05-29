@@ -1,13 +1,14 @@
 import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { faArrowAltCircleLeft, faArrowAltCircleRight } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
-import { Subject, Subscription } from 'rxjs';
+import { Subject, Subscription, Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { Calendar } from 'src/app/Calendar';
 import * as fromActions from '../../store/actions';
 import { Year } from '../../year';
 import { YearService } from '../../year.service';
 import { CalendarService } from 'src/app/calendar.service';
+import { selectFilter } from 'src/app/store/selectors/calendar.selector';
 
 @Component({
   selector: 'app-calendar',
@@ -47,6 +48,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
   userYearChangeSubscription: Subscription;
 
+  eventFilter$: Observable<string[]>;
 
   constructor(
     private store: Store<any>,
@@ -58,8 +60,11 @@ export class CalendarComponent implements OnInit, OnDestroy {
         distinctUntilChanged())
         .subscribe(value => {
           this.jumpToYear(value);
-        });
-      }
+        }
+      );
+
+      this.eventFilter$ = this.store.select(selectFilter);
+    }
 
   ngOnInit(): void {
   }

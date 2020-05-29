@@ -49,6 +49,7 @@ import { NewEraComponent } from './components/options/optionsSubsections/new-era
 import { NewLeapYearRuleComponent } from './components/options/optionsSubsections/new-leap-year-rule/new-leap-year-rule.component';
 import { NewCalendarComponent } from './new-calendar/new-calendar.component';
 import { FiltersComponent } from './components/filters/filters.component';
+import { EventBubblesComponent } from './components/day/event-bubbles/event-bubbles.component';
 
 
 
@@ -82,7 +83,8 @@ import { FiltersComponent } from './components/filters/filters.component';
     NewEraComponent,
     NewLeapYearRuleComponent,
     NewCalendarComponent,
-    FiltersComponent
+    FiltersComponent,
+    EventBubblesComponent
   ],
   imports: [
     BrowserModule,

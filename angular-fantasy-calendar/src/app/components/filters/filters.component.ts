@@ -1,6 +1,7 @@
 import { Component, Input, } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromActions from '../../store/actions';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-filters',
@@ -10,22 +11,30 @@ import * as fromActions from '../../store/actions';
 export class FiltersComponent {
 
 
-  @Input() filter: string[];
-  @Input() tagList: string[];
+  @Input() set setTagList(tags: string[]) {
+    this.tagList = _.cloneDeep(tags);
+  }
+  @Input() set setFilter(filter: string[]) {
+    this.filter = _.cloneDeep(filter);
+  }
+
+  filter: string[];
+  tagList: string[];
 
   constructor(
     private store: Store,
   ) {
   }
- 
+
    toggleTagFilter(tag: string): void {
+     console.log(tag);
      const index = this.filter.indexOf(tag);
      if (index === -1) {
        this.filter.push(tag);
-       this.store.dispatch(fromActions.CalendarActions.changeFilter({newFilter: this.filter}));
      } else {
        this.filter.splice(index, 1);
-       this.store.dispatch(fromActions.CalendarActions.changeFilter({newFilter: this.filter}));
      }
+     const newFilter = _.cloneDeep(this.filter);
+     this.store.dispatch(fromActions.CalendarActions.changeFilter({ newFilter }));
    }
 }

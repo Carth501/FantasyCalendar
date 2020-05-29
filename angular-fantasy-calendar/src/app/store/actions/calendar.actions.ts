@@ -32,6 +32,11 @@ export const deleteTag = createAction(
 );
 
 export const changeFilter = createAction(
-    '[View] changeFilter',
+    '[View] Change Filter',
     props<{ newFilter: string[] }>()
+);
+
+export const toggleFilterPanel = createAction(
+    '[View] Toggle Filter Panel',
+    props<{}>()
 );

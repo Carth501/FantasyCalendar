@@ -1,4 +1,3 @@
-<div *ngIf="tagList && tagList.length >= 0 && filter && filter.length >= 0" >inclusive or exclusive filtering toggle here</div>
 
 <div
     class="filter-display"
@@ -15,7 +14,7 @@
         <button
             *ngIf="filter.includes(tag)"
             mat-raised-button
-            color="primary"
+            color="warn"
             (click)="toggleTagFilter(tag)">
             {{tag}}
         </button>

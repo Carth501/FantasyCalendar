@@ -23,7 +23,7 @@ export class DayComponent implements OnInit {
     private store: Store<any>,
     private dayService: DayService) {
   }
-  
+
   ngOnInit() {
     this.bubbles$ = this.getEventBubbles$();
   }

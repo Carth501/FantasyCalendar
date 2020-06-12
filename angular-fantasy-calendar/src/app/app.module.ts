@@ -50,6 +50,7 @@ import { NewLeapYearRuleComponent } from './components/options/optionsSubsection
 import { NewCalendarComponent } from './new-calendar/new-calendar.component';
 import { FiltersComponent } from './components/filters/filters.component';
 import { EventBubblesComponent } from './components/day/event-bubbles/event-bubbles.component';
+import { TagListComponent } from './components/tag-list/tag-list.component';
 
 
 
@@ -84,7 +85,8 @@ import { EventBubblesComponent } from './components/day/event-bubbles/event-bubb
     NewLeapYearRuleComponent,
     NewCalendarComponent,
     FiltersComponent,
-    EventBubblesComponent
+    EventBubblesComponent,
+    TagListComponent
   ],
   imports: [
     BrowserModule,

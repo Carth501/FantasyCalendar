@@ -12,4 +12,5 @@ export class CalendarEventService {
   dayClick(dayID: number): void {
     this.dayClicks.next(dayID);
   }
+  
 }

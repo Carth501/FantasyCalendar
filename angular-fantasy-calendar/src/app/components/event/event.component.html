@@ -6,7 +6,9 @@
         (click)="toggleEvent()"
         *ngIf="calendarEvent">
         {{calendarEvent.title}}</button>
-    <div *ngIf="expanded">
+    <div 
+        *ngIf="expanded"
+        class="region">
 
         <div *ngIf="eventType === 'cyclical'">
             <app-cyclical-fields
@@ -63,6 +65,20 @@
                 [editable]="editable"
             ></app-year-monthly-fields>
         </div>
+        <div>
+            <app-tag-list
+                [editingMode]="true"
+                [editingToggle]="false"
+                [setTags]="calendarEvent.tags">
+            </app-tag-list>
+        </div>
 
+        <button
+            mat-raised-button
+            color="primary"
+            (click)="changeMade()">
+            Save
+        </button>
+    
     </div>
 </div>

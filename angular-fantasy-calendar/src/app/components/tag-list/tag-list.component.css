@@ -1,0 +1,23 @@
+.panel {
+    border: black solid 2px;
+    background-color: rgba(190, 190, 190);
+}
+
+.taglist {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.tag {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.taglist button {
+    margin: 2px;
+}
+
+.taglist input {
+    margin: 4px;
+}

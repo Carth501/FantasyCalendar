@@ -1,0 +1,24 @@
+<div
+    class="panel">
+    <div class="taglist">
+        <div *ngFor="let tag of taglist">
+            <button
+                class="tag"
+                mat-button
+                color="primary"
+                (click)="removeTag(tag)">
+                {{tag}}
+            </button>
+        </div>
+        <input
+            matInput
+            [(ngModel)]="newTag"
+            placeholder="New Tag"/>
+        <button
+            mat-flat-button
+            color="primary"
+            (click)="addTag()">
+            Add 
+        </button>
+    </div>
+</div>

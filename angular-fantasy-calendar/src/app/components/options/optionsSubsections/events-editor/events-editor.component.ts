@@ -32,6 +32,10 @@ export class EventsEditorComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  changeMade(): void {
+    this.pushEventLists();
+  }
+
   createNewCyclicalEvent(newEvent: CyclicalEvent) {
     this.eventLists.cyclicalEvents.push(newEvent);
     this.pushEventLists();

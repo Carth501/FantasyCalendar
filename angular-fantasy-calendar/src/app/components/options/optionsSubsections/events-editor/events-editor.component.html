@@ -11,7 +11,8 @@
                         [calendarEvent]="x" 
                         [eventType]="'cyclical'"
                         [editable]=true
-                    ></app-event>
+                        (saveEmitter)="changeMade()">
+                    </app-event>
                     <button 
                         mat-mini-fab
                         color="warn"
@@ -30,7 +31,8 @@
                         [calendarEvent]="x" 
                         [eventType]="'unique'"
                         [editable]=true
-                    ></app-event>
+                        (saveEmitter)="changeMade()">
+                    </app-event>
                     <button 
                         mat-mini-fab
                         color="warn"
@@ -46,7 +48,9 @@
                     <app-event 
                         [calendarEvent]="x" 
                         [eventType]="'yearly'"
-                        [editable]=true></app-event>
+                        [editable]=true
+                        (saveEmitter)="changeMade()">
+                    </app-event>
                     <button 
                         mat-mini-fab
                         color="warn"
@@ -63,7 +67,8 @@
                         [calendarEvent]="x" 
                         [eventType]="'monthly'"
                         [editable]=true
-                    ></app-event>
+                        (saveEmitter)="changeMade()">
+                    </app-event>
                     <button
                         mat-mini-fab
                         color="warn"
@@ -82,7 +87,8 @@
                         [calendarEvent]="x" 
                         [eventType]="'weekly'"
                         [editable]=true
-                    ></app-event>
+                        (saveEmitter)="changeMade()">
+                    </app-event>
                     <button 
                         mat-mini-fab
                         color="warn"
@@ -99,7 +105,8 @@
                         [calendarEvent]="x" 
                         [eventType]="'monthDOW'"
                         [editable]=true
-                    ></app-event>
+                        (saveEmitter)="changeMade()">
+                    </app-event>
                     <button 
                         mat-mini-fab
                         color="warn"
@@ -116,7 +123,8 @@
                         [calendarEvent]="x" 
                         [eventType]="'yearMonthDOW'"
                         [editable]=true
-                    ></app-event>
+                        (saveEmitter)="changeMade()">
+                    </app-event>
                     <button
                         mat-mini-fab
                         color="warn"
@@ -133,7 +141,8 @@
                         [calendarEvent]="x" 
                         [eventType]="'yearMonthly'"
                         [editable]=true
-                    ></app-event>
+                        (saveEmitter)="changeMade()">
+                    </app-event>
                     <button
                         mat-mini-fab
                         color="warn"
